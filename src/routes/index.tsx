@@ -26,6 +26,10 @@ import { AnimatedCounter } from "@/components/site/AnimatedCounter";
 import { LogoStrip } from "@/components/site/LogoStrip";
 import { Field, SelectField } from "@/components/site/FormFields";
 import { services, projects, testimonials, faqs } from "@/components/site/data";
+import { HandDrawnCircle, HandDrawnUnderline, HandDrawnDoubleStrike } from "@/components/site/HandDrawnHighlights";
+import { RetroStar, SparkleDeco, CurlyArrow, SmileyBadge, CuteSpeechBubble } from "@/components/site/RetroDecorations";
+import { StickerBoard } from "@/components/site/StickerBoard";
+import { Scroll3DElement } from "@/components/site/Scroll3DElement";
 import {
   Accordion,
   AccordionContent,
@@ -131,7 +135,7 @@ const processSteps = [
 function Home() {
   const { slots } = Route.useLoaderData();
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
       <Header />
       <Hero slots={slots} />
       <TechStrip />
@@ -143,6 +147,7 @@ function Home() {
       <Faq />
       <FinalCTA />
       <Footer />
+      <StickerBoard />
     </div>
   );
 }
@@ -153,6 +158,12 @@ function Hero({ slots = 2 }: { slots?: number }) {
   return (
     <section className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden min-h-[90vh] flex items-center">
       <HeroBackground />
+
+      {/* Floating Retro Decorations in Hero */}
+      <RetroStar className="left-6 top-32 hidden xl:block animate-float-sticker" size={60} color="var(--brand-pink)" rotation={15} />
+      <SmileyBadge className="left-1/3 bottom-24 hidden lg:block animate-float-sticker-alt" size={54} color="var(--brand-2)" rotation={-12} />
+      <SparkleDeco className="left-1/4 top-28 hidden md:block" size={32} color="var(--brand-blue)" />
+      <CuteSpeechBubble className="right-[42%] top-[30%] hidden xl:block animate-float-sticker" text="100% Bespoke! ⚡" color="var(--brand-blue)" size={140} rotation={-5} />
 
       {/* Spline 3D Scene - Absolutely positioned to share the root stacking context for mix-blend-screen */}
       <motion.div
@@ -167,8 +178,8 @@ function Hero({ slots = 2 }: { slots?: number }) {
         />
         <div className="absolute bottom-4 right-5 z-20 pointer-events-none border border-white/10 bg-[#1A1A1A] px-5 py-2.5 rounded-full flex items-center gap-2">
           <span className="relative flex size-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full size-2 bg-emerald-400" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75" />
+            <span className="relative inline-flex rounded-full size-2 bg-brand" />
           </span>
           <span className="text-[11px] font-bold text-white tracking-wider uppercase">Interactive</span>
         </div>
@@ -185,8 +196,8 @@ function Hero({ slots = 2 }: { slots?: number }) {
             >
               <div className="inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/50 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground">
                 <span className="relative flex size-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full size-2 bg-emerald-400" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75" />
+                  <span className="relative inline-flex rounded-full size-2 bg-brand" />
                 </span>
                 Now booking projects for Q3 — {slots} slots left
               </div>
@@ -197,14 +208,11 @@ function Hero({ slots = 2 }: { slots?: number }) {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-7 text-5xl md:text-7xl lg:text-[5.25rem] font-semibold leading-[1.05] tracking-tight"
+              className="mt-7 text-5xl md:text-7xl lg:text-[5.25rem] font-semibold leading-[1.05] tracking-tight text-foreground"
             >
-              Building{" "}
-              <span className="text-gradient animate-gradient bg-[length:200%_auto]">
-                Web, Mobile &amp; AI
-              </span>
+              Building Web, Mobile &amp; <HandDrawnCircle color="var(--brand-pink)">AI</HandDrawnCircle>
               <br />
-              products that scale.
+              products that <HandDrawnUnderline color="var(--brand-blue)">scale.</HandDrawnUnderline>
             </motion.h1>
 
             {/* Description */}
@@ -268,7 +276,7 @@ function HeroCTA() {
       <button
         data-cal-link="arjun-rajput-2mdsis"
         data-cal-config={JSON.stringify({ layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light' })}
-        className="group btn-primary animate-pulse-glow"
+        className="group btn-primary"
       >
         Book a Call
         <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -295,6 +303,34 @@ function TechStrip() {
 
 /* ─── Services ──────────────────────────────────────── */
 
+const serviceColors = {
+  mvp: {
+    shadow: "var(--brand-pink)",
+    iconBg: "linear-gradient(135deg, var(--brand-pink) 0%, #FF66B2 100%)",
+    iconText: "text-white"
+  },
+  web: {
+    shadow: "var(--brand-blue)",
+    iconBg: "linear-gradient(135deg, var(--brand-blue) 0%, #66F5FF 100%)",
+    iconText: "text-black"
+  },
+  mobile: {
+    shadow: "var(--brand-purple)",
+    iconBg: "linear-gradient(135deg, var(--brand-purple) 0%, #C994FF 100%)",
+    iconText: "text-white"
+  },
+  ai: {
+    shadow: "var(--brand-2)",
+    iconBg: "linear-gradient(135deg, var(--brand-2) 0%, #FFE680 100%)",
+    iconText: "text-black"
+  },
+  automation: {
+    shadow: "var(--brand)",
+    iconBg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)",
+    iconText: "text-white"
+  },
+} as const;
+
 function Services() {
   return (
     <section className="relative py-28 section-divider">
@@ -309,14 +345,22 @@ function Services() {
         <RevealGroup className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
           {services.map((s) => {
             const Icon = serviceIcons[s.slug];
+            const colors = serviceColors[s.slug];
             return (
               <RevealItem key={s.slug}>
                 <Link
                   to="/services"
                   className="group relative block surface-card interactive-card shine-on-hover p-7 h-full"
+                  style={{
+                    // @ts-ignore
+                    "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                  } as React.CSSProperties}
                 >
                   <div className="relative z-[2]">
-                    <div className="size-12 rounded-xl bg-brand-gradient grid place-items-center text-primary-foreground shadow-lg shadow-[var(--brand)]/20">
+                    <div 
+                      className={`size-12 rounded-xl grid place-items-center shadow-lg ${colors.iconText}`}
+                      style={{ background: colors.iconBg }}
+                    >
                       <Icon className="size-5" />
                     </div>
                     <h3 className="mt-6 text-xl font-semibold tracking-tight">{s.title}</h3>
@@ -330,6 +374,11 @@ function Services() {
               </RevealItem>
             );
           })}
+          
+          {/* 3D Stack Element in 6th Slot */}
+          <RevealItem className="flex items-center justify-center h-full min-h-[300px] overflow-visible">
+            <Scroll3DElement />
+          </RevealItem>
         </RevealGroup>
       </div>
     </section>
@@ -337,6 +386,13 @@ function Services() {
 }
 
 /* ─── Why Us ────────────────────────────────────────── */
+
+const whyUsColors = [
+  { shadow: "var(--brand-pink)", iconBg: "rgba(255, 0, 127, 0.15)", iconText: "text-brand-pink" },
+  { shadow: "var(--brand-blue)", iconBg: "rgba(0, 240, 255, 0.15)", iconText: "text-brand-blue" },
+  { shadow: "var(--brand-purple)", iconBg: "rgba(159, 50, 255, 0.15)", iconText: "text-brand-purple" },
+  { shadow: "var(--brand-2)", iconBg: "rgba(250, 204, 21, 0.2)", iconText: "text-brand-2 dark:text-brand-2" }
+];
 
 function WhyUs() {
   return (
@@ -349,17 +405,29 @@ function WhyUs() {
           />
         </Reveal>
         <RevealGroup className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4" stagger={0.06}>
-          {whyUs.map((w) => (
-            <RevealItem key={w.title}>
-              <div className="surface-card interactive-card p-7 h-full">
-                <div className="size-10 rounded-lg bg-surface-2 grid place-items-center">
-                  <w.icon className="size-5 text-foreground" />
+          {whyUs.map((w, i) => {
+            const colors = whyUsColors[i % whyUsColors.length];
+            return (
+              <RevealItem key={w.title}>
+                <div 
+                  className="surface-card interactive-card p-7 h-full"
+                  style={{
+                    // @ts-ignore
+                    "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                  } as React.CSSProperties}
+                >
+                  <div 
+                    className={`size-10 rounded-lg grid place-items-center ${colors.iconText}`}
+                    style={{ backgroundColor: colors.iconBg }}
+                  >
+                    <w.icon className="size-5" />
+                  </div>
+                  <h3 className="mt-5 text-base font-semibold tracking-tight">{w.title}</h3>
+                  <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{w.body}</p>
                 </div>
-                <h3 className="mt-5 text-base font-semibold tracking-tight">{w.title}</h3>
-                <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{w.body}</p>
-              </div>
-            </RevealItem>
-          ))}
+              </RevealItem>
+            );
+          })}
         </RevealGroup>
       </div>
     </section>
@@ -527,15 +595,7 @@ function FinalCTA() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="relative overflow-hidden glass-card p-10 md:p-16">
           {/* Background effects */}
-          <div className="absolute inset-0 bg-brand-soft opacity-50" />
-          <div
-            className="absolute -top-24 -right-24 size-[480px] rounded-full blur-[120px] opacity-30"
-            style={{ background: "radial-gradient(closest-side, var(--brand), transparent)" }}
-          />
-          <div
-            className="absolute -bottom-24 -left-24 size-[380px] rounded-full blur-[100px] opacity-20"
-            style={{ background: "radial-gradient(closest-side, var(--brand-2), transparent)" }}
-          />
+          <div className="absolute inset-0 bg-brand-soft opacity-30" />
 
           <div className="relative z-10 grid gap-12 lg:grid-cols-2 items-start">
             <Reveal direction="left">

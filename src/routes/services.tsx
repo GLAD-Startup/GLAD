@@ -6,6 +6,10 @@ import { HeroBackground } from "@/components/site/Background";
 import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { services } from "@/components/site/data";
 import { motion } from "framer-motion";
+import { useRef } from "react";
+import { Flowing3DPrism } from "@/components/site/Flowing3DPrism";
+import { StickerBoard } from "@/components/site/StickerBoard";
+import { HandDrawnCircle, HandDrawnUnderline } from "@/components/site/HandDrawnHighlights";
 import {
   Rocket,
   Layout,
@@ -44,9 +48,39 @@ const serviceIcons: Record<string, typeof Rocket> = {
   automation: Workflow,
 };
 
+const serviceCardColors = {
+  mvp: {
+    shadow: "var(--brand-pink)",
+    iconBg: "linear-gradient(135deg, var(--brand-pink) 0%, #FF66B2 100%)",
+    iconText: "text-white"
+  },
+  web: {
+    shadow: "var(--brand-blue)",
+    iconBg: "linear-gradient(135deg, var(--brand-blue) 0%, #66F5FF 100%)",
+    iconText: "text-black"
+  },
+  mobile: {
+    shadow: "var(--brand-purple)",
+    iconBg: "linear-gradient(135deg, var(--brand-purple) 0%, #C994FF 100%)",
+    iconText: "text-white"
+  },
+  ai: {
+    shadow: "var(--brand-2)",
+    iconBg: "linear-gradient(135deg, var(--brand-2) 0%, #FFE680 100%)",
+    iconText: "text-black"
+  },
+  automation: {
+    shadow: "var(--brand)",
+    iconBg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)",
+    iconText: "text-white"
+  },
+} as const;
+
 function ServicesPage() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
       <Header />
 
       {/* Hero */}
@@ -63,8 +97,8 @@ function ServicesPage() {
               <span className="inline-block w-6 h-px bg-brand-gradient" />
               Services
             </div>
-            <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
-              Built for <span className="text-gradient">ambitious teams.</span>
+            <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1] text-foreground">
+              Built for <HandDrawnUnderline color="var(--brand-pink)">ambitious teams.</HandDrawnUnderline>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
               Five focused services — each delivered by senior engineers, with clear
@@ -74,22 +108,36 @@ function ServicesPage() {
         </div>
       </section>
 
-      {/* Services list */}
-      <section className="relative pb-28">
-        <div className="mx-auto max-w-7xl px-6 space-y-8">
+      {/* Services list centered with Flowing 3D Prism */}
+      <section ref={sectionRef} className="relative pb-28 overflow-visible">
+        {/* Dynamic 3D Floating Companion */}
+        <Flowing3DPrism />
+
+        <div className="mx-auto max-w-5xl px-6 space-y-8 relative z-20">
           {services.map((s, i) => {
             const Icon = serviceIcons[s.slug];
+            const colors = serviceCardColors[s.slug];
             return (
               <Reveal key={s.slug} delay={i * 0.04}>
-                <article className="surface-card interactive-card shine-on-hover p-8 md:p-12 grid gap-10 lg:grid-cols-3">
+                <article 
+                  id={`service-${s.slug}`}
+                  className="surface-card interactive-card shine-on-hover p-8 md:p-12 grid gap-10 lg:grid-cols-3 relative z-20"
+                  style={{
+                    // @ts-ignore
+                    "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                  } as React.CSSProperties}
+                >
                   <div className="lg:col-span-2">
                     <div className="flex items-center gap-3 mb-3">
                       {Icon && (
-                        <div className="size-10 rounded-lg bg-brand-gradient grid place-items-center text-primary-foreground shadow-lg shadow-[var(--brand)]/20">
+                        <div 
+                          className={`size-10 rounded-lg grid place-items-center shadow-lg ${colors.iconText}`}
+                          style={{ background: colors.iconBg }}
+                        >
                           <Icon className="size-4" />
                         </div>
                       )}
-                      <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                      <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground font-semibold">
                         {String(i + 1).padStart(2, "0")} — {s.slug.toUpperCase()}
                       </div>
                     </div>
@@ -102,8 +150,11 @@ function ServicesPage() {
                     <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                       {s.benefits.map((b) => (
                         <li key={b} className="flex items-start gap-2.5 text-sm">
-                          <div className="size-5 rounded-full bg-brand-gradient grid place-items-center mt-0.5 shrink-0">
-                            <Check className="size-3 text-primary-foreground" />
+                          <div 
+                            className="size-5 rounded-full grid place-items-center mt-0.5 shrink-0 text-white"
+                            style={{ background: colors.iconBg }}
+                          >
+                            <Check className="size-3" />
                           </div>
                           <span>{b}</span>
                         </li>
@@ -144,6 +195,7 @@ function ServicesPage() {
       </section>
 
       <Footer />
+      <StickerBoard />
     </div>
   );
 }

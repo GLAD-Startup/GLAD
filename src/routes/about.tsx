@@ -6,6 +6,9 @@ import { HeroBackground } from "@/components/site/Background";
 import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { motion } from "framer-motion";
+import { HandDrawnCircle, HandDrawnUnderline, HandDrawnDoubleStrike } from "@/components/site/HandDrawnHighlights";
+import { RetroStar, SparkleDeco, CurlyArrow, SmileyBadge } from "@/components/site/RetroDecorations";
+import { StickerBoard } from "@/components/site/StickerBoard";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -48,14 +51,34 @@ const team = [
   { name: "Somesh Rajput", role: "Founding Product Engineer & Developer", bio: "Building robust, user-centric core product features.", image: someshImg },
 ];
 
+const valueColors = [
+  { shadow: "var(--brand-pink)", iconBg: "rgba(255, 0, 127, 0.15)", iconText: "text-brand-pink" },
+  { shadow: "var(--brand-blue)", iconBg: "rgba(0, 240, 255, 0.15)", iconText: "text-brand-blue" },
+  { shadow: "var(--brand-purple)", iconBg: "rgba(159, 50, 255, 0.15)", iconText: "text-brand-purple" },
+  { shadow: "var(--brand-2)", iconBg: "rgba(250, 204, 21, 0.2)", iconText: "text-brand-2" }
+];
+
+const teamColors = [
+  { shadow: "var(--brand-pink)" },
+  { shadow: "var(--brand-blue)" },
+  { shadow: "var(--brand-purple)" },
+  { shadow: "var(--brand)" }
+];
+
 function AboutPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
       <Header />
 
       {/* Hero */}
       <section className="relative pt-36 pb-20 md:pt-44 overflow-hidden">
         <HeroBackground />
+        
+        {/* Floating decorations */}
+        <RetroStar className="left-10 top-36 hidden xl:block animate-float-sticker" size={48} color="var(--brand-pink)" rotation={25} />
+        <SmileyBadge className="right-16 top-40 hidden lg:block animate-float-sticker-alt" size={56} color="var(--brand-2)" rotation={12} />
+        <SparkleDeco className="left-1/4 bottom-8 hidden md:block" size={24} color="var(--brand-purple)" />
+
         <div className="mx-auto max-w-5xl px-6">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -67,7 +90,7 @@ function AboutPage() {
               About
             </div>
             <h1 className="mt-4 text-5xl md:text-7xl font-semibold tracking-tight max-w-4xl leading-[1.05]">
-              We build <span className="text-gradient">products</span>,<br />not just software.
+              We build <HandDrawnCircle color="var(--brand-pink)">products</HandDrawnCircle>,<br />not just <HandDrawnDoubleStrike color="var(--brand-purple)">software.</HandDrawnDoubleStrike>
             </h1>
             <p className="mt-7 text-lg text-muted-foreground max-w-2xl leading-relaxed">
               GLAD studio is a dedicated team of passionate builders. We help startups
@@ -108,17 +131,29 @@ function AboutPage() {
             <SectionHeading eyebrow="What drives us" title="Values." />
           </Reveal>
           <RevealGroup className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4" stagger={0.06}>
-            {values.map((v) => (
-              <RevealItem key={v.title}>
-                <div className="surface-card interactive-card p-7 h-full">
-                  <div className="size-10 rounded-lg bg-surface-2 grid place-items-center">
-                    <v.icon className="size-5" />
+            {values.map((v, i) => {
+              const colors = valueColors[i % valueColors.length];
+              return (
+                <RevealItem key={v.title}>
+                  <div 
+                    className="surface-card interactive-card p-7 h-full"
+                    style={{
+                      // @ts-ignore
+                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                    } as React.CSSProperties}
+                  >
+                    <div 
+                      className={`size-10 rounded-lg grid place-items-center ${colors.iconText}`}
+                      style={{ backgroundColor: colors.iconBg }}
+                    >
+                      <v.icon className="size-5" />
+                    </div>
+                    <h3 className="mt-5 font-semibold tracking-tight">{v.title}</h3>
+                    <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{v.body}</p>
                   </div>
-                  <h3 className="mt-5 font-semibold tracking-tight">{v.title}</h3>
-                  <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{v.body}</p>
-                </div>
-              </RevealItem>
-            ))}
+                </RevealItem>
+              );
+            })}
           </RevealGroup>
         </div>
       </section>
@@ -130,38 +165,48 @@ function AboutPage() {
             <SectionHeading eyebrow="The people" title="The team." />
           </Reveal>
           <RevealGroup className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
-            {team.map((m) => (
-              <RevealItem key={m.name} direction="scale" className="h-full">
-                <div className="surface-card interactive-card overflow-hidden group h-full flex flex-col">
-                  <div className="aspect-square bg-brand-gradient relative overflow-hidden shrink-0">
-                    {m.image ? (
-                      <img
-                        src={m.image}
-                        alt={m.name}
-                        className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${m.imageClass || ""}`}
-                      />
-                    ) : (
-                      <>
-                        <div className="absolute inset-0 grid-bg opacity-25" />
-                        <div className="absolute inset-0 grid place-items-center text-5xl font-display font-semibold text-white/90 drop-shadow-lg transition-transform duration-500 group-hover:scale-110">
-                          {m.name.split(" ").map((n) => n[0]).join("")}
-                        </div>
-                      </>
-                    )}
+            {team.map((m, i) => {
+              const colors = teamColors[i % teamColors.length];
+              return (
+                <RevealItem key={m.name} direction="scale" className="h-full">
+                  <div 
+                    className="surface-card interactive-card overflow-hidden group h-full flex flex-col"
+                    style={{
+                      // @ts-ignore
+                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                    } as React.CSSProperties}
+                  >
+                    <div className="aspect-square bg-brand-gradient relative overflow-hidden shrink-0">
+                      {m.image ? (
+                        <img
+                          src={m.image}
+                          alt={m.name}
+                          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${m.imageClass || ""}`}
+                        />
+                      ) : (
+                        <>
+                          <div className="absolute inset-0 grid-bg opacity-25" />
+                          <div className="absolute inset-0 grid place-items-center text-5xl font-display font-semibold text-white/90 drop-shadow-lg transition-transform duration-500 group-hover:scale-110">
+                            {m.name.split(" ").map((n) => n[0]).join("")}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div className="p-6 relative bg-inherit z-10 flex-1 flex flex-col">
+                      <h3 className="text-lg font-semibold tracking-tight">{m.name}</h3>
+                      <div className="text-xs text-muted-foreground mt-1">{m.role}</div>
+                      <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{m.bio}</p>
+                    </div>
                   </div>
-                  <div className="p-6 relative bg-inherit z-10 flex-1 flex flex-col">
-                    <h3 className="text-lg font-semibold tracking-tight">{m.name}</h3>
-                    <div className="text-xs text-muted-foreground mt-1">{m.role}</div>
-                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{m.bio}</p>
-                  </div>
-                </div>
-              </RevealItem>
-            ))}
+                </RevealItem>
+              );
+            })}
           </RevealGroup>
         </div>
       </section>
 
       <Footer />
+      <StickerBoard />
     </div>
   );
 }

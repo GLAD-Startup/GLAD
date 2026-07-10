@@ -98,7 +98,7 @@ export const projects = [
     category: "Desktop Application",
     short: "Automated Document Orchestration & Asset Classification Engine",
     tech: ["Python", "ML models"],
-    gradient: "linear-gradient(135deg, #7c3aed, #2563eb)",
+    gradient: "linear-gradient(135deg, #22C55E, #15803D)",
     challenge:
       "Users were spending hours manually organizing, renaming, and sorting files across cluttered directories — a tedious, error-prone process.",
     solution:
@@ -119,7 +119,7 @@ export const projects = [
     category: "Mobile App",
     short: "Decentralized Medical Inventory Control & Resource Logistics Platform",
     tech: ["React Native"],
-    gradient: "linear-gradient(135deg, #db2777, #f59e0b)",
+    gradient: "linear-gradient(135deg, #FACC15, #CA8A04)",
     challenge:
       "Prayas NGO needed a streamlined way to manage health equipment lending and coordinate blood donation drives across their community network.",
     solution:
@@ -140,7 +140,7 @@ export const projects = [
     category: "Full Stack Platform",
     short: "Multi-Tenant Enterprise Inventory & Supply Chain Orchestration Suite",
     tech: ["React Native", "React.js", "Node.js"],
-    gradient: "linear-gradient(135deg, #0ea5e9, #6366f1)",
+    gradient: "linear-gradient(135deg, #A3E635, #4D7C0F)",
     challenge:
       "A business with multiple sub-divisions was struggling to track inventory across departments using disconnected spreadsheets and manual processes.",
     solution:
@@ -161,7 +161,7 @@ export const projects = [
     category: "AI Product",
     short: "Low-Latency Conversational AI Technical Assessment Engine",
     tech: ["React.js", "FastAPI", "HuggingFace", "MongoDB"],
-    gradient: "linear-gradient(135deg, #7c3aed, #db2777)",
+    gradient: "linear-gradient(135deg, #22C55E, #FACC15)",
     challenge:
       "Job seekers lacked access to realistic, on-demand interview practice with meaningful feedback beyond generic question banks.",
     solution:
@@ -182,7 +182,7 @@ export const projects = [
     category: "Business Automation",
     short: "High-Throughput Lead Sourcing & Automated Data Cleansing Pipeline",
     tech: ["Python", "n8n", "PostgreSQL"],
-    gradient: "linear-gradient(135deg, #10b981, #2563eb)",
+    gradient: "linear-gradient(135deg, #09090B, #22C55E)",
     challenge:
       "Sales teams were manually researching leads, validating websites, and crafting outreach emails — a process that couldn't scale beyond a handful of prospects per day.",
     solution:
@@ -203,7 +203,7 @@ export const projects = [
     category: "Security Platform",
     short: "Zero-Knowledge Encrypted Secure File Transmission Portal",
     tech: ["Django REST Framework", "PostgreSQL", "Docker"],
-    gradient: "linear-gradient(135deg, #f59e0b, #7c3aed)",
+    gradient: "linear-gradient(135deg, #09090B, #FACC15)",
     challenge:
       "Organizations needed a secure, self-hosted way to share sensitive documents without relying on third-party services that lacked fine-grained access controls.",
     solution:
