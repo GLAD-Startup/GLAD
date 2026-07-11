@@ -27,7 +27,7 @@ import { LogoStrip } from "@/components/site/LogoStrip";
 import { Field, SelectField } from "@/components/site/FormFields";
 import { services, projects, testimonials, faqs } from "@/components/site/data";
 import { HandDrawnCircle, HandDrawnUnderline, HandDrawnDoubleStrike } from "@/components/site/HandDrawnHighlights";
-import { RetroStar, SparkleDeco, CurlyArrow, SmileyBadge, CuteSpeechBubble } from "@/components/site/RetroDecorations";
+import { RetroStar, SparkleDeco, CurlyArrow, CuteSpeechBubble } from "@/components/site/RetroDecorations";
 import { StickerBoard } from "@/components/site/StickerBoard";
 import { Scroll3DElement } from "@/components/site/Scroll3DElement";
 import {
@@ -161,7 +161,6 @@ function Hero({ slots = 2 }: { slots?: number }) {
 
       {/* Floating Retro Decorations in Hero */}
       <RetroStar className="left-6 top-32 hidden xl:block animate-float-sticker" size={60} color="var(--brand-pink)" rotation={15} />
-      <SmileyBadge className="left-1/3 bottom-24 hidden lg:block animate-float-sticker-alt" size={54} color="var(--brand-2)" rotation={-12} />
       <SparkleDeco className="left-1/4 top-28 hidden md:block" size={32} color="var(--brand-blue)" />
       <CuteSpeechBubble className="right-[42%] top-[30%] hidden xl:block animate-float-sticker" text="100% Bespoke! ⚡" color="var(--brand-blue)" size={140} rotation={-5} />
 

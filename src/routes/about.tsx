@@ -7,8 +7,9 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { motion } from "framer-motion";
 import { HandDrawnCircle, HandDrawnUnderline, HandDrawnDoubleStrike } from "@/components/site/HandDrawnHighlights";
-import { RetroStar, SparkleDeco, CurlyArrow, SmileyBadge } from "@/components/site/RetroDecorations";
+import { RetroStar, SparkleDeco, CurlyArrow } from "@/components/site/RetroDecorations";
 import { StickerBoard } from "@/components/site/StickerBoard";
+import { RocketMan } from "@/components/site/RocketMan";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -68,6 +69,7 @@ const teamColors = [
 function AboutPage() {
   return (
     <div className="min-h-screen relative">
+      <RocketMan />
       <Header />
 
       {/* Hero */}
@@ -76,7 +78,6 @@ function AboutPage() {
         
         {/* Floating decorations */}
         <RetroStar className="left-10 top-36 hidden xl:block animate-float-sticker" size={48} color="var(--brand-pink)" rotation={25} />
-        <SmileyBadge className="right-16 top-40 hidden lg:block animate-float-sticker-alt" size={56} color="var(--brand-2)" rotation={12} />
         <SparkleDeco className="left-1/4 bottom-8 hidden md:block" size={24} color="var(--brand-purple)" />
 
         <div className="mx-auto max-w-5xl px-6">
