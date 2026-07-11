@@ -47,66 +47,66 @@
 :root {
   --radius: 1rem;
 
-  /* Light theme — playful white/yellow/green/black */
-  --background: #FFFFFF;
-  --foreground: #000000;
+  /* Light theme — playful warm alabaster/stone & rich dark elements */
+  --background: #FAF8F5;
+  --foreground: #1C1917;
 
-  --surface: #F4F4F5;
-  --surface-2: #E4E4E7;
+  --surface: #F3EFEA;
+  --surface-2: #E9E2D8;
 
   --card: #FFFFFF;
-  --card-foreground: #000000;
+  --card-foreground: #1C1917;
 
   --popover: #FFFFFF;
-  --popover-foreground: #000000;
+  --popover-foreground: #1C1917;
 
-  --primary: #000000;
+  --primary: #1C1917;
   --primary-foreground: #FFFFFF;
 
-  --secondary: #F4F4F5;
-  --secondary-foreground: #000000;
+  --secondary: #F3EFEA;
+  --secondary-foreground: #1C1917;
 
-  --muted: #F4F4F5;
-  --muted-foreground: #71717A;
+  --muted: #F3EFEA;
+  --muted-foreground: #78716C;
 
-  --accent: #22C55E;
-  --accent-foreground: #000000;
+  --accent: #059669;
+  --accent-foreground: #FFFFFF;
 
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
 
-  --border: #000000;
-  --input: #000000;
-  --ring: #22C55E;
+  --border: #1C1917;
+  --input: #1C1917;
+  --ring: #059669;
 
   /* Playful Green & Yellow brand */
-  --brand: #22C55E;
-  --brand-2: #FACC15;
-  --brand-3: #18181B;
-  --brand-pink: #FF007F;
-  --brand-blue: #00F0FF;
-  --brand-purple: #9F32FF;
+  --brand: #059669;
+  --brand-2: #FFC72C;
+  --brand-3: #1C1917;
+  --brand-pink: #FF4E88;
+  --brand-blue: #00B4D8;
+  --brand-purple: #7209B7;
 
-  --gradient-brand: linear-gradient(135deg, #22C55E 0%, #A3E635 50%, #FACC15 100%);
+  --gradient-brand: linear-gradient(135deg, #059669 0%, #10B981 50%, #FFC72C 100%);
   --gradient-brand-soft: linear-gradient(135deg,
-      color-mix(in oklab, #22C55E 15%, transparent) 0%,
-      color-mix(in oklab, #FACC15 15%, transparent) 50%,
-      color-mix(in oklab, #18181B 12%, transparent) 100%);
+      color-mix(in oklab, #059669 12%, transparent) 0%,
+      color-mix(in oklab, #FFC72C 12%, transparent) 50%,
+      color-mix(in oklab, #1C1917 8%, transparent) 100%);
   --gradient-text: linear-gradient(125deg,
-      #000000 0%,
-      #22C55E 35%,
-      #EAB308 70%,
-      #000000 100%);
+      #1C1917 0%,
+      #059669 40%,
+      #D97706 75%,
+      #1C1917 100%);
   --gradient-border: conic-gradient(from 180deg at 50% 50%,
       var(--brand) 0deg,
       var(--brand-2) 120deg,
       var(--brand-3) 240deg,
       var(--brand) 360deg);
 
-  --shadow-glow: 0 0 20px -4px color-mix(in oklab, #22C55E 25%, transparent),
-    0 0 40px -12px color-mix(in oklab, #FACC15 20%, transparent);
-  --shadow-card: 4px 4px 0px 0px #000000;
-  --shadow-card-hover: 8px 8px 0px 0px #000000;
+  --shadow-glow: 0 0 20px -4px color-mix(in oklab, #059669 20%, transparent),
+    0 0 40px -12px color-mix(in oklab, #FFC72C 15%, transparent);
+  --shadow-card: 4px 4px 0px 0px #1C1917;
+  --shadow-card-hover: 8px 8px 0px 0px #1C1917;
 
   /* Noise texture as inline SVG data URI */
   --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
