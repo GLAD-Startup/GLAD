@@ -131,7 +131,7 @@ export function Header() {
             <img
               src={darkLogo}
               alt="Website Logo"
-              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 hidden dark:block dark:brightness-0 dark:invert dark:opacity-90"
+              className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 hidden dark:block"
             />
             <img
               src={lightLogo}
