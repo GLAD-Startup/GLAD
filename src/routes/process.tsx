@@ -5,8 +5,17 @@ import { Footer } from "@/components/site/Footer";
 import { HeroBackground } from "@/components/site/Background";
 import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { motion } from "framer-motion";
-import { HandDrawnCircle, HandDrawnUnderline, HandDrawnDoubleStrike } from "@/components/site/HandDrawnHighlights";
-import { RetroStar, SparkleDeco, SmileyBadge, CurlyArrow } from "@/components/site/RetroDecorations";
+import {
+  HandDrawnCircle,
+  HandDrawnUnderline,
+  HandDrawnDoubleStrike,
+} from "@/components/site/HandDrawnHighlights";
+import {
+  RetroStar,
+  SparkleDeco,
+  SmileyBadge,
+  CurlyArrow,
+} from "@/components/site/RetroDecorations";
 import { StickerBoard } from "@/components/site/StickerBoard";
 
 export const Route = createFileRoute("/process")({
@@ -78,7 +87,7 @@ const markerColors = [
   { bg: "linear-gradient(135deg, var(--brand-blue) 0%, #66F5FF 100%)", text: "text-black" },
   { bg: "linear-gradient(135deg, var(--brand-purple) 0%, #C994FF 100%)", text: "text-white" },
   { bg: "linear-gradient(135deg, var(--brand-2) 0%, #FFE680 100%)", text: "text-black" },
-  { bg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)", text: "text-white" }
+  { bg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)", text: "text-white" },
 ];
 
 function ProcessPage() {
@@ -89,11 +98,20 @@ function ProcessPage() {
       {/* Hero */}
       <section className="relative pt-36 pb-16 md:pt-44 overflow-hidden">
         <HeroBackground />
-        
+
         {/* Floating decorations */}
-        <RetroStar className="left-8 top-36 hidden xl:block animate-float-sticker" size={54} color="var(--brand-purple)" rotation={-15} />
-        <SmileyBadge className="right-20 top-40 hidden lg:block animate-float-sticker-alt" size={48} color="var(--brand-blue)" rotation={20} />
-        <CurlyArrow className="left-1/3 bottom-2 hidden xl:block" size={60} color="var(--brand-pink)" rotation={110} />
+        <RetroStar
+          className="left-8 top-36 hidden xl:block animate-float-sticker"
+          size={54}
+          color="var(--brand-purple)"
+          rotation={-15}
+        />
+        <CurlyArrow
+          className="left-1/3 bottom-2 hidden xl:block"
+          size={60}
+          color="var(--brand-pink)"
+          rotation={110}
+        />
 
         <div className="mx-auto max-w-5xl px-6">
           <motion.div
@@ -109,8 +127,8 @@ function ProcessPage() {
               How we <HandDrawnUnderline color="var(--brand-pink)">ship.</HandDrawnUnderline>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              Eight steps from first call to a live, supported product. No mystery,
-              no scope creep, no rebuilds.
+              Eight steps from first call to a live, supported product. No mystery, no scope creep,
+              no rebuilds.
             </p>
           </motion.div>
         </div>
@@ -125,13 +143,15 @@ function ProcessPage() {
               return (
                 <Reveal key={s.title} delay={i * 0.04}>
                   <li className="relative pl-10 pb-14 last:pb-0">
-                    <span 
+                    <span
                       className={`absolute -left-[13px] top-1 size-7 rounded-full grid place-items-center text-[11px] font-semibold shadow-lg ${colors.text}`}
                       style={{ background: colors.bg }}
                     >
                       {i + 1}
                     </span>
-                    <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">{s.duration}</div>
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
+                      {s.duration}
+                    </div>
                     <h2 className="mt-1.5 text-2xl font-semibold tracking-tight">{s.title}</h2>
                     <p className="mt-3 text-muted-foreground leading-relaxed">{s.body}</p>
                   </li>
@@ -142,20 +162,12 @@ function ProcessPage() {
 
           {/* CTA */}
           <Reveal delay={0.3}>
-            <div 
-              className="mt-20 glass-card p-10 text-center noise-bg hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300"
-              style={{
-                borderColor: "var(--brand-pink)",
-                // @ts-ignore
-                "--shadow-card-hover": "8px 8px 0px 0px var(--brand-pink)"
-              } as React.CSSProperties}
-            >
+            <div className="mt-20 glass-card p-10 text-center noise-bg hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 cta-calming-section">
               <div className="relative z-10">
-                <h3 className="text-2xl font-semibold tracking-tight">Ready to start at step one?</h3>
-                <Link
-                  to="/contact"
-                  className="mt-6 btn-primary inline-flex animate-pulse-glow"
-                >
+                <h3 className="text-2xl font-semibold tracking-tight">
+                  Ready to start at step one?
+                </h3>
+                <Link to="/contact" className="mt-6 btn-primary inline-flex animate-pulse-glow">
                   Book a discovery call <ArrowRight className="size-4" />
                 </Link>
               </div>

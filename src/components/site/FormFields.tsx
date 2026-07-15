@@ -22,7 +22,7 @@ export function Field({
     e.preventDefault();
     const target = e.currentTarget;
     let msg = "Psst... please fill this out! ⚡";
-    
+
     if (target.validity.valueMissing) {
       if (name === "name") msg = "Don't be shy, what should we call you? 😊";
       else if (name === "email") msg = "We need your email to reply! ✉️";
@@ -30,7 +30,7 @@ export function Field({
     } else if (target.validity.typeMismatch && type === "email") {
       msg = "Hmm, that doesn't look like a real email! 🤔";
     }
-    
+
     setError(msg);
   };
 
@@ -82,7 +82,7 @@ export function Field({
               {/* Arrow */}
               <div className="absolute top-[-8px] left-5 w-0 h-0 border-l-[7px] border-l-transparent border-r-[7px] border-r-transparent border-b-[8px] border-b-black" />
               <div className="absolute top-[-5px] left-[21px] w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[7px] border-b-white" />
-              
+
               {/* Playful alert icon */}
               <span className="inline-flex size-5 shrink-0 items-center justify-center rounded-lg bg-[#FF5C00] border border-black text-white font-extrabold text-[11px] shadow-[1px_1px_0px_#000]">
                 !

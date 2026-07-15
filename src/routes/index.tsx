@@ -26,8 +26,17 @@ import { AnimatedCounter } from "@/components/site/AnimatedCounter";
 import { LogoStrip } from "@/components/site/LogoStrip";
 import { Field, SelectField } from "@/components/site/FormFields";
 import { services, projects, testimonials, faqs } from "@/components/site/data";
-import { HandDrawnCircle, HandDrawnUnderline, HandDrawnDoubleStrike } from "@/components/site/HandDrawnHighlights";
-import { RetroStar, SparkleDeco, CurlyArrow, CuteSpeechBubble } from "@/components/site/RetroDecorations";
+import {
+  HandDrawnCircle,
+  HandDrawnUnderline,
+  HandDrawnDoubleStrike,
+} from "@/components/site/HandDrawnHighlights";
+import {
+  RetroStar,
+  SparkleDeco,
+  CurlyArrow,
+  CuteSpeechBubble,
+} from "@/components/site/RetroDecorations";
 import { StickerBoard } from "@/components/site/StickerBoard";
 import { Scroll3DElement } from "@/components/site/Scroll3DElement";
 import {
@@ -41,50 +50,48 @@ import { getCalApi } from "@calcom/embed-react";
 import { useTheme } from "@/components/theme-provider";
 import { createServerFn } from "@tanstack/react-start";
 
-export const getAvailableSlots = createServerFn({ method: "GET" }).handler(
-  async () => {
-    try {
-      const apiKey = process.env.CALCOM_API_KEY;
-      if (!apiKey) return 2; // fallback
-      
-      const response = await fetch(`https://api.cal.com/v2/bookings`, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "cal-api-version": "2024-08-13",
-        },
-      });
+export const getAvailableSlots = createServerFn({ method: "GET" }).handler(async () => {
+  try {
+    const apiKey = process.env.CALCOM_API_KEY;
+    if (!apiKey) return 2; // fallback
 
-      if (!response.ok) {
-        console.error("Failed to fetch bookings from Cal.com", await response.text());
-        return 2;
-      }
-      
-      const data = await response.json();
-      
-      if (data.status === "success" && Array.isArray(data.data)) {
-        // Only count accepted bookings for project-consultation and technical-discussion
-        const countedSlugs = ["project-consultation", "technical-discussion"];
-        const validBookings = data.data.filter((booking: any) => {
-          return (
-            booking.status === "accepted" &&
-            booking.eventType &&
-            countedSlugs.includes(booking.eventType.slug)
-          );
-        });
+    const response = await fetch(`https://api.cal.com/v2/bookings`, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "cal-api-version": "2024-08-13",
+      },
+    });
 
-        // Global capacity limit per quarter
-        const CAPACITY_LIMIT = 5;
-        const slotsLeft = Math.max(0, CAPACITY_LIMIT - validBookings.length);
-        return slotsLeft;
-      }
-      
-      return 2;
-    } catch (err) {
-      console.error("Error fetching bookings", err);
+    if (!response.ok) {
+      console.error("Failed to fetch bookings from Cal.com", await response.text());
       return 2;
     }
+
+    const data = await response.json();
+
+    if (data.status === "success" && Array.isArray(data.data)) {
+      // Only count accepted bookings for project-consultation and technical-discussion
+      const countedSlugs = ["project-consultation", "technical-discussion"];
+      const validBookings = data.data.filter((booking: any) => {
+        return (
+          booking.status === "accepted" &&
+          booking.eventType &&
+          countedSlugs.includes(booking.eventType.slug)
+        );
+      });
+
+      // Global capacity limit per quarter
+      const CAPACITY_LIMIT = 5;
+      const slotsLeft = Math.max(0, CAPACITY_LIMIT - validBookings.length);
+      return slotsLeft;
+    }
+
+    return 2;
+  } catch (err) {
+    console.error("Error fetching bookings", err);
+    return 2;
   }
-);
+});
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -122,15 +129,29 @@ const serviceIcons = {
 } as const;
 
 const whyUs = [
-  { icon: Gauge, title: "Fast Development", body: "Weeks, not quarters. Senior team, focused scope, no agency overhead." },
-  { icon: MessageSquare, title: "Transparent Communication", body: "Async updates, weekly demos, and a Slack channel you actually use." },
-  { icon: Layers, title: "Modern Technologies", body: "TypeScript, React 19, Flutter, Postgres, and AI built into your product, not bolted on." },
-  { icon: Shield, title: "Scalable Architecture", body: "Production-ready from day one — type-safe, tested, observable." },
+  {
+    icon: Gauge,
+    title: "Fast Development",
+    body: "Weeks, not quarters. Senior team, focused scope, no agency overhead.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Transparent Communication",
+    body: "Async updates, weekly demos, and a Slack channel you actually use.",
+  },
+  {
+    icon: Layers,
+    title: "Modern Technologies",
+    body: "TypeScript, React 19, Flutter, Postgres, and AI built into your product, not bolted on.",
+  },
+  {
+    icon: Shield,
+    title: "Scalable Architecture",
+    body: "Production-ready from day one — type-safe, tested, observable.",
+  },
 ];
 
-const processSteps = [
-  "Discovery", "Planning", "Design", "Development", "Testing", "Launch",
-];
+const processSteps = ["Discovery", "Planning", "Design", "Development", "Testing", "Launch"];
 
 function Home() {
   const { slots } = Route.useLoaderData();
@@ -160,9 +181,24 @@ function Hero({ slots = 2 }: { slots?: number }) {
       <HeroBackground />
 
       {/* Floating Retro Decorations in Hero */}
-      <RetroStar className="left-6 top-32 hidden xl:block animate-float-sticker" size={60} color="var(--brand-pink)" rotation={15} />
-      <SparkleDeco className="left-1/4 top-28 hidden md:block" size={32} color="var(--brand-blue)" />
-      <CuteSpeechBubble className="right-[42%] top-[30%] hidden xl:block animate-float-sticker" text="100% Bespoke! ⚡" color="var(--brand-blue)" size={140} rotation={-5} />
+      <RetroStar
+        className="left-6 top-32 hidden xl:block animate-float-sticker"
+        size={60}
+        color="var(--brand-pink)"
+        rotation={15}
+      />
+      <SparkleDeco
+        className="left-1/4 top-28 hidden md:block"
+        size={32}
+        color="var(--brand-blue)"
+      />
+      <CuteSpeechBubble
+        className="right-[42%] top-[30%] hidden xl:block animate-float-sticker"
+        text="100% Bespoke! ⚡"
+        color="var(--brand-blue)"
+        size={140}
+        rotation={-5}
+      />
 
       {/* Spline 3D Scene - Absolutely positioned to share the root stacking context for mix-blend-screen */}
       <motion.div
@@ -180,7 +216,9 @@ function Hero({ slots = 2 }: { slots?: number }) {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75" />
             <span className="relative inline-flex rounded-full size-2 bg-brand" />
           </span>
-          <span className="text-[11px] font-bold text-white tracking-wider uppercase">Interactive</span>
+          <span className="text-[11px] font-bold text-white tracking-wider uppercase">
+            Interactive
+          </span>
         </div>
       </motion.div>
 
@@ -209,9 +247,11 @@ function Hero({ slots = 2 }: { slots?: number }) {
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="mt-7 text-5xl md:text-7xl lg:text-[5.25rem] font-semibold leading-[1.05] tracking-tight text-foreground"
             >
-              Building Web, Mobile &amp; <HandDrawnCircle color="var(--brand-pink)">AI</HandDrawnCircle>
+              Building Web, Mobile &amp;{" "}
+              <HandDrawnCircle color="var(--brand-pink)">AI</HandDrawnCircle>
               <br />
-              products that <HandDrawnUnderline color="var(--brand-blue)">scale.</HandDrawnUnderline>
+              products that{" "}
+              <HandDrawnUnderline color="var(--brand-blue)">scale.</HandDrawnUnderline>
             </motion.h1>
 
             {/* Description */}
@@ -221,9 +261,8 @@ function Hero({ slots = 2 }: { slots?: number }) {
               transition={{ duration: 0.6, delay: 0.35 }}
               className="mt-7 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
             >
-              We help startups and growing businesses transform ideas into powerful
-              digital products — through custom software, mobile applications, and
-              AI-powered solutions.
+              We help startups and growing businesses transform ideas into powerful digital products
+              — through custom software, mobile applications, and AI-powered solutions.
             </motion.p>
 
             {/* CTAs */}
@@ -234,10 +273,7 @@ function Hero({ slots = 2 }: { slots?: number }) {
               className="mt-9 flex flex-wrap gap-4"
             >
               <HeroCTA />
-              <Link
-                to="/portfolio"
-                className="btn-secondary"
-              >
+              <Link to="/portfolio" className="btn-secondary">
                 View our work
               </Link>
             </motion.div>
@@ -263,9 +299,15 @@ function HeroCTA() {
     (async function () {
       const cal = await getCalApi();
       cal("ui", {
-        "hideEventTypeDetails": false,
-        "layout": "month_view",
-        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"
+        hideEventTypeDetails: false,
+        layout: "month_view",
+        theme:
+          theme === "dark" ||
+          (theme === "system" &&
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+            ? "dark"
+            : "light",
       });
     })();
   }, [theme]);
@@ -274,13 +316,21 @@ function HeroCTA() {
     <>
       <button
         data-cal-link="arjun-rajput-2mdsis"
-        data-cal-config={JSON.stringify({ layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light' })}
+        data-cal-config={JSON.stringify({
+          layout: "month_view",
+          theme:
+            theme === "dark" ||
+            (theme === "system" &&
+              typeof window !== "undefined" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches)
+              ? "dark"
+              : "light",
+        })}
         className="group btn-primary"
       >
         Book a Call
         <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
       </button>
-
     </>
   );
 }
@@ -306,27 +356,27 @@ const serviceColors = {
   mvp: {
     shadow: "var(--brand-pink)",
     iconBg: "linear-gradient(135deg, var(--brand-pink) 0%, #FF66B2 100%)",
-    iconText: "text-white"
+    iconText: "text-white",
   },
   web: {
     shadow: "var(--brand-blue)",
     iconBg: "linear-gradient(135deg, var(--brand-blue) 0%, #66F5FF 100%)",
-    iconText: "text-black"
+    iconText: "text-black",
   },
   mobile: {
     shadow: "var(--brand-purple)",
     iconBg: "linear-gradient(135deg, var(--brand-purple) 0%, #C994FF 100%)",
-    iconText: "text-white"
+    iconText: "text-white",
   },
   ai: {
     shadow: "var(--brand-2)",
     iconBg: "linear-gradient(135deg, var(--brand-2) 0%, #FFE680 100%)",
-    iconText: "text-black"
+    iconText: "text-black",
   },
   automation: {
-    shadow: "var(--brand)",
+    shadow: "var(--team-calm)",
     iconBg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)",
-    iconText: "text-white"
+    iconText: "text-white",
   },
 } as const;
 
@@ -349,21 +399,25 @@ function Services() {
               <RevealItem key={s.slug}>
                 <Link
                   to="/services"
-                  className="group relative block surface-card interactive-card shine-on-hover p-7 h-full"
-                  style={{
-                    // @ts-ignore
-                    "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                  } as React.CSSProperties}
+                  className="group relative block surface-card interactive-card shine-on-hover p-7 h-full calm-card-custom"
+                  style={
+                    {
+                      // @ts-ignore
+                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                    } as React.CSSProperties
+                  }
                 >
                   <div className="relative z-[2]">
-                    <div 
+                    <div
                       className={`size-12 rounded-xl grid place-items-center shadow-lg ${colors.iconText}`}
                       style={{ background: colors.iconBg }}
                     >
                       <Icon className="size-5" />
                     </div>
                     <h3 className="mt-6 text-xl font-semibold tracking-tight">{s.title}</h3>
-                    <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{s.short}</p>
+                    <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">
+                      {s.short}
+                    </p>
                     <div className="mt-6 inline-flex items-center gap-1.5 text-sm text-foreground/70 group-hover:text-foreground transition-colors">
                       Learn more
                       <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -373,7 +427,7 @@ function Services() {
               </RevealItem>
             );
           })}
-          
+
           {/* 3D Stack Element in 6th Slot */}
           <RevealItem className="flex items-center justify-center h-full min-h-[300px] overflow-visible">
             <Scroll3DElement />
@@ -389,8 +443,16 @@ function Services() {
 const whyUsColors = [
   { shadow: "var(--brand-pink)", iconBg: "rgba(255, 0, 127, 0.15)", iconText: "text-brand-pink" },
   { shadow: "var(--brand-blue)", iconBg: "rgba(0, 240, 255, 0.15)", iconText: "text-brand-blue" },
-  { shadow: "var(--brand-purple)", iconBg: "rgba(159, 50, 255, 0.15)", iconText: "text-brand-purple" },
-  { shadow: "var(--brand-2)", iconBg: "rgba(250, 204, 21, 0.2)", iconText: "text-brand-2 dark:text-brand-2" }
+  {
+    shadow: "var(--brand-purple)",
+    iconBg: "rgba(159, 50, 255, 0.15)",
+    iconText: "text-brand-purple",
+  },
+  {
+    shadow: "var(--brand-2)",
+    iconBg: "rgba(250, 204, 21, 0.2)",
+    iconText: "text-brand-2 dark:text-brand-2",
+  },
 ];
 
 function WhyUs() {
@@ -408,14 +470,16 @@ function WhyUs() {
             const colors = whyUsColors[i % whyUsColors.length];
             return (
               <RevealItem key={w.title}>
-                <div 
-                  className="surface-card interactive-card p-7 h-full"
-                  style={{
-                    // @ts-ignore
-                    "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                  } as React.CSSProperties}
+                <div
+                  className="surface-card interactive-card p-7 h-full calm-card-custom"
+                  style={
+                    {
+                      // @ts-ignore
+                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                    } as React.CSSProperties
+                  }
                 >
-                  <div 
+                  <div
                     className={`size-10 rounded-lg grid place-items-center ${colors.iconText}`}
                     style={{ backgroundColor: colors.iconBg }}
                   >
@@ -469,7 +533,10 @@ function Process() {
         </div>
         <Reveal delay={0.3}>
           <div className="mt-12">
-            <Link to="/process" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors group">
+            <Link
+              to="/process"
+              className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors group"
+            >
               See the full process
               <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
@@ -489,7 +556,10 @@ function Featured() {
         <Reveal>
           <div className="flex items-end justify-between gap-6 flex-wrap">
             <SectionHeading eyebrow="Featured work" title="Selected projects." />
-            <Link to="/portfolio" className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors group">
+            <Link
+              to="/portfolio"
+              className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors group"
+            >
               View all
               <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
@@ -507,7 +577,9 @@ function Featured() {
             ];
             return (
               <RevealItem key={p.slug} className={`w-full ${spanClasses[i]}`}>
-                <ProjectCard project={p} className="h-full !rounded-[20px]" />
+                <div className="perspective-container h-full">
+                  <ProjectCard project={p} className="h-full !rounded-[20px]" />
+                </div>
               </RevealItem>
             );
           })}
@@ -529,25 +601,56 @@ function Testimonials() {
       </div>
 
       <Reveal>
-        <div className="mt-12 relative flex overflow-hidden mask-edges w-full pt-4 pb-8">
+        <div className="mt-12 relative flex overflow-hidden mask-edges w-full pt-16 pb-20">
           <div className="flex gap-6 w-max animate-marquee px-4">
             {[...testimonials, ...testimonials, ...testimonials, ...testimonials].map((t, idx) => (
               <div key={idx} className="w-[320px] md:w-[400px] shrink-0">
-                <figure className="surface-card interactive-card p-7 h-full flex flex-col">
-                  <Quote className="size-8 text-brand/30 mb-3 -ml-1" />
-                  <blockquote className="text-base leading-relaxed flex-1">
-                    "{t.quote}"
-                  </blockquote>
-                  <figcaption className="mt-6 flex items-center gap-3 pt-5 border-t border-border">
-                    <div className="size-10 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-sm font-semibold">
-                      {t.name.split(" ").map((n) => n[0]).join("")}
+                <div className="book-card-container">
+                  <div className="book-card">
+                    {/* Inside Page (visible when cover is swung open) */}
+                    <div className="book-card-inside">
+                      <Quote className="size-8 text-brand/30 mb-2 -ml-1" />
+                      <blockquote className="text-sm md:text-base leading-relaxed flex-1 italic text-foreground">
+                        "{t.quote}"
+                      </blockquote>
+                      <div className="mt-4 flex items-center gap-3 pt-4 border-t border-border/50">
+                        <div className="size-8 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-xs font-semibold">
+                          {t.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </div>
+                        <div>
+                          <div className="text-xs font-semibold text-foreground">{t.name}</div>
+                          <div className="text-[10px] text-muted-foreground">{t.role}</div>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-sm font-medium">{t.name}</div>
-                      <div className="text-xs text-muted-foreground">{t.role}</div>
+
+                    {/* Book Cover (swings open on hover) */}
+                    <div className="book-card-cover">
+                      <div className="size-10 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-sm font-bold shadow-sm shadow-[var(--brand)]/10">
+                        {t.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </div>
+                      <div className="flex-1 flex flex-col justify-center py-4 pl-4">
+                        <Quote className="size-7 text-brand mb-2 opacity-80" />
+                        <h4 className="text-base font-bold tracking-tight text-foreground line-clamp-1">
+                          {t.role}
+                        </h4>
+                        <span className="text-[11px] text-muted-foreground mt-1 inline-flex items-center gap-1">
+                          Hover to open testimonial <span className="text-brand">→</span>
+                        </span>
+                      </div>
+                      <div className="pt-4 border-t border-border/50 pl-4">
+                        <div className="text-sm font-semibold text-foreground">{t.name}</div>
+                        <div className="text-xs text-muted-foreground">{t.role}</div>
+                      </div>
                     </div>
-                  </figcaption>
-                </figure>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -590,7 +693,7 @@ function Faq() {
 function FinalCTA() {
   const [submitted, setSubmitted] = useState(false);
   return (
-    <section className="relative py-28">
+    <section className="relative py-28 cta-calming-section">
       <div className="mx-auto max-w-6xl px-6">
         <div className="relative overflow-hidden glass-card p-10 md:p-16">
           {/* Background effects */}
@@ -600,12 +703,11 @@ function FinalCTA() {
             <Reveal direction="left">
               <div>
                 <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">
-                  Let's build something{" "}
-                  <span className="text-gradient">great together.</span>
+                  Let's build something <span className="text-gradient">great together.</span>
                 </h2>
                 <p className="mt-5 text-muted-foreground max-w-md leading-relaxed">
-                  Tell us about your project. We'll reply within one business day with
-                  next steps or honest feedback if we're not the right fit.
+                  Tell us about your project. We'll reply within one business day with next steps or
+                  honest feedback if we're not the right fit.
                 </p>
                 <div className="mt-8 space-y-3.5 text-sm text-muted-foreground">
                   {[
@@ -672,10 +774,10 @@ function ContactForm({
       await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(Object.fromEntries(formData))
+        body: JSON.stringify(Object.fromEntries(formData)),
       });
       setSubmitted(true);
     } catch (error) {
@@ -687,26 +789,23 @@ function ContactForm({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="glass-card p-7 space-y-4"
-    >
+    <form onSubmit={handleSubmit} className="glass-card p-7 space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Name" name="name" placeholder="Your name" required />
         <Field label="Email" name="email" type="email" placeholder="you@company.com" required />
       </div>
       <Field label="Company" name="company" placeholder="Company name" />
-      <Field label="Project description" name="project" textarea placeholder="Tell us about your project..." required />
+      <Field
+        label="Project description"
+        name="project"
+        textarea
+        placeholder="Tell us about your project..."
+        required
+      />
       <SelectField
         label="Budget range"
         name="budget"
-        options={[
-          "Under $15k",
-          "$15k – $40k",
-          "$40k – $100k",
-          "$100k+",
-          "Not sure yet",
-        ]}
+        options={["Under $15k", "$15k – $40k", "$40k – $100k", "$100k+", "Not sure yet"]}
       />
       <button
         type="submit"

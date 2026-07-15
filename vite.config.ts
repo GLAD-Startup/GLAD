@@ -8,9 +8,7 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
-    plugins: [
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
     base: "/",
     build: {
       chunkSizeWarningLimit: 2500,
@@ -33,4 +31,3 @@ export default defineConfig({
   },
   nitro: true,
 });
-

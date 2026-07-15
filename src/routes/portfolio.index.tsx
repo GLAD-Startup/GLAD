@@ -51,8 +51,8 @@ function PortfolioPage() {
               Selected <span className="text-gradient">work.</span>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              A small sample of what we've shipped — from MVPs to AI products and
-              internal platforms.
+              A small sample of what we've shipped — from MVPs to AI products and internal
+              platforms.
             </p>
           </motion.div>
         </div>
@@ -64,7 +64,9 @@ function PortfolioPage() {
           <RevealGroup className="grid gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
             {projects.map((p) => (
               <RevealItem key={p.slug} className="h-full">
-                <ProjectCard project={p} />
+                <div className="perspective-container h-full">
+                  <ProjectCard project={p} />
+                </div>
               </RevealItem>
             ))}
           </RevealGroup>

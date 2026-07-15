@@ -12,7 +12,6 @@ export function HeroBackground() {
 /** Lighter variant for inner-page sections (no orbs, just texture) */
 export function SectionBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10 noise-bg">
-    </div>
+    <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10 noise-bg"></div>
   );
 }

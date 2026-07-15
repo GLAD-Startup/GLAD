@@ -53,10 +53,7 @@ export function EmailModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                     <p className="mt-2 text-sm text-muted-foreground">
                       We'll be in touch within one business day.
                     </p>
-                    <button
-                      onClick={onClose}
-                      className="mt-6 btn-secondary inline-flex"
-                    >
+                    <button onClick={onClose} className="mt-6 btn-secondary inline-flex">
                       Close window
                     </button>
                   </div>
@@ -64,32 +61,49 @@ export function EmailModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =
                   <>
                     <div className="mb-6 pr-8">
                       <h2 className="text-xl font-semibold tracking-tight">Send an email</h2>
-                      <p className="mt-1 text-sm text-muted-foreground">We'll reply to your message as soon as possible.</p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        We'll reply to your message as soon as possible.
+                      </p>
                     </div>
-                    <form onSubmit={async (e) => {
-                      e.preventDefault();
-                      setLoading(true);
-                      const formData = new FormData(e.currentTarget);
-                      try {
-                        await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
-                          method: "POST",
-                          headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                          },
-                          body: JSON.stringify(Object.fromEntries(formData))
-                        });
-                        setSubmitted(true);
-                      } catch (error) {
-                        console.error(error);
-                        alert("Something went wrong. Please try again.");
-                      } finally {
-                        setLoading(false);
-                      }
-                    }} className="space-y-4">
+                    <form
+                      onSubmit={async (e) => {
+                        e.preventDefault();
+                        setLoading(true);
+                        const formData = new FormData(e.currentTarget);
+                        try {
+                          await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                              Accept: "application/json",
+                            },
+                            body: JSON.stringify(Object.fromEntries(formData)),
+                          });
+                          setSubmitted(true);
+                        } catch (error) {
+                          console.error(error);
+                          alert("Something went wrong. Please try again.");
+                        } finally {
+                          setLoading(false);
+                        }
+                      }}
+                      className="space-y-4"
+                    >
                       <Field label="Name" name="name" placeholder="Your name" required />
-                      <Field label="Your email address" name="email" type="email" placeholder="you@company.com" required />
-                      <Field label="Message" name="message" textarea placeholder="How can we help?" required />
+                      <Field
+                        label="Your email address"
+                        name="email"
+                        type="email"
+                        placeholder="you@company.com"
+                        required
+                      />
+                      <Field
+                        label="Message"
+                        name="message"
+                        textarea
+                        placeholder="How can we help?"
+                        required
+                      />
 
                       <button
                         type="submit"

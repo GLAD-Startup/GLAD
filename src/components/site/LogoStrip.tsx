@@ -3,12 +3,21 @@ export function LogoStrip() {
     { name: "Stripe", slug: "stripe" },
     { name: "Vercel", slug: "vercel", invertDark: true },
     { name: "Supabase", slug: "supabase" },
-    { name: "OpenAI", slug: "openai", invertDark: true, url: "https://cdn.worldvectorlogo.com/logos/openai-2.svg" },
+    {
+      name: "OpenAI",
+      slug: "openai",
+      invertDark: true,
+      url: "https://cdn.worldvectorlogo.com/logos/openai-2.svg",
+    },
     { name: "Shopify", slug: "shopify" },
     { name: "Figma", slug: "figma" },
     { name: "Linear", slug: "linear" },
     { name: "Notion", slug: "notion", invertDark: true },
-    { name: "Slack", slug: "slack", url: "https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg" },
+    {
+      name: "Slack",
+      slug: "slack",
+      url: "https://cdn.worldvectorlogo.com/logos/slack-new-logo.svg",
+    },
     { name: "Intercom", slug: "intercom" },
   ];
 
@@ -25,15 +34,17 @@ export function LogoStrip() {
             key={`${logo.name}-${i}`}
             className="mx-8 flex items-center gap-2.5 text-muted-foreground/60 select-none group"
           >
-            <img 
-              src={logo.url || `https://cdn.simpleicons.org/${logo.slug}`} 
-              alt={logo.name} 
-              className={`size-5 transition-all duration-300 ${logo.invertDark ? 'dark:invert' : ''}`}
+            <img
+              src={logo.url || `https://cdn.simpleicons.org/${logo.slug}`}
+              alt={logo.name}
+              className={`size-5 transition-all duration-300 ${logo.invertDark ? "dark:invert" : ""}`}
             />
-            <span className="text-sm font-medium tracking-wide group-hover:text-foreground transition-colors duration-300">{logo.name}</span>
+            <span className="text-sm font-medium tracking-wide group-hover:text-foreground transition-colors duration-300">
+              {logo.name}
+            </span>
           </div>
         ))}
       </div>
     </div>
   );
-} 
+}

@@ -132,24 +132,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "ProfessionalService",
-          "name": "Glad Studio",
-          "url": "https://gladstudio.net",
-          "logo": "https://gladstudio.net/og-image.png",
-          "description": "Web, Mobile & AI development agency",
-          "address": {
+          name: "Glad Studio",
+          url: "https://gladstudio.net",
+          logo: "https://gladstudio.net/og-image.png",
+          description: "Web, Mobile & AI development agency",
+          address: {
             "@type": "PostalAddress",
-            "addressCountry": "IN",
+            addressCountry: "IN",
           },
-          "serviceType": [
+          serviceType: [
             "Web Development",
             "Mobile App Development",
             "AI Development",
             "Data Engineering",
           ],
-          "sameAs": [
-            "https://linkedin.com/company/gladstudio",
-            "https://instagram.com/gladstudio",
-          ],
+          sameAs: ["https://linkedin.com/company/gladstudio", "https://instagram.com/gladstudio"],
         }),
       },
     ],

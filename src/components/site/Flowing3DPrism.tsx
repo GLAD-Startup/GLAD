@@ -4,34 +4,34 @@ import { Rocket, Layout, Smartphone, Sparkles, Workflow } from "lucide-react";
 
 export function Flowing3DPrism() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   // Track scroll relative to the parent section
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ["start center", "end center"],
   });
 
   // Vertical travel: flows down the entire height of the container
   const y = useTransform(scrollYProgress, [0, 1], ["5%", "95%"]);
-  
+
   // Horizontal path: swings left and right between cards
   const x = useTransform(
-    scrollYProgress, 
-    [0, 0.25, 0.5, 0.75, 1], 
-    ["12%", "88%", "12%", "88%", "50%"]
+    scrollYProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    ["12%", "88%", "12%", "88%", "50%"],
   );
 
   // Rotation Y-axis: maps the first 4 faces (0, 90, 180, 270 degrees)
   const rotY = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, -90, -180, -270, -360]);
-  
+
   // Rotation X-axis: pitches forward to show the Top Face (AUTOMATION) at scroll progress 1
   const rotX = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [15, 15, 15, 15, -75]);
-  
+
   // Velocity tilt: tilts left or right based on horizontal direction
   const rotZ = useTransform(
     scrollYProgress,
     [0, 0.12, 0.25, 0.38, 0.5, 0.62, 0.75, 0.88, 1],
-    [15, 15, -15, -15, 15, 15, -15, -15, 0]
+    [15, 15, -15, -15, 15, 15, -15, -15, 0],
   );
 
   // Smooth springs to create a floating weightless inertia
@@ -63,12 +63,48 @@ export function Flowing3DPrism() {
 
   // Solid Cube faces (translateZ is exactly half of width/height: 64px)
   const faces = [
-    { label: "MVP DEV", icon: Rocket, bg: "bg-brand-pink", text: "text-white", transform: "rotateY(0deg) translateZ(64px)" },
-    { label: "WEB APPS", icon: Layout, bg: "bg-brand-blue", text: "text-black", transform: "rotateY(90deg) translateZ(64px)" },
-    { label: "MOBILE APPS", icon: Smartphone, bg: "bg-brand-purple", text: "text-white", transform: "rotateY(180deg) translateZ(64px)" },
-    { label: "AI SOLUTIONS", icon: Sparkles, bg: "bg-brand-2", text: "text-black", transform: "rotateY(270deg) translateZ(64px)" },
-    { label: "AUTOMATION", icon: Workflow, bg: "bg-green-400", text: "text-black", transform: "rotateX(90deg) translateZ(64px)" },
-    { label: "GLAD STUDIO", icon: Sparkles, bg: "bg-black", text: "text-white", transform: "rotateX(-90deg) translateZ(64px)" },
+    {
+      label: "MVP DEV",
+      icon: Rocket,
+      bg: "bg-brand-pink",
+      text: "text-white",
+      transform: "rotateY(0deg) translateZ(64px)",
+    },
+    {
+      label: "WEB APPS",
+      icon: Layout,
+      bg: "bg-brand-blue",
+      text: "text-black",
+      transform: "rotateY(90deg) translateZ(64px)",
+    },
+    {
+      label: "MOBILE APPS",
+      icon: Smartphone,
+      bg: "bg-brand-purple",
+      text: "text-white",
+      transform: "rotateY(180deg) translateZ(64px)",
+    },
+    {
+      label: "AI SOLUTIONS",
+      icon: Sparkles,
+      bg: "bg-brand-2",
+      text: "text-black",
+      transform: "rotateY(270deg) translateZ(64px)",
+    },
+    {
+      label: "AUTOMATION",
+      icon: Workflow,
+      bg: "bg-green-400",
+      text: "text-black",
+      transform: "rotateX(90deg) translateZ(64px)",
+    },
+    {
+      label: "GLAD STUDIO",
+      icon: Sparkles,
+      bg: "bg-black",
+      text: "text-white",
+      transform: "rotateX(-90deg) translateZ(64px)",
+    },
   ];
 
   return (
@@ -98,16 +134,16 @@ export function Flowing3DPrism() {
             rotateX: combinedRotX,
             rotateZ: smoothRotZ,
             transformStyle: "preserve-3d",
-            willChange: "transform"
+            willChange: "transform",
           }}
           animate={{
             y: [0, -10, 0],
-            x: [0, 6, 0]
+            x: [0, 6, 0],
           }}
           transition={{
             duration: 3.5,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         >
           {faces.map((f, i) => {

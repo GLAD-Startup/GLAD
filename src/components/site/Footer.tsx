@@ -14,11 +14,45 @@ export function Footer() {
   const { theme } = useTheme();
 
   const socials = [
-    { icon: Twitter, href: "https://x.com/_GLAD_Studio", label: "X (Twitter)", hoverClass: "hover:bg-brand-blue hover:text-black hover:shadow-[4px_4px_0px_0px_var(--brand-blue)]" },
-    { icon: Linkedin, href: "https://www.linkedin.com/company/glad-studio-2k26", label: "LinkedIn", hoverClass: "hover:bg-brand-purple hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand-purple)]" },
-    { icon: Instagram, href: "https://www.instagram.com/__gladstudio/", label: "Instagram", hoverClass: "hover:bg-brand-pink hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand-pink)]" },
-    { icon: ({ className }: { className?: string }) => <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />, href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK", label: "Reddit", hoverClass: "hover:bg-brand-2 hover:text-black hover:shadow-[4px_4px_0px_0px_var(--brand-2)]" },
-    { icon: Mail, href: "#", label: "Email", onClick: (e: MouseEvent) => { e.preventDefault(); setIsEmailModalOpen(true); }, hoverClass: "hover:bg-brand hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand)]" },
+    {
+      icon: Twitter,
+      href: "https://x.com/_GLAD_Studio",
+      label: "X (Twitter)",
+      hoverClass:
+        "hover:bg-brand-blue hover:text-black hover:shadow-[4px_4px_0px_0px_var(--brand-blue)]",
+    },
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/company/glad-studio-2k26",
+      label: "LinkedIn",
+      hoverClass:
+        "hover:bg-brand-purple hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand-purple)]",
+    },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/__gladstudio/",
+      label: "Instagram",
+      hoverClass:
+        "hover:bg-brand-pink hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand-pink)]",
+    },
+    {
+      icon: ({ className }: { className?: string }) => (
+        <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />
+      ),
+      href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK",
+      label: "Reddit",
+      hoverClass: "hover:bg-brand-2 hover:text-black hover:shadow-[4px_4px_0px_0px_var(--brand-2)]",
+    },
+    {
+      icon: Mail,
+      href: "#",
+      label: "Email",
+      onClick: (e: MouseEvent) => {
+        e.preventDefault();
+        setIsEmailModalOpen(true);
+      },
+      hoverClass: "hover:bg-brand hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand)]",
+    },
   ];
 
   useEffect(() => {
@@ -29,9 +63,15 @@ export function Footer() {
     (async function () {
       const cal = await getCalApi();
       cal("ui", {
-        "hideEventTypeDetails": false,
-        "layout": "month_view",
-        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"
+        hideEventTypeDetails: false,
+        layout: "month_view",
+        theme:
+          theme === "dark" ||
+          (theme === "system" &&
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+            ? "dark"
+            : "light",
       });
     })();
   }, [theme]);
@@ -59,8 +99,8 @@ export function Footer() {
               />
             </div>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed font-medium">
-              A premium software studio building web, mobile, and AI-powered
-              products for startups and growing businesses.
+              A premium software studio building web, mobile, and AI-powered products for startups
+              and growing businesses.
             </p>
             {/* Socials */}
             <div className="mt-6 flex items-center gap-3">
@@ -82,25 +122,39 @@ export function Footer() {
 
           {/* Studio links */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">Studio</h4>
+            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">
+              Studio
+            </h4>
             <ul className="space-y-3 text-sm text-muted-foreground font-medium">
               <li>
-                <Link to="/services" className="hover:text-brand-pink transition-all hover:translate-x-1.5 inline-block duration-200">
+                <Link
+                  to="/services"
+                  className="hover:text-brand-pink transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
                   Services
                 </Link>
               </li>
               <li>
-                <Link to="/portfolio" className="hover:text-brand-blue transition-all hover:translate-x-1.5 inline-block duration-200">
+                <Link
+                  to="/portfolio"
+                  className="hover:text-brand-blue transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
                   Portfolio
                 </Link>
               </li>
               <li>
-                <Link to="/process" className="hover:text-brand-purple transition-all hover:translate-x-1.5 inline-block duration-200">
+                <Link
+                  to="/process"
+                  className="hover:text-brand-purple transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
                   Process
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-brand-2 transition-all hover:translate-x-1.5 inline-block duration-200">
+                <Link
+                  to="/about"
+                  className="hover:text-brand-2 transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
                   About
                 </Link>
               </li>
@@ -109,17 +163,32 @@ export function Footer() {
 
           {/* Contact links */}
           <div className="md:col-span-2">
-            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">Get In Touch</h4>
+            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">
+              Get In Touch
+            </h4>
             <div className="space-y-4">
               {/* Call to action: Book a Call */}
               <button
                 data-cal-link="arjun-rajput-2mdsis"
-                data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})}
+                data-cal-config={JSON.stringify({
+                  layout: "month_view",
+                  theme:
+                    theme === "dark" ||
+                    (theme === "system" &&
+                      typeof window !== "undefined" &&
+                      window.matchMedia("(prefers-color-scheme: dark)").matches)
+                      ? "dark"
+                      : "light",
+                })}
                 className="w-full flex items-center justify-between p-4 rounded-2xl border-3 border-border bg-card text-left hover:border-foreground hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--brand-pink)] dark:hover:shadow-[6px_6px_0px_0px_var(--brand-blue)] active:translate-x-0 active:translate-y-0 active:shadow-[3px_3px_0px_0px_var(--border)] transition-all duration-200 group cursor-pointer"
               >
                 <div>
-                  <span className="block text-xs uppercase tracking-wider text-muted-foreground font-semibold">Have a project?</span>
-                  <span className="block text-sm font-black text-foreground mt-0.5">Book a Discovery Call</span>
+                  <span className="block text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                    Have a project?
+                  </span>
+                  <span className="block text-sm font-black text-foreground mt-0.5">
+                    Book a Discovery Call
+                  </span>
                 </div>
                 <span className="size-9 rounded-xl bg-brand-pink text-white dark:bg-brand-blue dark:text-black grid place-items-center font-bold text-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-200 shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.15)]">
                   →
@@ -131,7 +200,10 @@ export function Footer() {
                 <li>
                   <a
                     href="#"
-                    onClick={(e) => { e.preventDefault(); setIsEmailModalOpen(true); }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsEmailModalOpen(true);
+                    }}
                     className="hover:text-brand-pink transition-all hover:translate-x-1 inline-block duration-200"
                   >
                     <Mail className="size-4 inline-block mr-1.5 -mt-0.5" /> hello@gladstudio.net

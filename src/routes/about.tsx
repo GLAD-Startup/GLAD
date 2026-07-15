@@ -6,7 +6,11 @@ import { HeroBackground } from "@/components/site/Background";
 import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { motion } from "framer-motion";
-import { HandDrawnCircle, HandDrawnUnderline, HandDrawnDoubleStrike } from "@/components/site/HandDrawnHighlights";
+import {
+  HandDrawnCircle,
+  HandDrawnUnderline,
+  HandDrawnDoubleStrike,
+} from "@/components/site/HandDrawnHighlights";
 import { RetroStar, SparkleDeco, CurlyArrow } from "@/components/site/RetroDecorations";
 import { StickerBoard } from "@/components/site/StickerBoard";
 import { RocketMan } from "@/components/site/RocketMan";
@@ -34,10 +38,26 @@ export const Route = createFileRoute("/about")({
 });
 
 const values = [
-  { icon: Lightbulb, title: "Innovation", body: "We pick technology that compounds — modern stacks, AI where it matters." },
-  { icon: ShieldCheck, title: "Reliability", body: "We ship on time and stand behind what we build." },
-  { icon: Eye, title: "Transparency", body: "You see the work as it happens. No black boxes, ever." },
-  { icon: Sparkles, title: "Quality", body: "Type-safe, tested, observable. Boring code so your product can be exciting." },
+  {
+    icon: Lightbulb,
+    title: "Innovation",
+    body: "We pick technology that compounds — modern stacks, AI where it matters.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Reliability",
+    body: "We ship on time and stand behind what we build.",
+  },
+  {
+    icon: Eye,
+    title: "Transparency",
+    body: "You see the work as it happens. No black boxes, ever.",
+  },
+  {
+    icon: Sparkles,
+    title: "Quality",
+    body: "Type-safe, tested, observable. Boring code so your product can be exciting.",
+  },
 ];
 
 import arjunImg from "./images/arjun.jpg";
@@ -46,24 +66,50 @@ import parthImg from "./images/parth.jpg";
 import someshImg from "./images/somesh.jpeg";
 
 const team = [
-  { name: "Arjun Singh Rajput", role: "Founder & CEO", bio: "Driving the vision, strategy, and execution.", image: arjunImg },
-  { name: "Jatin Khetan", role: "Co-founder & CTO", bio: "Architecting scalable systems and leading technical innovation.", image: jatinImg, imageClass: "object-[center_20%]" },
-  { name: "Parth Garg", role: "CFO & Head of Product & Design", bio: "Managing financials and crafting seamless user experiences.", image: parthImg, imageClass: "object-[center_35%]" },
-  { name: "Somesh Rajput", role: "Founding Product Engineer & Developer", bio: "Building robust, user-centric core product features.", image: someshImg },
+  {
+    name: "Arjun Singh Rajput",
+    role: "Founder & CEO",
+    bio: "Driving the vision, strategy, and execution.",
+    image: arjunImg,
+  },
+  {
+    name: "Jatin Khetan",
+    role: "Co-founder & CTO",
+    bio: "Architecting scalable systems and leading technical innovation.",
+    image: jatinImg,
+    imageClass: "object-[center_20%]",
+  },
+  {
+    name: "Parth Garg",
+    role: "CFO & Head of Product & Design",
+    bio: "Managing financials and crafting seamless user experiences.",
+    image: parthImg,
+    imageClass: "object-[center_35%]",
+  },
+  {
+    name: "Somesh Rajput",
+    role: "Founding Product Engineer & Developer",
+    bio: "Building robust, user-centric core product features.",
+    image: someshImg,
+  },
 ];
 
 const valueColors = [
   { shadow: "var(--brand-pink)", iconBg: "rgba(255, 0, 127, 0.15)", iconText: "text-brand-pink" },
   { shadow: "var(--brand-blue)", iconBg: "rgba(0, 240, 255, 0.15)", iconText: "text-brand-blue" },
-  { shadow: "var(--brand-purple)", iconBg: "rgba(159, 50, 255, 0.15)", iconText: "text-brand-purple" },
-  { shadow: "var(--brand-2)", iconBg: "rgba(250, 204, 21, 0.2)", iconText: "text-brand-2" }
+  {
+    shadow: "var(--brand-purple)",
+    iconBg: "rgba(159, 50, 255, 0.15)",
+    iconText: "text-brand-purple",
+  },
+  { shadow: "var(--brand-2)", iconBg: "rgba(250, 204, 21, 0.2)", iconText: "text-brand-2" },
 ];
 
 const teamColors = [
   { shadow: "var(--brand-pink)" },
   { shadow: "var(--brand-blue)" },
   { shadow: "var(--brand-purple)" },
-  { shadow: "var(--brand)" }
+  { shadow: "var(--team-calm)" },
 ];
 
 function AboutPage() {
@@ -75,10 +121,19 @@ function AboutPage() {
       {/* Hero */}
       <section className="relative pt-36 pb-20 md:pt-44 overflow-hidden">
         <HeroBackground />
-        
+
         {/* Floating decorations */}
-        <RetroStar className="left-10 top-36 hidden xl:block animate-float-sticker" size={48} color="var(--brand-pink)" rotation={25} />
-        <SparkleDeco className="left-1/4 bottom-8 hidden md:block" size={24} color="var(--brand-purple)" />
+        <RetroStar
+          className="left-10 top-36 hidden xl:block animate-float-sticker"
+          size={48}
+          color="var(--brand-pink)"
+          rotation={25}
+        />
+        <SparkleDeco
+          className="left-1/4 bottom-8 hidden md:block"
+          size={24}
+          color="var(--brand-purple)"
+        />
 
         <div className="mx-auto max-w-5xl px-6">
           <motion.div
@@ -91,12 +146,14 @@ function AboutPage() {
               About
             </div>
             <h1 className="mt-4 text-5xl md:text-7xl font-semibold tracking-tight max-w-4xl leading-[1.05]">
-              We build <HandDrawnCircle color="var(--brand-pink)">products</HandDrawnCircle>,<br />not just <HandDrawnDoubleStrike color="var(--brand-purple)">software.</HandDrawnDoubleStrike>
+              We build <HandDrawnCircle color="var(--brand-pink)">products</HandDrawnCircle>,<br />
+              not just{" "}
+              <HandDrawnDoubleStrike color="var(--brand-purple)">software.</HandDrawnDoubleStrike>
             </h1>
             <p className="mt-7 text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              GLAD studio is a dedicated team of passionate builders. We help startups
-              and growing businesses turn ideas into shipped products — web, mobile
-              and AI — with the rigor of a great in-house team.
+              GLAD studio is a dedicated team of passionate builders. We help startups and growing
+              businesses turn ideas into shipped products — web, mobile and AI — with the rigor of a
+              great in-house team.
             </p>
           </motion.div>
         </div>
@@ -111,14 +168,13 @@ function AboutPage() {
           <Reveal direction="right" delay={0.08}>
             <div className="space-y-5 text-muted-foreground leading-relaxed">
               <p>
-                We started GLAD studio because we kept seeing the same thing: founders
-                spending months on agencies that overpromised, underdelivered, and
-                left them with code they couldn't maintain.
+                We started GLAD studio because we kept seeing the same thing: founders spending
+                months on agencies that overpromised, underdelivered, and left them with code they
+                couldn't maintain.
               </p>
               <p>
-                So we built something different — a tiny, senior team that works on
-                a small number of projects at a time, ships every week, and treats
-                your product like our own.
+                So we built something different — a tiny, senior team that works on a small number
+                of projects at a time, ships every week, and treats your product like our own.
               </p>
             </div>
           </Reveal>
@@ -136,14 +192,16 @@ function AboutPage() {
               const colors = valueColors[i % valueColors.length];
               return (
                 <RevealItem key={v.title}>
-                  <div 
-                    className="surface-card interactive-card p-7 h-full"
-                    style={{
-                      // @ts-ignore
-                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                    } as React.CSSProperties}
+                  <div
+                    className="surface-card interactive-card p-7 h-full calm-card-custom"
+                    style={
+                      {
+                        // @ts-ignore
+                        "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                      } as React.CSSProperties
+                    }
                   >
-                    <div 
+                    <div
                       className={`size-10 rounded-lg grid place-items-center ${colors.iconText}`}
                       style={{ backgroundColor: colors.iconBg }}
                     >
@@ -170,12 +228,14 @@ function AboutPage() {
               const colors = teamColors[i % teamColors.length];
               return (
                 <RevealItem key={m.name} direction="scale" className="h-full">
-                  <div 
-                    className="surface-card interactive-card overflow-hidden group h-full flex flex-col"
-                    style={{
-                      // @ts-ignore
-                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                    } as React.CSSProperties}
+                  <div
+                    className="surface-card interactive-card overflow-hidden group h-full flex flex-col calm-card-custom"
+                    style={
+                      {
+                        // @ts-ignore
+                        "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                      } as React.CSSProperties
+                    }
                   >
                     <div className="aspect-square bg-brand-gradient relative overflow-hidden shrink-0">
                       {m.image ? (
@@ -188,7 +248,10 @@ function AboutPage() {
                         <>
                           <div className="absolute inset-0 grid-bg opacity-25" />
                           <div className="absolute inset-0 grid place-items-center text-5xl font-display font-semibold text-white/90 drop-shadow-lg transition-transform duration-500 group-hover:scale-110">
-                            {m.name.split(" ").map((n) => n[0]).join("")}
+                            {m.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
                           </div>
                         </>
                       )}

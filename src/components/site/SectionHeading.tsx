@@ -18,9 +18,7 @@ export function SectionHeading({
       <h2 className="mt-4 text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">
         {title}
       </h2>
-      {sub && (
-        <p className="mt-5 text-muted-foreground text-lg leading-relaxed">{sub}</p>
-      )}
+      {sub && <p className="mt-5 text-muted-foreground text-lg leading-relaxed">{sub}</p>}
     </div>
   );
 }

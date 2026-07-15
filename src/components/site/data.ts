@@ -109,7 +109,8 @@ export const projects = [
       "Batch file processing",
       "Smart content analysis",
     ],
-    outcome: "Reduced file organization time by over 80% for users with large, unstructured directories.",
+    outcome:
+      "Reduced file organization time by over 80% for users with large, unstructured directories.",
     thumbnail: fluxorNewThumbnail,
     images: [fluxorDescription, fluxorThumbnail],
   },
@@ -130,7 +131,8 @@ export const projects = [
       "Donor-recipient matching",
       "Real-time availability tracking",
     ],
-    outcome: "Enabled Prayas NGO to digitize their operations and serve their community more efficiently.",
+    outcome:
+      "Enabled Prayas NGO to digitize their operations and serve their community more efficiently.",
     thumbnail: prayasImage,
     images: [prayasAppImage, prayasThumbnail],
   },
@@ -151,7 +153,8 @@ export const projects = [
       "Multi-division inventory tracking",
       "Real-time stock updates",
     ],
-    outcome: "Unified inventory visibility across all business divisions, eliminating stock discrepancies.",
+    outcome:
+      "Unified inventory visibility across all business divisions, eliminating stock discrepancies.",
     thumbnail: stockMgmtThumbnail,
     images: [inventoryDashboard, inventoryMgmt, unifiedInventory],
   },
@@ -172,7 +175,8 @@ export const projects = [
       "Confidence analysis & feedback",
       "Semantic similarity matching",
     ],
-    outcome: "Enabled candidates to practice with realistic, AI-evaluated interviews anytime, anywhere.",
+    outcome:
+      "Enabled candidates to practice with realistic, AI-evaluated interviews anytime, anywhere.",
     thumbnail: aiMockThumbnail,
     images: [aiMockFeatures, aiMockPlatform],
   },

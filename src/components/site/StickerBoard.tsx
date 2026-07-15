@@ -16,25 +16,39 @@ const STICKER_TYPES = [
   {
     render: () => (
       <div className="w-16 h-16 rounded-full border-3 border-black bg-brand-2 flex items-center justify-center shadow-[3px_3px_0px_#000] select-none pointer-events-none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5" strokeLinecap="round" className="w-10 h-10">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          className="w-10 h-10"
+        >
           <circle cx="9" cy="9" r="1.5" fill="#000" />
           <circle cx="15" cy="9" r="1.5" fill="#000" />
           <path d="M6,14 Q12,20 18,14" />
         </svg>
       </div>
-    )
+    ),
   },
   // 1: Pink Smiley
   {
     render: () => (
       <div className="w-16 h-16 rounded-full border-3 border-black bg-brand-pink flex items-center justify-center shadow-[3px_3px_0px_#000] select-none pointer-events-none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="2.5" strokeLinecap="round" className="w-10 h-10">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          className="w-10 h-10"
+        >
           <circle cx="9" cy="9" r="1.5" fill="#000" />
           <circle cx="15" cy="9" r="1.5" fill="#000" />
           <path d="M6,14 Q12,17 18,14" />
         </svg>
       </div>
-    )
+    ),
   },
   // 2: 100% Human Stamp
   {
@@ -42,7 +56,7 @@ const STICKER_TYPES = [
       <div className="px-4 py-2 border-3 border-black bg-brand rounded-xl shadow-[4px_4px_0px_#000] text-black font-display font-black text-xs tracking-wider uppercase select-none pointer-events-none text-center transform -skew-x-6">
         100% Human
       </div>
-    )
+    ),
   },
   // 3: Ship it! Badge
   {
@@ -50,7 +64,7 @@ const STICKER_TYPES = [
       <div className="px-4 py-2 border-3 border-black bg-brand-blue rounded-xl shadow-[4px_4px_0px_#000] text-black font-display font-black text-xs tracking-wider uppercase select-none pointer-events-none text-center">
         🚀 Ship it!
       </div>
-    )
+    ),
   },
   // 4: GLAD Badge
   {
@@ -58,7 +72,7 @@ const STICKER_TYPES = [
       <div className="px-4 py-2 border-3 border-black bg-brand-purple text-white rounded-xl shadow-[4px_4px_0px_#000] font-display font-black text-sm tracking-widest select-none pointer-events-none text-center">
         GLAD⚡
       </div>
-    )
+    ),
   },
   // 5: WOW Bubble
   {
@@ -68,7 +82,7 @@ const STICKER_TYPES = [
         <div className="absolute bottom-[-10px] left-1/4 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[10px] border-t-black" />
         <div className="absolute bottom-[-6px] left-1/4 w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[6px] border-t-white" />
       </div>
-    )
+    ),
   },
   // 6: Sparkle
   {
@@ -78,7 +92,7 @@ const STICKER_TYPES = [
           <path d="M 50,0 C 50,35 65,50 100,50 C 65,50 50,65 50,100 C 50,65 35,50 0,50 C 35,50 50,35 50,0 Z" />
         </svg>
       </div>
-    )
+    ),
   },
   // 7: Custom Code Star
   {
@@ -88,7 +102,7 @@ const STICKER_TYPES = [
           <path d="M 50,0 C 50,35 65,50 100,50 C 65,50 50,65 50,100 C 50,65 35,50 0,50 C 35,50 50,35 50,0 Z" />
         </svg>
       </div>
-    )
+    ),
   },
   // 8: Bespoke Stamp
   {
@@ -96,8 +110,8 @@ const STICKER_TYPES = [
       <div className="px-3.5 py-1.5 border-3 border-black bg-brand-2 rounded-full shadow-[3px_3px_0px_#000] text-black font-display font-extrabold text-[11px] uppercase tracking-wider select-none pointer-events-none text-center">
         🎨 Bespoke
       </div>
-    )
-  }
+    ),
+  },
 ];
 
 export function StickerBoard() {
@@ -129,7 +143,9 @@ export function StickerBoard() {
       // Check if clicking inside interactive elements
       const target = e.target as HTMLElement;
       if (
-        target.closest("a, button, input, select, textarea, [role='button'], iframe, .interactive-card, header, footer")
+        target.closest(
+          "a, button, input, select, textarea, [role='button'], iframe, .interactive-card, header, footer",
+        )
       ) {
         return;
       }
@@ -147,7 +163,7 @@ export function StickerBoard() {
         y,
         type,
         rotation,
-        scale
+        scale,
       };
 
       saveStickers([...stickers, newSticker]);
@@ -228,7 +244,7 @@ export function StickerBoard() {
                 left: sticker.x,
                 top: sticker.y,
                 x: "-50%",
-                y: "-50%"
+                y: "-50%",
               }}
               drag
               dragMomentum={false}
@@ -237,7 +253,7 @@ export function StickerBoard() {
               transition={{
                 type: "spring",
                 stiffness: 260,
-                damping: 20
+                damping: 20,
               }}
               whileHover={{ scale: sticker.scale * 1.1 }}
             >

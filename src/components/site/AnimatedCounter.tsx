@@ -37,4 +37,4 @@ export function AnimatedCounter({
       {display}
     </motion.span>
   );
-} 
+}

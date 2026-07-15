@@ -3,13 +3,16 @@ import type { ReactNode } from "react";
 
 type RevealDirection = "up" | "down" | "left" | "right" | "scale" | "blur";
 
-const directionMap: Record<RevealDirection, { opacity: number; y?: number; x?: number; scale?: number; filter?: string }> = {
-  up:    { opacity: 0, y: 32 },
-  down:  { opacity: 0, y: -32 },
-  left:  { opacity: 0, x: 40 },
+const directionMap: Record<
+  RevealDirection,
+  { opacity: number; y?: number; x?: number; scale?: number; filter?: string }
+> = {
+  up: { opacity: 0, y: 32 },
+  down: { opacity: 0, y: -32 },
+  left: { opacity: 0, x: 40 },
   right: { opacity: 0, x: -40 },
   scale: { opacity: 0, scale: 0.92 },
-  blur:  { opacity: 0, filter: "blur(12px)" },
+  blur: { opacity: 0, filter: "blur(12px)" },
 };
 
 function buildVariants(direction: RevealDirection): Variants {

@@ -5,17 +5,17 @@ import { Database, Smartphone, Sparkles, Hand } from "lucide-react";
 export function Scroll3DElement() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  
+
   // Track scroll position relative to the element
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   // Scroll animations: rotate stack and stretch separation
   const scrollRotate = useTransform(scrollYProgress, [0, 1], [-18, 22]);
   const scrollTranslateY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  
+
   const smoothRotate = useSpring(scrollRotate, { stiffness: 80, damping: 20 });
   const smoothY = useSpring(scrollTranslateY, { stiffness: 80, damping: 20 });
 
@@ -51,7 +51,7 @@ export function Scroll3DElement() {
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
@@ -60,7 +60,7 @@ export function Scroll3DElement() {
       style={{ perspective: 1200 }}
     >
       {/* Playful Drag hint */}
-      <motion.div 
+      <motion.div
         className="absolute top-2 flex items-center gap-1.5 px-3 py-1 rounded-full border-2 border-black bg-white shadow-[2px_2px_0px_#000] text-[10px] font-black uppercase text-black z-40 pointer-events-none"
         animate={{ y: [0, -4, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -77,7 +77,7 @@ export function Scroll3DElement() {
           rotateY: springRotateY,
           rotateZ: smoothRotate,
           y: smoothY,
-          transformStyle: "preserve-3d"
+          transformStyle: "preserve-3d",
         }}
       >
         {/* Layer 1: Database & Automation (Bottom layer) */}
@@ -94,16 +94,22 @@ export function Scroll3DElement() {
           transition={{ type: "spring", stiffness: 220, damping: 18 }}
           className="absolute w-56 h-36 border-3 border-black bg-surface rounded-2xl p-5 shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_var(--color-brand-purple)] flex flex-col justify-between cursor-grab active:cursor-grabbing"
           style={{
-            transformStyle: "preserve-3d"
+            transformStyle: "preserve-3d",
           }}
         >
           <div className="flex items-center justify-between pointer-events-none">
-            <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">01 // AUTOMATION & DATA</span>
+            <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
+              01 // AUTOMATION & DATA
+            </span>
             <Database className="size-4 text-brand-purple" />
           </div>
           <div className="pointer-events-none">
-            <h4 className="font-display font-black text-xs text-foreground">Backend & Integrations</h4>
-            <p className="text-[10px] text-muted-foreground mt-0.5 font-medium">Supabase, Postgres, n8n webhooks</p>
+            <h4 className="font-display font-black text-xs text-foreground">
+              Backend & Integrations
+            </h4>
+            <p className="text-[10px] text-muted-foreground mt-0.5 font-medium">
+              Supabase, Postgres, n8n webhooks
+            </p>
             <div className="w-full bg-border/20 dark:bg-white/10 h-1 mt-2.5 rounded-full overflow-hidden">
               <div className="bg-brand-purple w-[85%] h-full rounded-full animate-pulse" />
             </div>
@@ -124,16 +130,20 @@ export function Scroll3DElement() {
           transition={{ type: "spring", stiffness: 220, damping: 18 }}
           className="absolute w-56 h-36 border-3 border-black bg-surface rounded-2xl p-5 shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_var(--color-brand-blue)] flex flex-col justify-between cursor-grab active:cursor-grabbing"
           style={{
-            transformStyle: "preserve-3d"
+            transformStyle: "preserve-3d",
           }}
         >
           <div className="flex items-center justify-between pointer-events-none">
-            <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">02 // WEB & MOBILE</span>
+            <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
+              02 // WEB & MOBILE
+            </span>
             <Smartphone className="size-4 text-brand-blue" />
           </div>
           <div className="pointer-events-none">
             <h4 className="font-display font-black text-xs text-foreground">SaaS & Flutter Apps</h4>
-            <p className="text-[10px] text-muted-foreground mt-0.5 font-medium">React, Next.js, Flutter stores</p>
+            <p className="text-[10px] text-muted-foreground mt-0.5 font-medium">
+              React, Next.js, Flutter stores
+            </p>
             <div className="w-full bg-border/20 dark:bg-white/10 h-1 mt-2.5 rounded-full overflow-hidden">
               <div className="bg-brand-blue w-[92%] h-full rounded-full" />
             </div>
@@ -154,16 +164,20 @@ export function Scroll3DElement() {
           transition={{ type: "spring", stiffness: 220, damping: 18 }}
           className="absolute w-56 h-36 border-3 border-black bg-surface rounded-2xl p-5 shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_var(--color-brand-pink)] flex flex-col justify-between cursor-grab active:cursor-grabbing"
           style={{
-            transformStyle: "preserve-3d"
+            transformStyle: "preserve-3d",
           }}
         >
           <div className="flex items-center justify-between pointer-events-none">
-            <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">03 // AI SOLUTIONS & MVPS</span>
+            <span className="text-[10px] font-black uppercase tracking-wider text-muted-foreground">
+              03 // AI SOLUTIONS & MVPS
+            </span>
             <Sparkles className="size-4 text-brand-pink" />
           </div>
           <div className="pointer-events-none">
             <h4 className="font-display font-black text-xs text-foreground">AI Agents & v1 MVPs</h4>
-            <p className="text-[10px] text-muted-foreground mt-0.5 font-medium">OpenAI RAG, quick clickable builds</p>
+            <p className="text-[10px] text-muted-foreground mt-0.5 font-medium">
+              OpenAI RAG, quick clickable builds
+            </p>
             <div className="w-full bg-border/20 dark:bg-white/10 h-1 mt-2.5 rounded-full overflow-hidden">
               <div className="bg-brand-pink w-full h-full rounded-full" />
             </div>

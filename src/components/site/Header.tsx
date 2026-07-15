@@ -46,7 +46,7 @@ export function Header() {
     transition.ready.then(() => {
       const endRadius = Math.hypot(
         Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y)
+        Math.max(y, window.innerHeight - y),
       );
 
       // Liquid droplet effect on the incoming theme
@@ -61,26 +61,26 @@ export function Header() {
             clipPath: `circle(${endRadius}px at ${x}px ${y}px)`,
             filter: "brightness(1) blur(0px)",
             transform: "scale(1)",
-          }
+          },
         ],
         {
           duration: 800,
           easing: "cubic-bezier(0.25, 1, 0.5, 1)",
           pseudoElement: "::view-transition-new(root)",
-        }
+        },
       );
 
       // Old theme gets washed away (blurred and scaled up) to add depth to the droplet effect
       document.documentElement.animate(
         [
           { transform: "scale(1)", filter: "blur(0px)", opacity: 1 },
-          { transform: "scale(1.05)", filter: "blur(8px)", opacity: 0 }
+          { transform: "scale(1.05)", filter: "blur(8px)", opacity: 0 },
         ],
         {
           duration: 800,
           easing: "cubic-bezier(0.25, 1, 0.5, 1)",
           pseudoElement: "::view-transition-old(root)",
-        }
+        },
       );
     });
 
@@ -94,7 +94,7 @@ export function Header() {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -102,9 +102,15 @@ export function Header() {
     (async function () {
       const cal = await getCalApi();
       cal("ui", {
-        "hideEventTypeDetails": false,
-        "layout": "month_view",
-        "theme": theme === "dark" || (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"
+        hideEventTypeDetails: false,
+        layout: "month_view",
+        theme:
+          theme === "dark" ||
+          (theme === "system" &&
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+            ? "dark"
+            : "light",
       });
     })();
   }, [theme]);
@@ -160,7 +166,16 @@ export function Header() {
             </button>
             <button
               data-cal-link="arjun-rajput-2mdsis"
-              data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})}
+              data-cal-config={JSON.stringify({
+                layout: "month_view",
+                theme:
+                  theme === "dark" ||
+                  (theme === "system" &&
+                    typeof window !== "undefined" &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches)
+                    ? "dark"
+                    : "light",
+              })}
               className="btn-primary text-sm !py-2 !px-5"
             >
               Book a Call
@@ -226,7 +241,16 @@ export function Header() {
                   <button
                     onClick={() => setOpen(false)}
                     data-cal-link="arjun-rajput-2mdsis"
-                    data-cal-config={JSON.stringify({layout: 'month_view', theme: theme === 'dark' || (theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'})}
+                    data-cal-config={JSON.stringify({
+                      layout: "month_view",
+                      theme:
+                        theme === "dark" ||
+                        (theme === "system" &&
+                          typeof window !== "undefined" &&
+                          window.matchMedia("(prefers-color-scheme: dark)").matches)
+                          ? "dark"
+                          : "light",
+                    })}
                     className="w-full mt-3 btn-primary justify-center text-sm"
                   >
                     Book a Call
@@ -237,8 +261,6 @@ export function Header() {
           )}
         </AnimatePresence>
       </header>
-
-
     </>
   );
 }

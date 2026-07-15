@@ -17,9 +17,9 @@ export function FloatingFooter() {
         layout: "month_view",
         theme:
           theme === "dark" ||
-            (theme === "system" &&
-              typeof window !== "undefined" &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches)
+          (theme === "system" &&
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
             ? "dark"
             : "light",
       });
@@ -49,9 +49,9 @@ export function FloatingFooter() {
     layout: "month_view",
     theme:
       theme === "dark" ||
-        (theme === "system" &&
-          typeof window !== "undefined" &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      (theme === "system" &&
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
         ? "dark"
         : "light",
   });
@@ -69,24 +69,15 @@ export function FloatingFooter() {
           <div className="floating-bar flex items-center justify-between gap-3 px-2.5 py-2 rounded-2xl">
             {/* Quick nav pills */}
             <div className="flex items-center gap-1">
-              <Link
-                to="/services"
-                className="floating-bar-link"
-              >
+              <Link to="/services" className="floating-bar-link">
                 <Briefcase className="size-3.5" />
                 <span className="hidden sm:inline">Services</span>
               </Link>
-              <Link
-                to="/portfolio"
-                className="floating-bar-link"
-              >
+              <Link to="/portfolio" className="floating-bar-link">
                 <Layout className="size-3.5" />
                 <span className="hidden sm:inline">Work</span>
               </Link>
-              <Link
-                to="/contact"
-                className="floating-bar-link"
-              >
+              <Link to="/contact" className="floating-bar-link">
                 <Mail className="size-3.5" />
                 <span className="hidden sm:inline">Contact</span>
               </Link>

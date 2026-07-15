@@ -6,7 +6,11 @@ interface HighlightProps {
   className?: string;
 }
 
-export function HandDrawnCircle({ children, color = "var(--brand-pink)", className = "" }: HighlightProps) {
+export function HandDrawnCircle({
+  children,
+  color = "var(--brand-pink)",
+  className = "",
+}: HighlightProps) {
   return (
     <span className={`relative inline-block px-2 ${className}`}>
       <span className="relative z-10">{children}</span>
@@ -32,7 +36,11 @@ export function HandDrawnCircle({ children, color = "var(--brand-pink)", classNa
   );
 }
 
-export function HandDrawnUnderline({ children, color = "var(--brand-blue)", className = "" }: HighlightProps) {
+export function HandDrawnUnderline({
+  children,
+  color = "var(--brand-blue)",
+  className = "",
+}: HighlightProps) {
   return (
     <span className={`relative inline-block ${className}`}>
       <span className="relative z-10">{children}</span>
@@ -57,7 +65,11 @@ export function HandDrawnUnderline({ children, color = "var(--brand-blue)", clas
   );
 }
 
-export function HandDrawnDoubleStrike({ children, color = "var(--brand-purple)", className = "" }: HighlightProps) {
+export function HandDrawnDoubleStrike({
+  children,
+  color = "var(--brand-purple)",
+  className = "",
+}: HighlightProps) {
   return (
     <span className={`relative inline-block ${className}`}>
       <span className="relative z-10">{children}</span>

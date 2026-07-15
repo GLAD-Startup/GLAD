@@ -24,15 +24,16 @@ export const Route = createFileRoute("/portfolio/$slug")({
           { property: "og:url", content: `/portfolio/${loaderData.project.slug}` },
         ]
       : [],
-    links: loaderData
-      ? [{ rel: "canonical", href: `/portfolio/${loaderData.project.slug}` }]
-      : [],
+    links: loaderData ? [{ rel: "canonical", href: `/portfolio/${loaderData.project.slug}` }] : [],
   }),
   notFoundComponent: () => (
     <div className="min-h-screen grid place-items-center">
       <div className="text-center">
         <h1 className="text-2xl font-semibold">Project not found</h1>
-        <Link to="/portfolio" className="mt-4 inline-block text-muted-foreground hover:text-foreground transition-colors">
+        <Link
+          to="/portfolio"
+          className="mt-4 inline-block text-muted-foreground hover:text-foreground transition-colors"
+        >
           ← Back to portfolio
         </Link>
       </div>
@@ -56,8 +57,12 @@ function ProjectPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link to="/portfolio" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-              <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform" /> All projects
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group"
+            >
+              <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform" />{" "}
+              All projects
             </Link>
           </motion.div>
 
@@ -74,7 +79,9 @@ function ProjectPage() {
               <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight">
                 <span className="text-gradient">{p.name}</span>
               </h1>
-              <p className="mt-5 text-lg text-muted-foreground max-w-xl leading-relaxed">{p.short}</p>
+              <p className="mt-5 text-lg text-muted-foreground max-w-xl leading-relaxed">
+                {p.short}
+              </p>
             </motion.div>
 
             <motion.div
@@ -83,13 +90,22 @@ function ProjectPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="glass-card p-6"
             >
-              <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Tech Stack</div>
+              <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
+                Tech Stack
+              </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {p.tech.map((t: string) => (
-                  <span key={t} className="text-xs rounded-full border border-border px-3 py-1 text-muted-foreground">{t}</span>
+                  <span
+                    key={t}
+                    className="text-xs rounded-full border border-border px-3 py-1 text-muted-foreground"
+                  >
+                    {t}
+                  </span>
                 ))}
               </div>
-              <div className="mt-6 text-xs uppercase tracking-wider text-muted-foreground font-medium">Outcome</div>
+              <div className="mt-6 text-xs uppercase tracking-wider text-muted-foreground font-medium">
+                Outcome
+              </div>
               <p className="mt-2 text-sm font-medium">{p.outcome}</p>
             </motion.div>
           </div>
@@ -146,8 +162,6 @@ function ProjectPage() {
         </div>
       </section>
 
-
-
       {/* CTA */}
       <section className="relative py-24">
         <div className="mx-auto max-w-4xl px-6 text-center">
@@ -155,10 +169,7 @@ function ProjectPage() {
             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
               Have a similar project in mind?
             </h2>
-            <Link
-              to="/contact"
-              className="mt-8 btn-primary inline-flex animate-pulse-glow"
-            >
+            <Link to="/contact" className="mt-8 btn-primary inline-flex animate-pulse-glow">
               Book a free consultation <ArrowRight className="size-4" />
             </Link>
           </Reveal>

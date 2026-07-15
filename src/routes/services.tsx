@@ -7,16 +7,9 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
 import { services } from "@/components/site/data";
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { Flowing3DPrism } from "@/components/site/Flowing3DPrism";
 import { StickerBoard } from "@/components/site/StickerBoard";
 import { HandDrawnCircle, HandDrawnUnderline } from "@/components/site/HandDrawnHighlights";
-import {
-  Rocket,
-  Layout,
-  Smartphone,
-  Sparkles,
-  Workflow,
-} from "lucide-react";
+import { Rocket, Layout, Smartphone, Sparkles, Workflow } from "lucide-react";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -52,27 +45,27 @@ const serviceCardColors = {
   mvp: {
     shadow: "var(--brand-pink)",
     iconBg: "linear-gradient(135deg, var(--brand-pink) 0%, #FF66B2 100%)",
-    iconText: "text-white"
+    iconText: "text-white",
   },
   web: {
     shadow: "var(--brand-blue)",
     iconBg: "linear-gradient(135deg, var(--brand-blue) 0%, #66F5FF 100%)",
-    iconText: "text-black"
+    iconText: "text-black",
   },
   mobile: {
     shadow: "var(--brand-purple)",
     iconBg: "linear-gradient(135deg, var(--brand-purple) 0%, #C994FF 100%)",
-    iconText: "text-white"
+    iconText: "text-white",
   },
   ai: {
     shadow: "var(--brand-2)",
     iconBg: "linear-gradient(135deg, var(--brand-2) 0%, #FFE680 100%)",
-    iconText: "text-black"
+    iconText: "text-black",
   },
   automation: {
-    shadow: "var(--brand)",
+    shadow: "var(--team-calm)",
     iconBg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)",
-    iconText: "text-white"
+    iconText: "text-white",
   },
 } as const;
 
@@ -98,39 +91,39 @@ function ServicesPage() {
               Services
             </div>
             <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1] text-foreground">
-              Built for <HandDrawnUnderline color="var(--brand-pink)">ambitious teams.</HandDrawnUnderline>
+              Built for{" "}
+              <HandDrawnUnderline color="var(--brand-pink)">ambitious teams.</HandDrawnUnderline>
             </h1>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              Five focused services — each delivered by senior engineers, with clear
-              timelines, fixed scope, and code you fully own.
+              Five focused services — each delivered by senior engineers, with clear timelines,
+              fixed scope, and code you fully own.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services list centered with Flowing 3D Prism */}
+      {/* Services list centered */}
       <section ref={sectionRef} className="relative pb-28 overflow-visible">
-        {/* Dynamic 3D Floating Companion */}
-        <Flowing3DPrism />
-
         <div className="mx-auto max-w-5xl px-6 space-y-8 relative z-20">
           {services.map((s, i) => {
             const Icon = serviceIcons[s.slug];
             const colors = serviceCardColors[s.slug];
             return (
               <Reveal key={s.slug} delay={i * 0.04}>
-                <article 
+                <article
                   id={`service-${s.slug}`}
-                  className="surface-card interactive-card shine-on-hover p-8 md:p-12 grid gap-10 lg:grid-cols-3 relative z-20"
-                  style={{
-                    // @ts-ignore
-                    "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                  } as React.CSSProperties}
+                  className="surface-card interactive-card shine-on-hover p-8 md:p-12 grid gap-10 lg:grid-cols-3 relative z-20 calm-card-custom"
+                  style={
+                    {
+                      // @ts-ignore
+                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
+                    } as React.CSSProperties
+                  }
                 >
                   <div className="lg:col-span-2">
                     <div className="flex items-center gap-3 mb-3">
                       {Icon && (
-                        <div 
+                        <div
                           className={`size-10 rounded-lg grid place-items-center shadow-lg ${colors.iconText}`}
                           style={{ background: colors.iconBg }}
                         >
@@ -142,7 +135,9 @@ function ServicesPage() {
                       </div>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">{s.title}</h2>
-                    <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">{s.description}</p>
+                    <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
+                      {s.description}
+                    </p>
 
                     <h3 className="mt-8 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                       Benefits
@@ -150,7 +145,7 @@ function ServicesPage() {
                     <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                       {s.benefits.map((b) => (
                         <li key={b} className="flex items-start gap-2.5 text-sm">
-                          <div 
+                          <div
                             className="size-5 rounded-full grid place-items-center mt-0.5 shrink-0 text-white"
                             style={{ background: colors.iconBg }}
                           >
@@ -168,7 +163,10 @@ function ServicesPage() {
                       </h3>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {s.tech.map((t) => (
-                          <span key={t} className="text-xs rounded-full border border-border px-3 py-1 text-muted-foreground">
+                          <span
+                            key={t}
+                            className="text-xs rounded-full border border-border px-3 py-1 text-muted-foreground"
+                          >
                             {t}
                           </span>
                         ))}
@@ -180,10 +178,7 @@ function ServicesPage() {
                       </h3>
                       <p className="mt-2 text-xl font-semibold text-gradient">{s.timeline}</p>
                     </div>
-                    <Link
-                      to="/contact"
-                      className="btn-primary text-sm"
-                    >
+                    <Link to="/contact" className="btn-primary text-sm">
                       Start a project <ArrowRight className="size-4" />
                     </Link>
                   </div>
