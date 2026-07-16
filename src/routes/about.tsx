@@ -13,7 +13,6 @@ import {
 } from "@/components/site/HandDrawnHighlights";
 import { RetroStar, SparkleDeco, CurlyArrow } from "@/components/site/RetroDecorations";
 import { StickerBoard } from "@/components/site/StickerBoard";
-import { RocketMan } from "@/components/site/RocketMan";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -115,7 +114,6 @@ const teamColors = [
 function AboutPage() {
   return (
     <div className="min-h-screen relative">
-      <RocketMan />
       <Header />
 
       {/* Hero */}
@@ -196,7 +194,7 @@ function AboutPage() {
                     className="surface-card interactive-card p-7 h-full calm-card-custom"
                     style={
                       {
-                        // @ts-ignore
+                        // @ts-expect-error: custom CSS property shadow-card-hover
                         "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
                       } as React.CSSProperties
                     }
@@ -232,7 +230,7 @@ function AboutPage() {
                     className="surface-card interactive-card overflow-hidden group h-full flex flex-col calm-card-custom"
                     style={
                       {
-                        // @ts-ignore
+                        // @ts-expect-error: custom CSS property shadow-card-hover
                         "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
                       } as React.CSSProperties
                     }

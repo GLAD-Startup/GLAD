@@ -829,6 +829,45 @@
   --shadow-glow: 0 0 20px -4px color-mix(in oklab, #b3cebe 10%, transparent);
 }
 
+/* ── Subtle Green Card Override ─────────────────────── */
+.subtle-green-card {
+  --brand: #2d6a4f;
+  --brand-2: #40916c;
+  --brand-3: #52b788;
+  --primary-foreground: #ffffff;
+
+  --gradient-brand: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #52b788 100%);
+  --gradient-brand-soft: linear-gradient(
+    135deg,
+    color-mix(in oklab, #1b4332 10%, transparent) 0%,
+    color-mix(in oklab, #52b788 10%, transparent) 100%
+  );
+  --gradient-text: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+
+  --shadow-card: 4px 4px 0px 0px #1b4332;
+  --shadow-card-hover: 6px 6px 0px 0px #2d6a4f;
+  --shadow-glow: 0 0 20px -4px color-mix(in oklab, #2d6a4f 15%, transparent);
+}
+
+:is(.dark) .subtle-green-card {
+  --brand: #2d6a4f;
+  --brand-2: #40916c;
+  --brand-3: #52b788;
+  --primary-foreground: #ffffff;
+
+  --gradient-brand: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
+  --gradient-brand-soft: linear-gradient(
+    135deg,
+    color-mix(in oklab, #1b4332 8%, transparent) 0%,
+    color-mix(in oklab, #40916c 8%, transparent) 100%
+  );
+  --gradient-text: linear-gradient(135deg, #2d6a4f 0%, #52b788 100%);
+
+  --shadow-card: 4px 4px 0px 0px #1b4332;
+  --shadow-card-hover: 6px 6px 0px 0px #2d6a4f;
+  --shadow-glow: 0 0 20px -4px color-mix(in oklab, #2d6a4f 10%, transparent);
+}
+
 /* ── Book Card Testimonial Styles ───────────────────── */
 .book-card-container {
   perspective: 1500px;
@@ -1153,14 +1192,14 @@
 
 /* Rotate and translate on hover */
 .project-card-3d:hover {
-  transform: translateZ(15px) rotateX(12deg) rotateY(-10deg);
-  box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.12);
+  transform: translateZ(6px) rotateX(4deg) rotateY(-3deg);
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.08);
   border-color: var(--foreground);
 }
 
 :is(.dark) .project-card-3d:hover {
   box-shadow:
-    12px 12px 28px rgba(0, 0, 0, 0.45),
+    8px 8px 20px rgba(0, 0, 0, 0.3),
     var(--shadow-glow);
 }
 
@@ -1174,12 +1213,12 @@
 }
 
 .project-card-3d:hover .project-card-image-wrap {
-  transform: translateZ(25px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.22);
+  transform: translateZ(10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
 }
 
 :is(.dark) .project-card-3d:hover .project-card-image-wrap {
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
 .project-card-3d .project-card-body {
@@ -1191,7 +1230,7 @@
 }
 
 .project-card-3d:hover .project-card-category {
-  transform: translateZ(25px);
+  transform: translateZ(8px);
 }
 
 .project-card-3d .project-card-title {
@@ -1202,12 +1241,12 @@
 }
 
 .project-card-3d:hover .project-card-title {
-  transform: translateZ(40px);
-  text-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
+  transform: translateZ(15px);
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 :is(.dark) .project-card-3d:hover .project-card-title {
-  text-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
 }
 
 .project-card-3d .project-card-description {
@@ -1215,7 +1254,7 @@
 }
 
 .project-card-3d:hover .project-card-description {
-  transform: translateZ(20px);
+  transform: translateZ(8px);
 }
 
 .project-card-3d .project-card-tech {
@@ -1223,7 +1262,7 @@
 }
 
 .project-card-3d:hover .project-card-tech {
-  transform: translateZ(30px);
+  transform: translateZ(12px);
 }
 
 /* Individual Badge Shadows */
@@ -1236,10 +1275,10 @@
 }
 
 .project-card-3d:hover .project-card-badge {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   border-color: var(--foreground);
 }
 
 :is(.dark) .project-card-3d:hover .project-card-badge {
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
 }

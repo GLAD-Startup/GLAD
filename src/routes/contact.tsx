@@ -119,7 +119,7 @@ function ContactPage() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="glass-card p-12 text-center"
+                className="glass-card subtle-green-card p-12 text-center"
               >
                 <div className="mx-auto size-16 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground shadow-lg shadow-[var(--brand)]/20">
                   <Check className="size-8" />
@@ -130,7 +130,7 @@ function ContactPage() {
                 </p>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="glass-card p-8 space-y-5">
+              <form onSubmit={handleSubmit} className="glass-card subtle-green-card p-8 space-y-5">
                 <div>
                   <h2 className="text-xl font-semibold tracking-tight">Project enquiry</h2>
                   <p className="mt-1 text-sm text-muted-foreground">

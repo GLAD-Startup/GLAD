@@ -751,7 +751,7 @@ function ContactForm({
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="glass-card p-10 text-center"
+        className="glass-card subtle-green-card p-10 text-center"
       >
         <div className="mx-auto size-14 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground shadow-lg shadow-[var(--brand)]/20">
           <Check className="size-7" />
@@ -789,7 +789,7 @@ function ContactForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="glass-card p-7 space-y-4">
+    <form onSubmit={handleSubmit} className="glass-card subtle-green-card p-7 space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Name" name="name" placeholder="Your name" required />
         <Field label="Email" name="email" type="email" placeholder="you@company.com" required />
