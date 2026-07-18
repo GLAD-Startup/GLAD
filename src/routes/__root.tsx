@@ -159,9 +159,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var storageKey = "glad-ui-theme-v2";
+                  var theme = localStorage.getItem(storageKey);
+                  var defaultTheme = "dark";
+                  var finalTheme = theme || defaultTheme;
+                  
+                  if (finalTheme === "system") {
+                    finalTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                  }
+                  
+                  if (finalTheme === "dark") {
+                    document.documentElement.classList.add("dark");
+                  } else {
+                    document.documentElement.classList.remove("dark");
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         <ThemeProvider defaultTheme="dark" storageKey="glad-ui-theme-v2">
