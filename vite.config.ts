@@ -8,6 +8,9 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
+    server: {
+      port: 4001,
+    },
     plugins: [tailwindcss()],
     base: "/",
     build: {
@@ -29,5 +32,7 @@ export default defineConfig({
       },
     },
   },
-  nitro: true,
+  nitro: {
+    preset: "node-server",
+  },
 });

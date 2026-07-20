@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "vite build && node -e \"const fs=require('fs'); fs.writeFileSync('.output/server/index.mjs', fs.readFileSync('.output/server/index.mjs', 'utf8').replace('? 3e3 :', '? 4001 :'))\"",
     "build:dev": "vite build --mode development",
-    "preview": "wrangler dev -c .output/server/wrangler.json",
+    "preview": "node .output/server/index.mjs",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
