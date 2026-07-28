@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import logoUrl from "./images/main logo.png";
 import { ThemeProvider } from "../components/theme-provider";
 import { FloatingFooter } from "../components/site/FloatingFooter";
+import { CookieConsent } from "../components/site/CookieConsent";
 
 function NotFoundComponent() {
   return (
@@ -243,6 +244,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <FloatingFooter />
+      <CookieConsent />
     </QueryClientProvider>
   );
 }
