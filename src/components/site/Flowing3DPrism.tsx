@@ -58,8 +58,8 @@ export function Flowing3DPrism() {
   };
 
   // Combine scroll rotation and drag rotation
-  const combinedRotY = useTransform([smoothRotY, dragRotY], ([s, d]) => s + d);
-  const combinedRotX = useTransform([smoothRotX, dragRotX], ([s, d]) => s + d);
+  const combinedRotY = useTransform([smoothRotY, dragRotY], ([s, d]) => (s as number) + (d as number));
+  const combinedRotX = useTransform([smoothRotX, dragRotX], ([s, d]) => (s as number) + (d as number));
 
   // Solid Cube faces (translateZ is exactly half of width/height: 64px)
   const faces = [

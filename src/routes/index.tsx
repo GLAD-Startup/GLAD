@@ -614,12 +614,20 @@ function Testimonials() {
                         "{t.quote}"
                       </blockquote>
                       <div className="mt-4 flex items-center gap-3 pt-4 border-t border-border/50">
-                        <div className="size-8 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-xs font-semibold">
-                          {t.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </div>
+                        {t.logo ? (
+                          <img
+                            src={t.logo}
+                            alt={t.name}
+                            className="h-9 w-auto max-w-[120px] object-contain rounded-lg bg-white p-1 border border-border/50 shadow-sm shrink-0"
+                          />
+                        ) : (
+                          <div className="size-8 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-xs font-semibold">
+                            {t.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </div>
+                        )}
                         <div>
                           <div className="text-xs font-semibold text-foreground">{t.name}</div>
                           <div className="text-[10px] text-muted-foreground">{t.role}</div>
@@ -629,12 +637,20 @@ function Testimonials() {
 
                     {/* Book Cover (swings open on hover) */}
                     <div className="book-card-cover">
-                      <div className="size-10 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-sm font-bold shadow-sm shadow-[var(--brand)]/10">
-                        {t.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </div>
+                      {t.logo ? (
+                        <img
+                          src={t.logo}
+                          alt={t.name}
+                          className="self-start h-12 w-auto max-w-[160px] object-contain rounded-xl bg-white p-1.5 border border-border/50 shadow-md"
+                        />
+                      ) : (
+                        <div className="self-start size-10 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-sm font-bold shadow-sm shadow-[var(--brand)]/10">
+                          {t.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </div>
+                      )}
                       <div className="flex-1 flex flex-col justify-center py-4 pl-4">
                         <Quote className="size-7 text-brand mb-2 opacity-80" />
                         <h4 className="text-base font-bold tracking-tight text-foreground line-clamp-1">

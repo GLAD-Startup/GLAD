@@ -17,6 +17,9 @@ import leadEnrichmentImage2 from "@/routes/images/projects/data-enrichment-to-en
 import qSafeThumbnail from "@/routes/images/projects/qsafe thumbnail.png";
 import qSafeImage1 from "@/routes/images/projects/q safe.png";
 import qSafeImage2 from "@/routes/images/projects/Top-Secure-File-Transfer-Software-Solutions.webp";
+import prayasLogo from "@/routes/images/prayas.jpg";
+import glaCanteenLogo from "@/routes/images/gla canteen.png";
+import earthTravelsLogo from "@/routes/images/earth travels.png";
 
 export const services = [
   {
@@ -230,18 +233,21 @@ export const testimonials = [
       "The Prayas App transformed how we coordinate blood donations and health equipment lending. It's now the backbone of our community outreach.",
     name: "Prayas NGO Team",
     role: "Prayas NGO",
+    logo: prayasLogo,
   },
   {
     quote:
-      "The AI Mock Interview platform feels like a real interview experience. The feedback and scoring helped our candidates prepare with confidence.",
-    name: "Hiring Team Lead",
-    role: "AI Mock Interview User",
+      "GLA Canteen Stock Management transformed our daily inventory tracking and order workflow, giving us clear visibility into stock levels and sales.",
+    name: "Rakesh Khetan",
+    role: "Owner, GLA Canteen",
+    logo: glaCanteenLogo,
   },
   {
     quote:
-      "Q-SAFE gave us exactly what we needed — secure, encrypted file sharing with full control over access. It replaced three tools we were stitching together.",
-    name: "IT Security Manager",
-    role: "Q-SAFE Client",
+      "The website developed for Earth Travels India presents our travel packages and services beautifully, significantly elevating our online presence.",
+    name: "Nitesh Khandelwal",
+    role: "Owner, Earth Travels",
+    logo: earthTravelsLogo,
   },
 ];
 

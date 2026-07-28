@@ -194,7 +194,6 @@ function AboutPage() {
                     className="surface-card interactive-card p-7 h-full calm-card-custom"
                     style={
                       {
-                        // @ts-expect-error: custom CSS property shadow-card-hover
                         "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
                       } as React.CSSProperties
                     }
@@ -230,7 +229,6 @@ function AboutPage() {
                     className="surface-card interactive-card overflow-hidden group h-full flex flex-col calm-card-custom"
                     style={
                       {
-                        // @ts-expect-error: custom CSS property shadow-card-hover
                         "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
                       } as React.CSSProperties
                     }
