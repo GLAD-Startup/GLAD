@@ -158,6 +158,22 @@ export function Footer() {
                   About
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/privacy"
+                  className="hover:text-brand transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/terms"
+                  className="hover:text-brand-3 transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  Terms of Service
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -257,6 +273,15 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t-2 border-border flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground font-medium">
           <p>© {new Date().getFullYear()} GLAD studio. All rights reserved.</p>
+          <div className="flex items-center gap-3">
+            <Link to="/privacy" className="hover:text-foreground transition-colors">
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link to="/terms" className="hover:text-foreground transition-colors">
+              Terms of Service
+            </Link>
+          </div>
           <button
             onClick={scrollToTop}
             className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors group cursor-pointer"

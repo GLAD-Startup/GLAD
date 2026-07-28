@@ -17,6 +17,9 @@ import leadEnrichmentImage2 from "@/routes/images/projects/data-enrichment-to-en
 import qSafeThumbnail from "@/routes/images/projects/qsafe thumbnail.png";
 import qSafeImage1 from "@/routes/images/projects/q safe.png";
 import qSafeImage2 from "@/routes/images/projects/Top-Secure-File-Transfer-Software-Solutions.webp";
+import prayasLogo from "@/routes/images/prayas.jpg";
+import glaCanteenLogo from "@/routes/images/gla canteen.png";
+import earthTravelsLogo from "@/routes/images/earth travels.png";
 
 export const services = [
   {
@@ -230,25 +233,28 @@ export const testimonials = [
       "The Prayas App transformed how we coordinate blood donations and health equipment lending. It's now the backbone of our community outreach.",
     name: "Prayas NGO Team",
     role: "Prayas NGO",
+    logo: prayasLogo,
   },
   {
     quote:
-      "The AI Mock Interview platform feels like a real interview experience. The feedback and scoring helped our candidates prepare with confidence.",
-    name: "Hiring Team Lead",
-    role: "AI Mock Interview User",
+      "GLA Canteen Stock Management transformed our daily inventory tracking and order workflow, giving us clear visibility into stock levels and sales.",
+    name: "Rakesh Khetan",
+    role: "Owner, GLA Canteen",
+    logo: glaCanteenLogo,
   },
   {
     quote:
-      "Q-SAFE gave us exactly what we needed — secure, encrypted file sharing with full control over access. It replaced three tools we were stitching together.",
-    name: "IT Security Manager",
-    role: "Q-SAFE Client",
+      "The website developed for Earth Travels India presents our travel packages and services beautifully, significantly elevating our online presence.",
+    name: "Nitesh Khandelwal",
+    role: "Owner, Earth Travels",
+    logo: earthTravelsLogo,
   },
 ];
 
 export const faqs = [
   {
     q: "How much does a typical project cost?",
-    a: "We build on a transparent, fixed-scope, fixed-price milestone basis. Because we do not work with open-ended hourly billing, you know your exact investment before we write the first line of code. Our engagements typically fall into three clear brackets: custom MVP developments launch between $10k–$20k, comprehensive multi-tenant SaaS platforms range from $25k–$50k, and targeted AI or business automation pipelines are delivered between $5k–$15k. Every proposal includes a detailed visual feature roadmap and a guaranteed delivery date.",
+    a: "Every project is custom-scoped based on your specific requirements, feature complexity, and timeline. We work on a transparent, fixed-price milestone basis — meaning after an initial discovery call, you receive a detailed proposal with a fixed quote and guaranteed delivery timeline before any code is written.",
   },
   {
     q: "How fast can you start?",
@@ -256,10 +262,26 @@ export const faqs = [
   },
   {
     q: "Do you work with non-technical founders?",
-    a: "Yes — most of our clients are non-technical. We translate ideas into specs, designs, and shipped product, and we make sure you always understand the trade-offs.",
+    a: "Yes — most of our clients are non-technical. We translate ideas into clear technical specifications, user-friendly designs, and shipped products, ensuring you always understand the trade-offs at every step.",
+  },
+  {
+    q: "Who owns the code and intellectual property?",
+    a: "You own 100% of all intellectual property, source code, designs, and project assets from day one. Upon final milestone completion, full repository access and credentials are handed over.",
+  },
+  {
+    q: "How do we track progress during development?",
+    a: "We work in structured 2-week sprints with weekly async updates, active messaging channels (Slack/Discord), and direct access to a live staging environment so you can test features as they are built.",
+  },
+  {
+    q: "Can you build on top of our existing codebase or tech stack?",
+    a: "Yes. Whether upgrading an existing application, refactoring legacy code, or integrating new AI features and third-party APIs, we can seamlessly audit and build directly within your current codebase.",
+  },
+  {
+    q: "What tech stack do you specialize in?",
+    a: "We focus on modern, type-safe, and scalable web and mobile stacks — primarily React, Next.js, TanStack Start, TypeScript, Node.js, Python, Flutter, Tailwind CSS, and cloud platforms like AWS and Vercel.",
   },
   {
     q: "What happens after launch?",
-    a: "We offer ongoing support packages for bug fixes, performance, and new features. Many clients keep us on as a fractional product team.",
+    a: "We provide dedicated post-launch support for bug fixes, performance monitoring, and maintenance. Many of our clients continue working with us long-term as their dedicated development team.",
   },
 ];
