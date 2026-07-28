@@ -254,7 +254,7 @@ export const testimonials = [
 export const faqs = [
   {
     q: "How much does a typical project cost?",
-    a: "We build on a transparent, fixed-scope, fixed-price milestone basis. Because we do not work with open-ended hourly billing, you know your exact investment before we write the first line of code. Our engagements typically fall into three clear brackets: custom MVP developments launch between $10k–$20k, comprehensive multi-tenant SaaS platforms range from $25k–$50k, and targeted AI or business automation pipelines are delivered between $5k–$15k. Every proposal includes a detailed visual feature roadmap and a guaranteed delivery date.",
+    a: "Every project is custom-scoped based on your specific requirements, feature complexity, and timeline. We work on a transparent, fixed-price milestone basis — meaning after an initial discovery call, you receive a detailed proposal with a fixed quote and guaranteed delivery timeline before any code is written.",
   },
   {
     q: "How fast can you start?",
