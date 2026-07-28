@@ -1,0 +1,30 @@
+# GLAD Studio
+
+> Full-service software studio specializing in AI-powered web applications, mobile app development, data engineering, and business automation.
+
+## Core Capabilities
+- **MVP Development**: High-velocity v1 creation for startups (4–8 week delivery timeline).
+- **Web Application Development**: Scalable SaaS platforms, custom dashboards, and web portals using React, TypeScript, and TanStack.
+- **Mobile Development**: Cross-platform Android & iOS applications using Flutter and React Native.
+- **AI & Automation**: Custom LLM integrations, conversational AI, automated lead enrichment, and workflow orchestration.
+
+## Primary Routes & Pages
+- Homepage: https://gladstudio.net/
+- Services: https://gladstudio.net/services
+- Portfolio: https://gladstudio.net/portfolio
+- Process: https://gladstudio.net/process
+- About: https://gladstudio.net/about
+- Contact: https://gladstudio.net/contact
+
+## Featured Portfolio Case Studies
+- **Fluxor**: Automated Document Orchestration & Asset Classification Engine (https://gladstudio.net/portfolio/fluxor)
+- **Prayas App**: Decentralized Medical Inventory Control & Resource Logistics Platform (https://gladstudio.net/portfolio/prayas-app)
+- **Stock Management**: Multi-Tenant Enterprise Inventory & Supply Chain Suite (https://gladstudio.net/portfolio/stock-management)
+- **AI Mock Interview**: Low-Latency Conversational AI Technical Assessment Engine (https://gladstudio.net/portfolio/ai-mock-interview)
+- **Lead Enrichment**: High-Throughput Lead Sourcing & Automated Data Cleansing Pipeline (https://gladstudio.net/portfolio/lead-enrichment)
+- **Q-SAFE**: Zero-Knowledge Encrypted Secure File Transmission Portal (https://gladstudio.net/portfolio/q-safe)
+
+## Contact Information
+- Email: hello@gladstudio.net
+- Website: https://gladstudio.net
+- Location: India (Serving global client base)

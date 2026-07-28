@@ -17,21 +17,60 @@ import { StickerBoard } from "@/components/site/StickerBoard";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — GLAD studio" },
+      { title: "About Us — GLAD studio" },
       {
         name: "description",
         content:
           "We build products, not just software. A senior team of engineers helping startups and businesses bring ideas to life.",
       },
-      { property: "og:title", content: "About — GLAD studio" },
+      { property: "og:title", content: "About Us — GLAD studio" },
       {
         property: "og:description",
         content:
           "We build products, not just software. A senior team of engineers helping startups and businesses bring ideas to life.",
       },
-      { property: "og:url", content: "/about" },
+      { property: "og:url", content: "https://gladstudio.net/about" },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: "https://gladstudio.net/about" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "AboutPage",
+              "@id": "https://gladstudio.net/about/#webpage",
+              url: "https://gladstudio.net/about",
+              name: "About Us — GLAD studio",
+              description:
+                "We build products, not just software. A senior team of engineers helping startups and businesses bring ideas to life.",
+              isPartOf: {
+                "@id": "https://gladstudio.net/#website",
+              },
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://gladstudio.net/about/#breadcrumb",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://gladstudio.net",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "About",
+                  item: "https://gladstudio.net/about",
+                },
+              ],
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: AboutPage,
 });

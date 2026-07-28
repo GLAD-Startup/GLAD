@@ -131,22 +131,60 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          name: "Glad Studio",
-          url: "https://gladstudio.net",
-          logo: "https://gladstudio.net/og-image.png",
-          description: "Web, Mobile & AI development agency",
-          address: {
-            "@type": "PostalAddress",
-            addressCountry: "IN",
-          },
-          serviceType: [
-            "Web Development",
-            "Mobile App Development",
-            "AI Development",
-            "Data Engineering",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://gladstudio.net/#organization",
+              name: "Glad Studio",
+              url: "https://gladstudio.net",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://gladstudio.net/og-image.png",
+              },
+              sameAs: [
+                "https://x.com/_GLAD_Studio",
+                "https://www.linkedin.com/company/glad-studio-2k26",
+                "https://www.instagram.com/__gladstudio/",
+                "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                email: "hello@gladstudio.net",
+                contactType: "customer service",
+              },
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://gladstudio.net/#website",
+              url: "https://gladstudio.net",
+              name: "Glad Studio",
+              publisher: {
+                "@id": "https://gladstudio.net/#organization",
+              },
+              inLanguage: "en-US",
+            },
+            {
+              "@type": "ProfessionalService",
+              "@id": "https://gladstudio.net/#service",
+              name: "Glad Studio",
+              url: "https://gladstudio.net",
+              image: "https://gladstudio.net/og-image.png",
+              description:
+                "Glad Studio is a full-service digital agency specializing in AI-powered web apps, mobile development, and data engineering. Based in India, serving clients globally.",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "IN",
+              },
+              priceRange: "$$",
+              serviceType: [
+                "MVP Development",
+                "Web Application Development",
+                "Mobile App Development",
+                "AI & Machine Learning Solutions",
+                "Data Engineering & Automation",
+              ],
+            },
           ],
-          sameAs: ["https://linkedin.com/company/gladstudio", "https://instagram.com/gladstudio"],
         }),
       },
     ],

@@ -14,21 +14,60 @@ import { Rocket, Layout, Smartphone, Sparkles, Workflow } from "lucide-react";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — GLAD studio" },
+      { title: "Our Services — GLAD studio" },
       {
         name: "description",
         content:
           "MVP development, web and mobile applications, AI solutions and business automation — built by a senior team.",
       },
-      { property: "og:title", content: "Services — GLAD studio" },
+      { property: "og:title", content: "Our Services — GLAD studio" },
       {
         property: "og:description",
         content:
           "MVP development, web and mobile applications, AI solutions and business automation — built by a senior team.",
       },
-      { property: "og:url", content: "/services" },
+      { property: "og:url", content: "https://gladstudio.net/services" },
     ],
-    links: [{ rel: "canonical", href: "/services" }],
+    links: [{ rel: "canonical", href: "https://gladstudio.net/services" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://gladstudio.net/services/#webpage",
+              url: "https://gladstudio.net/services",
+              name: "Our Services — GLAD studio",
+              description:
+                "MVP development, web and mobile applications, AI solutions and business automation — built by a senior team.",
+              isPartOf: {
+                "@id": "https://gladstudio.net/#website",
+              },
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://gladstudio.net/services/#breadcrumb",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://gladstudio.net",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Services",
+                  item: "https://gladstudio.net/services",
+                },
+              ],
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: ServicesPage,
 });

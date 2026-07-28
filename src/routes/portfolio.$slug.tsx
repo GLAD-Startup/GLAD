@@ -21,10 +21,61 @@ export const Route = createFileRoute("/portfolio/$slug")({
           { property: "og:title", content: `${loaderData.project.name} — GLAD studio` },
           { property: "og:description", content: loaderData.project.short },
           { property: "og:type", content: "article" },
-          { property: "og:url", content: `/portfolio/${loaderData.project.slug}` },
+          {
+            property: "og:url",
+            content: `https://gladstudio.net/portfolio/${loaderData.project.slug}`,
+          },
         ]
       : [],
-    links: loaderData ? [{ rel: "canonical", href: `/portfolio/${loaderData.project.slug}` }] : [],
+    links: loaderData
+      ? [{ rel: "canonical", href: `https://gladstudio.net/portfolio/${loaderData.project.slug}` }]
+      : [],
+    scripts: loaderData
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "CreativeWork",
+                  "@id": `https://gladstudio.net/portfolio/${loaderData.project.slug}/#work`,
+                  url: `https://gladstudio.net/portfolio/${loaderData.project.slug}`,
+                  name: loaderData.project.name,
+                  description: loaderData.project.short,
+                  creator: {
+                    "@id": "https://gladstudio.net/#organization",
+                  },
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  "@id": `https://gladstudio.net/portfolio/${loaderData.project.slug}/#breadcrumb`,
+                  itemListElement: [
+                    {
+                      "@type": "ListItem",
+                      position: 1,
+                      name: "Home",
+                      item: "https://gladstudio.net",
+                    },
+                    {
+                      "@type": "ListItem",
+                      position: 2,
+                      name: "Portfolio",
+                      item: "https://gladstudio.net/portfolio",
+                    },
+                    {
+                      "@type": "ListItem",
+                      position: 3,
+                      name: loaderData.project.name,
+                      item: `https://gladstudio.net/portfolio/${loaderData.project.slug}`,
+                    },
+                  ],
+                },
+              ],
+            }),
+          },
+        ]
+      : [],
   }),
   notFoundComponent: () => (
     <div className="min-h-screen grid place-items-center">

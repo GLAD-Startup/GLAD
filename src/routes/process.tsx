@@ -21,20 +21,59 @@ import { StickerBoard } from "@/components/site/StickerBoard";
 export const Route = createFileRoute("/process")({
   head: () => ({
     meta: [
-      { title: "Process — GLAD studio" },
+      { title: "Our Process — GLAD studio" },
       {
         name: "description",
         content:
           "Our development workflow, from discovery call to post-launch support — predictable, transparent, and built to ship.",
       },
-      { property: "og:title", content: "Process — GLAD studio" },
+      { property: "og:title", content: "Our Process — GLAD studio" },
       {
         property: "og:description",
         content: "Our development workflow, from discovery call to post-launch support.",
       },
-      { property: "og:url", content: "/process" },
+      { property: "og:url", content: "https://gladstudio.net/process" },
     ],
-    links: [{ rel: "canonical", href: "/process" }],
+    links: [{ rel: "canonical", href: "https://gladstudio.net/process" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://gladstudio.net/process/#webpage",
+              url: "https://gladstudio.net/process",
+              name: "Our Process — GLAD studio",
+              description:
+                "Our development workflow, from discovery call to post-launch support — predictable, transparent, and built to ship.",
+              isPartOf: {
+                "@id": "https://gladstudio.net/#website",
+              },
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://gladstudio.net/process/#breadcrumb",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://gladstudio.net",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Process",
+                  item: "https://gladstudio.net/process",
+                },
+              ],
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: ProcessPage,
 });

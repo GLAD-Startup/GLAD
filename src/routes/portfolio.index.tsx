@@ -10,20 +10,59 @@ import { motion } from "framer-motion";
 export const Route = createFileRoute("/portfolio/")({
   head: () => ({
     meta: [
-      { title: "Portfolio — GLAD studio" },
+      { title: "Our Portfolio — GLAD studio" },
       {
         name: "description",
         content:
           "Selected projects across SaaS, mobile, AI and business automation — built by GLAD studio for startups and growing businesses.",
       },
-      { property: "og:title", content: "Portfolio — GLAD studio" },
+      { property: "og:title", content: "Our Portfolio — GLAD studio" },
       {
         property: "og:description",
         content: "Selected projects across SaaS, mobile, AI and business automation.",
       },
-      { property: "og:url", content: "/portfolio" },
+      { property: "og:url", content: "https://gladstudio.net/portfolio" },
     ],
-    links: [{ rel: "canonical", href: "/portfolio" }],
+    links: [{ rel: "canonical", href: "https://gladstudio.net/portfolio" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "CollectionPage",
+              "@id": "https://gladstudio.net/portfolio/#webpage",
+              url: "https://gladstudio.net/portfolio",
+              name: "Our Portfolio — GLAD studio",
+              description:
+                "Selected projects across SaaS, mobile, AI and business automation — built by GLAD studio for startups and growing businesses.",
+              isPartOf: {
+                "@id": "https://gladstudio.net/#website",
+              },
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://gladstudio.net/portfolio/#breadcrumb",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://gladstudio.net",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Portfolio",
+                  item: "https://gladstudio.net/portfolio",
+                },
+              ],
+            },
+          ],
+        }),
+      },
+    ],
   }),
   component: PortfolioPage,
 });
