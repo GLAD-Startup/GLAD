@@ -268,7 +268,7 @@ function PrivacyPage() {
                   <li><strong>Right to Restrict or Object to Processing:</strong> Limit or object to automated profiling or marketing communications.</li>
                 </ul>
                 <p>
-                  To exercise any of these rights, submit a formal request to <a href="mailto:legal@gladstudio.net" className="text-brand underline font-semibold">legal@gladstudio.net</a>. We process verified privacy requests within 30 calendar days.
+                  To exercise any of these rights, submit a formal request to <a href="mailto:contact@gladstudio.net" className="text-brand underline font-semibold">contact@gladstudio.net</a>. We process verified privacy requests within 30 calendar days.
                 </p>
               </section>
 
@@ -312,7 +312,7 @@ function PrivacyPage() {
                 </p>
                 <div className="bg-surface p-5 rounded-2xl border border-border space-y-1 font-mono text-xs">
                   <p className="font-bold text-foreground text-sm">GLAD Studio Legal & Compliance</p>
-                  <p>Email: <a href="mailto:legal@gladstudio.net" className="text-brand underline">legal@gladstudio.net</a></p>
+                  <p>Email: <a href="mailto:contact@gladstudio.net" className="text-brand underline">contact@gladstudio.net</a></p>
                   <p>General Contact: <a href="mailto:hello@gladstudio.net" className="text-brand underline">hello@gladstudio.net</a></p>
                   <p>Website: <a href="https://gladstudio.net" className="text-brand underline">https://gladstudio.net</a></p>
                 </div>
