@@ -262,10 +262,26 @@ export const faqs = [
   },
   {
     q: "Do you work with non-technical founders?",
-    a: "Yes — most of our clients are non-technical. We translate ideas into specs, designs, and shipped product, and we make sure you always understand the trade-offs.",
+    a: "Yes — most of our clients are non-technical. We translate ideas into clear technical specifications, user-friendly designs, and shipped products, ensuring you always understand the trade-offs at every step.",
+  },
+  {
+    q: "Who owns the code and intellectual property?",
+    a: "You own 100% of all intellectual property, source code, designs, and project assets from day one. Upon final milestone completion, full repository access and credentials are handed over.",
+  },
+  {
+    q: "How do we track progress during development?",
+    a: "We work in structured 2-week sprints with weekly async updates, active messaging channels (Slack/Discord), and direct access to a live staging environment so you can test features as they are built.",
+  },
+  {
+    q: "Can you build on top of our existing codebase or tech stack?",
+    a: "Yes. Whether upgrading an existing application, refactoring legacy code, or integrating new AI features and third-party APIs, we can seamlessly audit and build directly within your current codebase.",
+  },
+  {
+    q: "What tech stack do you specialize in?",
+    a: "We focus on modern, type-safe, and scalable web and mobile stacks — primarily React, Next.js, TanStack Start, TypeScript, Node.js, Python, Flutter, Tailwind CSS, and cloud platforms like AWS and Vercel.",
   },
   {
     q: "What happens after launch?",
-    a: "We offer ongoing support packages for bug fixes, performance, and new features. Many clients keep us on as a fractional product team.",
+    a: "We provide dedicated post-launch support for bug fixes, performance monitoring, and maintenance. Many of our clients continue working with us long-term as their dedicated development team.",
   },
 ];
