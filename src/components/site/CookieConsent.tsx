@@ -47,7 +47,8 @@ export function CookieConsent() {
               We value your privacy 🍪
             </h4>
             <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-              We use cookies and local storage to optimize your browsing experience, analyze site performance, and protect your data. Read our{" "}
+              We use cookies and local storage to optimize your browsing experience, analyze site
+              performance, and protect your data. Read our{" "}
               <Link
                 to="/privacy"
                 className="text-foreground underline font-semibold hover:text-brand transition-colors"

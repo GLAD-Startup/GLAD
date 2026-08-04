@@ -11,13 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
+import { Route as ProductsSettledeskRouteImport } from './routes/products.settledesk'
+import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
 
 const TermsRoute = TermsRouteImport.update({
@@ -28,6 +32,11 @@ const TermsRoute = TermsRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProcessRoute = ProcessRouteImport.update({
@@ -60,10 +69,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PortfolioRoute,
+} as any)
+const ProductsSettledeskRoute = ProductsSettledeskRouteImport.update({
+  id: '/settledesk',
+  path: '/settledesk',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProductsRoute,
 } as any)
 const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
   id: '/$slug',
@@ -78,10 +102,14 @@ export interface FileRoutesByFullPath {
   '/portfolio': typeof PortfolioRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
+  '/products': typeof ProductsRouteWithChildren
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/products/settledesk': typeof ProductsSettledeskRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,7 +120,10 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/products/settledesk': typeof ProductsSettledeskRoute
   '/portfolio': typeof PortfolioIndexRoute
+  '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -102,10 +133,14 @@ export interface FileRoutesById {
   '/portfolio': typeof PortfolioRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
+  '/products': typeof ProductsRouteWithChildren
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/products/settledesk': typeof ProductsSettledeskRoute
   '/portfolio/': typeof PortfolioIndexRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -116,10 +151,14 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/privacy'
     | '/process'
+    | '/products'
     | '/services'
     | '/terms'
     | '/portfolio/$slug'
+    | '/products/$slug'
+    | '/products/settledesk'
     | '/portfolio/'
+    | '/products/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,7 +169,10 @@ export interface FileRouteTypes {
     | '/services'
     | '/terms'
     | '/portfolio/$slug'
+    | '/products/$slug'
+    | '/products/settledesk'
     | '/portfolio'
+    | '/products'
   id:
     | '__root__'
     | '/'
@@ -139,10 +181,14 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/privacy'
     | '/process'
+    | '/products'
     | '/services'
     | '/terms'
     | '/portfolio/$slug'
+    | '/products/$slug'
+    | '/products/settledesk'
     | '/portfolio/'
+    | '/products/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,6 +198,7 @@ export interface RootRouteChildren {
   PortfolioRoute: typeof PortfolioRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
   ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
 }
@@ -170,6 +217,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/process': {
@@ -214,12 +268,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/': {
+      id: '/products/'
+      path: '/'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof ProductsRoute
+    }
     '/portfolio/': {
       id: '/portfolio/'
       path: '/'
       fullPath: '/portfolio/'
       preLoaderRoute: typeof PortfolioIndexRouteImport
       parentRoute: typeof PortfolioRoute
+    }
+    '/products/settledesk': {
+      id: '/products/settledesk'
+      path: '/settledesk'
+      fullPath: '/products/settledesk'
+      preLoaderRoute: typeof ProductsSettledeskRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof ProductsRoute
     }
     '/portfolio/$slug': {
       id: '/portfolio/$slug'
@@ -245,6 +320,22 @@ const PortfolioRouteWithChildren = PortfolioRoute._addFileChildren(
   PortfolioRouteChildren,
 )
 
+interface ProductsRouteChildren {
+  ProductsSlugRoute: typeof ProductsSlugRoute
+  ProductsSettledeskRoute: typeof ProductsSettledeskRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsSlugRoute: ProductsSlugRoute,
+  ProductsSettledeskRoute: ProductsSettledeskRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -252,6 +343,7 @@ const rootRouteChildren: RootRouteChildren = {
   PortfolioRoute: PortfolioRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,
+  ProductsRoute: ProductsRouteWithChildren,
   ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
 }
