@@ -37,7 +37,8 @@ export const Route = createFileRoute("/contact")({
               "@id": "https://gladstudio.net/contact/#webpage",
               url: "https://gladstudio.net/contact",
               name: "Contact Us — GLAD studio",
-              description: "Let's discuss your project. Book a free 30-minute consultation with GLAD studio.",
+              description:
+                "Let's discuss your project. Book a free 30-minute consultation with GLAD studio.",
               isPartOf: {
                 "@id": "https://gladstudio.net/#website",
               },

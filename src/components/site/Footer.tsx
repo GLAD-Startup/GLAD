@@ -128,6 +128,22 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-muted-foreground font-medium">
               <li>
                 <Link
+                  to="/products"
+                  className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200 font-semibold"
+                >
+                  Products Overview
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products/settledesk"
+                  className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  SettleDesk SaaS
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/services"
                   className="hover:text-brand-pink transition-all hover:translate-x-1.5 inline-block duration-200"
                 >

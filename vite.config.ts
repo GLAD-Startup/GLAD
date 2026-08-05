@@ -1,5 +1,6 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import tailwindcss from "@tailwindcss/vite";
+import path from "path";
 
 export default defineConfig({
   tanstackStart: {
@@ -12,6 +13,11 @@ export default defineConfig({
       port: 4001,
     },
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
     base: "/",
     build: {
       chunkSizeWarningLimit: 2500,
