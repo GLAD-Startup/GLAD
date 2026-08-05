@@ -53,7 +53,7 @@ import realEstateContractImg from "@/routes/images/settledesk/real-estate-contra
 import realEstateAppImg from "@/routes/images/settledesk/real-estate-app.png";
 import corporateServerImg from "@/routes/images/settledesk/corporate-server.png";
 import brokerageBoardroomImg from "@/routes/images/settledesk/brokerage-boardroom.png";
-import securityAboutBgImg from "@/routes/images/settledesk/graphic-design-building-architecture-creative-city-building-vector.png";
+import securityAboutBgImg from "@/routes/images/settledesk/graphic-design-building-architecture-creative-city-building-vector copy.png";
 
 // Video Assets
 import propVideo from "@/routes/images/settledesk/videos/every property always up to date.mp4";
@@ -88,8 +88,8 @@ export const signupFn = createServerFn({ method: "POST" })
       password && password.trim().length >= 8
         ? password.trim()
         : Math.random().toString(36).slice(-8) +
-          Math.random().toString(36).slice(-8).toUpperCase() +
-          "!1a";
+        Math.random().toString(36).slice(-8).toUpperCase() +
+        "!1a";
 
     // 0. Format values
     const rawPhone = contact_phone.replace(/\D/g, "").slice(-10); // Extract last 10 digits
@@ -336,9 +336,8 @@ function Home() {
     <ReactLenis root>
       {showIntro && (
         <div
-          className={`intro-overlay fixed inset-0 z-[100] flex items-center justify-center bg-background transition-opacity duration-800 ${
-            fadeIntro ? "opacity-0 pointer-events-none" : "opacity-100"
-          }`}
+          className={`intro-overlay fixed inset-0 z-[100] flex items-center justify-center bg-background transition-opacity duration-800 ${fadeIntro ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`}
         >
           <video
             ref={videoRef}
@@ -415,11 +414,10 @@ function Home() {
         {!showIntro && (
           <button
             onClick={scrollToTop}
-            className={`fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-gold/20 bg-background/60 backdrop-blur-md text-gold shadow-lg transition-all duration-300 hover:border-gold hover:bg-background/90 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,184,0,0.25)] focus:outline-none cursor-pointer ${
-              showScrollTop
+            className={`fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-gold/20 bg-background/60 backdrop-blur-md text-gold shadow-lg transition-all duration-300 hover:border-gold hover:bg-background/90 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,184,0,0.25)] focus:outline-none cursor-pointer ${showScrollTop
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-4 pointer-events-none"
-            }`}
+              }`}
             aria-label="Back to Top"
           >
             <ArrowUp className="h-5 w-5 stroke-[2.5]" />
@@ -610,15 +608,14 @@ function Hero() {
                 {stats.map((s, i) => (
                   <div
                     key={s.l}
-                    className={`float-stats-${i} ${
-                      i === 0
+                    className={`float-stats-${i} ${i === 0
                         ? "lg:absolute lg:left-[-20px] lg:top-[14%] lg:z-20"
                         : i === 1
                           ? "lg:absolute lg:right-[-10px] lg:top-[28%] lg:z-20"
                           : i === 2
                             ? "lg:absolute lg:left-[-15px] lg:bottom-[34%] lg:z-20"
                             : "lg:absolute lg:right-[-25px] lg:bottom-[20%] lg:z-20"
-                    }`}
+                      }`}
                   >
                     <div data-label={s.l} className="corner-expand-card">
                       <div className="stat-value font-display text-xl font-bold text-navy">
@@ -895,11 +892,10 @@ function Security() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.4 }}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-              className={`group relative rounded-2xl border backdrop-blur-sm p-6 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-1 ${
-                item.color === "navy"
+              className={`group relative rounded-2xl border backdrop-blur-sm p-6 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-1 ${item.color === "navy"
                   ? "bg-gradient-to-br from-navy/[0.06] to-card/90 border-navy/10 hover:border-navy/35 hover:shadow-[0_20px_50px_-12px_rgba(48,76,120,0.12)]"
                   : "bg-gradient-to-br from-gold/15 to-card/90 border-gold/20 hover:border-gold/45 hover:shadow-[0_20px_50px_-12px_rgba(212,175,55,0.14)]"
-              }`}
+                }`}
             >
               <div className="shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-gold/10 to-gold/5 border border-gold/20 flex items-center justify-center transition-all duration-500 group-hover:border-gold/40 group-hover:bg-gold/15 group-hover:scale-110 mb-4">
                 <item.icon className="h-5 w-5 text-gold" />
@@ -1982,11 +1978,10 @@ function AdvancedSecurity() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, amount: 0.4 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className={`group relative rounded-3xl border p-8 md:p-10 transition-all duration-500 hover:-translate-y-1 ${
-                b.color === "navy"
+              className={`group relative rounded-3xl border p-8 md:p-10 transition-all duration-500 hover:-translate-y-1 ${b.color === "navy"
                   ? "bg-gradient-to-br from-navy/[0.06] to-card/90 border-navy/10 hover:border-navy/35 hover:shadow-[0_30px_60px_-15px_rgba(48,76,120,0.12)]"
                   : "bg-gradient-to-br from-gold/15 to-card/90 border-gold/20 hover:border-gold/45 hover:shadow-[0_30px_60px_-15px_rgba(212,175,55,0.14)]"
-              }`}
+                }`}
             >
               <div className="flex items-start justify-between gap-4">
                 <h3 className="font-display text-2xl md:text-3xl font-bold leading-snug text-foreground">
