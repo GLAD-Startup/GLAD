@@ -99,7 +99,7 @@ export const settledeskData: ProductPageData = {
     {
       title: "Enterprise Data Isolation",
       description:
-        "A single unified PostgreSQL database architected for multi-tenant safety at scale.",
+        "A single unified database architected for multi-tenant safety at scale.",
     },
   ],
   steps: [

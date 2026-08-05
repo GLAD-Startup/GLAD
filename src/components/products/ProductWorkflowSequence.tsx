@@ -1,10 +1,11 @@
 import { SectionHeading } from "@/components/site/SectionHeading";
 import type { StepItem } from "@/types/product-page";
 import { ArrowRight, Check } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function ProductWorkflowSequence({ steps }: { steps: readonly StepItem[] }) {
   return (
-    <section className="py-24 relative border-t border-border">
+    <section className="py-24 relative border-t border-border overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Operational Flow"
@@ -15,42 +16,49 @@ export function ProductWorkflowSequence({ steps }: { steps: readonly StepItem[] 
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4 relative">
           {steps.map((step, idx) => (
-            <div
+            <motion.div
               key={step.title}
-              className="surface-card p-6 rounded-2xl flex flex-col justify-between relative group"
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: idx * 0.12 }}
+              className="surface-card p-6 rounded-2xl flex flex-col justify-between relative transition-transform duration-300 ease-out hover:scale-105 hover:z-20 cursor-pointer border border-emerald-500/30 shadow-lg"
             >
               <div>
-                <div className="flex items-center justify-between gap-2 border-b border-border pb-3 mb-4">
-                  <span className="font-mono text-xs font-bold text-[#e5b84c]">0{idx + 1}</span>
-                  <span className="text-[10px] uppercase font-bold font-mono text-muted-foreground bg-surface px-2 py-0.5 rounded border border-border">
+                <div className="flex items-center justify-between gap-2 border-b border-border/60 pb-3.5 mb-4">
+                  <span className="font-mono text-sm font-extrabold text-emerald-400 tracking-wider">
+                    0{idx + 1}
+                  </span>
+                  <span className="text-[10px] uppercase font-bold font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/25 tracking-wider">
                     {step.metric}
                   </span>
                 </div>
 
                 <h3 className="text-xl font-bold font-display text-foreground">{step.title}</h3>
-                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                <p className="mt-2.5 text-xs text-muted-foreground leading-relaxed">
                   {step.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-border space-y-2">
+              <div className="mt-6 pt-4 border-t border-border/60 space-y-2.5">
                 {step.checklist.map((item: string) => (
                   <div
                     key={item}
                     className="flex items-start gap-2 text-[11px] font-medium text-foreground/90"
                   >
-                    <Check className="size-3.5 text-[#e5b84c] shrink-0 mt-0.5" />
+                    <Check className="size-3.5 text-emerald-400 shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </div>
                 ))}
               </div>
 
+              {/* Fully visible connecting flow arrow centered between cards */}
               {idx < steps.length - 1 && (
-                <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-20 text-muted-foreground/40">
-                  <ArrowRight className="size-4" />
+                <div className="hidden lg:flex absolute -right-6 top-1/2 -translate-y-1/2 z-30 size-7 rounded-full bg-background border-2 border-emerald-500 items-center justify-center text-emerald-400 shadow-md">
+                  <ArrowRight className="size-3.5" />
                 </div>
               )}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

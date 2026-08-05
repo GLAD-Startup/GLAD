@@ -12,9 +12,11 @@ import { ProductFeatureSplit } from "@/components/products/ProductFeatureSplit";
 import { ProductPricingTable } from "@/components/products/ProductPricingTable";
 import { ProductFAQAccordion } from "@/components/products/ProductFAQAccordion";
 import { ProductCTA } from "@/components/products/ProductCTA";
-import { DealCascadeSimulator } from "@/components/products/DealCascadeSimulator";
+import { ProductGalleryCarousel } from "@/components/products/ProductGalleryCarousel";
 import { ProductWorkflowSequence } from "@/components/products/ProductWorkflowSequence";
+import { DealCascadeSimulator } from "@/components/products/DealCascadeSimulator";
 import { Lock, FileCheck, Database } from "lucide-react";
+import buildingVectorBg from "@/routes/images/settledesk/graphic-design-building-architecture-creative-city-building-vector copy.png";
 
 export const Route = createFileRoute("/products/settledesk")({
   head: () => ({
@@ -93,84 +95,116 @@ function SettleDeskLandingPage() {
           <ProductThreeTier tiers={settledeskData.threeTier} />
         </Reveal>
 
-        {/* 3. Signature Element: Live Deal Cascade & Commission Split Simulator */}
-        <section className="py-16 relative border-t border-border">
-          <div className="mx-auto max-w-7xl px-6">
-            <Reveal direction="up">
-              <DealCascadeSimulator />
-            </Reveal>
-          </div>
-        </section>
+        {/* 3. Interactive Rotating Product Gallery Carousel */}
+        <Reveal direction="up">
+          <ProductGalleryCarousel />
+        </Reveal>
 
         {/* 4. Core Feature Rows */}
         <Reveal direction="up">
           <ProductFeatureSplit features={settledeskData.features} />
         </Reveal>
 
-        {/* 5. Database Row-Level Security (RLS) Isolation */}
-        <section className="py-24 relative border-t border-border bg-surface/30">
-          <div className="mx-auto max-w-7xl px-6">
-            <SectionHeading
-              eyebrow="Data Isolation"
-              title="Database-Level Row-Level Security (RLS)"
-              sub="Built on PostgreSQL RLS policies. Every brokerage's properties, deals, and financial records stay 100% isolated."
-              center
+        {/* Continuous Vector Background Wrapper spanning Security, Workflow & Story */}
+        <div className="relative isolate overflow-hidden">
+          {/* Continuous Background Watermark Image */}
+          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-30 dark:opacity-20 mix-blend-luminosity">
+            <img
+              src={buildingVectorBg}
+              alt=""
+              className="w-full h-full object-cover object-center brightness-125 dark:brightness-130 contrast-110"
             />
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+          </div>
 
-            <div className="mt-16 grid gap-6 md:grid-cols-3">
-              {settledeskData.securityPillars.map((pillar, idx) => {
-                const Icon = idx === 0 ? Lock : idx === 1 ? FileCheck : Database;
-                return (
-                  <div key={pillar.title} className="surface-card p-6 rounded-2xl">
-                    <div className="size-10 rounded-xl bg-surface border border-border flex items-center justify-center text-[#e5b84c] mb-4">
-                      <Icon className="size-5" />
+          {/* 5. Database Row-Level Security (RLS) Isolation */}
+          <section className="py-24 relative border-t border-border bg-surface/10">
+            <div className="mx-auto max-w-7xl px-6">
+              <SectionHeading
+                eyebrow="Enterprise-Grade Security"
+                title={
+                  <>
+                    Bank-Grade Security. <br />
+                    <span className="gradient-text">Zero Data Leaks Between Tenants.</span>
+                  </>
+                }
+                sub="SettleDesk is built on strict database-level isolation, so every brokerage's data stays completely private — even on a shared platform."
+                center
+              />
+
+              <div className="mt-16 grid gap-6 md:grid-cols-3">
+                {settledeskData.securityPillars.map((pillar, idx) => {
+                  const Icon = idx === 0 ? Lock : idx === 1 ? FileCheck : Database;
+                  return (
+                    <div
+                      key={pillar.title}
+                      className="animated-corner-card surface-card p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
+                    >
+                      <div className="go-corner">
+                        <div className="go-arrow">→</div>
+                      </div>
+                      <div className="size-10 rounded-xl bg-surface border border-border flex items-center justify-center text-[#10b981] mb-4 relative z-10 icon-box transition-all duration-300">
+                        <Icon className="size-5" />
+                      </div>
+                      <h4 className="font-bold text-lg font-display relative z-10 transition-colors duration-300">
+                        {pillar.title}
+                      </h4>
+                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-300">
+                        {pillar.description}
+                      </p>
                     </div>
-                    <h4 className="font-bold text-lg font-display">{pillar.title}</h4>
-                    <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                      {pillar.description}
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/* 6. True 4-Phase Operational Workflow Sequence */}
+          {settledeskData.steps && (
+            <Reveal direction="up">
+              <ProductWorkflowSequence steps={settledeskData.steps} />
+            </Reveal>
+          )}
+
+          {/* 7. Product Origin & Principles */}
+          <section className="py-24 relative border-t border-border">
+            <div className="mx-auto max-w-7xl px-6 grid gap-12 lg:grid-cols-12 items-center">
+              <div className="lg:col-span-6 space-y-6">
+                <div className="text-xs uppercase tracking-widest font-bold text-[#e5b84c]">
+                  {settledeskData.aboutStory.eyebrow}
+                </div>
+                <h3 className="text-3xl md:text-5xl font-bold font-display leading-tight">
+                  {settledeskData.aboutStory.title}
+                </h3>
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  {settledeskData.aboutStory.body1}
+                </p>
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  {settledeskData.aboutStory.body2}
+                </p>
+              </div>
+
+              <div className="lg:col-span-6 grid gap-4 sm:grid-cols-2">
+                {settledeskData.aboutStory.beliefs.map((b) => (
+                  <div
+                    key={b.title}
+                    className="animated-corner-card surface-card p-5 rounded-xl relative overflow-hidden group cursor-pointer"
+                  >
+                    <div className="go-corner">
+                      <div className="go-arrow">→</div>
+                    </div>
+                    <h4 className="font-bold text-sm font-display text-foreground relative z-10 transition-colors duration-300">
+                      {b.title}
+                    </h4>
+                    <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-300">
+                      {b.desc}
                     </p>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* 6. True 4-Phase Operational Workflow Sequence */}
-        {settledeskData.steps && (
-          <Reveal direction="up">
-            <ProductWorkflowSequence steps={settledeskData.steps} />
-          </Reveal>
-        )}
-
-        {/* 7. Product Origin & Principles */}
-        <section className="py-24 relative border-t border-border">
-          <div className="mx-auto max-w-7xl px-6 grid gap-12 lg:grid-cols-12 items-center">
-            <div className="lg:col-span-6 space-y-6">
-              <div className="text-xs uppercase tracking-widest font-bold text-[#e5b84c]">
-                {settledeskData.aboutStory.eyebrow}
+                ))}
               </div>
-              <h3 className="text-3xl md:text-5xl font-bold font-display leading-tight">
-                {settledeskData.aboutStory.title}
-              </h3>
-              <p className="text-base text-muted-foreground leading-relaxed">
-                {settledeskData.aboutStory.body1}
-              </p>
-              <p className="text-base text-muted-foreground leading-relaxed">
-                {settledeskData.aboutStory.body2}
-              </p>
             </div>
-
-            <div className="lg:col-span-6 grid gap-4 sm:grid-cols-2">
-              {settledeskData.aboutStory.beliefs.map((b) => (
-                <div key={b.title} className="surface-card p-5 rounded-xl">
-                  <h4 className="font-bold text-sm font-display text-foreground">{b.title}</h4>
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{b.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         {/* 8. Pricing Matrix */}
         <Reveal direction="up">

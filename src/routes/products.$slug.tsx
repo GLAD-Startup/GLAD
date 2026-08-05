@@ -60,7 +60,7 @@ import propVideo from "@/routes/images/settledesk/videos/every property always u
 import commissionVideo from "@/routes/images/settledesk/videos/Commission Plans, Built Your Way.mp4";
 import approvalsVideo from "@/routes/images/settledesk/videos/From Submitted to Sold, Automatically.mp4";
 import syncVideo from "@/routes/images/settledesk/videos/One Source of Truth. Every Device.mp4";
-import demoBgVideo from "@/routes/images/settledesk/videos/request a demo background.mp4";
+import demoBgVideo from "@/routes/videos/Orange Simple People Bridge Logo (3).mp4";
 import logoVideo from "@/routes/images/settledesk/videos/video logo.mp4";
 
 // Database & Server Function Imports
@@ -1877,12 +1877,18 @@ function FinalCTA() {
           muted
           playsInline
           preload="auto"
-          className="h-full w-full object-cover opacity-45"
+          className="h-full w-full object-cover translate-y-10 scale-110 opacity-90 dark:opacity-85 brightness-110 dark:brightness-125 min-h-full min-w-full"
         >
           <source src={demoBgVideo} type="video/mp4" />
         </video>
-        {/* Gradient overlay to ensure text contrast and smooth edge blending */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background z-10" />
+        <div className="absolute inset-0 bg-background/20 dark:bg-background/30 backdrop-blur-[1px] z-10" />
+
+        {/* 4-Side Radial Vignette & Edge Fades matching exact screenshot style */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_15%,var(--tw-gradient-stops))] from-transparent via-background/60 to-background z-10" />
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
+        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-background via-background/80 to-transparent z-10" />
+        <div className="absolute inset-y-0 left-0 w-72 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-72 bg-gradient-to-l from-background via-background/80 to-transparent z-10" />
       </div>
 
       <motion.div
@@ -2075,17 +2081,18 @@ function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.4 }}
                 transition={{ duration: 0.5, delay: 0.2 + i * 0.08 }}
-                className={`group relative rounded-2xl border backdrop-blur-sm p-6 transition-all duration-500 hover:-translate-y-1 ${
-                  b.color === "navy"
-                    ? "bg-gradient-to-br from-navy/[0.06] to-card/90 border-navy/10 hover:border-navy/35 hover:shadow-[0_20px_50px_-12px_rgba(48,76,120,0.12)]"
-                    : "bg-gradient-to-br from-gold/15 to-card/90 border-gold/20 hover:border-gold/45 hover:shadow-[0_20px_50px_-12px_rgba(212,175,55,0.14)]"
-                }`}
+                className="animated-corner-card surface-card p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
               >
-                <div className="font-display text-lg font-bold text-foreground group-hover:text-gold transition-colors duration-300">
+                <div className="go-corner">
+                  <div className="go-arrow">→</div>
+                </div>
+                <div className="font-display text-lg font-bold text-foreground relative z-10 transition-colors duration-300">
                   {b.t}
                 </div>
-                <div className="mt-4 h-px bg-gradient-to-r from-gold/30 via-border/30 to-transparent" />
-                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{b.d}</p>
+                <div className="mt-4 h-px bg-gradient-to-r from-emerald-500/30 via-border/30 to-transparent relative z-10" />
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed relative z-10 transition-colors duration-300">
+                  {b.d}
+                </p>
               </motion.div>
             ))}
           </motion.div>
