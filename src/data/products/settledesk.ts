@@ -12,7 +12,7 @@ export const settledeskData: ProductPageData = {
     description:
       "SettleDesk unifies property management, agent operations, lead tracking, and commission payouts into one secure, real-time system — built for brokerages that are ready to scale.",
     primaryCtaText: "Start Free Trial",
-    secondaryCtaText: "Watch Overview",
+    secondaryCtaText: "Book a Discovery Call",
     stats: [
       { value: "500+", label: "Brokers Onboarded" },
       { value: "10,000+", label: "Units Managed" },

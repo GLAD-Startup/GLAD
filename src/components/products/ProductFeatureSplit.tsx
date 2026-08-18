@@ -20,7 +20,7 @@ const featureAlts = [
 
 export function ProductFeatureSplit({ features }: { features: readonly ProductFeatureItem[] }) {
   return (
-    <section className="py-24 relative border-t border-border">
+    <section id="features" className="py-24 relative border-t border-border scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6 space-y-24">
         {features.map((item, index) => {
           const isEven = index % 2 === 1;

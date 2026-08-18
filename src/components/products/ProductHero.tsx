@@ -6,7 +6,9 @@ import {
   ShieldCheck,
   CheckCircle2,
   ChevronRight,
+  Phone,
 } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 import type { ProductHeroConfig } from "@/types/product-page";
 import buildingImg from "@/routes/images/settledesk/building.png";
 import logoImg from "@/routes/images/settledesk/logo.png";
@@ -19,6 +21,18 @@ export function ProductHero({
   onPrimaryCtaClick?: () => void;
 }) {
   const [activeStage, setActiveStage] = useState<"agent" | "admin" | "super">("admin");
+  const { theme } = useTheme();
+
+  const calConfig = JSON.stringify({
+    layout: "month_view",
+    theme:
+      theme === "dark" ||
+      (theme === "system" &&
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ? "dark"
+        : "light",
+  });
 
   return (
     <section className="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden bg-background">
@@ -55,9 +69,15 @@ export function ProductHero({
                 <span>Start 30-day free trial</span>
                 <ArrowRight className="size-4" />
               </button>
-              <a href="#simulator" className="btn-secondary">
-                <span>Test commission engine</span>
-              </a>
+              <button
+                type="button"
+                data-cal-link="arjun-rajput-2mdsis"
+                data-cal-config={calConfig}
+                className="btn-secondary"
+              >
+                <Phone className="size-4" />
+                <span>{config.secondaryCtaText || "Book a Discovery Call"}</span>
+              </button>
             </div>
 
             {/* Quick Proof Metrics */}

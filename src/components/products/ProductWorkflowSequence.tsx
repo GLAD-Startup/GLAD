@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function ProductWorkflowSequence({ steps }: { steps: readonly StepItem[] }) {
   return (
-    <section className="py-24 relative border-t border-border overflow-hidden">
+    <section id="workflow" className="py-24 relative border-t border-border overflow-hidden scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Operational Flow"

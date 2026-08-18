@@ -14,7 +14,6 @@ import { ProductFAQAccordion } from "@/components/products/ProductFAQAccordion";
 import { ProductCTA } from "@/components/products/ProductCTA";
 import { ProductGalleryCarousel } from "@/components/products/ProductGalleryCarousel";
 import { ProductWorkflowSequence } from "@/components/products/ProductWorkflowSequence";
-import { DealCascadeSimulator } from "@/components/products/DealCascadeSimulator";
 import { Lock, FileCheck, Database } from "lucide-react";
 import buildingVectorBg from "@/routes/images/settledesk/graphic-design-building-architecture-creative-city-building-vector copy.png";
 

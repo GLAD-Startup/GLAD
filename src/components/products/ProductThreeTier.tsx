@@ -15,7 +15,7 @@ const tierAlts = [
 
 export function ProductThreeTier({ tiers }: { tiers: readonly ProductTier[] }) {
   return (
-    <section className="py-24 relative border-t border-border">
+    <section id="architecture" className="py-24 relative border-t border-border scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="One Platform, Three Experiences"
