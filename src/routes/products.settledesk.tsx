@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -217,6 +217,26 @@ function SettleDeskLandingPage() {
         <Reveal direction="up">
           <ProductFAQAccordion faqs={settledeskData.faqs} />
         </Reveal>
+
+        {/* Related Product Discovery Box */}
+        <section className="py-12 border-t border-border bg-surface/20">
+          <div className="mx-auto max-w-7xl px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <span className="text-xs uppercase font-bold tracking-wider text-muted-foreground">
+                More from GLAD Studio Products
+              </span>
+              <h4 className="text-base font-bold text-foreground mt-0.5">
+                Looking for Modern Hotel Management & Operations Software?
+              </h4>
+            </div>
+            <Link
+              to="/products/glad-hms"
+              className="text-xs md:text-sm font-bold text-[#e5b84c] hover:text-foreground transition-colors inline-flex items-center gap-1.5 shrink-0"
+            >
+              <span>Explore GLAD HMS →</span>
+            </Link>
+          </div>
+        </section>
 
         {/* 10. Final Call to Action */}
         <ProductCTA onPrimaryCtaClick={() => setIsModalOpen(true)} />
