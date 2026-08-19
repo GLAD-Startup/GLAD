@@ -3,15 +3,23 @@ import { ChevronDown } from "lucide-react";
 import type { FAQItem } from "@/types/product-page";
 import { SectionHeading } from "@/components/site/SectionHeading";
 
-export function ProductFAQAccordion({ faqs }: { faqs: readonly FAQItem[] }) {
+export function ProductFAQAccordion({
+  faqs,
+  title = "Everything You Need to Know About SettleDesk",
+  eyebrow = "Frequently Asked Questions",
+}: {
+  faqs: readonly FAQItem[];
+  title?: string;
+  eyebrow?: string;
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className="py-24 relative border-t border-border">
       <div className="mx-auto max-w-4xl px-6">
         <SectionHeading
-          eyebrow="Frequently Asked Questions"
-          title="Everything You Need to Know About SettleDesk"
+          eyebrow={eyebrow}
+          title={title}
           center
         />
 
