@@ -106,8 +106,8 @@ import someshImg from "./images/somesh.jpeg";
 const team = [
   {
     name: "Arjun Singh Rajput",
-    role: "Founder & CEO",
-    bio: "Driving the vision, strategy, and execution.",
+    role: "CEO & Head of Strategy",
+    bio: "Driving overarching vision, strategic growth, and execution.",
     image: arjunImg,
   },
   {
