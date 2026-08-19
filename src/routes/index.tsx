@@ -15,6 +15,8 @@ import {
   Check,
   Quote,
   ChevronRight,
+  Star,
+  CheckCircle2,
 } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
@@ -601,68 +603,112 @@ function Testimonials() {
       </div>
 
       <Reveal>
-        <div className="mt-12 relative flex overflow-hidden mask-edges w-full pt-16 pb-20">
-          <div className="flex gap-6 w-max animate-marquee px-4">
+        <div className="mt-8 relative flex overflow-hidden mask-edges w-full pt-16 pb-20 md:pt-20 md:pb-24">
+          <div className="flex gap-7 w-max animate-marquee px-4 items-stretch">
             {[...testimonials, ...testimonials, ...testimonials, ...testimonials].map((t, idx) => (
-              <div key={idx} className="w-[320px] md:w-[400px] shrink-0">
+              <div key={idx} className="w-[340px] sm:w-[380px] md:w-[420px] shrink-0">
                 <div className="book-card-container">
                   <div className="book-card">
-                    {/* Inside Page (visible when cover is swung open) */}
+                    {/* Inside Page (revealed when cover is swung open) */}
                     <div className="book-card-inside">
-                      <Quote className="size-8 text-brand/30 mb-2 -ml-1" />
-                      <blockquote className="text-sm md:text-base leading-relaxed flex-1 italic text-foreground">
-                        "{t.quote}"
-                      </blockquote>
-                      <div className="mt-4 flex items-center gap-3 pt-4 border-t border-border/50">
-                        {t.logo ? (
+                      {/* Inside Top: Company Mini Badge + Rating */}
+                      <div className="flex items-center justify-between gap-3 pb-3 border-b border-border/40 dark:border-zinc-800/80">
+                        <div className="h-10 px-3 py-1 rounded-lg bg-white border border-zinc-200 shadow-xs flex items-center justify-center shrink-0">
                           <img
                             src={t.logo}
-                            alt={t.name}
-                            className="h-9 w-auto max-w-[120px] object-contain rounded-lg bg-white p-1 border border-border/50 shadow-sm shrink-0"
+                            alt={t.company}
+                            className="h-7 w-auto max-w-[100px] object-contain"
                           />
-                        ) : (
-                          <div className="size-8 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-xs font-semibold">
+                        </div>
+                        <div className="flex items-center gap-0.5 text-amber-400">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="size-3 fill-amber-400 text-amber-400" />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Inside Center: The Rich Testimonial Quote */}
+                      <div className="my-auto py-3 flex-1 flex flex-col justify-center">
+                        <Quote className="size-6 text-brand/50 mb-2 shrink-0" />
+                        <blockquote className="text-[14px] md:text-[15px] leading-relaxed text-foreground font-medium italic">
+                          "{t.quote}"
+                        </blockquote>
+                        {t.metric && (
+                          <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand">
+                            <span className="size-1.5 rounded-full bg-brand animate-pulse" />
+                            <span>Outcome: {t.metric}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Inside Bottom: Author details & Project tag */}
+                      <div className="pt-3 border-t border-border/40 dark:border-zinc-800/80 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="size-8 rounded-full bg-gradient-to-tr from-brand to-emerald-400 text-primary-foreground font-bold text-xs grid place-items-center shrink-0 shadow-xs">
                             {t.name
                               .split(" ")
                               .map((n) => n[0])
+                              .slice(0, 2)
                               .join("")}
                           </div>
-                        )}
-                        <div>
-                          <div className="text-xs font-semibold text-foreground">{t.name}</div>
-                          <div className="text-[10px] text-muted-foreground">{t.role}</div>
+                          <div className="min-w-0">
+                            <div className="text-xs font-bold text-foreground truncate">
+                              {t.name}
+                            </div>
+                            <div className="text-[10px] text-muted-foreground truncate">
+                              {t.role} · {t.company}
+                            </div>
+                          </div>
                         </div>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted/80 text-muted-foreground border border-border/40 shrink-0">
+                          {t.project}
+                        </span>
                       </div>
                     </div>
 
                     {/* Book Cover (swings open on hover) */}
-                    <div className="book-card-cover">
-                      {t.logo ? (
-                        <img
-                          src={t.logo}
-                          alt={t.name}
-                          className="self-start h-12 w-auto max-w-[160px] object-contain rounded-xl bg-white p-1.5 border border-border/50 shadow-md"
-                        />
-                      ) : (
-                        <div className="self-start size-10 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground text-sm font-bold shadow-sm shadow-[var(--brand)]/10">
-                          {t.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </div>
-                      )}
-                      <div className="flex-1 flex flex-col justify-center py-4 pl-4">
-                        <Quote className="size-7 text-brand mb-2 opacity-80" />
-                        <h4 className="text-base font-bold tracking-tight text-foreground line-clamp-1">
-                          {t.role}
-                        </h4>
-                        <span className="text-[11px] text-muted-foreground mt-1 inline-flex items-center gap-1">
-                          Hover to open testimonial <span className="text-brand">→</span>
+                    <div className="book-card-cover group/cover">
+                      {/* Top: Header with Verified Badge & 5 Stars */}
+                      <div className="flex items-center justify-between gap-3 pl-3">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-brand/10 text-brand border border-brand/20 dark:bg-brand/15">
+                          <CheckCircle2 className="size-3 text-brand" />
+                          Verified Client
                         </span>
+                        <div className="flex items-center gap-0.5 text-amber-400">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="size-3.5 fill-amber-400 text-amber-400" />
+                          ))}
+                        </div>
                       </div>
-                      <div className="pt-4 border-t border-border/50 pl-4">
-                        <div className="text-sm font-semibold text-foreground">{t.name}</div>
-                        <div className="text-xs text-muted-foreground">{t.role}</div>
+
+                      {/* Center: Large, prominent, high-contrast Logo Showcase */}
+                      <div className="my-auto pl-3 flex flex-col items-center justify-center">
+                        <div className="w-full h-34 md:h-38 rounded-xl bg-white border border-zinc-200/90 shadow-sm flex items-center justify-center p-4 transition-transform duration-300 group-hover/cover:scale-[1.02]">
+                          <img
+                            src={t.logo}
+                            alt={t.company}
+                            className="h-20 md:h-24 w-auto max-w-[85%] object-contain"
+                          />
+                        </div>
+                        <div className="mt-3 text-center">
+                          <h4 className="text-base font-bold tracking-tight text-foreground line-clamp-1">
+                            {t.company}
+                          </h4>
+                          <span className="text-xs text-muted-foreground line-clamp-1">
+                            {t.project}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Bottom: Client details + Hover prompt with interactive animated arrow */}
+                      <div className="pt-3 border-t border-border/40 dark:border-zinc-800/80 pl-3 flex items-center justify-between">
+                        <div className="min-w-0">
+                          <div className="text-xs font-bold text-foreground truncate">{t.name}</div>
+                          <div className="text-[11px] text-muted-foreground truncate">{t.role}</div>
+                        </div>
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand shrink-0 group-hover/cover:translate-x-1 transition-transform duration-300">
+                          Hover to open <ArrowRight className="size-3.5" />
+                        </span>
                       </div>
                     </div>
                   </div>

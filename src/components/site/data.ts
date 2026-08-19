@@ -232,21 +232,33 @@ export const testimonials = [
     quote:
       "The Prayas App transformed how we coordinate blood donations and health equipment lending. It's now the backbone of our community outreach.",
     name: "Prayas NGO Team",
-    role: "Prayas NGO",
+    role: "Community Leaders",
+    company: "Prayas NGO",
+    project: "Health & Community App",
+    metric: "10,000+ Community Reach",
+    rating: 5,
     logo: prayasLogo,
   },
   {
     quote:
       "GLA Canteen Stock Management transformed our daily inventory tracking and order workflow, giving us clear visibility into stock levels and sales.",
     name: "Rakesh Khetan",
-    role: "Owner, GLA Canteen",
+    role: "Owner & Operator",
+    company: "GLA Canteen",
+    project: "POS & Inventory System",
+    metric: "Zero Stock Discrepancies",
+    rating: 5,
     logo: glaCanteenLogo,
   },
   {
     quote:
       "The website developed for Earth Travels India presents our travel packages and services beautifully, significantly elevating our online presence.",
     name: "Nitesh Khandelwal",
-    role: "Owner, Earth Travels",
+    role: "Founder & Director",
+    company: "Earth Travels India",
+    project: "Travel & Booking Portal",
+    metric: "3x Online Inquiries",
+    rating: 5,
     logo: earthTravelsLogo,
   },
 ];

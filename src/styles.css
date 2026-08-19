@@ -466,7 +466,10 @@
   margin-top: -3px;
   margin-right: -3px;
   color: white;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-weight: 700;
   font-size: 14px;
   transition: transform 0.3s ease;
@@ -988,10 +991,12 @@
 
 /* ── Book Card Testimonial Styles ───────────────────── */
 .book-card-container {
-  perspective: 1500px;
+  perspective: 2000px;
+  perspective-origin: center center;
   width: 100%;
-  height: 320px;
+  height: 400px;
   cursor: pointer;
+  overflow: visible;
 }
 
 .book-card {
@@ -999,7 +1004,8 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: visible;
 }
 
 .book-card-inside {
@@ -1007,9 +1013,9 @@
   inset: 0;
   background-color: var(--surface);
   border: 2px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: 1.75rem;
+  border-radius: var(--radius-xl);
+  box-shadow: 4px 4px 0px 0px var(--border);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1020,18 +1026,18 @@
 .book-card-cover {
   position: absolute;
   inset: 0;
-  background-color: var(--surface-2);
+  background-color: var(--card);
   border: 2px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: 1.75rem;
+  border-radius: var(--radius-xl);
+  box-shadow: 4px 4px 0px 0px var(--border);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   transform-origin: left center;
   transition:
-    transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1),
-    box-shadow 0.6s ease;
+    transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.65s ease;
   z-index: 2;
   backface-visibility: hidden;
 }
@@ -1046,23 +1052,33 @@
   width: 12px;
   background: linear-gradient(
     to right,
-    color-mix(in oklab, var(--border) 30%, transparent),
+    color-mix(in oklab, var(--border) 25%, transparent),
     transparent 80%
   );
-  border-right: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
+  border-right: 1px solid color-mix(in oklab, var(--border) 35%, transparent);
 }
 
 /* Hover swing-open effect */
 .book-card-container:hover .book-card-cover {
-  transform: rotateY(-80deg);
-  box-shadow: -6px 6px 12px rgba(0, 0, 0, 0.15);
+  transform: rotateY(-72deg);
+  box-shadow: -8px 8px 18px rgba(0, 0, 0, 0.25);
 }
 
-/* Ensure shadows adapt inside dark mode for book cards */
-:is(.dark) .book-card-inside,
+/* Dark mode overrides for book card */
+:is(.dark) .book-card-inside {
+  background-color: #141417;
+  border-color: #27272a;
+  box-shadow: 4px 4px 0px 0px #27272a;
+}
+
 :is(.dark) .book-card-cover {
-  background-color: var(--surface);
-  box-shadow: var(--shadow-card);
+  background-color: #18181b;
+  border-color: #27272a;
+  box-shadow: 4px 4px 0px 0px #27272a;
+}
+
+:is(.dark) .book-card-container:hover .book-card-cover {
+  box-shadow: -8px 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 /* ── Calming Pastel Shadow Overrides for Custom Cards ─── */
