@@ -112,22 +112,22 @@ const team = [
   },
   {
     name: "Jatin Khetan",
-    role: "Co-founder & CTO",
-    bio: "Architecting scalable systems and leading technical innovation.",
+    role: "CFO & Head of Product & Design",
+    bio: "Managing financial strategy and crafting intuitive, user-centric product experiences.",
     image: jatinImg,
     imageClass: "object-[center_20%]",
   },
   {
     name: "Parth Garg",
-    role: "CFO & Head of Product & Design",
-    bio: "Managing financials and crafting seamless user experiences.",
+    role: "COO & Head of Operations",
+    bio: "Streamlining cross-functional execution and scaling operational excellence.",
     image: parthImg,
     imageClass: "object-[center_35%]",
   },
   {
     name: "Somesh Rajput",
-    role: "Founding Product Engineer & Developer",
-    bio: "Building robust, user-centric core product features.",
+    role: "CTO & Head of Engineering",
+    bio: "Architecting scalable systems and driving core technical innovation.",
     image: someshImg,
   },
 ];
