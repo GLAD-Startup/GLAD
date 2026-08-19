@@ -100,7 +100,7 @@ const values = [
 
 import arjunImg from "./images/arjun.jpg";
 import jatinImg from "./images/jatin.jpg";
-import parthImg from "./images/parth.jpg";
+import parthImg from "./images/parth.jpeg";
 import someshImg from "./images/somesh.jpeg";
 
 const team = [
@@ -122,7 +122,6 @@ const team = [
     role: "COO & Head of Operations",
     bio: "Streamlining cross-functional execution and scaling operational excellence.",
     image: parthImg,
-    imageClass: "object-[center_35%]",
   },
   {
     name: "Somesh Rajput",
