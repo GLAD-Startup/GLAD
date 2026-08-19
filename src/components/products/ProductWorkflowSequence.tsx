@@ -3,14 +3,24 @@ import type { StepItem } from "@/types/product-page";
 import { ArrowRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
 
-export function ProductWorkflowSequence({ steps }: { steps: readonly StepItem[] }) {
+export function ProductWorkflowSequence({
+  steps,
+  eyebrow = "Operational Flow",
+  title = "From Tenant Setup to Automated Payout",
+  sub = "A 4-phase sequence designed to get your brokerage onboarded, configured, and closing deals in minutes.",
+}: {
+  steps: readonly StepItem[];
+  eyebrow?: string;
+  title?: string;
+  sub?: string;
+}) {
   return (
     <section id="workflow" className="py-24 relative border-t border-border overflow-hidden scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
-          eyebrow="Operational Flow"
-          title="From Tenant Setup to Automated Payout"
-          sub="A 4-phase sequence designed to get your brokerage onboarded, configured, and closing deals in minutes."
+          eyebrow={eyebrow}
+          title={title}
+          sub={sub}
           center
         />
 

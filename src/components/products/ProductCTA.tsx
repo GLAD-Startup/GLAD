@@ -5,10 +5,12 @@ import demoBgVideo from "@/routes/videos/Orange Simple People Bridge Logo (3).mp
 export function ProductCTA({
   title = "Ready to Modernize Your Brokerage?",
   sub = "See how SettleDesk brings your properties, agents, and commissions together — start your 30-day free trial now.",
+  primaryCtaText = "Start 30-Day Free Trial",
   onPrimaryCtaClick,
 }: {
   title?: string;
   sub?: string;
+  primaryCtaText?: string;
   onPrimaryCtaClick?: () => void;
 }) {
   const { theme } = useTheme();
@@ -55,7 +57,7 @@ export function ProductCTA({
 
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <button onClick={onPrimaryCtaClick} className="btn-primary">
-            <span>Start 30-Day Free Trial</span>
+            <span>{primaryCtaText}</span>
             <ArrowRight className="size-4" />
           </button>
           <button
