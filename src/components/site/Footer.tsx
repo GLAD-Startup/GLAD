@@ -83,9 +83,9 @@ export function Footer() {
   return (
     <footer className="relative border-t-3 border-border mt-32 noise-bg bg-background">
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-8">
-        <div className="grid gap-12 md:grid-cols-5">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
           {/* Brand */}
-          <div className="md:col-span-2">
+          <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center">
               <img
                 src={darkLogo}
@@ -99,8 +99,8 @@ export function Footer() {
               />
             </div>
             <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed font-medium">
-              A premium software studio building web, mobile, and AI-powered products for startups
-              and growing businesses.
+              An engineering-focused software and AI product studio building custom digital
+              products, SaaS platforms, AI systems, and business automation solutions.
             </p>
             {/* Socials */}
             <div className="mt-6 flex items-center gap-3">
@@ -120,6 +120,63 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Services links */}
+          <div>
+            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">
+              Services
+            </h4>
+            <ul className="space-y-3 text-sm text-muted-foreground font-medium">
+              <li>
+                <Link
+                  to="/services/mvp-development"
+                  className="hover:text-brand-pink transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  MVP Development
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services/web-application-development"
+                  className="hover:text-brand-blue transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  Web Applications
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services/mobile-app-development"
+                  className="hover:text-brand-purple transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  Mobile Apps
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services/ai-solutions"
+                  className="hover:text-brand-2 transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  AI Solutions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services/business-automation"
+                  className="hover:text-brand transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  Business Automation
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services"
+                  className="hover:text-foreground transition-all hover:translate-x-1.5 inline-block duration-200 font-semibold"
+                >
+                  All Services Overview →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Studio links */}
           <div>
             <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">
@@ -136,6 +193,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  to="/products/glad-hms"
+                  className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200"
+                >
+                  GLAD HMS
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/products/settledesk"
                   className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200"
                 >
@@ -144,10 +209,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/services"
-                  className="hover:text-brand-pink transition-all hover:translate-x-1.5 inline-block duration-200"
+                  to="/insights"
+                  className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200"
                 >
-                  Services
+                  Insights & AI Guides
                 </Link>
               </li>
               <li>
@@ -194,7 +259,7 @@ export function Footer() {
           </div>
 
           {/* Contact links */}
-          <div className="md:col-span-2">
+          <div className="sm:col-span-2 lg:col-span-2">
             <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">
               Get In Touch
             </h4>

@@ -14,6 +14,10 @@ const productsList = [
     label: "All Products Overview",
   },
   {
+    to: "/products/glad-hms",
+    label: "GLAD HMS (Hospitality SaaS)",
+  },
+  {
     to: "/products/settledesk",
     label: "SettleDesk (Real Estate SaaS)",
   },
@@ -22,6 +26,7 @@ const productsList = [
 const nav = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
+  { to: "/insights", label: "Insights" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/process", label: "Process" },
   { to: "/about", label: "About" },

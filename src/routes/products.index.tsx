@@ -3,9 +3,9 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Reveal } from "@/components/site/Reveal";
-import { ArrowRight, CheckCircle2, Building2, Utensils } from "lucide-react";
+import { ArrowRight, CheckCircle2, Building2, Hotel } from "lucide-react";
 import buildingImg from "@/routes/images/settledesk/building.png";
-import luxuryVillaImg from "@/routes/images/settledesk/luxury-villa.png";
+import hotelBuildingImg from "@/routes/images/glad-hms/hotel-building.png";
 
 export interface AgencyProduct {
   readonly slug: string;
@@ -17,12 +17,36 @@ export interface AgencyProduct {
   readonly status: "Live" | "Coming Soon";
   readonly badgeText: string;
   readonly heroImage: string;
-  readonly icon: typeof Building2;
+  readonly icon: typeof Building2 | typeof Hotel;
   readonly metrics: readonly { readonly value: string; readonly label: string }[];
   readonly keyFeatures: readonly string[];
 }
 
 export const productsData: readonly AgencyProduct[] = [
+  {
+    slug: "glad-hms",
+    name: "GLAD HMS",
+    category: "Hospitality SaaS",
+    tagline: "Modular Hotel Management & Operations Platform",
+    description:
+      "A modular hospitality management system built by GLAD Studio for managing hotel and hospitality operations through a unified digital platform. Unifies room reservations, front desk workflows, mobile housekeeping, stay folios, and USALI revenue analytics.",
+    route: "/products/glad-hms",
+    status: "Live",
+    badgeText: "Hotel Operating System",
+    heroImage: hotelBuildingImg,
+    icon: Hotel,
+    metrics: [
+      { value: "100%", label: "Modular System" },
+      { value: "Row-Level", label: "Inventory Locks" },
+      { value: "Multi-Property", label: "Scoped RBAC" },
+    ],
+    keyFeatures: [
+      "Multi-tenant PostgreSQL architecture with isolated tenant data",
+      "Live reservation calendar with overlap prevention row locks",
+      "Front desk check-in/out and automated room status transitions",
+      "Stay folio accounting, split billing, and Indian GST tax slabs",
+    ],
+  },
   {
     slug: "settledesk",
     name: "SettleDesk",
@@ -47,29 +71,6 @@ export const productsData: readonly AgencyProduct[] = [
       "Version-controlled commission structure rules",
     ],
   },
-  {
-    slug: "restoos",
-    name: "RESTOOS",
-    category: "Hospitality & Restaurant SaaS",
-    tagline: "Restaurant Operating System & POS Matrix",
-    description:
-      "Unified hospitality operating platform connecting front-of-house POS systems, kitchen execution displays, inventory, and online ordering.",
-    route: "/products",
-    status: "Coming Soon",
-    badgeText: "Hospitality Operating System",
-    heroImage: luxuryVillaImg,
-    icon: Utensils,
-    metrics: [
-      { value: "Q3 2026", label: "Target Launch" },
-      { value: "POS + KDS", label: "Unified Stack" },
-      { value: "Multi-Unit", label: "Franchise Ready" },
-    ],
-    keyFeatures: [
-      "Real-time kitchen execution display system (KDS)",
-      "Multi-branch ingredient inventory tracking",
-      "Tableside QR ordering & mobile checkout",
-    ],
-  },
 ];
 
 export const Route = createFileRoute("/products/")({
@@ -79,13 +80,13 @@ export const Route = createFileRoute("/products/")({
       {
         name: "description",
         content:
-          "Explore proprietary software applications engineered and operated by Glad Studio, including SettleDesk for real estate brokerages and RESTOOS for hospitality.",
+          "Explore proprietary software applications engineered and operated by Glad Studio, including GLAD HMS for hospitality operations and SettleDesk for real estate brokerages.",
       },
       { property: "og:title", content: "Products & SaaS Platforms — Glad Studio" },
       {
         property: "og:description",
         content:
-          "Explore proprietary SaaS applications engineered and operated by Glad Studio, including SettleDesk for real estate brokerages.",
+          "Explore proprietary SaaS applications engineered and operated by Glad Studio, including GLAD HMS and SettleDesk.",
       },
       { property: "og:url", content: "https://gladstudio.net/products" },
       { property: "og:image", content: "https://gladstudio.net/og-image.png" },
@@ -112,6 +113,12 @@ export const Route = createFileRoute("/products/")({
             {
               "@type": "ListItem",
               position: 1,
+              name: "GLAD HMS",
+              url: "https://gladstudio.net/products/glad-hms",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
               name: "SettleDesk",
               url: "https://gladstudio.net/products/settledesk",
             },
