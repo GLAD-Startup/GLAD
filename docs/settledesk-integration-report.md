@@ -1,7 +1,7 @@
 # SettleDesk Marketing Landing Page — Integration & Handoff Report
 
 ## Executive Summary
-The marketing landing page for **SettleDesk** has been fully integrated into the **Glad Studio** agency website at `/products/settledesk`. The page is built entirely within Glad Studio's design system and layout shell while introducing reusable, data-driven product components designed for future expansion (e.g. RESTOOS).
+The marketing landing page for **SettleDesk** has been fully integrated into the **Glad Studio** agency website at `/products/settledesk`. The page is built entirely within Glad Studio's design system and layout shell while introducing reusable, data-driven product components designed for future expansion (e.g. GLAD HMS).
 
 ---
 
@@ -49,18 +49,18 @@ The marketing landing page for **SettleDesk** has been fully integrated into the
 
 ---
 
-## 3. How to Add the Next Product Page (e.g. RESTOOS)
+## 3. How to Add the Next Product Page (e.g. GLAD HMS)
 
 The architecture is built so that adding a second product page requires minimal new scaffolding:
 
 ### Step 1: Create Product Content Dataset
-Create `src/data/products/restoos.ts` implementing `ProductPageData`:
+Create `src/data/products/glad-hms.ts` implementing `ProductPageData`:
 ```typescript
 import type { ProductPageData } from "@/types/product-page";
 
-export const restoosData: ProductPageData = {
-  slug: "restoos",
-  title: "RESTOOS — Restaurant Operating System",
+export const gladHmsData: ProductPageData = {
+  slug: "glad-hms",
+  title: "GLAD HMS — Modular Hotel Management System",
   metaDescription: "...",
   hero: { ... },
   threeTier: [ ... ],
@@ -74,12 +74,12 @@ export const restoosData: ProductPageData = {
 ```
 
 ### Step 2: Create Page Route File
-Create `src/routes/products.restoos.tsx`:
+Create `src/routes/products.glad-hms.tsx`:
 ```typescript
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { restoosData } from "@/data/products/restoos";
+import { gladHmsData } from "@/data/products/glad-hms";
 import { ProductHero } from "@/components/products/ProductHero";
 import { ProductThreeTier } from "@/components/products/ProductThreeTier";
 import { ProductFeatureSplit } from "@/components/products/ProductFeatureSplit";
@@ -87,20 +87,20 @@ import { ProductPricingTable } from "@/components/products/ProductPricingTable";
 import { ProductFAQAccordion } from "@/components/products/ProductFAQAccordion";
 import { ProductCTA } from "@/components/products/ProductCTA";
 
-export const Route = createFileRoute("/products/restoos")({
+export const Route = createFileRoute("/products/glad-hms")({
   head: () => ({ ... }),
-  component: RestoosLandingPage,
+  component: GladHmsLandingPage,
 });
 
-function RestoosLandingPage() {
+function GladHmsLandingPage() {
   return (
     <div>
       <Header />
-      <ProductHero config={restoosData.hero} />
-      <ProductThreeTier tiers={restoosData.threeTier} />
-      <ProductFeatureSplit features={restoosData.features} />
-      <ProductPricingTable plans={restoosData.pricing} />
-      <ProductFAQAccordion faqs={restoosData.faqs} />
+      <ProductHero config={gladHmsData.hero} />
+      <ProductThreeTier tiers={gladHmsData.threeTier} />
+      <ProductFeatureSplit features={gladHmsData.features} />
+      <ProductPricingTable plans={gladHmsData.pricing} />
+      <ProductFAQAccordion faqs={gladHmsData.faqs} />
       <ProductCTA />
       <Footer />
     </div>
@@ -109,7 +109,7 @@ function RestoosLandingPage() {
 ```
 
 ### Step 3: Register in Products Index
-Add RESTOOS entry to `productsData` array in `src/routes/products.index.tsx` and `Header.tsx` `productsList`.
+Add GLAD HMS entry to `productsData` array in `src/routes/products.index.tsx` and `Header.tsx` `productsList`.
 
 ---
 

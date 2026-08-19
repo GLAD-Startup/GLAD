@@ -15,14 +15,27 @@ import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
+import { Route as InsightsIndexRouteImport } from './routes/insights.index'
+import { Route as ServicesWebApplicationDevelopmentRouteImport } from './routes/services.web-application-development'
+import { Route as ServicesMvpDevelopmentRouteImport } from './routes/services.mvp-development'
+import { Route as ServicesMobileAppDevelopmentRouteImport } from './routes/services.mobile-app-development'
+import { Route as ServicesBusinessAutomationRouteImport } from './routes/services.business-automation'
+import { Route as ServicesAiSolutionsRouteImport } from './routes/services.ai-solutions'
 import { Route as ProductsSettledeskRouteImport } from './routes/products.settledesk'
-import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as ProductsGladHmsRouteImport } from './routes/products.glad-hms'
 import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
+import { Route as InsightsWhatIsAiAgentDevelopmentRouteImport } from './routes/insights.what-is-ai-agent-development'
+import { Route as InsightsRagVsFineTuningRouteImport } from './routes/insights.rag-vs-fine-tuning'
+import { Route as InsightsHowToBuildAiAgentForBusinessRouteImport } from './routes/insights.how-to-build-ai-agent-for-business'
+import { Route as InsightsAiDevelopmentCostIndiaRouteImport } from './routes/insights.ai-development-cost-india'
+import { Route as InsightsAiAgentVsChatbotRouteImport } from './routes/insights.ai-agent-vs-chatbot'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -54,6 +67,11 @@ const PortfolioRoute = PortfolioRouteImport.update({
   path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -69,6 +87,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ServicesRoute,
+} as any)
 const ProductsIndexRoute = ProductsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,14 +102,47 @@ const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PortfolioRoute,
 } as any)
+const InsightsIndexRoute = InsightsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => InsightsRoute,
+} as any)
+const ServicesWebApplicationDevelopmentRoute =
+  ServicesWebApplicationDevelopmentRouteImport.update({
+    id: '/web-application-development',
+    path: '/web-application-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesMvpDevelopmentRoute = ServicesMvpDevelopmentRouteImport.update({
+  id: '/mvp-development',
+  path: '/mvp-development',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesMobileAppDevelopmentRoute =
+  ServicesMobileAppDevelopmentRouteImport.update({
+    id: '/mobile-app-development',
+    path: '/mobile-app-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesBusinessAutomationRoute =
+  ServicesBusinessAutomationRouteImport.update({
+    id: '/business-automation',
+    path: '/business-automation',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesAiSolutionsRoute = ServicesAiSolutionsRouteImport.update({
+  id: '/ai-solutions',
+  path: '/ai-solutions',
+  getParentRoute: () => ServicesRoute,
+} as any)
 const ProductsSettledeskRoute = ProductsSettledeskRouteImport.update({
   id: '/settledesk',
   path: '/settledesk',
   getParentRoute: () => ProductsRoute,
 } as any)
-const ProductsSlugRoute = ProductsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
+const ProductsGladHmsRoute = ProductsGladHmsRouteImport.update({
+  id: '/glad-hms',
+  path: '/glad-hms',
   getParentRoute: () => ProductsRoute,
 } as any)
 const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
@@ -94,22 +150,64 @@ const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => PortfolioRoute,
 } as any)
+const InsightsWhatIsAiAgentDevelopmentRoute =
+  InsightsWhatIsAiAgentDevelopmentRouteImport.update({
+    id: '/what-is-ai-agent-development',
+    path: '/what-is-ai-agent-development',
+    getParentRoute: () => InsightsRoute,
+  } as any)
+const InsightsRagVsFineTuningRoute = InsightsRagVsFineTuningRouteImport.update({
+  id: '/rag-vs-fine-tuning',
+  path: '/rag-vs-fine-tuning',
+  getParentRoute: () => InsightsRoute,
+} as any)
+const InsightsHowToBuildAiAgentForBusinessRoute =
+  InsightsHowToBuildAiAgentForBusinessRouteImport.update({
+    id: '/how-to-build-ai-agent-for-business',
+    path: '/how-to-build-ai-agent-for-business',
+    getParentRoute: () => InsightsRoute,
+  } as any)
+const InsightsAiDevelopmentCostIndiaRoute =
+  InsightsAiDevelopmentCostIndiaRouteImport.update({
+    id: '/ai-development-cost-india',
+    path: '/ai-development-cost-india',
+    getParentRoute: () => InsightsRoute,
+  } as any)
+const InsightsAiAgentVsChatbotRoute =
+  InsightsAiAgentVsChatbotRouteImport.update({
+    id: '/ai-agent-vs-chatbot',
+    path: '/ai-agent-vs-chatbot',
+    getParentRoute: () => InsightsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/insights': typeof InsightsRouteWithChildren
   '/portfolio': typeof PortfolioRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/products': typeof ProductsRouteWithChildren
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/terms': typeof TermsRoute
+  '/insights/ai-agent-vs-chatbot': typeof InsightsAiAgentVsChatbotRoute
+  '/insights/ai-development-cost-india': typeof InsightsAiDevelopmentCostIndiaRoute
+  '/insights/how-to-build-ai-agent-for-business': typeof InsightsHowToBuildAiAgentForBusinessRoute
+  '/insights/rag-vs-fine-tuning': typeof InsightsRagVsFineTuningRoute
+  '/insights/what-is-ai-agent-development': typeof InsightsWhatIsAiAgentDevelopmentRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
-  '/products/$slug': typeof ProductsSlugRoute
+  '/products/glad-hms': typeof ProductsGladHmsRoute
   '/products/settledesk': typeof ProductsSettledeskRoute
+  '/services/ai-solutions': typeof ServicesAiSolutionsRoute
+  '/services/business-automation': typeof ServicesBusinessAutomationRoute
+  '/services/mobile-app-development': typeof ServicesMobileAppDevelopmentRoute
+  '/services/mvp-development': typeof ServicesMvpDevelopmentRoute
+  '/services/web-application-development': typeof ServicesWebApplicationDevelopmentRoute
+  '/insights/': typeof InsightsIndexRoute
   '/portfolio/': typeof PortfolioIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -117,30 +215,54 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
-  '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
+  '/insights/ai-agent-vs-chatbot': typeof InsightsAiAgentVsChatbotRoute
+  '/insights/ai-development-cost-india': typeof InsightsAiDevelopmentCostIndiaRoute
+  '/insights/how-to-build-ai-agent-for-business': typeof InsightsHowToBuildAiAgentForBusinessRoute
+  '/insights/rag-vs-fine-tuning': typeof InsightsRagVsFineTuningRoute
+  '/insights/what-is-ai-agent-development': typeof InsightsWhatIsAiAgentDevelopmentRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
-  '/products/$slug': typeof ProductsSlugRoute
+  '/products/glad-hms': typeof ProductsGladHmsRoute
   '/products/settledesk': typeof ProductsSettledeskRoute
+  '/services/ai-solutions': typeof ServicesAiSolutionsRoute
+  '/services/business-automation': typeof ServicesBusinessAutomationRoute
+  '/services/mobile-app-development': typeof ServicesMobileAppDevelopmentRoute
+  '/services/mvp-development': typeof ServicesMvpDevelopmentRoute
+  '/services/web-application-development': typeof ServicesWebApplicationDevelopmentRoute
+  '/insights': typeof InsightsIndexRoute
   '/portfolio': typeof PortfolioIndexRoute
   '/products': typeof ProductsIndexRoute
+  '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/insights': typeof InsightsRouteWithChildren
   '/portfolio': typeof PortfolioRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/products': typeof ProductsRouteWithChildren
-  '/services': typeof ServicesRoute
+  '/services': typeof ServicesRouteWithChildren
   '/terms': typeof TermsRoute
+  '/insights/ai-agent-vs-chatbot': typeof InsightsAiAgentVsChatbotRoute
+  '/insights/ai-development-cost-india': typeof InsightsAiDevelopmentCostIndiaRoute
+  '/insights/how-to-build-ai-agent-for-business': typeof InsightsHowToBuildAiAgentForBusinessRoute
+  '/insights/rag-vs-fine-tuning': typeof InsightsRagVsFineTuningRoute
+  '/insights/what-is-ai-agent-development': typeof InsightsWhatIsAiAgentDevelopmentRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
-  '/products/$slug': typeof ProductsSlugRoute
+  '/products/glad-hms': typeof ProductsGladHmsRoute
   '/products/settledesk': typeof ProductsSettledeskRoute
+  '/services/ai-solutions': typeof ServicesAiSolutionsRoute
+  '/services/business-automation': typeof ServicesBusinessAutomationRoute
+  '/services/mobile-app-development': typeof ServicesMobileAppDevelopmentRoute
+  '/services/mvp-development': typeof ServicesMvpDevelopmentRoute
+  '/services/web-application-development': typeof ServicesWebApplicationDevelopmentRoute
+  '/insights/': typeof InsightsIndexRoute
   '/portfolio/': typeof PortfolioIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -148,17 +270,30 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/insights'
     | '/portfolio'
     | '/privacy'
     | '/process'
     | '/products'
     | '/services'
     | '/terms'
+    | '/insights/ai-agent-vs-chatbot'
+    | '/insights/ai-development-cost-india'
+    | '/insights/how-to-build-ai-agent-for-business'
+    | '/insights/rag-vs-fine-tuning'
+    | '/insights/what-is-ai-agent-development'
     | '/portfolio/$slug'
-    | '/products/$slug'
+    | '/products/glad-hms'
     | '/products/settledesk'
+    | '/services/ai-solutions'
+    | '/services/business-automation'
+    | '/services/mobile-app-development'
+    | '/services/mvp-development'
+    | '/services/web-application-development'
+    | '/insights/'
     | '/portfolio/'
     | '/products/'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,40 +301,65 @@ export interface FileRouteTypes {
     | '/contact'
     | '/privacy'
     | '/process'
-    | '/services'
     | '/terms'
+    | '/insights/ai-agent-vs-chatbot'
+    | '/insights/ai-development-cost-india'
+    | '/insights/how-to-build-ai-agent-for-business'
+    | '/insights/rag-vs-fine-tuning'
+    | '/insights/what-is-ai-agent-development'
     | '/portfolio/$slug'
-    | '/products/$slug'
+    | '/products/glad-hms'
     | '/products/settledesk'
+    | '/services/ai-solutions'
+    | '/services/business-automation'
+    | '/services/mobile-app-development'
+    | '/services/mvp-development'
+    | '/services/web-application-development'
+    | '/insights'
     | '/portfolio'
     | '/products'
+    | '/services'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
+    | '/insights'
     | '/portfolio'
     | '/privacy'
     | '/process'
     | '/products'
     | '/services'
     | '/terms'
+    | '/insights/ai-agent-vs-chatbot'
+    | '/insights/ai-development-cost-india'
+    | '/insights/how-to-build-ai-agent-for-business'
+    | '/insights/rag-vs-fine-tuning'
+    | '/insights/what-is-ai-agent-development'
     | '/portfolio/$slug'
-    | '/products/$slug'
+    | '/products/glad-hms'
     | '/products/settledesk'
+    | '/services/ai-solutions'
+    | '/services/business-automation'
+    | '/services/mobile-app-development'
+    | '/services/mvp-development'
+    | '/services/web-application-development'
+    | '/insights/'
     | '/portfolio/'
     | '/products/'
+    | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  InsightsRoute: typeof InsightsRouteWithChildren
   PortfolioRoute: typeof PortfolioRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
   ProductsRoute: typeof ProductsRouteWithChildren
-  ServicesRoute: typeof ServicesRoute
+  ServicesRoute: typeof ServicesRouteWithChildren
   TermsRoute: typeof TermsRoute
 }
 
@@ -247,6 +407,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -268,6 +435,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof ServicesRoute
+    }
     '/products/': {
       id: '/products/'
       path: '/'
@@ -282,6 +456,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioIndexRouteImport
       parentRoute: typeof PortfolioRoute
     }
+    '/insights/': {
+      id: '/insights/'
+      path: '/'
+      fullPath: '/insights/'
+      preLoaderRoute: typeof InsightsIndexRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/services/web-application-development': {
+      id: '/services/web-application-development'
+      path: '/web-application-development'
+      fullPath: '/services/web-application-development'
+      preLoaderRoute: typeof ServicesWebApplicationDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/mvp-development': {
+      id: '/services/mvp-development'
+      path: '/mvp-development'
+      fullPath: '/services/mvp-development'
+      preLoaderRoute: typeof ServicesMvpDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/mobile-app-development': {
+      id: '/services/mobile-app-development'
+      path: '/mobile-app-development'
+      fullPath: '/services/mobile-app-development'
+      preLoaderRoute: typeof ServicesMobileAppDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/business-automation': {
+      id: '/services/business-automation'
+      path: '/business-automation'
+      fullPath: '/services/business-automation'
+      preLoaderRoute: typeof ServicesBusinessAutomationRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/ai-solutions': {
+      id: '/services/ai-solutions'
+      path: '/ai-solutions'
+      fullPath: '/services/ai-solutions'
+      preLoaderRoute: typeof ServicesAiSolutionsRouteImport
+      parentRoute: typeof ServicesRoute
+    }
     '/products/settledesk': {
       id: '/products/settledesk'
       path: '/settledesk'
@@ -289,11 +505,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsSettledeskRouteImport
       parentRoute: typeof ProductsRoute
     }
-    '/products/$slug': {
-      id: '/products/$slug'
-      path: '/$slug'
-      fullPath: '/products/$slug'
-      preLoaderRoute: typeof ProductsSlugRouteImport
+    '/products/glad-hms': {
+      id: '/products/glad-hms'
+      path: '/glad-hms'
+      fullPath: '/products/glad-hms'
+      preLoaderRoute: typeof ProductsGladHmsRouteImport
       parentRoute: typeof ProductsRoute
     }
     '/portfolio/$slug': {
@@ -303,8 +519,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioSlugRouteImport
       parentRoute: typeof PortfolioRoute
     }
+    '/insights/what-is-ai-agent-development': {
+      id: '/insights/what-is-ai-agent-development'
+      path: '/what-is-ai-agent-development'
+      fullPath: '/insights/what-is-ai-agent-development'
+      preLoaderRoute: typeof InsightsWhatIsAiAgentDevelopmentRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/insights/rag-vs-fine-tuning': {
+      id: '/insights/rag-vs-fine-tuning'
+      path: '/rag-vs-fine-tuning'
+      fullPath: '/insights/rag-vs-fine-tuning'
+      preLoaderRoute: typeof InsightsRagVsFineTuningRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/insights/how-to-build-ai-agent-for-business': {
+      id: '/insights/how-to-build-ai-agent-for-business'
+      path: '/how-to-build-ai-agent-for-business'
+      fullPath: '/insights/how-to-build-ai-agent-for-business'
+      preLoaderRoute: typeof InsightsHowToBuildAiAgentForBusinessRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/insights/ai-development-cost-india': {
+      id: '/insights/ai-development-cost-india'
+      path: '/ai-development-cost-india'
+      fullPath: '/insights/ai-development-cost-india'
+      preLoaderRoute: typeof InsightsAiDevelopmentCostIndiaRouteImport
+      parentRoute: typeof InsightsRoute
+    }
+    '/insights/ai-agent-vs-chatbot': {
+      id: '/insights/ai-agent-vs-chatbot'
+      path: '/ai-agent-vs-chatbot'
+      fullPath: '/insights/ai-agent-vs-chatbot'
+      preLoaderRoute: typeof InsightsAiAgentVsChatbotRouteImport
+      parentRoute: typeof InsightsRoute
+    }
   }
 }
+
+interface InsightsRouteChildren {
+  InsightsAiAgentVsChatbotRoute: typeof InsightsAiAgentVsChatbotRoute
+  InsightsAiDevelopmentCostIndiaRoute: typeof InsightsAiDevelopmentCostIndiaRoute
+  InsightsHowToBuildAiAgentForBusinessRoute: typeof InsightsHowToBuildAiAgentForBusinessRoute
+  InsightsRagVsFineTuningRoute: typeof InsightsRagVsFineTuningRoute
+  InsightsWhatIsAiAgentDevelopmentRoute: typeof InsightsWhatIsAiAgentDevelopmentRoute
+  InsightsIndexRoute: typeof InsightsIndexRoute
+}
+
+const InsightsRouteChildren: InsightsRouteChildren = {
+  InsightsAiAgentVsChatbotRoute: InsightsAiAgentVsChatbotRoute,
+  InsightsAiDevelopmentCostIndiaRoute: InsightsAiDevelopmentCostIndiaRoute,
+  InsightsHowToBuildAiAgentForBusinessRoute:
+    InsightsHowToBuildAiAgentForBusinessRoute,
+  InsightsRagVsFineTuningRoute: InsightsRagVsFineTuningRoute,
+  InsightsWhatIsAiAgentDevelopmentRoute: InsightsWhatIsAiAgentDevelopmentRoute,
+  InsightsIndexRoute: InsightsIndexRoute,
+}
+
+const InsightsRouteWithChildren = InsightsRoute._addFileChildren(
+  InsightsRouteChildren,
+)
 
 interface PortfolioRouteChildren {
   PortfolioSlugRoute: typeof PortfolioSlugRoute
@@ -321,13 +595,13 @@ const PortfolioRouteWithChildren = PortfolioRoute._addFileChildren(
 )
 
 interface ProductsRouteChildren {
-  ProductsSlugRoute: typeof ProductsSlugRoute
+  ProductsGladHmsRoute: typeof ProductsGladHmsRoute
   ProductsSettledeskRoute: typeof ProductsSettledeskRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
 const ProductsRouteChildren: ProductsRouteChildren = {
-  ProductsSlugRoute: ProductsSlugRoute,
+  ProductsGladHmsRoute: ProductsGladHmsRoute,
   ProductsSettledeskRoute: ProductsSettledeskRoute,
   ProductsIndexRoute: ProductsIndexRoute,
 }
@@ -336,15 +610,39 @@ const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
   ProductsRouteChildren,
 )
 
+interface ServicesRouteChildren {
+  ServicesAiSolutionsRoute: typeof ServicesAiSolutionsRoute
+  ServicesBusinessAutomationRoute: typeof ServicesBusinessAutomationRoute
+  ServicesMobileAppDevelopmentRoute: typeof ServicesMobileAppDevelopmentRoute
+  ServicesMvpDevelopmentRoute: typeof ServicesMvpDevelopmentRoute
+  ServicesWebApplicationDevelopmentRoute: typeof ServicesWebApplicationDevelopmentRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
+}
+
+const ServicesRouteChildren: ServicesRouteChildren = {
+  ServicesAiSolutionsRoute: ServicesAiSolutionsRoute,
+  ServicesBusinessAutomationRoute: ServicesBusinessAutomationRoute,
+  ServicesMobileAppDevelopmentRoute: ServicesMobileAppDevelopmentRoute,
+  ServicesMvpDevelopmentRoute: ServicesMvpDevelopmentRoute,
+  ServicesWebApplicationDevelopmentRoute:
+    ServicesWebApplicationDevelopmentRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
+}
+
+const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
+  ServicesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  InsightsRoute: InsightsRouteWithChildren,
   PortfolioRoute: PortfolioRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,
   ProductsRoute: ProductsRouteWithChildren,
-  ServicesRoute: ServicesRoute,
+  ServicesRoute: ServicesRouteWithChildren,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport

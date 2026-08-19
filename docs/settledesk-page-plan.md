@@ -11,9 +11,9 @@ This document outlines the complete structural, architectural, brand, content, a
 - **File Path**: [src/routes/products.settledesk.tsx](file:///c:/Users/imsto/Desktop/GLAD/src/routes/products.settledesk.tsx)
 - **TanStack Router Mapping**: Static route `/products/settledesk` registered as a child under `src/routes/products.tsx` layout `<Outlet />`. In TanStack Router, static paths (`products.settledesk.tsx`) automatically take precedence over dynamic slug matchers (`products.$slug.tsx`).
 
-### Reusable Product-Page Architecture (For SettleDesk, RESTOOS, & Future Products)
+### Reusable Product-Page Architecture (For SettleDesk, GLAD HMS, & Future Products)
 
-To ensure future agency product pages (like RESTOOS) are 90% content-driven rather than requiring full page re-engineering, we establish a decoupled **Data + Template** pattern:
+To ensure future agency product pages (like GLAD HMS) are 90% content-driven rather than requiring full page re-engineering, we establish a decoupled **Data + Template** pattern:
 
 1. **Content Data Schema (`src/data/products/settledesk.ts`)**:
    - Holds structured product metadata (SEO tags, hero copy, feature blocks, tier specs, pricing matrices, testimonials, FAQs, visual asset paths).
