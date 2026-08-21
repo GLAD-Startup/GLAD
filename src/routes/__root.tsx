@@ -12,10 +12,9 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import logoUrl from "./images/main logo.png";
-import { ThemeProvider } from "../components/theme-provider";
-import { FloatingFooter } from "../components/site/FloatingFooter";
-import { CookieConsent } from "../components/site/CookieConsent";
 import { SmoothScrollProvider } from "../components/site/SmoothScrollProvider";
+import { FloatingFooter } from "../components/site/FloatingFooter";
+import { setupLazyCalListener } from "../lib/cal";
 
 function NotFoundComponent() {
   return (
@@ -29,7 +28,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] hover:bg-primary/90"
           >
             Go home
           </Link>
@@ -61,13 +60,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] hover:bg-primary/90"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] hover:bg-accent"
           >
             Go home
           </a>
@@ -94,7 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "web development agency, AI development, mobile app development, data engineering, React, Flutter, machine learning, India",
       },
       { name: "robots", content: "index, follow" },
-      { name: "theme-color", content: "#0A0A0B" },
+      { name: "theme-color", content: "#F7F4ED" },
       { name: "author", content: "Glad Studio" },
       // Open Graph
       { property: "og:title", content: "Glad Studio — Web, Mobile & AI Development Agency" },
@@ -121,11 +120,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", type: "image/jpeg", href: logoUrl },
       { rel: "canonical", href: "https://gladstudio.net/" },
       { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+        rel: "preload",
+        href: "/fonts/space-grotesk-500.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/fonts/inter-400.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
     ],
     scripts: [
@@ -199,38 +206,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var storageKey = "glad-ui-theme-v2";
-                  var theme = localStorage.getItem(storageKey);
-                  var defaultTheme = "dark";
-                  var finalTheme = theme || defaultTheme;
-                  
-                  if (finalTheme === "system") {
-                    finalTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-                  }
-                  
-                  if (finalTheme === "dark") {
-                    document.documentElement.classList.add("dark");
-                  } else {
-                    document.documentElement.classList.remove("dark");
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
       </head>
       <body>
-        <ThemeProvider defaultTheme="dark" storageKey="glad-ui-theme-v2">
-          {children}
-        </ThemeProvider>
+        {children}
         <Scripts />
       </body>
     </html>
@@ -240,13 +221,16 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    setupLazyCalListener();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <SmoothScrollProvider>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
         <FloatingFooter />
-        <CookieConsent />
       </SmoothScrollProvider>
     </QueryClientProvider>
   );

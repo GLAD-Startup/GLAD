@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import type { FAQItem } from "@/types/product-page";
-import { SectionHeading } from "@/components/site/SectionHeading";
+import { SectionRail } from "@/components/site/SectionRail";
 
 export function ProductFAQAccordion({
   faqs,
@@ -17,11 +17,8 @@ export function ProductFAQAccordion({
   return (
     <section className="py-24 relative border-t border-border">
       <div className="mx-auto max-w-4xl px-6">
-        <SectionHeading
-          eyebrow={eyebrow}
-          title={title}
-          center
-        />
+        <SectionRail index="FAQ" label={eyebrow} meta={typeof title === 'string' ? title : undefined} />
+        <h2 className="text-3xl sm:text-4xl font-display font-medium text-[var(--color-ink)] text-center mb-8">{title}</h2>
 
         <div className="mt-12 space-y-4">
           {faqs.map((faq, index) => {
@@ -29,7 +26,7 @@ export function ProductFAQAccordion({
             return (
               <div
                 key={faq.question}
-                className="surface-card rounded-xl overflow-hidden transition-all"
+                className="surface rounded-xl overflow-hidden transition-all"
               >
                 <button
                   type="button"

@@ -21,7 +21,7 @@ export function DealCascadeSimulator() {
   return (
     <div
       id="simulator"
-      className="surface-card p-6 md:p-10 my-12 border-2 border-border rounded-2xl relative overflow-hidden shadow-card scroll-mt-28"
+      className="surface p-6 md:p-10 my-12 border-2 border-border rounded-2xl relative overflow-hidden shadow-card scroll-mt-28"
     >
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8 border-b border-border pb-6">
         <div>

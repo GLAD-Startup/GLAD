@@ -29,6 +29,8 @@
 - Process: https://gladstudio.net/process
 - About: https://gladstudio.net/about
 - Contact: https://gladstudio.net/contact
+- Privacy Policy: https://gladstudio.net/privacy
+- Terms of Service: https://gladstudio.net/terms
 
 ## AI Engineering Insights
 - **AI Development Cost in India (2026)**: A realistic engineering breakdown of AI software development costs in India—covering RAG pipelines, autonomous agents, vector databases, model token usage, and operational maintenance (https://gladstudio.net/insights/ai-development-cost-india)

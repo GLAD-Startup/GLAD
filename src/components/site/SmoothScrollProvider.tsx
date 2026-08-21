@@ -1,32 +1,17 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { ReactLenis, useLenis } from "lenis/react";
 
-// Limiter configuration for smooth scrolling with per-scroll distance cap
-const MAX_DELTA = 100; // Maximum scroll delta (px) allowed per wheel tick/event
-
 const lenisOptions = {
-  duration: 1.2,
-  easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  lerp: 0.1,
+  wheelMultiplier: 1,
+  touchMultiplier: 1,
+  smoothTouch: false,
+  syncTouch: false,
   orientation: "vertical" as const,
   gestureOrientation: "vertical" as const,
-  smoothWheel: true,
-  wheelMultiplier: 0.85,
-  touchMultiplier: 1.5,
   infinite: false,
   autoRaf: true,
-  // Virtual scroll callback to clamp/limit scroll per scroll action
-  virtualScroll: (data: { deltaX: number; deltaY: number; event: WheelEvent | TouchEvent }) => {
-    // Clamp Y-axis scroll delta to prevent erratic jumps on aggressive flick/wheel spins
-    if (Math.abs(data.deltaY) > MAX_DELTA) {
-      data.deltaY = Math.sign(data.deltaY) * MAX_DELTA;
-    }
-    // Clamp X-axis scroll delta
-    if (Math.abs(data.deltaX) > MAX_DELTA) {
-      data.deltaX = Math.sign(data.deltaX) * MAX_DELTA;
-    }
-    return true;
-  },
 };
 
 function RouteScrollHandler() {
@@ -41,7 +26,7 @@ function RouteScrollHandler() {
       const targetElement =
         document.getElementById(targetId) || document.querySelector(location.hash);
       if (targetElement) {
-        lenis.scrollTo(targetElement as HTMLElement, { offset: -80, duration: 1.2 });
+        lenis.scrollTo(targetElement as HTMLElement, { offset: -80, immediate: false });
         return;
       }
     }
@@ -54,6 +39,26 @@ function RouteScrollHandler() {
 }
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    // Disable Lenis entirely if user prefers reduced motion or is on a touch device
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+    const checkDisabled = () => {
+      setDisabled(mediaQuery.matches || isTouch);
+    };
+
+    checkDisabled();
+    mediaQuery.addEventListener("change", checkDisabled);
+    return () => mediaQuery.removeEventListener("change", checkDisabled);
+  }, []);
+
+  if (disabled) {
+    return <>{children}</>;
+  }
+
   return (
     <ReactLenis root options={lenisOptions}>
       <RouteScrollHandler />

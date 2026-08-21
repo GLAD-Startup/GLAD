@@ -2,9 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { EmailModal } from "@/components/site/EmailModal";
 import { Reveal } from "@/components/site/Reveal";
-import { SectionHeading } from "@/components/site/SectionHeading";
+import { SectionRail } from "@/components/site/SectionRail";
 import { settledeskData } from "@/data/products/settledesk";
 import { ProductHero } from "@/components/products/ProductHero";
 import { ProductThreeTier } from "@/components/products/ProductThreeTier";
@@ -107,29 +106,26 @@ function SettleDeskLandingPage() {
         {/* Continuous Vector Background Wrapper spanning Security, Workflow & Story */}
         <div className="relative isolate overflow-hidden">
           {/* Continuous Background Watermark Image */}
-          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-30 dark:opacity-20 mix-blend-luminosity">
+          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-30 mix-blend-luminosity">
             <img
               src={buildingVectorBg}
               alt=""
-              className="w-full h-full object-cover object-center brightness-125 dark:brightness-130 contrast-110"
+              className="w-full h-full object-cover object-center brightness-125 contrast-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+            <div className="absolute inset-0 bg-transparent from-background via-transparent to-background" />
           </div>
 
           {/* 5. Database Row-Level Security (RLS) Isolation */}
           <section className="py-24 relative border-t border-border bg-surface/10">
             <div className="mx-auto max-w-7xl px-6">
-              <SectionHeading
-                eyebrow="Enterprise-Grade Security"
-                title={
-                  <>
-                    Bank-Grade Security. <br />
-                    <span className="gradient-text">Zero Data Leaks Between Tenants.</span>
-                  </>
-                }
-                sub="SettleDesk is built on strict database-level isolation, so every brokerage's data stays completely private — even on a shared platform."
-                center
-              />
+              <SectionRail index="01" label="Enterprise-Grade Security" />
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[var(--color-ink)] mb-4">
+                Bank-Grade Security. <br />
+                <span className="text-[var(--color-ink)]">Zero Data Leaks Between Tenants.</span>
+              </h2>
+              <p className="text-[14px] text-[var(--color-ink-2)] max-w-2xl mb-8 leading-relaxed">
+                SettleDesk is built on strict database-level isolation, so every brokerage's data stays completely private — even on a shared platform.
+              </p>
 
               <div className="mt-16 grid gap-6 md:grid-cols-3">
                 {settledeskData.securityPillars.map((pillar, idx) => {
@@ -137,18 +133,18 @@ function SettleDeskLandingPage() {
                   return (
                     <div
                       key={pillar.title}
-                      className="animated-corner-card surface-card p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
+                      className="animated-corner-card surface p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
                     >
                       <div className="go-corner">
                         <div className="go-arrow">→</div>
                       </div>
-                      <div className="size-10 rounded-xl bg-surface border border-border flex items-center justify-center text-[#10b981] mb-4 relative z-10 icon-box transition-all duration-300">
+                      <div className="size-10 rounded-xl bg-surface border border-border flex items-center justify-center text-[#10b981] mb-4 relative z-10 icon-box transition-all duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                         <Icon className="size-5" />
                       </div>
-                      <h4 className="font-bold text-lg font-display relative z-10 transition-colors duration-300">
+                      <h4 className="font-bold text-lg font-display relative z-10 transition-colors duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                         {pillar.title}
                       </h4>
-                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-300">
+                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                         {pillar.description}
                       </p>
                     </div>
@@ -187,15 +183,15 @@ function SettleDeskLandingPage() {
                 {settledeskData.aboutStory.beliefs.map((b) => (
                   <div
                     key={b.title}
-                    className="animated-corner-card surface-card p-5 rounded-xl relative overflow-hidden group cursor-pointer"
+                    className="animated-corner-card surface p-5 rounded-xl relative overflow-hidden group cursor-pointer"
                   >
                     <div className="go-corner">
                       <div className="go-arrow">→</div>
                     </div>
-                    <h4 className="font-bold text-sm font-display text-foreground relative z-10 transition-colors duration-300">
+                    <h4 className="font-bold text-sm font-display text-foreground relative z-10 transition-colors duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                       {b.title}
                     </h4>
-                    <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-300">
+                    <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                       {b.desc}
                     </p>
                   </div>
@@ -239,14 +235,11 @@ function SettleDeskLandingPage() {
         </section>
 
         {/* 10. Final Call to Action */}
-        <ProductCTA onPrimaryCtaClick={() => setIsModalOpen(true)} />
+        <ProductCTA />
       </main>
 
       {/* Real Agency Footer */}
       <Footer />
-
-      {/* Lead Capture Email / Registration Modal */}
-      <EmailModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }

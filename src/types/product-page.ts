@@ -1,7 +1,7 @@
 export interface ProductHeroConfig {
   eyebrow: string;
   title: string;
-  titleGradient: string;
+  titleAccent: string;
   description: string;
   primaryCtaText: string;
   secondaryCtaText: string;

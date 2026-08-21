@@ -8,7 +8,7 @@ export const gladHmsData: ProductPageData = {
   hero: {
     eyebrow: "Modular Hospitality Operating System",
     title: "Enterprise-Grade Hotel Operations.",
-    titleGradient: "Built Module by Module for Your Property.",
+    titleAccent: "Built Module by Module for Your Property.",
     description:
       "GLAD HMS is a modular multi-tenant hotel management platform covering reservations, front desk workflows, housekeeping task boards, stay folio billing with GST compliance, and USALI revenue analytics — with zero forced software bundles.",
     primaryCtaText: "Start Free Trial",

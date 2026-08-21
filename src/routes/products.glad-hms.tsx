@@ -2,9 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { EmailModal } from "@/components/site/EmailModal";
 import { Reveal } from "@/components/site/Reveal";
-import { SectionHeading } from "@/components/site/SectionHeading";
+import { SectionRail } from "@/components/site/SectionRail";
 import { gladHmsData } from "@/data/products/glad-hms";
 import { ProductHero } from "@/components/products/ProductHero";
 import { ProductThreeTier } from "@/components/products/ProductThreeTier";
@@ -172,23 +171,20 @@ function GladHmsLandingPage() {
               alt="GLAD HMS Hotel Management System"
               className="w-full h-full object-cover object-center brightness-110 contrast-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+            <div className="absolute inset-0 bg-transparent from-background via-transparent to-background" />
           </div>
 
           {/* 4. Security & Architecture Isolation */}
           <section className="py-24 relative border-t border-border bg-surface/10">
             <div className="mx-auto max-w-7xl px-6">
-              <SectionHeading
-                eyebrow="Architectural Integrity"
-                title={
-                  <>
-                    Multi-Tenant Safety. <br />
-                    <span className="gradient-text">Zero Concurrency Collisions.</span>
-                  </>
-                }
-                sub="GLAD HMS is engineered with tenant-scoped query filters and database-level pessimistic row locks, ensuring your guest records and room availability remain 100% accurate."
-                center
-              />
+              <SectionRail index="01" label="Architectural Integrity" />
+              <h2 className="text-3xl sm:text-4xl font-display font-medium text-[var(--color-ink)] text-center mb-4">
+                Multi-Tenant Safety. <br />
+                <span className="text-[var(--color-ink)]">Zero Concurrency Collisions.</span>
+              </h2>
+              <p className="text-[14px] text-[var(--color-ink-2)] max-w-2xl mx-auto text-center mb-8 leading-relaxed">
+                GLAD HMS is engineered with tenant-scoped query filters and database-level pessimistic row locks, ensuring your guest records and room availability remain 100% accurate.
+              </p>
 
               <div className="mt-16 grid gap-6 md:grid-cols-3">
                 {gladHmsData.securityPillars.map((pillar, idx) => {
@@ -196,18 +192,18 @@ function GladHmsLandingPage() {
                   return (
                     <div
                       key={pillar.title}
-                      className="animated-corner-card surface-card p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
+                      className="animated-corner-card surface p-6 rounded-2xl relative overflow-hidden group cursor-pointer"
                     >
                       <div className="go-corner">
                         <div className="go-arrow">→</div>
                       </div>
-                      <div className="size-10 rounded-xl bg-surface border border-border flex items-center justify-center text-[#10b981] mb-4 relative z-10 icon-box transition-all duration-300">
+                      <div className="size-10 rounded-xl bg-surface border border-border flex items-center justify-center text-[#10b981] mb-4 relative z-10 icon-box transition-all duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                         <Icon className="size-5" />
                       </div>
-                      <h4 className="font-bold text-lg font-display relative z-10 transition-colors duration-300">
+                      <h4 className="font-bold text-lg font-display relative z-10 transition-colors duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                         {pillar.title}
                       </h4>
-                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-300">
+                      <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                         {pillar.description}
                       </p>
                     </div>
@@ -251,15 +247,15 @@ function GladHmsLandingPage() {
                 {gladHmsData.aboutStory.beliefs.map((b) => (
                   <div
                     key={b.title}
-                    className="animated-corner-card surface-card p-5 rounded-xl relative overflow-hidden group cursor-pointer"
+                    className="animated-corner-card surface p-5 rounded-xl relative overflow-hidden group cursor-pointer"
                   >
                     <div className="go-corner">
                       <div className="go-arrow">→</div>
                     </div>
-                    <h4 className="font-bold text-sm font-display text-foreground relative z-10 transition-colors duration-300">
+                    <h4 className="font-bold text-sm font-display text-foreground relative z-10 transition-colors duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                       {b.title}
                     </h4>
-                    <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-300">
+                    <p className="mt-2 text-xs text-muted-foreground leading-relaxed relative z-10 transition-colors duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
                       {b.desc}
                     </p>
                   </div>
@@ -314,15 +310,11 @@ function GladHmsLandingPage() {
           title="Ready to Modernize Your Hotel Operations?"
           sub="See how GLAD HMS unifies your room reservations, front desk, mobile housekeeping, and revenue analytics on one modular platform."
           primaryCtaText="Talk About Your Hotel"
-          onPrimaryCtaClick={() => setIsModalOpen(true)}
         />
       </main>
 
       {/* Agency Footer */}
       <Footer />
-
-      {/* Lead Capture Email / Registration Modal */}
-      <EmailModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }

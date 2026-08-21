@@ -1,4 +1,4 @@
-import { SectionHeading } from "@/components/site/SectionHeading";
+import { SectionRail } from "@/components/site/SectionRail";
 import type { StepItem } from "@/types/product-page";
 import { ArrowRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
@@ -17,22 +17,19 @@ export function ProductWorkflowSequence({
   return (
     <section id="workflow" className="py-24 relative border-t border-border overflow-hidden scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading
-          eyebrow={eyebrow}
-          title={title}
-          sub={sub}
-          center
-        />
+        <SectionRail index="01" label={eyebrow} meta={typeof title === 'string' ? title : undefined} />
+        <h2 className="text-3xl sm:text-4xl font-display font-medium text-[var(--color-ink)] text-center mb-4">{title}</h2>
+        {sub && <p className="text-[14px] text-[var(--color-ink-2)] max-w-2xl mx-auto text-center mb-8 leading-relaxed">{sub}</p>}
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4 relative">
           {steps.map((step, idx) => (
             <motion.div
               key={step.title}
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: idx * 0.12 }}
-              className="surface-card p-6 rounded-2xl flex flex-col justify-between relative transition-transform duration-300 ease-out hover:scale-105 hover:z-20 cursor-pointer border border-emerald-500/30 shadow-lg"
+              viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: Math.min(idx, 5) * 0.05 }}
+              className="surface p-6 rounded-2xl flex flex-col justify-between relative cursor-pointer border border-emerald-500/30 shadow-lg"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 border-b border-border/60 pb-3.5 mb-4">

@@ -1,22 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Rocket, Layout, Smartphone, Sparkles, Workflow } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { HeroBackground } from "@/components/site/Background";
-import { Reveal } from "@/components/site/Reveal";
-import { services } from "@/components/site/data";
-import { motion } from "framer-motion";
-import { useRef } from "react";
-import { StickerBoard } from "@/components/site/StickerBoard";
-import { HandDrawnUnderline } from "@/components/site/HandDrawnHighlights";
-
-const serviceRoutes: Record<string, string> = {
-  mvp: "/services/mvp-development",
-  web: "/services/web-application-development",
-  mobile: "/services/mobile-app-development",
-  ai: "/services/ai-solutions",
-  automation: "/services/business-automation",
-};
+import { Section } from "@/components/site/Section";
+import { SectionRail } from "@/components/site/SectionRail";
+import { Row } from "@/components/site/Row";
+import { ClosingCTA } from "@/components/site/ClosingCTA";
+import { services } from "@/data/services.data";
 
 export const Route = createFileRoute("/services/")({
   head: () => ({
@@ -89,181 +78,50 @@ export const Route = createFileRoute("/services/")({
   component: ServicesIndexPage,
 });
 
-const serviceIcons: Record<string, typeof Rocket> = {
-  mvp: Rocket,
-  web: Layout,
-  mobile: Smartphone,
-  ai: Sparkles,
-  automation: Workflow,
-};
-
-const serviceCardColors = {
-  mvp: {
-    shadow: "var(--brand-pink)",
-    iconBg: "linear-gradient(135deg, var(--brand-pink) 0%, #FF66B2 100%)",
-    iconText: "text-white",
-  },
-  web: {
-    shadow: "var(--brand-blue)",
-    iconBg: "linear-gradient(135deg, var(--brand-blue) 0%, #66F5FF 100%)",
-    iconText: "text-black",
-  },
-  mobile: {
-    shadow: "var(--brand-purple)",
-    iconBg: "linear-gradient(135deg, var(--brand-purple) 0%, #C994FF 100%)",
-    iconText: "text-white",
-  },
-  ai: {
-    shadow: "var(--brand-2)",
-    iconBg: "linear-gradient(135deg, var(--brand-2) 0%, #FFE680 100%)",
-    iconText: "text-black",
-  },
-  automation: {
-    shadow: "var(--team-calm)",
-    iconBg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)",
-    iconText: "text-white",
-  },
-} as const;
-
 function ServicesIndexPage() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sortedServices = [...services].sort((a, b) => a.order - b.order);
 
   return (
-    <div className="min-h-screen relative bg-background text-foreground">
+    <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-live)] selection:text-[var(--color-card)]">
       <Header />
 
-      {/* Hero */}
-      <section className="relative pt-36 pb-16 md:pt-44 overflow-hidden">
-        <HeroBackground />
-        <div className="mx-auto max-w-7xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl"
-          >
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              <span className="inline-block w-6 h-px bg-brand-gradient" />
-              Engineering Services
-            </div>
-            <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1] text-foreground">
-              Built for{" "}
-              <HandDrawnUnderline color="var(--brand-pink)">ambitious teams.</HandDrawnUnderline>
+      <main>
+        {/* Hero Section */}
+        <Section size="hero" tone="paper" divider={false}>
+          <SectionRail label="ENGINEERING SERVICES" />
+
+          <div className="max-w-3xl mb-12">
+            <h1 className="text-[clamp(44px,6vw,72px)] leading-[1.04] tracking-tight font-display font-medium text-[var(--color-ink)]">
+              Engineering services built to ship.
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-              Five dedicated engineering services — each delivered by senior developers, with clean
-              architecture, predictable milestones, and source code you fully own.
+            <p className="text-[17px] text-[var(--color-ink-2)] mt-5 leading-relaxed max-w-2xl">
+              We design, architect, and build custom digital software products — from high-velocity
+              MVPs and scalable web applications to cross-platform mobile apps and autonomous AI
+              workflows.
             </p>
-          </motion.div>
-        </div>
-      </section>
+          </div>
 
-      {/* Services list centered */}
-      <section ref={sectionRef} className="relative pb-28 overflow-visible">
-        <div className="mx-auto max-w-5xl px-6 space-y-8 relative z-20">
-          {services.map((s, i) => {
-            const Icon = serviceIcons[s.slug];
-            const colors = serviceCardColors[s.slug as keyof typeof serviceCardColors];
-            const serviceUrl = serviceRoutes[s.slug] || "/services";
+          <div className="surface p-2 sm:p-4">
+            {sortedServices.map((s, idx) => (
+              <Row
+                key={s.slug}
+                index={idx + 1}
+                title={s.name}
+                description={s.intro}
+                meta={s.timeline}
+                href={`/services/${s.slug}`}
+              />
+            ))}
+          </div>
+        </Section>
 
-            return (
-              <Reveal key={s.slug} delay={i * 0.04}>
-                <article
-                  id={`service-${s.slug}`}
-                  className="surface-card interactive-card shine-on-hover p-8 md:p-12 grid gap-10 lg:grid-cols-3 relative z-20 calm-card-custom"
-                  style={
-                    {
-                      // @ts-ignore
-                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <div className="lg:col-span-2">
-                    <div className="flex items-center gap-3 mb-3">
-                      {Icon && (
-                        <div
-                          className={`size-10 rounded-lg grid place-items-center shadow-lg ${colors.iconText}`}
-                          style={{ background: colors.iconBg }}
-                        >
-                          <Icon className="size-4" />
-                        </div>
-                      )}
-                      <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground font-semibold">
-                        {String(i + 1).padStart(2, "0")} — {s.slug.toUpperCase()}
-                      </div>
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">{s.title}</h2>
-                    <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed">
-                      {s.description}
-                    </p>
-
-                    <h3 className="mt-8 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Key Deliverables
-                    </h3>
-                    <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-                      {s.benefits.map((b) => (
-                        <li key={b} className="flex items-start gap-2.5 text-sm">
-                          <div
-                            className="size-5 rounded-full grid place-items-center mt-0.5 shrink-0 text-white"
-                            style={{ background: colors.iconBg }}
-                          >
-                            <Check className="size-3" />
-                          </div>
-                          <span>{b}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="space-y-6 flex flex-col justify-between">
-                    <div className="space-y-6">
-                      <div>
-                        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                          Core Technologies
-                        </h3>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {s.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-xs rounded-full border border-border px-3 py-1 text-muted-foreground"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                          Typical Scope Timeline
-                        </h3>
-                        <p className="mt-2 text-xl font-semibold text-gradient">{s.timeline}</p>
-                      </div>
-                    </div>
-
-                    <div className="pt-2 space-y-3">
-                      <Link
-                        to={serviceUrl}
-                        className="btn-primary text-sm w-full justify-center group"
-                      >
-                        <span>Explore {s.title}</span>
-                        <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                      <Link
-                        to="/contact"
-                        className="text-xs font-semibold text-muted-foreground hover:text-foreground text-center block transition-colors"
-                      >
-                        Have questions? Book a call →
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
+        {/* Closing CTA */}
+        <Section size="default" tone="paper" divider={false}>
+          <ClosingCTA />
+        </Section>
+      </main>
 
       <Footer />
-      <StickerBoard />
     </div>
   );
 }

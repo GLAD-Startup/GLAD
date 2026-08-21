@@ -8,7 +8,7 @@ export const settledeskData: ProductPageData = {
   hero: {
     eyebrow: "Premium Brokerage Operations",
     title: "Run Your Entire Brokerage.",
-    titleGradient: "On One Platform.",
+    titleAccent: "On One Platform.",
     description:
       "SettleDesk unifies property management, agent operations, lead tracking, and commission payouts into one secure, real-time system — built for brokerages that are ready to scale.",
     primaryCtaText: "Start Free Trial",

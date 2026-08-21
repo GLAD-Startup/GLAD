@@ -1,56 +1,29 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import Spline from "@splinetool/react-spline";
-import {
-  ArrowRight,
-  Rocket,
-  Layout,
-  Smartphone,
-  Sparkles,
-  Workflow,
-  Gauge,
-  MessageSquare,
-  Layers,
-  Shield,
-  Check,
-  Quote,
-  ChevronRight,
-  Star,
-  CheckCircle2,
-} from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { HeroBackground } from "@/components/site/Background";
-import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { ProjectCard } from "@/components/site/ProjectCard";
-import { AnimatedCounter } from "@/components/site/AnimatedCounter";
-import { LogoStrip } from "@/components/site/LogoStrip";
-import { Field, SelectField } from "@/components/site/FormFields";
-import { services, projects, testimonials, faqs } from "@/components/site/data";
-import {
-  HandDrawnCircle,
-  HandDrawnUnderline,
-  HandDrawnDoubleStrike,
-} from "@/components/site/HandDrawnHighlights";
-import {
-  RetroStar,
-  SparkleDeco,
-  CurlyArrow,
-  CuteSpeechBubble,
-} from "@/components/site/RetroDecorations";
-import { StickerBoard } from "@/components/site/StickerBoard";
-import { Scroll3DElement } from "@/components/site/Scroll3DElement";
+import { Section } from "@/components/site/Section";
+import { SectionRail } from "@/components/site/SectionRail";
+import { Row } from "@/components/site/Row";
+import { Ledger } from "@/components/site/Ledger";
+import { Shot } from "@/components/ui/Shot";
+import { Surface } from "@/components/ui/Surface";
+import { Chip } from "@/components/ui/Chip";
+import { Button } from "@/components/ui/Button";
+import { Field, SelectField, TextareaField } from "@/components/ui/Field";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { HandDrawnUnderline } from "@/components/site/HandDrawnHighlights";
+import { ClosingCTA } from "@/components/site/ClosingCTA";
+import { faqs, projects, testimonials } from "@/components/site/data";
 import { useState, useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
-import { useTheme } from "@/components/theme-provider";
 import { createServerFn } from "@tanstack/react-start";
+
+/* ── Server function: Cal.com available slots ────────────── */
 
 export const getAvailableSlots = createServerFn({ method: "GET" }).handler(async () => {
   try {
@@ -72,7 +45,6 @@ export const getAvailableSlots = createServerFn({ method: "GET" }).handler(async
     const data = await response.json();
 
     if (data.status === "success" && Array.isArray(data.data)) {
-      // Only count accepted bookings for project-consultation and technical-discussion
       const countedSlugs = ["project-consultation", "technical-discussion"];
       const validBookings = data.data.filter((booking: any) => {
         return (
@@ -82,7 +54,6 @@ export const getAvailableSlots = createServerFn({ method: "GET" }).handler(async
         );
       });
 
-      // Global capacity limit per quarter
       const CAPACITY_LIMIT = 5;
       const slotsLeft = Math.max(0, CAPACITY_LIMIT - validBookings.length);
       return slotsLeft;
@@ -98,17 +69,17 @@ export const getAvailableSlots = createServerFn({ method: "GET" }).handler(async
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Glad Studio — Web, Mobile & AI Development Agency" },
+      { title: "GLAD Studio — Engineering-First Web, Mobile & AI Product Studio" },
       {
         name: "description",
         content:
-          "We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.",
+          "We help startups and growing businesses ship scalable web platforms, high-performance mobile apps, and custom automation systems.",
       },
-      { property: "og:title", content: "Glad Studio — Web, Mobile & AI Development Agency" },
+      { property: "og:title", content: "GLAD Studio — Engineering-First Product Studio" },
       {
         property: "og:description",
         content:
-          "We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.",
+          "We help startups and growing businesses ship scalable web platforms, high-performance mobile apps, and custom automation systems.",
       },
       { property: "og:url", content: "https://gladstudio.net/" },
       { property: "og:image", content: "https://gladstudio.net/og-image.png" },
@@ -122,760 +93,351 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const serviceIcons = {
-  mvp: Rocket,
-  web: Layout,
-  mobile: Smartphone,
-  ai: Sparkles,
-  automation: Workflow,
-} as const;
-
-const whyUs = [
-  {
-    icon: Gauge,
-    title: "Fast Development",
-    body: "Weeks, not quarters. Senior team, focused scope, no agency overhead.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Transparent Communication",
-    body: "Async updates, weekly demos, and a Slack channel you actually use.",
-  },
-  {
-    icon: Layers,
-    title: "Modern Technologies",
-    body: "TypeScript, React 19, Flutter, Postgres, and AI built into your product, not bolted on.",
-  },
-  {
-    icon: Shield,
-    title: "Scalable Architecture",
-    body: "Production-ready from day one — type-safe, tested, observable.",
-  },
-];
-
-const processSteps = ["Discovery", "Planning", "Design", "Development", "Testing", "Launch"];
-
 function Home() {
   const { slots } = Route.useLoaderData();
-  return (
-    <div className="min-h-screen relative">
-      <Header />
-      <Hero slots={slots} />
-      <TechStrip />
-      <Services />
-      <WhyUs />
-      <Process />
-      <Featured />
-      <Testimonials />
-      <Faq />
-      <FinalCTA />
-      <Footer />
-      <StickerBoard />
-    </div>
-  );
-}
-
-/* ─── Hero ──────────────────────────────────────────── */
-
-function Hero({ slots = 2 }: { slots?: number }) {
-  return (
-    <section className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden min-h-[90vh] flex items-center">
-      <HeroBackground />
-
-      {/* Floating Retro Decorations in Hero */}
-      <RetroStar
-        className="left-6 top-32 hidden xl:block animate-float-sticker"
-        size={60}
-        color="var(--brand-pink)"
-        rotation={15}
-      />
-      <SparkleDeco
-        className="left-1/4 top-28 hidden md:block"
-        size={32}
-        color="var(--brand-blue)"
-      />
-      <CuteSpeechBubble
-        className="right-[42%] top-[30%] hidden xl:block animate-float-sticker"
-        text="100% Bespoke! ⚡"
-        color="var(--brand-blue)"
-        size={140}
-        rotation={-5}
-      />
-
-      {/* Spline 3D Scene - Absolutely positioned to share the root stacking context for mix-blend-screen */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 w-1/2 max-w-[800px] h-[600px] spline-scene z-10 pointer-events-auto transition-all duration-700"
-      >
-        <Spline
-          scene="https://prod.spline.design/WUDd1kLf1Uh-ftTW/scene.splinecode"
-          className="w-full h-full"
-        />
-        <div className="absolute bottom-4 right-5 z-20 pointer-events-none border border-white/10 bg-[#1A1A1A] px-5 py-2.5 rounded-full flex items-center gap-2">
-          <span className="relative flex size-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75" />
-            <span className="relative inline-flex rounded-full size-2 bg-brand" />
-          </span>
-          <span className="text-[11px] font-bold text-white tracking-wider uppercase">
-            Interactive
-          </span>
-        </div>
-      </motion.div>
-
-      <div className="mx-auto max-w-7xl px-6 relative z-20 w-full pointer-events-none">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <div className="max-w-3xl pointer-events-auto">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <div className="inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/50 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground">
-                <span className="relative flex size-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75" />
-                  <span className="relative inline-flex rounded-full size-2 bg-brand" />
-                </span>
-                Now booking projects for Q3 — {slots} slots left
-              </div>
-            </motion.div>
-
-            {/* Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-7 text-5xl md:text-7xl lg:text-[5.25rem] font-semibold leading-[1.05] tracking-tight text-foreground"
-            >
-              Building Web, Mobile &amp;{" "}
-              <HandDrawnCircle color="var(--brand-pink)">AI</HandDrawnCircle>
-              <br />
-              products that{" "}
-              <HandDrawnUnderline color="var(--brand-blue)">scale.</HandDrawnUnderline>
-            </motion.h1>
-
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="mt-7 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
-            >
-              We help startups and growing businesses transform ideas into powerful digital products
-              — through custom software, mobile applications, and AI-powered solutions.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.45 }}
-              className="mt-9 flex flex-wrap gap-4"
-            >
-              <HeroCTA />
-              <Link to="/portfolio" className="btn-secondary">
-                View our work
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Empty spacer to maintain grid layout, Spline is absolutely positioned behind */}
-          <div className="hidden lg:block w-full h-[600px]" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HeroCTA() {
-  const [isClient, setIsClient] = useState(false);
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi();
-      cal("ui", {
-        hideEventTypeDetails: false,
-        layout: "month_view",
-        theme:
-          theme === "dark" ||
-          (theme === "system" &&
-            typeof window !== "undefined" &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ? "dark"
-            : "light",
-      });
-    })();
-  }, [theme]);
-
-  return (
-    <>
-      <button
-        data-cal-link="arjun-rajput-2mdsis"
-        data-cal-config={JSON.stringify({
-          layout: "month_view",
-          theme:
-            theme === "dark" ||
-            (theme === "system" &&
-              typeof window !== "undefined" &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches)
-              ? "dark"
-              : "light",
-        })}
-        className="group btn-primary"
-      >
-        Book a Call
-        <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform duration-300" />
-      </button>
-    </>
-  );
-}
-
-/* ─── Tech Logo Strip ───────────────────────────────── */
-
-function TechStrip() {
-  return (
-    <section className="relative py-6 section-divider">
-      <div className="mx-auto max-w-7xl px-6">
-        <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground/60 mb-4">
-          Technologies we work with
-        </p>
-        <LogoStrip />
-      </div>
-    </section>
-  );
-}
-
-/* ─── Services ──────────────────────────────────────── */
-
-const serviceColors = {
-  mvp: {
-    shadow: "var(--brand-pink)",
-    iconBg: "linear-gradient(135deg, var(--brand-pink) 0%, #FF66B2 100%)",
-    iconText: "text-white",
-  },
-  web: {
-    shadow: "var(--brand-blue)",
-    iconBg: "linear-gradient(135deg, var(--brand-blue) 0%, #66F5FF 100%)",
-    iconText: "text-black",
-  },
-  mobile: {
-    shadow: "var(--brand-purple)",
-    iconBg: "linear-gradient(135deg, var(--brand-purple) 0%, #C994FF 100%)",
-    iconText: "text-white",
-  },
-  ai: {
-    shadow: "var(--brand-2)",
-    iconBg: "linear-gradient(135deg, var(--brand-2) 0%, #FFE680 100%)",
-    iconText: "text-black",
-  },
-  automation: {
-    shadow: "var(--team-calm)",
-    iconBg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)",
-    iconText: "text-white",
-  },
-} as const;
-
-function Services() {
-  return (
-    <section className="relative py-28 section-divider">
-      <div className="mx-auto max-w-7xl px-6">
-        <Reveal>
-          <SectionHeading
-            eyebrow="What we do"
-            title="Senior product engineering, end to end."
-            sub="Five focused practices — picked because they're where small teams create the most leverage."
-          />
-        </Reveal>
-        <RevealGroup className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
-          {services.map((s) => {
-            const Icon = serviceIcons[s.slug];
-            const colors = serviceColors[s.slug];
-            return (
-              <RevealItem key={s.slug}>
-                <Link
-                  to="/services"
-                  className="group relative block surface-card interactive-card shine-on-hover p-7 h-full calm-card-custom"
-                  style={
-                    {
-                      // @ts-ignore
-                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <div className="relative z-[2]">
-                    <div
-                      className={`size-12 rounded-xl grid place-items-center shadow-lg ${colors.iconText}`}
-                      style={{ background: colors.iconBg }}
-                    >
-                      <Icon className="size-5" />
-                    </div>
-                    <h3 className="mt-6 text-xl font-semibold tracking-tight">{s.title}</h3>
-                    <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">
-                      {s.short}
-                    </p>
-                    <div className="mt-6 inline-flex items-center gap-1.5 text-sm text-foreground/70 group-hover:text-foreground transition-colors">
-                      Learn more
-                      <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </Link>
-              </RevealItem>
-            );
-          })}
-
-          {/* 3D Stack Element in 6th Slot */}
-          <RevealItem className="flex items-center justify-center h-full min-h-[300px] overflow-visible">
-            <Scroll3DElement />
-          </RevealItem>
-        </RevealGroup>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Why Us ────────────────────────────────────────── */
-
-const whyUsColors = [
-  { shadow: "var(--brand-pink)", iconBg: "rgba(255, 0, 127, 0.15)", iconText: "text-brand-pink" },
-  { shadow: "var(--brand-blue)", iconBg: "rgba(0, 240, 255, 0.15)", iconText: "text-brand-blue" },
-  {
-    shadow: "var(--brand-purple)",
-    iconBg: "rgba(159, 50, 255, 0.15)",
-    iconText: "text-brand-purple",
-  },
-  {
-    shadow: "var(--brand-2)",
-    iconBg: "rgba(250, 204, 21, 0.2)",
-    iconText: "text-brand-2 dark:text-brand-2",
-  },
-];
-
-function WhyUs() {
-  return (
-    <section className="relative py-28 section-divider noise-bg">
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Why teams choose us"
-            title="A small studio that ships like a product team."
-          />
-        </Reveal>
-        <RevealGroup className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4" stagger={0.06}>
-          {whyUs.map((w, i) => {
-            const colors = whyUsColors[i % whyUsColors.length];
-            return (
-              <RevealItem key={w.title}>
-                <div
-                  className="surface-card interactive-card p-7 h-full calm-card-custom"
-                  style={
-                    {
-                      // @ts-ignore
-                      "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <div
-                    className={`size-10 rounded-lg grid place-items-center ${colors.iconText}`}
-                    style={{ backgroundColor: colors.iconBg }}
-                  >
-                    <w.icon className="size-5" />
-                  </div>
-                  <h3 className="mt-5 text-base font-semibold tracking-tight">{w.title}</h3>
-                  <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{w.body}</p>
-                </div>
-              </RevealItem>
-            );
-          })}
-        </RevealGroup>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Process ───────────────────────────────────────── */
-
-function Process() {
-  return (
-    <section className="relative py-28 section-divider">
-      <div className="mx-auto max-w-7xl px-6">
-        <Reveal>
-          <SectionHeading
-            eyebrow="How we work"
-            title="A clear, predictable process."
-            sub="From first call to launch, you always know where we are and what's next."
-          />
-        </Reveal>
-        <div className="mt-16 relative">
-          {/* Connecting line */}
-          <div className="absolute left-0 right-0 top-6 h-px bg-gradient-to-r from-transparent via-black dark:via-white to-transparent hidden md:block" />
-          <RevealGroup className="grid gap-8 md:grid-cols-6" stagger={0.06}>
-            {processSteps.map((step, i) => (
-              <RevealItem key={step} direction="scale">
-                <div className="relative text-center md:text-left">
-                  <div className="size-12 rounded-full bg-surface border border-border grid place-items-center text-sm font-semibold relative z-10 mx-auto md:mx-0 shadow-lg">
-                    <span className="text-gradient">0{i + 1}</span>
-                  </div>
-                  {i < processSteps.length - 1 && (
-                    <div className="hidden md:grid absolute top-6 left-[calc(100%+1rem)] -translate-x-1/2 -translate-y-1/2 z-10 size-6 place-items-center bg-background rounded-full border border-border/50 text-muted-foreground/50 shadow-sm">
-                      <ChevronRight className="size-3" />
-                    </div>
-                  )}
-                  <h4 className="mt-4 font-medium tracking-tight">{step}</h4>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-        <Reveal delay={0.3}>
-          <div className="mt-12">
-            <Link
-              to="/process"
-              className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors group"
-            >
-              See the full process
-              <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Featured Work ─────────────────────────────────── */
-
-function Featured() {
-  return (
-    <section className="relative py-28 section-divider">
-      <div className="mx-auto max-w-7xl px-6">
-        <Reveal>
-          <div className="flex items-end justify-between gap-6 flex-wrap">
-            <SectionHeading eyebrow="Featured work" title="Selected projects." />
-            <Link
-              to="/portfolio"
-              className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 transition-colors group"
-            >
-              View all
-              <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
-          </div>
-        </Reveal>
-        <RevealGroup className="mt-14 grid gap-6 grid-cols-1 md:grid-cols-12" stagger={0.08}>
-          {projects.map((p, i) => {
-            const spanClasses = [
-              "md:col-span-8",
-              "md:col-span-4",
-              "md:col-span-4",
-              "md:col-span-8",
-              "md:col-span-6",
-              "md:col-span-6",
-            ];
-            return (
-              <RevealItem key={p.slug} className={`w-full ${spanClasses[i]}`}>
-                <div className="perspective-container h-full">
-                  <ProjectCard project={p} className="h-full !rounded-[20px]" />
-                </div>
-              </RevealItem>
-            );
-          })}
-        </RevealGroup>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Testimonials ──────────────────────────────────── */
-
-function Testimonials() {
-  return (
-    <section className="relative py-28 section-divider noise-bg overflow-hidden">
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <Reveal>
-          <SectionHeading eyebrow="Kind words" title="What our clients say." />
-        </Reveal>
-      </div>
-
-      <Reveal>
-        <div className="mt-8 relative flex overflow-hidden mask-edges w-full pt-16 pb-20 md:pt-20 md:pb-24">
-          <div className="flex gap-7 w-max animate-marquee px-4 items-stretch">
-            {[...testimonials, ...testimonials, ...testimonials, ...testimonials].map((t, idx) => (
-              <div key={idx} className="w-[340px] sm:w-[380px] md:w-[420px] shrink-0">
-                <div className="book-card-container">
-                  <div className="book-card">
-                    {/* Inside Page (revealed when cover is swung open) */}
-                    <div className="book-card-inside">
-                      {/* Inside Top: Company Mini Badge + Rating */}
-                      <div className="flex items-center justify-between gap-3 pb-3 border-b border-border/40 dark:border-zinc-800/80">
-                        <div className="h-10 px-3 py-1 rounded-lg bg-white border border-zinc-200 shadow-xs flex items-center justify-center shrink-0">
-                          <img
-                            src={t.logo}
-                            alt={t.company}
-                            className="h-7 w-auto max-w-[100px] object-contain"
-                          />
-                        </div>
-                        <div className="flex items-center gap-0.5 text-amber-400">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="size-3 fill-amber-400 text-amber-400" />
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Inside Center: The Rich Testimonial Quote */}
-                      <div className="my-auto py-3 flex-1 flex flex-col justify-center">
-                        <Quote className="size-6 text-brand/50 mb-2 shrink-0" />
-                        <blockquote className="text-[14px] md:text-[15px] leading-relaxed text-foreground font-medium italic">
-                          "{t.quote}"
-                        </blockquote>
-                        {t.metric && (
-                          <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand">
-                            <span className="size-1.5 rounded-full bg-brand animate-pulse" />
-                            <span>Outcome: {t.metric}</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Inside Bottom: Author details & Project tag */}
-                      <div className="pt-3 border-t border-border/40 dark:border-zinc-800/80 flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="size-8 rounded-full bg-gradient-to-tr from-brand to-emerald-400 text-primary-foreground font-bold text-xs grid place-items-center shrink-0 shadow-xs">
-                            {t.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .slice(0, 2)
-                              .join("")}
-                          </div>
-                          <div className="min-w-0">
-                            <div className="text-xs font-bold text-foreground truncate">
-                              {t.name}
-                            </div>
-                            <div className="text-[10px] text-muted-foreground truncate">
-                              {t.role} · {t.company}
-                            </div>
-                          </div>
-                        </div>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted/80 text-muted-foreground border border-border/40 shrink-0">
-                          {t.project}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Book Cover (swings open on hover) */}
-                    <div className="book-card-cover group/cover">
-                      {/* Top: Header with Verified Badge & 5 Stars */}
-                      <div className="flex items-center justify-between gap-3 pl-3">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-brand/10 text-brand border border-brand/20 dark:bg-brand/15">
-                          <CheckCircle2 className="size-3 text-brand" />
-                          Verified Client
-                        </span>
-                        <div className="flex items-center gap-0.5 text-amber-400">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="size-3.5 fill-amber-400 text-amber-400" />
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Center: Large, prominent, high-contrast Logo Showcase */}
-                      <div className="my-auto pl-3 flex flex-col items-center justify-center">
-                        <div className="w-full h-34 md:h-38 rounded-xl bg-white border border-zinc-200/90 shadow-sm flex items-center justify-center p-4 transition-transform duration-300 group-hover/cover:scale-[1.02]">
-                          <img
-                            src={t.logo}
-                            alt={t.company}
-                            className="h-20 md:h-24 w-auto max-w-[85%] object-contain"
-                          />
-                        </div>
-                        <div className="mt-3 text-center">
-                          <h4 className="text-base font-bold tracking-tight text-foreground line-clamp-1">
-                            {t.company}
-                          </h4>
-                          <span className="text-xs text-muted-foreground line-clamp-1">
-                            {t.project}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Bottom: Client details + Hover prompt with interactive animated arrow */}
-                      <div className="pt-3 border-t border-border/40 dark:border-zinc-800/80 pl-3 flex items-center justify-between">
-                        <div className="min-w-0">
-                          <div className="text-xs font-bold text-foreground truncate">{t.name}</div>
-                          <div className="text-[11px] text-muted-foreground truncate">{t.role}</div>
-                        </div>
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-brand shrink-0 group-hover/cover:translate-x-1 transition-transform duration-300">
-                          Hover to open <ArrowRight className="size-3.5" />
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-    </section>
-  );
-}
-
-/* ─── FAQ ────────────────────────────────────────────── */
-
-function Faq() {
-  return (
-    <section className="relative py-28 section-divider">
-      <div className="mx-auto max-w-3xl px-6">
-        <Reveal>
-          <SectionHeading eyebrow="FAQ" title="Common questions." center />
-        </Reveal>
-        <Reveal delay={0.1}>
-          <Accordion type="single" collapsible className="mt-12 w-full">
-            {faqs.map((f, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="border-border">
-                <AccordionTrigger className="text-left text-base font-medium hover:no-underline py-5">
-                  {f.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                  {f.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Final CTA ─────────────────────────────────────── */
-
-function FinalCTA() {
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  return (
-    <section className="relative py-28 cta-calming-section">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="relative overflow-hidden glass-card p-10 md:p-16">
-          {/* Background effects */}
-          <div className="absolute inset-0 bg-brand-soft opacity-30" />
 
-          <div className="relative z-10 grid gap-12 lg:grid-cols-2 items-start">
-            <Reveal direction="left">
-              <div>
-                <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.1]">
-                  Let's build something <span className="text-gradient">great together.</span>
-                </h2>
-                <p className="mt-5 text-muted-foreground max-w-md leading-relaxed">
-                  Tell us about your project. We'll reply within one business day with next steps or
-                  honest feedback if we're not the right fit.
-                </p>
-                <div className="mt-8 space-y-3.5 text-sm text-muted-foreground">
-                  {[
-                    "30-minute discovery call",
-                    "Fixed-scope proposal in 48 hours",
-                    "Direct access to senior engineers",
-                  ].map((item) => (
-                    <div key={item} className="flex items-center gap-2.5">
-                      <div className="size-5 rounded-full bg-brand-gradient grid place-items-center">
-                        <Check className="size-3 text-primary-foreground" />
-                      </div>
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-            <Reveal direction="right" delay={0.1}>
-              <ContactForm submitted={submitted} setSubmitted={setSubmitted} />
-            </Reveal>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─── Contact Form ──────────────────────────────────── */
-
-function ContactForm({
-  submitted,
-  setSubmitted,
-}: {
-  submitted: boolean;
-  setSubmitted: (v: boolean) => void;
-}) {
-  const [loading, setLoading] = useState(false);
-
-  if (submitted) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="glass-card subtle-green-card p-10 text-center"
-      >
-        <div className="mx-auto size-14 rounded-full bg-brand-gradient grid place-items-center text-primary-foreground shadow-lg shadow-[var(--brand)]/20">
-          <Check className="size-7" />
-        </div>
-        <h3 className="mt-5 text-xl font-semibold">Thanks — we got it.</h3>
-        <p className="mt-2 text-sm text-muted-foreground">
-          We'll be in touch within one business day.
-        </p>
-      </motion.div>
-    );
-  }
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEnquirySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-
-    const formData = new FormData(e.currentTarget);
-
-    try {
-      await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(Object.fromEntries(formData)),
-      });
-      setSubmitted(true);
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    setSubmitting(true);
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    setSubmitting(false);
+    setSubmitted(true);
   };
 
+  const verifiedTestimonials = testimonials.filter((t) => t.verified);
+  const realProjects = projects.slice(0, 3);
+
   return (
-    <form onSubmit={handleSubmit} className="glass-card subtle-green-card p-7 space-y-4">
-      <div className="grid gap-4 md:grid-cols-2">
-        <Field label="Name" name="name" placeholder="Your name" required />
-        <Field label="Email" name="email" type="email" placeholder="you@company.com" required />
-      </div>
-      <Field label="Company" name="company" placeholder="Company name" />
-      <Field
-        label="Project description"
-        name="project"
-        textarea
-        placeholder="Tell us about your project..."
-        required
-      />
-      <SelectField
-        label="Budget range"
-        name="budget"
-        options={["Under $15k", "$15k – $40k", "$40k – $100k", "$100k+", "Not sure yet"]}
-      />
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full btn-primary justify-center mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {loading ? "Sending..." : "Send & book call"} <ArrowRight className="size-4" />
-      </button>
-    </form>
+    <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-live)] selection:text-[var(--color-card)]">
+      <Header />
+
+      <main>
+        {/* Hero ────────────────────────────────────────── */}
+        <Section size="hero" tone="paper" divider={false}>
+          <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-10 min-[901px]:gap-8 items-center">
+            {/* Left 7 columns */}
+            <div className="min-[901px]:col-span-7 flex flex-col items-start text-left">
+              {/* Capacity Chip with pluralisation fix */}
+              <Chip live>
+                {slots} {slots === 1 ? "slot" : "slots"} available for Q3
+              </Chip>
+
+              {/* Widened h1 */}
+              <h1 className="max-w-[15ch] text-[clamp(52px,7vw,88px)] leading-[1.02] tracking-tight font-display font-medium text-[var(--color-ink)] mt-5">
+                We engineer digital products that{" "}
+                <HandDrawnUnderline>scale.</HandDrawnUnderline>
+              </h1>
+
+              {/* 17px section intro paragraph */}
+              <p className="max-w-[52ch] text-[17px] text-[var(--color-ink-2)] mt-5 leading-relaxed">
+                Senior developers building high-performance web platforms, mobile apps, and
+                custom automation. Working staging builds from week three.
+              </p>
+
+              {/* Single Primary Button visible in hero viewport */}
+              <div className="flex flex-wrap items-center gap-4 mt-8">
+                <Button
+                  variant="primary"
+                  size="md"
+                  arrow
+                  data-cal-link="arjun-rajput-2mdsis"
+                  data-cal-config={JSON.stringify({
+                    layout: "month_view",
+                    theme: "light",
+                  })}
+                >
+                  Book a discovery call
+                </Button>
+
+                <Button variant="ghost" size="md" asChild>
+                  <a href="#work">See our work</a>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right 5 columns: vertically centred 5-row Ledger */}
+            <div className="min-[901px]:col-span-5 flex items-center w-full">
+              <Ledger
+                className="w-full"
+                rows={[
+                  { key: "Senior Engineering", value: "0", accent: "junior handoffs" },
+                  { key: "Working Staging Demo", value: "Week 03", accent: "live build" },
+                  { key: "Codebase Ownership", value: "100", accent: "% client owned" },
+                  { key: "Sprint Iteration", value: "Weekly", accent: "cadence" },
+                  { key: "Intellectual Property", value: "Full", accent: "IP transfer" },
+                ]}
+              />
+            </div>
+          </div>
+        </Section>
+
+        {/* Services (tone="card") ──────────────────────── */}
+        <Section size="default" tone="card" index="01">
+          <SectionRail label="WHAT WE DO" />
+
+          <div className="max-w-2xl mb-8">
+            <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-ink)]">
+              Services built to ship.
+            </h2>
+            <p className="text-[17px] text-[var(--color-ink-2)] mt-2 leading-relaxed">
+              Senior developers only. Clean codebases, predictable delivery, and full IP
+              ownership from day one.
+            </p>
+          </div>
+
+          <div className="surface p-2 sm:p-4">
+            <Row
+              index="01"
+              title="MVP Development"
+              description="Ship a credible v1 in weeks, not quarters. Fixed scope, senior developers, and working staging builds from week three."
+              meta="4 – 8 WEEKS"
+              href="/services/mvp-development"
+            />
+            <Row
+              index="02"
+              title="Web Applications"
+              description="Custom dashboards, SaaS, CRM and internal platforms with clean architecture, robust security, and type-safe frontends."
+              meta="6 – 16 WEEKS"
+              href="/services/web-application-development"
+            />
+            <Row
+              index="03"
+              title="Mobile Apps"
+              description="Cross-platform iOS and Android applications with native feel, offline-first sync, and store submissions handled end-to-end."
+              meta="8 – 14 WEEKS"
+              href="/services/mobile-app-development"
+            />
+            <Row
+              index="04"
+              title="AI Solutions"
+              description="Custom LLM integrations, document intelligence, RAG pipelines, and automated agent workflows embedded into your product."
+              meta="4 – 12 WEEKS"
+              href="/services/ai-solutions"
+            />
+            <Row
+              index="05"
+              title="Business Automation"
+              description="Eliminate manual workflows, sync disparate systems, and build automated operational pipelines that save hundreds of hours."
+              meta="3 – 8 WEEKS"
+              href="/services/business-automation"
+            />
+          </div>
+        </Section>
+
+        {/* Why Us (tone="paper") ────────────────────────── */}
+        <Section size="default" tone="paper" index="02">
+          <SectionRail label="WHY TEAMS CHOOSE US" />
+
+          <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-ink)] mb-8">
+            The agency you actually want to work with.
+          </h2>
+
+          {/* Bordered 4-cell group with high density */}
+          <div className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] overflow-hidden grid grid-cols-1 min-[561px]:grid-cols-2 min-[901px]:grid-cols-4 divide-y min-[561px]:divide-y-0 min-[901px]:divide-x divide-[var(--color-rule)]">
+            <div className="p-[28px] min-[561px]:max-[900px]:border-r min-[561px]:max-[900px]:border-b min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start">
+              <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
+                01
+              </div>
+              <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
+                Fast Development
+              </h3>
+              <p className="text-[14px] text-[var(--color-ink-2)] leading-relaxed">
+                Weeks, not quarters. Senior team, focused scope, and no agency overhead.
+              </p>
+            </div>
+
+            <div className="p-[28px] min-[561px]:max-[900px]:border-b min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start">
+              <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
+                02
+              </div>
+              <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
+                Transparent Comms
+              </h3>
+              <p className="text-[14px] text-[var(--color-ink-2)] leading-relaxed">
+                Async updates, weekly demo builds, and a shared channel you actually use.
+              </p>
+            </div>
+
+            <div className="p-[28px] min-[561px]:max-[900px]:border-r min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start">
+              <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
+                03
+              </div>
+              <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
+                Modern Stack
+              </h3>
+              <p className="text-[14px] text-[var(--color-ink-2)] leading-relaxed">
+                TypeScript, React 19, Postgres, and AI engineered into core systems.
+              </p>
+            </div>
+
+            <div className="p-[28px] flex flex-col items-start">
+              <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
+                04
+              </div>
+              <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
+                Full IP Ownership
+              </h3>
+              <p className="text-[14px] text-[var(--color-ink-2)] leading-relaxed">
+                100% codebase and IP transfer from day one with zero lock-in.
+              </p>
+            </div>
+          </div>
+        </Section>
+
+        {/* Process (tone="deep" <- DARK BAND) ──────────── */}
+        <Section size="default" tone="deep" index="03">
+          <SectionRail label="HOW WE WORK" />
+
+          <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-deep-ink)] mb-8">
+            Process with zero mystery.
+          </h2>
+
+          <div className="border border-[var(--color-deep-rule)] rounded-[var(--radius-lg,14px)] bg-[#171B20] p-2 sm:p-4">
+            <Row
+              index="01"
+              title="Discovery"
+              description="Technical audit, architecture roadmap, fixed-scope alignment, and sprint backlog."
+              meta="WEEK 01"
+            />
+            <Row
+              index="02"
+              title="Requirements"
+              description="Schema definition, API contracts, UI wireframes, and milestone sign-off."
+              meta="WEEK 01"
+            />
+            <Row
+              index="03"
+              title="Planning"
+              description="Repository setup, CI/CD pipeline, staging environment, and initial core scaffolds."
+              meta="WEEK 02"
+            />
+            <Row
+              index="04"
+              title="Design"
+              description="Interactive prototypes, typography system, responsive components, and user flows."
+              meta="WEEK 02 – 03"
+            />
+            <Row
+              index="05"
+              title="Development"
+              description="Weekly sprint iterations, continuous staging deployments, and automated testing."
+              meta="WEEK 03 – ONWARD"
+            />
+            <Row
+              index="06"
+              title="Launch"
+              description="Production deployment, DNS/SSL handover, full IP transfer, and ongoing maintenance."
+              meta="FINAL WEEK"
+            />
+          </div>
+
+          <div className="mt-8">
+            <Link
+              to="/process"
+              className="inline-flex items-center gap-1.5 text-[14px] text-[var(--color-deep-ink)] font-medium hover:underline group"
+            >
+              <span>Explore our full engineering process</span>
+              <span className="inline-block transition-transform duration-[var(--duration-1)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] group-hover:translate-x-[3px]">
+                →
+              </span>
+            </Link>
+          </div>
+        </Section>
+
+        {/* Selected Work (tone="paper") ─────────────────── */}
+        <Section size="default" tone="paper" index="04" id="work">
+          <SectionRail label="SELECTED WORK" />
+
+          <div className="flex items-baseline justify-between mb-8">
+            <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-ink)]">
+              Selected projects.
+            </h2>
+            <Link
+              to="/portfolio"
+              className="text-[14px] text-[var(--color-ink)] font-medium hover:underline"
+            >
+              View all →
+            </Link>
+          </div>
+
+          {/* Render ONLY the first 3 real projects from data.ts */}
+          <div className="grid grid-cols-1 min-[601px]:grid-cols-2 min-[901px]:grid-cols-3 gap-4 items-start">
+            {realProjects.map((p) => (
+              <Shot
+                key={p.slug}
+                category={p.category}
+                title={p.short}
+                ratio="16/10"
+              />
+            ))}
+          </div>
+        </Section>
+
+        {/* Testimonials (Conditional: only renders if verified items exist) */}
+        {verifiedTestimonials.length > 0 && (
+          <Section size="default" tone="paper">
+            <SectionRail label="CLIENT PERSPECTIVES" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {verifiedTestimonials.map((t, idx) => (
+                <Surface key={idx} hover={false} className="p-6 flex flex-col justify-between">
+                  <p className="text-[17px] text-[var(--color-ink)] leading-relaxed">
+                    "{t.quote}"
+                  </p>
+                  <div className="mt-6 pt-4 border-t border-[var(--color-rule)]">
+                    <div className="text-[14px] font-medium text-[var(--color-ink)]">
+                      {t.name}
+                    </div>
+                    <div className="text-[13px] text-[var(--color-ink-3)] mt-0.5">
+                      {t.role} {t.company && `• ${t.company}`}
+                    </div>
+                  </div>
+                </Surface>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {/* FAQ (tone="card") ───────────────────────────── */}
+        <Section size="default" tone="card" index="05">
+          <SectionRail label="COMMON QUESTIONS" />
+
+          <div className="w-full text-left">
+            <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-ink)] mb-8">
+              Frequently asked questions.
+            </h2>
+
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full divide-y divide-[var(--color-rule)] border-t border-[var(--color-rule)]"
+            >
+              {faqs.slice(0, 8).map((faq, index) => (
+                <AccordionItem
+                  key={`faq-${index}`}
+                  value={`faq-${index}`}
+                  className="border-b border-[var(--color-rule)]"
+                >
+                  <AccordionTrigger className="min-h-[56px] text-[16px] text-[var(--color-ink)] font-medium text-left hover:no-underline py-4">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[15px] text-[var(--color-ink-2)] leading-relaxed pb-4 pt-1">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </Section>
+
+        {/* Closing CTA (tone="paper") ───────────────────── */}
+        <Section size="default" tone="paper" divider={false}>
+          <ClosingCTA />
+        </Section>
+      </main>
+
+      <Footer />
+    </div>
   );
 }

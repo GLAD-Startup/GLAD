@@ -1,110 +1,73 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUp, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
-import darkLogo from "../../routes/images/website logo(black background compatible).png";
-import lightLogo from "../../routes/images/website logo(white background compatible).png";
 import redditLogo from "../../routes/images/reddit-logo.png";
-import { useState, useEffect, MouseEvent } from "react";
-import { getCalApi } from "@calcom/embed-react";
-import { useTheme } from "../theme-provider";
-import { EmailModal } from "./EmailModal";
-
+import logoUrl from "../../routes/images/website logo(white background compatible).png";
+import { useState, MouseEvent } from "react";
 export function Footer() {
-  const [isClient, setIsClient] = useState(false);
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  const { theme } = useTheme();
-
   const socials = [
     {
       icon: Twitter,
       href: "https://x.com/_GLAD_Studio",
       label: "X (Twitter)",
-      hoverClass:
-        "hover:bg-brand-blue hover:text-black hover:shadow-[4px_4px_0px_0px_var(--brand-blue)]",
     },
     {
       icon: Linkedin,
       href: "https://www.linkedin.com/company/glad-studio-2k26",
       label: "LinkedIn",
-      hoverClass:
-        "hover:bg-brand-purple hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand-purple)]",
     },
     {
       icon: Instagram,
       href: "https://www.instagram.com/__gladstudio/",
       label: "Instagram",
-      hoverClass:
-        "hover:bg-brand-pink hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand-pink)]",
     },
     {
       icon: ({ className }: { className?: string }) => (
-        <img src={redditLogo} alt="Reddit" className={`${className} scale-125 dark:invert`} />
+        <img src={redditLogo} alt="Reddit" className={`${className} scale-110`} />
       ),
       href: "https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK",
       label: "Reddit",
-      hoverClass: "hover:bg-brand-2 hover:text-black hover:shadow-[4px_4px_0px_0px_var(--brand-2)]",
     },
     {
       icon: Mail,
-      href: "#",
+      href: "mailto:hello@gladstudio.net",
       label: "Email",
-      onClick: (e: MouseEvent) => {
-        e.preventDefault();
-        setIsEmailModalOpen(true);
-      },
-      hoverClass: "hover:bg-brand hover:text-white hover:shadow-[4px_4px_0px_0px_var(--brand)]",
     },
   ];
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi();
-      cal("ui", {
-        hideEventTypeDetails: false,
-        layout: "month_view",
-        theme:
-          theme === "dark" ||
-          (theme === "system" &&
-            typeof window !== "undefined" &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-            ? "dark"
-            : "light",
-      });
-    })();
-  }, [theme]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="relative border-t-3 border-border mt-32 noise-bg bg-background">
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-8">
-        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-          {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-2">
-            <div className="flex items-center">
-              <img
-                src={darkLogo}
-                alt="Website Logo"
-                className="h-12 w-auto object-contain hidden dark:block"
-              />
-              <img
-                src={lightLogo}
-                alt="Website Logo"
-                className="h-12 w-auto object-contain block dark:hidden"
-              />
+    <footer
+      id="site-footer"
+      className="relative border-t border-[var(--color-rule)] bg-[var(--color-sunk)] text-[var(--color-ink)]"
+    >
+      <div className="mx-auto max-w-[1120px] px-8 max-[720px]:px-5 pt-16 pb-12">
+        {/* Main Grid: Brand + 4 Columns */}
+        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6">
+          {/* Brand Column */}
+          <div className="sm:col-span-2 md:col-span-2 lg:col-span-2 flex flex-col justify-between">
+            <div>
+              {/* Brand Logo */}
+              <Link to="/" className="inline-flex items-center select-none group shrink-0">
+                <img
+                  src={logoUrl}
+                  alt="GLAD Studio"
+                  width={208}
+                  height={58}
+                  className="h-[48px] sm:h-[56px] w-auto max-h-[60px] object-contain group-hover:opacity-90 transition-opacity duration-[var(--duration-1,150ms)]"
+                />
+              </Link>
+              <p className="mt-4 max-w-sm text-[13px] text-[var(--color-ink-2)] leading-relaxed">
+                Engineering-first product studio building scalable web platforms, high-performance
+                mobile apps, and custom business automation systems.
+              </p>
             </div>
-            <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed font-medium">
-              An engineering-focused software and AI product studio building custom digital
-              products, SaaS platforms, AI systems, and business automation solutions.
-            </p>
-            {/* Socials */}
-            <div className="mt-6 flex items-center gap-3">
-              {socials.map(({ icon: Icon, href, label, onClick, hoverClass }) => (
+
+            {/* Social Links (40x40px tap targets, 1px rule border) */}
+            <div className="mt-8 flex items-center gap-2.5 flex-wrap">
+              {socials.map(({ icon: Icon, href, label, onClick }) => (
                 <a
                   key={label}
                   href={href}
@@ -112,24 +75,24 @@ export function Footer() {
                   target={onClick ? undefined : "_blank"}
                   rel={onClick ? undefined : "noopener noreferrer"}
                   aria-label={label}
-                  className={`size-10 rounded-xl border-2 border-border grid place-items-center text-muted-foreground hover:text-foreground hover:border-foreground transition-all duration-200 shadow-[3px_3px_0px_0px_var(--border)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0 active:translate-y-0 active:shadow-[3px_3px_0px_0px_var(--border)] bg-card ${hoverClass}`}
+                  className="size-10 rounded-[var(--radius-md,8px)] border border-[var(--color-rule)] bg-[var(--color-card)] grid place-items-center text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:border-[var(--color-rule-hi)] hover:bg-[var(--color-card)] transition-colors cursor-pointer"
                 >
-                  <Icon className="size-4.5" />
+                  <Icon className="size-4" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Services links */}
+          {/* 1. Services Column */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">
+            <h4 className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-3)] mb-4 font-medium select-none">
               Services
             </h4>
-            <ul className="space-y-3 text-sm text-muted-foreground font-medium">
+            <ul className="space-y-2.5">
               <li>
                 <Link
                   to="/services/mvp-development"
-                  className="hover:text-brand-pink transition-all hover:translate-x-1.5 inline-block duration-200"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
                   MVP Development
                 </Link>
@@ -137,7 +100,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/services/web-application-development"
-                  className="hover:text-brand-blue transition-all hover:translate-x-1.5 inline-block duration-200"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
                   Web Applications
                 </Link>
@@ -145,7 +108,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/services/mobile-app-development"
-                  className="hover:text-brand-purple transition-all hover:translate-x-1.5 inline-block duration-200"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
                   Mobile Apps
                 </Link>
@@ -153,7 +116,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/services/ai-solutions"
-                  className="hover:text-brand-2 transition-all hover:translate-x-1.5 inline-block duration-200"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
                   AI Solutions
                 </Link>
@@ -161,7 +124,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/services/business-automation"
-                  className="hover:text-brand transition-all hover:translate-x-1.5 inline-block duration-200"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
                   Business Automation
                 </Link>
@@ -169,80 +132,56 @@ export function Footer() {
               <li>
                 <Link
                   to="/services"
-                  className="hover:text-foreground transition-all hover:translate-x-1.5 inline-block duration-200 font-semibold"
+                  className="text-[14px] text-[var(--color-ink)] font-medium hover:underline inline-block pt-1"
                 >
-                  All Services Overview →
+                  All Services →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Studio links */}
+          {/* 2. Studio Column */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">
+            <h4 className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-3)] mb-4 font-medium select-none">
               Studio
             </h4>
-            <ul className="space-y-3 text-sm text-muted-foreground font-medium">
+            <ul className="space-y-2.5">
               <li>
                 <Link
-                  to="/products"
-                  className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200 font-semibold"
+                  to="/about"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
-                  Products Overview
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/products/glad-hms"
-                  className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200"
-                >
-                  GLAD HMS
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/products/settledesk"
-                  className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200"
-                >
-                  SettleDesk SaaS
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/insights"
-                  className="hover:text-[#e5b84c] transition-all hover:translate-x-1.5 inline-block duration-200"
-                >
-                  Insights & AI Guides
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/portfolio"
-                  className="hover:text-brand-blue transition-all hover:translate-x-1.5 inline-block duration-200"
-                >
-                  Portfolio
+                  About Us
                 </Link>
               </li>
               <li>
                 <Link
                   to="/process"
-                  className="hover:text-brand-purple transition-all hover:translate-x-1.5 inline-block duration-200"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
-                  Process
+                  Process & Standards
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/about"
-                  className="hover:text-brand-2 transition-all hover:translate-x-1.5 inline-block duration-200"
+                  to="/portfolio"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
-                  About
+                  Selected Work
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/insights"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
+                >
+                  Insights & Guides
                 </Link>
               </li>
               <li>
                 <Link
                   to="/privacy"
-                  className="hover:text-brand transition-all hover:translate-x-1.5 inline-block duration-200"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -250,7 +189,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/terms"
-                  className="hover:text-brand-3 transition-all hover:translate-x-1.5 inline-block duration-200"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -258,122 +197,105 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact links */}
-          <div className="sm:col-span-2 lg:col-span-2">
-            <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-foreground">
-              Get In Touch
+          {/* 3. Products Column */}
+          <div>
+            <h4 className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-3)] mb-4 font-medium select-none">
+              Products
             </h4>
-            <div className="space-y-4">
-              {/* Call to action: Book a Call */}
-              <button
-                data-cal-link="arjun-rajput-2mdsis"
-                data-cal-config={JSON.stringify({
-                  layout: "month_view",
-                  theme:
-                    theme === "dark" ||
-                    (theme === "system" &&
-                      typeof window !== "undefined" &&
-                      window.matchMedia("(prefers-color-scheme: dark)").matches)
-                      ? "dark"
-                      : "light",
-                })}
-                className="w-full flex items-center justify-between p-4 rounded-2xl border-3 border-border bg-card text-left hover:border-foreground hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_0px_var(--brand-pink)] dark:hover:shadow-[6px_6px_0px_0px_var(--brand-blue)] active:translate-x-0 active:translate-y-0 active:shadow-[3px_3px_0px_0px_var(--border)] transition-all duration-200 group cursor-pointer"
-              >
-                <div>
-                  <span className="block text-xs uppercase tracking-wider text-muted-foreground font-semibold">
-                    Have a project?
-                  </span>
-                  <span className="block text-sm font-black text-foreground mt-0.5">
-                    Book a Discovery Call
-                  </span>
-                </div>
-                <span className="size-9 rounded-xl bg-brand-pink text-white dark:bg-brand-blue dark:text-black grid place-items-center font-bold text-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-200 shadow-[2px_2px_0px_0px_#000] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,0.15)]">
-                  →
-                </span>
-              </button>
+            <ul className="space-y-2.5">
+              <li>
+                <Link
+                  to="/products/settledesk"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
+                >
+                  SettleDesk SaaS
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products/glad-hms"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
+                >
+                  GLAD HMS
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/products"
+                  className="text-[14px] text-[var(--color-ink)] font-medium hover:underline inline-block pt-1"
+                >
+                  All Products →
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-              {/* Quick links grid */}
-              <ul className="grid grid-cols-2 gap-3 text-sm text-muted-foreground font-medium">
-                <li>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setIsEmailModalOpen(true);
-                    }}
-                    className="hover:text-brand-pink transition-all hover:translate-x-1 inline-block duration-200"
+          {/* 4. Contact Column */}
+          <div>
+            <h4 className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-3)] mb-4 font-medium select-none">
+              Contact
+            </h4>
+            <ul className="space-y-2.5">
+              <li>
+                <button
+                  type="button"
+                  data-cal-link="arjun-rajput-2mdsis"
+                  data-cal-config={JSON.stringify({
+                    layout: "month_view",
+                    theme: "light",
+                  })}
+                  className="group inline-flex items-center gap-1.5 text-[14px] text-[var(--color-ink)] font-medium hover:underline text-left cursor-pointer"
+                >
+                  <span>Book a discovery call</span>
+                  <span
+                    className="inline-block transition-transform duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] group-hover:translate-x-[3px]"
+                    aria-hidden="true"
                   >
-                    <Mail className="size-4 inline-block mr-1.5 -mt-0.5" /> hello@gladstudio.net
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://x.com/_GLAD_Studio"
-                    className="hover:text-brand-blue transition-all hover:translate-x-1 inline-block duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    X (Twitter)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/company/glad-studio-2k26"
-                    className="hover:text-brand-purple transition-all hover:translate-x-1 inline-block duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    LinkedIn
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.instagram.com/__gladstudio/"
-                    className="hover:text-brand-pink transition-all hover:translate-x-1 inline-block duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK"
-                    className="hover:text-brand-2 transition-all hover:translate-x-1 inline-block duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Reddit
-                  </a>
-                </li>
-              </ul>
-            </div>
+                    →
+                  </span>
+                </button>
+              </li>
+              <li>
+                <a
+                  href="mailto:hello@gladstudio.net"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors text-left"
+                >
+                  hello@gladstudio.net
+                </a>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className="text-[14px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors"
+                >
+                  Contact Form
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t-2 border-border flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground font-medium">
-          <p>© {new Date().getFullYear()} GLAD studio. All rights reserved.</p>
-          <div className="flex items-center gap-3">
-            <Link to="/privacy" className="hover:text-foreground transition-colors">
-              Privacy Policy
+        <div className="mt-14 pt-6 border-t border-[var(--color-rule)] flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] text-[var(--color-ink-3)] font-mono">
+          <p>© {new Date().getFullYear()} GLAD Studio. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <Link to="/privacy" className="hover:text-[var(--color-ink)] transition-colors">
+              Privacy
             </Link>
             <span>•</span>
-            <Link to="/terms" className="hover:text-foreground transition-colors">
-              Terms of Service
+            <Link to="/terms" className="hover:text-[var(--color-ink)] transition-colors">
+              Terms
             </Link>
           </div>
           <button
             onClick={scrollToTop}
-            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors group cursor-pointer"
+            className="inline-flex items-center gap-1.5 hover:text-[var(--color-ink)] transition-colors group cursor-pointer"
           >
-            Back to top
+            <span>Back to top</span>
             <ArrowUp className="size-3.5 transition-transform group-hover:-translate-y-0.5" />
           </button>
         </div>
       </div>
-
-      <EmailModal isOpen={isEmailModalOpen} onClose={() => setIsEmailModalOpen(false)} />
     </footer>
   );
 }

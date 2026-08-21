@@ -1,6 +1,6 @@
 import { Check } from "lucide-react";
 import type { PricingPlan } from "@/types/product-page";
-import { SectionHeading } from "@/components/site/SectionHeading";
+import { SectionRail } from "@/components/site/SectionRail";
 
 export function ProductPricingTable({
   plans,
@@ -12,18 +12,15 @@ export function ProductPricingTable({
   return (
     <section id="pricing" className="py-24 relative border-t border-border">
       <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading
-          eyebrow="Pricing"
-          title="Simple Plans. Built to Scale With You."
-          sub="Transparent pricing with zero hidden fees. 30-day free trial on all plans."
-          center
-        />
+        <SectionRail index="01" label="Pricing" />
+<h2 className="text-3xl sm:text-4xl font-display font-medium text-[var(--color-ink)] mb-4">Simple Plans. Built to Scale With You.</h2>
+<p className="text-[14px] text-[var(--color-ink-2)] max-w-2xl mb-8 leading-relaxed">Transparent pricing with zero hidden fees. 30-day free trial on all plans.</p>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3 items-stretch">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`surface-card p-8 flex flex-col justify-between relative ${
+              className={`surface p-8 flex flex-col justify-between relative ${
                 plan.featured ? "border-2 border-[#e5b84c] shadow-glow" : ""
               }`}
             >

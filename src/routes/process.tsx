@@ -1,22 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { HeroBackground } from "@/components/site/Background";
-import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
-import { motion } from "framer-motion";
-import {
-  HandDrawnCircle,
-  HandDrawnUnderline,
-  HandDrawnDoubleStrike,
-} from "@/components/site/HandDrawnHighlights";
-import {
-  RetroStar,
-  SparkleDeco,
-  SmileyBadge,
-  CurlyArrow,
-} from "@/components/site/RetroDecorations";
-import { StickerBoard } from "@/components/site/StickerBoard";
+import { Section } from "@/components/site/Section";
+import { SectionRail } from "@/components/site/SectionRail";
+import { Row } from "@/components/site/Row";
+import { Ledger } from "@/components/site/Ledger";
+import { ClosingCTA } from "@/components/site/ClosingCTA";
 
 export const Route = createFileRoute("/process")({
   head: () => ({
@@ -82,141 +71,136 @@ const steps = [
   {
     title: "Discovery Call",
     body: "A 30-minute conversation to understand your idea, users and constraints. We'll tell you honestly whether we're the right team.",
-    duration: "Day 0",
+    duration: "DAY 0",
   },
   {
     title: "Requirements Analysis",
     body: "We translate your vision into a written brief — scope, success metrics, risks and unknowns surfaced early.",
-    duration: "Week 1",
+    duration: "WEEK 1",
   },
   {
     title: "Planning",
     body: "Fixed-scope proposal with timeline, milestones, and a clear pricing structure. No surprises later.",
-    duration: "Week 1",
+    duration: "WEEK 1",
   },
   {
     title: "UI/UX Design",
     body: "Wireframes evolve into a polished interactive prototype in Figma. You sign off before a line of code is written.",
-    duration: "Weeks 2 – 3",
+    duration: "WEEKS 2 – 3",
   },
   {
     title: "Development",
     body: "Weekly sprints, weekly demos. You have access to staging, a Slack channel, and the codebase from day one.",
-    duration: "Weeks 3 – N",
+    duration: "WEEKS 3 – N",
   },
   {
     title: "Testing",
     body: "Automated tests, manual QA, accessibility checks and performance budgets — every release passes the same bar.",
-    duration: "Continuous",
+    duration: "CONTINUOUS",
   },
   {
     title: "Deployment",
     body: "We ship to production behind feature flags, monitor closely, and roll out to your users with zero downtime.",
-    duration: "Launch week",
+    duration: "LAUNCH WEEK",
   },
   {
     title: "Post-Launch Support",
     body: "Bug fixes, performance work, and new features on a retainer — or a clean handoff to your in-house team. Your call.",
-    duration: "Ongoing",
+    duration: "ONGOING",
   },
 ];
 
-const markerColors = [
-  { bg: "linear-gradient(135deg, var(--brand-pink) 0%, #FF66B2 100%)", text: "text-white" },
-  { bg: "linear-gradient(135deg, var(--brand-blue) 0%, #66F5FF 100%)", text: "text-black" },
-  { bg: "linear-gradient(135deg, var(--brand-purple) 0%, #C994FF 100%)", text: "text-white" },
-  { bg: "linear-gradient(135deg, var(--brand-2) 0%, #FFE680 100%)", text: "text-black" },
-  { bg: "linear-gradient(135deg, var(--brand) 0%, #86EFAC 100%)", text: "text-white" },
+const termsLedgerRows = [
+  {
+    label: "IP Transfer",
+    value: "100%",
+    accent: "Upon full settlement, GLAD Studio assigns all IP, code repositories, schemas, and assets.",
+  },
+  {
+    label: "Payment Terms",
+    value: "Milestones",
+    accent: "Strictly fixed-scope, fixed-price milestone billing tied to signed-off deliverables.",
+  },
+  {
+    label: "Bug Guarantee",
+    value: "30 Days",
+    accent: "Post-launch warranty resolving critical bugs or SOW specification deviations free of charge.",
+  },
 ];
 
 function ProcessPage() {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-live)] selection:text-[var(--color-card)]">
       <Header />
 
-      {/* Hero */}
-      <section className="relative pt-36 pb-16 md:pt-44 overflow-hidden">
-        <HeroBackground />
+      <main>
+        {/* 1. Hero — tone="paper" size="hero" divider={false} */}
+        <Section size="hero" tone="paper" divider={false}>
+          <SectionRail label="PROCESS" />
 
-        {/* Floating decorations */}
-        <RetroStar
-          className="left-8 top-36 hidden xl:block animate-float-sticker"
-          size={54}
-          color="var(--brand-purple)"
-          rotation={-15}
-        />
-        <CurlyArrow
-          className="left-1/3 bottom-2 hidden xl:block"
-          size={60}
-          color="var(--brand-pink)"
-          rotation={110}
-        />
-
-        <div className="mx-auto max-w-5xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              <span className="inline-block w-6 h-px bg-brand-gradient" />
-              Process
-            </div>
-            <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1]">
-              How we <HandDrawnUnderline color="var(--brand-pink)">ship.</HandDrawnUnderline>
+          <div className="max-w-[720px] flex flex-col items-start text-left">
+            <h1 className="text-[clamp(44px,6vw,72px)] leading-[1.04] tracking-tight font-display font-medium text-[var(--color-ink)]">
+              How we ship.
             </h1>
-            <p className="mt-6 text-lg text-muted-foreground max-w-2xl leading-relaxed">
+            <p className="mt-6 text-[17px] text-[var(--color-ink-2)] leading-relaxed max-w-[52ch]">
               Eight steps from first call to a live, supported product. No mystery, no scope creep,
               no rebuilds.
             </p>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </Section>
 
-      {/* Timeline */}
-      <section className="relative pb-28">
-        <div className="mx-auto max-w-3xl px-6">
-          <ol className="relative border-l border-border ml-3">
-            {steps.map((s, i) => {
-              const colors = markerColors[i % markerColors.length];
-              return (
-                <Reveal key={s.title} delay={i * 0.04}>
-                  <li className="relative pl-10 pb-14 last:pb-0">
-                    <span
-                      className={`absolute -left-[13px] top-1 size-7 rounded-full grid place-items-center text-[11px] font-semibold shadow-lg ${colors.text}`}
-                      style={{ background: colors.bg }}
-                    >
-                      {i + 1}
-                    </span>
-                    <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
-                      {s.duration}
-                    </div>
-                    <h2 className="mt-1.5 text-2xl font-semibold tracking-tight">{s.title}</h2>
-                    <p className="mt-3 text-muted-foreground leading-relaxed">{s.body}</p>
-                  </li>
-                </Reveal>
-              );
-            })}
-          </ol>
+        {/* 2. Steps — tone="deep" */}
+        <Section size="default" tone="deep">
+          <SectionRail label="HOW WE SHIP" />
 
-          {/* CTA */}
-          <Reveal delay={0.3}>
-            <div className="mt-20 glass-card p-10 text-center noise-bg hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 cta-calming-section">
-              <div className="relative z-10">
-                <h3 className="text-2xl font-semibold tracking-tight">
-                  Ready to start at step one?
-                </h3>
-                <Link to="/contact" className="mt-6 btn-primary inline-flex animate-pulse-glow">
-                  Book a discovery call <ArrowRight className="size-4" />
-                </Link>
-              </div>
+          <div className="max-w-xl mb-12">
+            <h2 className="text-[clamp(36px,4.5vw,52px)] font-display font-medium text-[var(--color-deep-ink)] leading-tight">
+              Predictable engineering sprints.
+            </h2>
+          </div>
+
+          <div className="border border-[var(--color-deep-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-deep)] p-2 sm:p-4">
+            {steps.map((step, idx) => (
+              <Row
+                key={step.title}
+                index={idx + 1}
+                title={step.title}
+                description={step.body}
+                meta={step.duration}
+              />
+            ))}
+          </div>
+        </Section>
+
+        {/* 3. What you get — tone="paper" */}
+        <Section size="default" tone="paper">
+          <SectionRail label="WHAT YOU GET" />
+
+          <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-10 min-[901px]:gap-12 items-start">
+            <div className="min-[901px]:col-span-5">
+              <h2 className="text-[clamp(32px,3.8vw,44px)] font-display font-medium text-[var(--color-ink)] leading-tight">
+                Clear commercial terms from day one.
+              </h2>
+              <p className="mt-5 text-[16px] text-[var(--color-ink-2)] leading-relaxed">
+                We believe in total transparency and client code sovereignty. Every engagement is
+                backed by clear intellectual property assignments, predictable milestone schedules,
+                and dedicated post-launch warranty guarantees.
+              </p>
             </div>
-          </Reveal>
-        </div>
-      </section>
+
+            <div className="min-[901px]:col-span-7">
+              <Ledger rows={termsLedgerRows} />
+            </div>
+          </div>
+        </Section>
+
+        {/* 4. ClosingCTA */}
+        <Section size="default" tone="paper" divider={false}>
+          <ClosingCTA />
+        </Section>
+      </main>
 
       <Footer />
-      <StickerBoard />
     </div>
   );
 }

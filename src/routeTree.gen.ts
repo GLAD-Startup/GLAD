@@ -36,6 +36,7 @@ import { Route as InsightsRagVsFineTuningRouteImport } from './routes/insights.r
 import { Route as InsightsHowToBuildAiAgentForBusinessRouteImport } from './routes/insights.how-to-build-ai-agent-for-business'
 import { Route as InsightsAiDevelopmentCostIndiaRouteImport } from './routes/insights.ai-development-cost-india'
 import { Route as InsightsAiAgentVsChatbotRouteImport } from './routes/insights.ai-agent-vs-chatbot'
+import { Route as DevPrimitivesRouteImport } from './routes/dev.primitives'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -179,6 +180,11 @@ const InsightsAiAgentVsChatbotRoute =
     path: '/ai-agent-vs-chatbot',
     getParentRoute: () => InsightsRoute,
   } as any)
+const DevPrimitivesRoute = DevPrimitivesRouteImport.update({
+  id: '/dev/primitives',
+  path: '/dev/primitives',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -191,6 +197,7 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRouteWithChildren
   '/services': typeof ServicesRouteWithChildren
   '/terms': typeof TermsRoute
+  '/dev/primitives': typeof DevPrimitivesRoute
   '/insights/ai-agent-vs-chatbot': typeof InsightsAiAgentVsChatbotRoute
   '/insights/ai-development-cost-india': typeof InsightsAiDevelopmentCostIndiaRoute
   '/insights/how-to-build-ai-agent-for-business': typeof InsightsHowToBuildAiAgentForBusinessRoute
@@ -216,6 +223,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/terms': typeof TermsRoute
+  '/dev/primitives': typeof DevPrimitivesRoute
   '/insights/ai-agent-vs-chatbot': typeof InsightsAiAgentVsChatbotRoute
   '/insights/ai-development-cost-india': typeof InsightsAiDevelopmentCostIndiaRoute
   '/insights/how-to-build-ai-agent-for-business': typeof InsightsHowToBuildAiAgentForBusinessRoute
@@ -246,6 +254,7 @@ export interface FileRoutesById {
   '/products': typeof ProductsRouteWithChildren
   '/services': typeof ServicesRouteWithChildren
   '/terms': typeof TermsRoute
+  '/dev/primitives': typeof DevPrimitivesRoute
   '/insights/ai-agent-vs-chatbot': typeof InsightsAiAgentVsChatbotRoute
   '/insights/ai-development-cost-india': typeof InsightsAiDevelopmentCostIndiaRoute
   '/insights/how-to-build-ai-agent-for-business': typeof InsightsHowToBuildAiAgentForBusinessRoute
@@ -277,6 +286,7 @@ export interface FileRouteTypes {
     | '/products'
     | '/services'
     | '/terms'
+    | '/dev/primitives'
     | '/insights/ai-agent-vs-chatbot'
     | '/insights/ai-development-cost-india'
     | '/insights/how-to-build-ai-agent-for-business'
@@ -302,6 +312,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/process'
     | '/terms'
+    | '/dev/primitives'
     | '/insights/ai-agent-vs-chatbot'
     | '/insights/ai-development-cost-india'
     | '/insights/how-to-build-ai-agent-for-business'
@@ -331,6 +342,7 @@ export interface FileRouteTypes {
     | '/products'
     | '/services'
     | '/terms'
+    | '/dev/primitives'
     | '/insights/ai-agent-vs-chatbot'
     | '/insights/ai-development-cost-india'
     | '/insights/how-to-build-ai-agent-for-business'
@@ -361,6 +373,7 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRouteWithChildren
   ServicesRoute: typeof ServicesRouteWithChildren
   TermsRoute: typeof TermsRoute
+  DevPrimitivesRoute: typeof DevPrimitivesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -554,6 +567,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsAiAgentVsChatbotRouteImport
       parentRoute: typeof InsightsRoute
     }
+    '/dev/primitives': {
+      id: '/dev/primitives'
+      path: '/dev/primitives'
+      fullPath: '/dev/primitives'
+      preLoaderRoute: typeof DevPrimitivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -644,6 +664,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRouteWithChildren,
   ServicesRoute: ServicesRouteWithChildren,
   TermsRoute: TermsRoute,
+  DevPrimitivesRoute: DevPrimitivesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

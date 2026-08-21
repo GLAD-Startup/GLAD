@@ -1,60 +1,50 @@
-import { motion, type Variants, type Transition } from "framer-motion";
+import * as React from "react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
-type RevealDirection = "up" | "down" | "left" | "right" | "scale" | "blur";
-
-const directionMap: Record<
-  RevealDirection,
-  { opacity: number; y?: number; x?: number; scale?: number; filter?: string }
-> = {
-  up: { opacity: 0, y: 32 },
-  down: { opacity: 0, y: -32 },
-  left: { opacity: 0, x: 40 },
-  right: { opacity: 0, x: -40 },
-  scale: { opacity: 0, scale: 0.92 },
-  blur: { opacity: 0, filter: "blur(12px)" },
-};
-
-function buildVariants(direction: RevealDirection): Variants {
-  const hidden = directionMap[direction];
-  const show: Record<string, unknown> = { opacity: 1 };
-  if ("y" in hidden) show.y = 0;
-  if ("x" in hidden) show.x = 0;
-  if ("scale" in hidden) show.scale = 1;
-  if ("filter" in hidden) show.filter = "blur(0px)";
-
-  return {
-    hidden,
-    show: {
-      ...show,
-      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
+export interface RevealProps {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  direction?: string; // Kept for backward-compatibility, ignored in favor of standard 16px translateY
+  once?: boolean;
 }
+
+const revealVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6, // var(--duration-3) = 600ms
+      ease: [0.16, 1, 0.3, 1], // var(--ease-out)
+    },
+  },
+};
 
 export function Reveal({
   children,
-  delay = 0,
-  direction = "up",
   className,
-  once = true,
-}: {
-  children: ReactNode;
-  delay?: number;
-  direction?: RevealDirection;
-  className?: string;
-  once?: boolean;
-}) {
-  const variants = buildVariants(direction);
+  delay = 0,
+}: RevealProps) {
+  const shouldReduceMotion = useReducedMotion();
+
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once, margin: "-60px" }}
-      variants={variants}
-      transition={{ delay }}
+      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
+      variants={revealVariants}
+      transition={{
+        delay: Math.min(delay, 0.25),
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
+      }}
     >
       {children}
     </motion.div>
@@ -65,22 +55,30 @@ export function Reveal({
 export function RevealGroup({
   children,
   className,
-  stagger = 0.08,
 }: {
   children: ReactNode;
   className?: string;
   stagger?: number;
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
       variants={{
         hidden: {},
         show: {
-          transition: { staggerChildren: stagger },
+          transition: {
+            staggerChildren: 0.05, // 50ms per child
+            delayChildren: 0,
+          },
         },
       }}
     >
@@ -93,14 +91,39 @@ export function RevealGroup({
 export function RevealItem({
   children,
   className,
-  direction = "up",
+  index = 0,
 }: {
   children: ReactNode;
   className?: string;
-  direction?: RevealDirection;
+  direction?: string;
+  delay?: number;
+  index?: number;
 }) {
+  const shouldReduceMotion = useReducedMotion();
+
+  if (shouldReduceMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  // Hard cap at 6 children: delay capped at index 5 * 0.05 = 0.25s
+  const cappedDelay = Math.min(index, 5) * 0.05;
+
   return (
-    <motion.div className={className} variants={buildVariants(direction)}>
+    <motion.div
+      className={className}
+      variants={{
+        hidden: { opacity: 0, y: 16 },
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+            delay: cappedDelay,
+          },
+        },
+      }}
+    >
       {children}
     </motion.div>
   );

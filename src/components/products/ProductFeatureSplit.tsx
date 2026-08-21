@@ -58,7 +58,7 @@ export function ProductFeatureSplit({
 
               <div className={`lg:col-span-7 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
                 {/* Browser Window Frame Container */}
-                <div className="surface-card p-3 rounded-2xl relative shadow-xl overflow-hidden group">
+                <div className="surface p-3 rounded-2xl relative shadow-xl overflow-hidden group">
                   <div className="flex items-center gap-2 px-3 py-2 border-b border-border mb-3 bg-surface/50 rounded-t-xl">
                     <div className="size-2.5 rounded-full bg-red-500/80" />
                     <div className="size-2.5 rounded-full bg-yellow-500/80" />

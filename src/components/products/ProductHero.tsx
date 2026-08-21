@@ -12,7 +12,6 @@ import {
   Bed,
   Sparkles,
 } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
 import type { ProductHeroConfig } from "@/types/product-page";
 import buildingImg from "@/routes/images/settledesk/building.png";
 import logoImg from "@/routes/images/settledesk/logo.png";
@@ -29,17 +28,10 @@ export function ProductHero({
 }) {
   const isHms = product === "glad-hms" || config.eyebrow.toLowerCase().includes("hospitality");
   const [activeStage, setActiveStage] = useState<string>(isHms ? "frontdesk" : "admin");
-  const { theme } = useTheme();
 
   const calConfig = JSON.stringify({
     layout: "month_view",
-    theme:
-      theme === "dark" ||
-      (theme === "system" &&
-        typeof window !== "undefined" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ? "dark"
-        : "light",
+    theme: "light",
   });
 
   return (
@@ -71,12 +63,12 @@ export function ProductHero({
               {isHms ? (
                 <>
                   Run Hotel Operations on{" "}
-                  <span className="text-gradient">One Modular System.</span>
+                  <span className="text-[var(--color-ink)]">One Modular System.</span>
                 </>
               ) : (
                 <>
                   Run your properties, agents, and commission payouts on{" "}
-                  <span className="text-gradient">one live system.</span>
+                  <span className="text-[var(--color-ink)]">one live system.</span>
                 </>
               )}
             </h1>
@@ -117,7 +109,7 @@ export function ProductHero({
 
           {/* Right Column: Live Product Thesis Stage */}
           <div className="lg:col-span-6">
-            <div className="surface-card p-4 md:p-6 rounded-2xl relative shadow-xl overflow-hidden border-2 border-border">
+            <div className="surface p-4 md:p-6 rounded-2xl relative shadow-xl overflow-hidden border-2 border-border">
               {/* Stage Role Selector Header */}
               <div className="flex items-center justify-between border-b border-border pb-4 mb-4 gap-2">
                 <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">

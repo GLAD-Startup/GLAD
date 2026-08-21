@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { SectionHeading } from "@/components/site/SectionHeading";
+import { SectionRail } from "@/components/site/SectionRail";
 import { Reveal } from "@/components/site/Reveal";
 import { ArrowRight, CheckCircle2, Building2, Hotel } from "lucide-react";
 import buildingImg from "@/routes/images/settledesk/building.png";
@@ -139,12 +139,9 @@ function ProductsIndexPage() {
         <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
 
         <div className="mx-auto max-w-7xl px-6 relative z-10">
-          <SectionHeading
-            eyebrow="Our Products"
-            title="Software Platforms Built to Scale"
-            sub="Proprietary SaaS systems designed, engineered, and operated by Glad Studio."
-            center
-          />
+          <SectionRail index="01" label="Our Products" />
+<h2 className="text-3xl sm:text-4xl font-display font-medium text-[var(--color-ink)] mb-4">Software Platforms Built to Scale</h2>
+<p className="text-[14px] text-[var(--color-ink-2)] max-w-2xl mb-8 leading-relaxed">Proprietary SaaS systems designed, engineered, and operated by Glad Studio.</p>
 
           {/* Product Listing Grid */}
           <div className="mt-16 space-y-12">
@@ -154,7 +151,7 @@ function ProductsIndexPage() {
 
               return (
                 <Reveal key={product.slug} direction="up">
-                  <div className="surface-card p-6 md:p-10 rounded-3xl border-2 border-border hover:border-foreground/40 transition-all duration-300 shadow-xl overflow-hidden group">
+                  <div className="surface p-6 md:p-10 rounded-3xl overflow-hidden group">
                     <div className="grid gap-10 lg:grid-cols-12 items-center">
                       {/* Left Details */}
                       <div className="lg:col-span-7 space-y-6">
@@ -218,7 +215,7 @@ function ProductsIndexPage() {
                           <img
                             src={product.heroImage}
                             alt={`${product.name} Showcase Graphic`}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]"
                             width={450}
                             height={340}
                           />

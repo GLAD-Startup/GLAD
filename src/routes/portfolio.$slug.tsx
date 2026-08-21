@@ -1,283 +1,228 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
-import { projects } from "@/components/site/data";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { Section } from "@/components/site/Section";
+import { SectionRail } from "@/components/site/SectionRail";
+import { Row } from "@/components/site/Row";
+import { Ledger } from "@/components/site/Ledger";
+import { Shot } from "@/components/ui/Shot";
+import { Chip } from "@/components/ui/Chip";
+import { ClosingCTA } from "@/components/site/ClosingCTA";
+import { projects, type Project } from "@/components/site/data";
+
+export function buildProjectHead(project: Project) {
+  return {
+    meta: [
+      { title: project.seo.title },
+      { name: "description", content: project.seo.description },
+      { property: "og:title", content: project.seo.title },
+      { property: "og:description", content: project.seo.description },
+      { property: "og:url", content: project.seo.canonical },
+      { property: "og:type", content: "article" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: project.seo.title },
+      { name: "twitter:description", content: project.seo.description },
+    ],
+    links: [{ rel: "canonical", href: project.seo.canonical }],
+    scripts: project.seo.jsonLd.map((schema) => ({
+      type: "application/ld+json",
+      children: JSON.stringify(schema),
+    })),
+  };
+}
 
 export const Route = createFileRoute("/portfolio/$slug")({
   loader: ({ params }) => {
     const project = projects.find((p) => p.slug === params.slug);
     if (!project) throw notFound();
-    return { project: project as (typeof projects)[number] };
+    return { project };
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.project.name} — GLAD studio` },
-          { name: "description", content: loaderData.project.short },
-          { property: "og:title", content: `${loaderData.project.name} — GLAD studio` },
-          { property: "og:description", content: loaderData.project.short },
-          { property: "og:type", content: "article" },
-          {
-            property: "og:url",
-            content: `https://gladstudio.net/portfolio/${loaderData.project.slug}`,
-          },
-        ]
-      : [],
-    links: loaderData
-      ? [{ rel: "canonical", href: `https://gladstudio.net/portfolio/${loaderData.project.slug}` }]
-      : [],
-    scripts: loaderData
-      ? [
-          {
-            type: "application/ld+json",
-            children: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "CreativeWork",
-                  "@id": `https://gladstudio.net/portfolio/${loaderData.project.slug}/#work`,
-                  url: `https://gladstudio.net/portfolio/${loaderData.project.slug}`,
-                  name: loaderData.project.name,
-                  description: loaderData.project.short,
-                  creator: {
-                    "@id": "https://gladstudio.net/#organization",
-                  },
-                },
-                {
-                  "@type": "BreadcrumbList",
-                  "@id": `https://gladstudio.net/portfolio/${loaderData.project.slug}/#breadcrumb`,
-                  itemListElement: [
-                    {
-                      "@type": "ListItem",
-                      position: 1,
-                      name: "Home",
-                      item: "https://gladstudio.net",
-                    },
-                    {
-                      "@type": "ListItem",
-                      position: 2,
-                      name: "Portfolio",
-                      item: "https://gladstudio.net/portfolio",
-                    },
-                    {
-                      "@type": "ListItem",
-                      position: 3,
-                      name: loaderData.project.name,
-                      item: `https://gladstudio.net/portfolio/${loaderData.project.slug}`,
-                    },
-                  ],
-                },
-              ],
-            }),
-          },
-        ]
-      : [],
-  }),
+  head: ({ loaderData }) =>
+    loaderData ? buildProjectHead(loaderData.project) : { meta: [] },
   notFoundComponent: () => (
-    <div className="min-h-screen grid place-items-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-semibold">Project not found</h1>
+    <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] flex flex-col justify-between">
+      <Header />
+      <div className="max-w-xl mx-auto text-center py-32 px-6">
+        <h1 className="text-3xl font-display font-medium text-[var(--color-ink)]">
+          Project not found
+        </h1>
+        <p className="text-[15px] text-[var(--color-ink-2)] mt-3">
+          The requested case study does not exist or has been relocated.
+        </p>
         <Link
           to="/portfolio"
-          className="mt-4 inline-block text-muted-foreground hover:text-foreground transition-colors"
+          className="mt-6 inline-block font-mono text-[13px] text-[var(--color-ink)] hover:underline"
         >
           ← Back to portfolio
         </Link>
       </div>
-    </div>
-  ),
-  component: ProjectPage,
-});
-
-function ProjectPage() {
-  const { project: p } = Route.useLoaderData();
-
-  return (
-    <div className="min-h-screen">
-      <Header />
-
-      {/* Header section */}
-      <section className="relative pt-32 pb-12">
-        <div className="mx-auto max-w-6xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Link
-              to="/portfolio"
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors group"
-            >
-              <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform" />{" "}
-              All projects
-            </Link>
-          </motion.div>
-
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.4fr_1fr] items-end">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                <span className="inline-block w-6 h-px bg-brand-gradient" />
-                {p.category}
-              </div>
-              <h1 className="mt-4 text-5xl md:text-6xl font-semibold tracking-tight">
-                <span className="text-gradient">{p.name}</span>
-              </h1>
-              <p className="mt-5 text-lg text-muted-foreground max-w-xl leading-relaxed">
-                {p.short}
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="glass-card p-6"
-            >
-              <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
-                Tech Stack
-              </div>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {p.tech.map((t: string) => (
-                  <span
-                    key={t}
-                    className="text-xs rounded-full border border-border px-3 py-1 text-muted-foreground"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-6 text-xs uppercase tracking-wider text-muted-foreground font-medium">
-                Outcome
-              </div>
-              <p className="mt-2 text-sm font-medium">{p.outcome}</p>
-            </motion.div>
-          </div>
-
-          {/* Hero image */}
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="mt-14 relative aspect-[16/8] rounded-2xl overflow-hidden border border-border shadow-2xl"
-          >
-            {(p as any).images && (p as any).images.length > 0 ? (
-              <ImageCarousel images={(p as any).images} name={p.name} />
-            ) : (
-              <>
-                <div className="absolute inset-0" style={{ background: p.gradient }} />
-                <div className="absolute inset-0 grid-bg opacity-25" />
-              </>
-            )}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Challenge / Solution */}
-      <section className="relative py-20 section-divider">
-        <div className="mx-auto max-w-6xl px-6 grid gap-8 lg:grid-cols-2">
-          <Reveal direction="left">
-            <Block title="The Challenge">{p.challenge}</Block>
-          </Reveal>
-          <Reveal direction="right" delay={0.08}>
-            <Block title="The Solution">{p.solution}</Block>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="relative py-20 section-divider">
-        <div className="mx-auto max-w-6xl px-6">
-          <Reveal>
-            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Key features</h2>
-          </Reveal>
-          <RevealGroup className="mt-10 grid gap-4 md:grid-cols-2" stagger={0.06}>
-            {p.features.map((f: string) => (
-              <RevealItem key={f} direction="scale">
-                <div className="surface-card interactive-card p-6 flex items-start gap-3.5">
-                  <div className="size-6 rounded-full bg-brand-gradient grid place-items-center shrink-0 mt-0.5">
-                    <Check className="size-3.5 text-primary-foreground" />
-                  </div>
-                  <span className="text-sm font-medium">{f}</span>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="relative py-24">
-        <div className="mx-auto max-w-4xl px-6 text-center">
-          <Reveal direction="scale">
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">
-              Have a similar project in mind?
-            </h2>
-            <Link to="/contact" className="mt-8 btn-primary inline-flex animate-pulse-glow">
-              Book a free consultation <ArrowRight className="size-4" />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
       <Footer />
     </div>
-  );
-}
+  ),
+  component: ProjectDetailPage,
+});
 
-function Block({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="surface-card p-8 h-full">
-      <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
-      <p className="mt-4 text-muted-foreground leading-relaxed">{children}</p>
-    </div>
-  );
-}
-
-function ImageCarousel({ images, name }: { images: readonly string[]; name: string }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (images.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [images.length]);
+function ProjectDetailPage() {
+  const { project: p } = Route.useLoaderData();
+  const sortedProjects = [...projects].sort((a, b) => a.order - b.order);
+  const currentIndex = sortedProjects.findIndex((item) => item.slug === p.slug);
+  const prevProject =
+    sortedProjects[(currentIndex - 1 + sortedProjects.length) % sortedProjects.length];
+  const nextProject = sortedProjects[(currentIndex + 1) % sortedProjects.length];
 
   return (
-    <div className="absolute inset-0 bg-surface">
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={currentIndex}
-          src={images[currentIndex]}
-          alt={`${name} image ${currentIndex + 1}`}
-          className="absolute inset-0 w-full h-full object-cover"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
-        />
-      </AnimatePresence>
-      {images.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-          {images.map((_, idx) => (
-            <button
-              key={idx}
-              className={`h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? "bg-white w-6" : "bg-white/40 hover:bg-white/60 w-2"}`}
-              onClick={() => setCurrentIndex(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
+    <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-live)] selection:text-[var(--color-card)]">
+      <Header />
+
+      <main>
+        {/* 1. Hero (tone="paper" size="hero" divider={false}) */}
+        <Section size="hero" tone="paper" divider={false}>
+          {/* Breadcrumb: Home / Work / {name} */}
+          <nav aria-label="Breadcrumb" className="mb-6">
+            <div className="flex items-center gap-2 font-mono text-[12px] text-[var(--color-ink-3)] select-none">
+              <Link to="/" className="hover:text-[var(--color-ink)] transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
+                Home
+              </Link>
+              <span>/</span>
+              <Link to="/portfolio" className="hover:text-[var(--color-ink)] transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]">
+                Work
+              </Link>
+              <span>/</span>
+              <span className="text-[var(--color-ink)] font-medium">{p.name}</span>
+            </div>
+          </nav>
+
+          {p.ledger && p.ledger.length > 0 ? (
+            <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-10 min-[901px]:gap-8 items-center">
+              {/* Left 7 cols */}
+              <div className="min-[901px]:col-span-7 flex flex-col items-start text-left">
+                <Chip live={false}>{p.category}</Chip>
+                <h1 className="max-w-[15ch] text-[clamp(52px,7vw,88px)] leading-[1.02] tracking-tight font-display font-medium text-[var(--color-ink)] mt-5">
+                  {p.name}
+                </h1>
+                <p className="max-w-[52ch] text-[17px] text-[var(--color-ink-2)] mt-5 leading-relaxed">
+                  {p.summary}
+                </p>
+              </div>
+              {/* Right 5 cols */}
+              <div className="min-[901px]:col-span-5 flex items-center w-full">
+                <Ledger className="w-full" rows={p.ledger} />
+              </div>
+            </div>
+          ) : (
+            <div className="max-w-[720px] flex flex-col items-start text-left">
+              <Chip live={false}>{p.category}</Chip>
+              <h1 className="max-w-[15ch] text-[clamp(52px,7vw,88px)] leading-[1.02] tracking-tight font-display font-medium text-[var(--color-ink)] mt-5">
+                {p.name}
+              </h1>
+              <p className="max-w-[52ch] text-[17px] text-[var(--color-ink-2)] mt-5 leading-relaxed">
+                {p.summary}
+              </p>
+            </div>
+          )}
+        </Section>
+
+        {/* 2. Challenge and Solution (tone="card") */}
+        <Section size="default" tone="card" index="01">
+          <SectionRail label="THE PROBLEM" />
+
+          <div className="space-y-12">
+            <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-6 min-[901px]:gap-8 items-start">
+              <div className="min-[901px]:col-span-4">
+                <h2 className="text-[clamp(24px,2.5vw,30px)] font-display font-medium text-[var(--color-ink)]">
+                  The Challenge
+                </h2>
+              </div>
+              <div className="min-[901px]:col-span-8">
+                <p className="text-[16px] text-[var(--color-ink-2)] leading-relaxed max-w-[62ch]">
+                  {p.challenge}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-6 min-[901px]:gap-8 items-start pt-10 border-t border-[var(--color-rule)]">
+              <div className="min-[901px]:col-span-4">
+                <h2 className="text-[clamp(24px,2.5vw,30px)] font-display font-medium text-[var(--color-ink)]">
+                  The Solution
+                </h2>
+              </div>
+              <div className="min-[901px]:col-span-8">
+                <p className="text-[16px] text-[var(--color-ink-2)] leading-relaxed max-w-[62ch]">
+                  {p.solution}
+                </p>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* 3. Features (tone="deep") */}
+        <Section size="default" tone="deep" index="02">
+          <SectionRail label="WHAT WE BUILT" />
+
+          <div className="border border-[var(--color-deep-rule)] rounded-[var(--radius-lg,14px)] bg-[#171B20] p-2 sm:p-4">
+            {p.features.map((feature, idx) => (
+              <Row key={feature} index={idx + 1} title={feature} />
+            ))}
+          </div>
+        </Section>
+
+        {/* 4. Gallery (tone="paper") */}
+        <Section size="default" tone="paper" index="03">
+          <SectionRail label="SCREENS" />
+
+          <div className="grid grid-cols-1 min-[901px]:grid-cols-2 gap-8 items-start">
+            {p.shots.map((shot, idx) => (
+              <div key={idx} className="flex flex-col">
+                <Shot
+                  src={shot.src}
+                  category={p.name}
+                  title={shot.caption}
+                  ratio="16/10"
+                />
+                <div className="font-mono text-[13px] text-[var(--color-ink-3)] mt-2.5 px-0.5">
+                  {shot.caption}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* 5. Outcome (tone="paper", rendered ONLY when project.outcome exists) */}
+        {p.outcome && (
+          <Section size="default" tone="paper" index="04">
+            <SectionRail label="OUTCOME" />
+
+            <div className="mx-auto max-w-[62ch] text-center">
+              <p className="text-[20px] font-display font-medium text-[var(--color-ink)] leading-relaxed">
+                {p.outcome}
+              </p>
+            </div>
+          </Section>
+        )}
+
+        {/* 6. Next / previous (tone="paper" divider={false}) */}
+        <Section size="default" tone="paper" divider={false}>
+          <div className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] p-2 sm:p-4 grid grid-cols-1 min-[721px]:grid-cols-2 gap-4">
+            <Row
+              title={`← ${prevProject.name}`}
+              description={prevProject.category}
+              href={`/portfolio/${prevProject.slug}`}
             />
-          ))}
-        </div>
-      )}
+            <Row
+              title={`${nextProject.name} →`}
+              description={nextProject.category}
+              href={`/portfolio/${nextProject.slug}`}
+            />
+          </div>
+        </Section>
+
+        {/* 7. Closing CTA (tone="paper" divider={false}) */}
+        <Section size="default" tone="paper" divider={false}>
+          <ClosingCTA />
+        </Section>
+      </main>
+
+      <Footer />
     </div>
   );
 }

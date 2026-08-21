@@ -1,18 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Lightbulb, ShieldCheck, Eye, Sparkles } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { HeroBackground } from "@/components/site/Background";
-import { Reveal, RevealGroup, RevealItem } from "@/components/site/Reveal";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { motion } from "framer-motion";
-import {
-  HandDrawnCircle,
-  HandDrawnUnderline,
-  HandDrawnDoubleStrike,
-} from "@/components/site/HandDrawnHighlights";
-import { RetroStar, SparkleDeco, CurlyArrow } from "@/components/site/RetroDecorations";
-import { StickerBoard } from "@/components/site/StickerBoard";
+import { Section } from "@/components/site/Section";
+import { SectionRail } from "@/components/site/SectionRail";
+import { ClosingCTA } from "@/components/site/ClosingCTA";
+import arjunImg from "./images/arjun.jpg";
+import jatinImg from "./images/jatin.jpg";
+import parthImg from "./images/parth.jpeg";
+import someshImg from "./images/somesh.jpeg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -77,40 +72,37 @@ export const Route = createFileRoute("/about")({
 
 const values = [
   {
-    icon: Lightbulb,
+    num: "01",
     title: "Innovation",
     body: "We pick technology that compounds — modern stacks, AI where it matters.",
   },
   {
-    icon: ShieldCheck,
+    num: "02",
     title: "Reliability",
     body: "We ship on time and stand behind what we build.",
   },
   {
-    icon: Eye,
+    num: "03",
     title: "Transparency",
     body: "You see the work as it happens. No black boxes, ever.",
   },
   {
-    icon: Sparkles,
+    num: "04",
     title: "Quality",
     body: "Type-safe, tested, observable. Boring code so your product can be exciting.",
   },
 ];
 
-import arjunImg from "./images/arjun.jpg";
-import jatinImg from "./images/jatin.jpg";
-import parthImg from "./images/parth.jpeg";
-import someshImg from "./images/somesh.jpeg";
-
 const team = [
   {
+    num: "01",
     name: "Arjun Singh Rajput",
     role: "CEO & Head of Strategy",
     bio: "Driving overarching vision, strategic growth, and execution.",
     image: arjunImg,
   },
   {
+    num: "02",
     name: "Jatin Khetan",
     role: "CFO & Head of Product & Design",
     bio: "Managing financial strategy and crafting intuitive, user-centric product experiences.",
@@ -118,12 +110,14 @@ const team = [
     imageClass: "object-[center_20%]",
   },
   {
+    num: "03",
     name: "Parth Garg",
     role: "COO & Head of Operations",
     bio: "Streamlining cross-functional execution and scaling operational excellence.",
     image: parthImg,
   },
   {
+    num: "04",
     name: "Somesh Rajput",
     role: "CTO & Head of Engineering",
     bio: "Architecting scalable systems and driving core technical innovation.",
@@ -131,78 +125,41 @@ const team = [
   },
 ];
 
-const valueColors = [
-  { shadow: "var(--brand-pink)", iconBg: "rgba(255, 0, 127, 0.15)", iconText: "text-brand-pink" },
-  { shadow: "var(--brand-blue)", iconBg: "rgba(0, 240, 255, 0.15)", iconText: "text-brand-blue" },
-  {
-    shadow: "var(--brand-purple)",
-    iconBg: "rgba(159, 50, 255, 0.15)",
-    iconText: "text-brand-purple",
-  },
-  { shadow: "var(--brand-2)", iconBg: "rgba(250, 204, 21, 0.2)", iconText: "text-brand-2" },
-];
-
-const teamColors = [
-  { shadow: "var(--brand-pink)" },
-  { shadow: "var(--brand-blue)" },
-  { shadow: "var(--brand-purple)" },
-  { shadow: "var(--team-calm)" },
-];
-
 function AboutPage() {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-live)] selection:text-[var(--color-card)]">
       <Header />
 
-      {/* Hero */}
-      <section className="relative pt-36 pb-20 md:pt-44 overflow-hidden">
-        <HeroBackground />
+      <main>
+        {/* 1. Hero — tone="paper" size="hero" divider={false} */}
+        <Section size="hero" tone="paper" divider={false}>
+          <SectionRail label="ABOUT" />
 
-        {/* Floating decorations */}
-        <RetroStar
-          className="left-10 top-36 hidden xl:block animate-float-sticker"
-          size={48}
-          color="var(--brand-pink)"
-          rotation={25}
-        />
-        <SparkleDeco
-          className="left-1/4 bottom-8 hidden md:block"
-          size={24}
-          color="var(--brand-purple)"
-        />
-
-        <div className="mx-auto max-w-5xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              <span className="inline-block w-6 h-px bg-brand-gradient" />
-              About
-            </div>
-            <h1 className="mt-4 text-5xl md:text-7xl font-semibold tracking-tight max-w-4xl leading-[1.05]">
-              We build <HandDrawnCircle color="var(--brand-pink)">products</HandDrawnCircle>,<br />
-              not just{" "}
-              <HandDrawnDoubleStrike color="var(--brand-purple)">software.</HandDrawnDoubleStrike>
+          <div className="max-w-[720px] flex flex-col items-start text-left">
+            <h1 className="text-[clamp(44px,6vw,72px)] leading-[1.04] tracking-tight font-display font-medium text-[var(--color-ink)]">
+              We build products,
+              <br />
+              not just software.
             </h1>
-            <p className="mt-7 text-lg text-muted-foreground max-w-2xl leading-relaxed">
+            <p className="mt-6 text-[17px] text-[var(--color-ink-2)] leading-relaxed max-w-[52ch]">
               GLAD studio is a dedicated team of passionate builders. We help startups and growing
               businesses turn ideas into shipped products — web, mobile and AI — with the rigor of a
               great in-house team.
             </p>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </Section>
 
-      {/* Story */}
-      <section className="relative py-20 section-divider">
-        <div className="mx-auto max-w-5xl px-6 grid gap-12 md:grid-cols-2 items-start">
-          <Reveal direction="left">
-            <h2 className="text-3xl font-semibold tracking-tight">Our story</h2>
-          </Reveal>
-          <Reveal direction="right" delay={0.08}>
-            <div className="space-y-5 text-muted-foreground leading-relaxed">
+        {/* 2. Story — tone="card" */}
+        <Section size="default" tone="card">
+          <SectionRail label="OUR STORY" />
+
+          <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-8 min-[901px]:gap-12 items-start">
+            <div className="min-[901px]:col-span-4">
+              <h2 className="text-[clamp(32px,3.8vw,44px)] font-display font-medium text-[var(--color-ink)] leading-tight">
+                Our story.
+              </h2>
+            </div>
+            <div className="min-[901px]:col-start-6 min-[901px]:col-span-7 space-y-5 text-[17px] text-[var(--color-ink-2)] leading-relaxed max-w-[62ch]">
               <p>
                 We started GLAD studio because we kept seeing the same thing: founders spending
                 months on agencies that overpromised, underdelivered, and left them with code they
@@ -213,98 +170,84 @@ function AboutPage() {
                 of projects at a time, ships every week, and treats your product like our own.
               </p>
             </div>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </Section>
 
-      {/* Values */}
-      <section className="relative py-24 section-divider noise-bg">
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
-          <Reveal>
-            <SectionHeading eyebrow="What drives us" title="Values." />
-          </Reveal>
-          <RevealGroup className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4" stagger={0.06}>
-            {values.map((v, i) => {
-              const colors = valueColors[i % valueColors.length];
-              return (
-                <RevealItem key={v.title}>
-                  <div
-                    className="surface-card interactive-card p-7 h-full calm-card-custom"
-                    style={
-                      {
-                        "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                      } as React.CSSProperties
-                    }
-                  >
-                    <div
-                      className={`size-10 rounded-lg grid place-items-center ${colors.iconText}`}
-                      style={{ backgroundColor: colors.iconBg }}
-                    >
-                      <v.icon className="size-5" />
-                    </div>
-                    <h3 className="mt-5 font-semibold tracking-tight">{v.title}</h3>
-                    <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">{v.body}</p>
-                  </div>
-                </RevealItem>
-              );
-            })}
-          </RevealGroup>
-        </div>
-      </section>
+        {/* 3. Values — tone="deep" */}
+        <Section size="default" tone="deep">
+          <SectionRail label="WHAT DRIVES US" />
 
-      {/* Team */}
-      <section className="relative py-24 section-divider">
-        <div className="mx-auto max-w-6xl px-6">
-          <Reveal>
-            <SectionHeading eyebrow="The people" title="The team." />
-          </Reveal>
-          <RevealGroup className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
-            {team.map((m, i) => {
-              const colors = teamColors[i % teamColors.length];
-              return (
-                <RevealItem key={m.name} direction="scale" className="h-full">
-                  <div
-                    className="surface-card interactive-card overflow-hidden group h-full flex flex-col calm-card-custom"
-                    style={
-                      {
-                        "--shadow-card-hover": `8px 8px 0px 0px ${colors.shadow}`,
-                      } as React.CSSProperties
-                    }
-                  >
-                    <div className="aspect-square bg-brand-gradient relative overflow-hidden shrink-0">
-                      {m.image ? (
-                        <img
-                          src={m.image}
-                          alt={m.name}
-                          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${m.imageClass || ""}`}
-                        />
-                      ) : (
-                        <>
-                          <div className="absolute inset-0 grid-bg opacity-25" />
-                          <div className="absolute inset-0 grid place-items-center text-5xl font-display font-semibold text-white/90 drop-shadow-lg transition-transform duration-500 group-hover:scale-110">
-                            {m.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                    <div className="p-6 relative bg-inherit z-10 flex-1 flex flex-col">
-                      <h3 className="text-lg font-semibold tracking-tight">{m.name}</h3>
-                      <div className="text-xs text-muted-foreground mt-1">{m.role}</div>
-                      <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{m.bio}</p>
-                    </div>
-                  </div>
-                </RevealItem>
-              );
-            })}
-          </RevealGroup>
-        </div>
-      </section>
+          <div className="max-w-xl mb-12">
+            <h2 className="text-[clamp(36px,4.5vw,52px)] font-display font-medium text-[var(--color-deep-ink)] leading-tight">
+              What drives us.
+            </h2>
+          </div>
+
+          <div className="border border-[var(--color-deep-rule)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[var(--color-deep-rule)]">
+            {values.map((v) => (
+              <div key={v.num} className="p-7 flex flex-col justify-between">
+                <div className="font-mono text-[13px] text-[var(--color-brass)] mb-6">
+                  {v.num}
+                </div>
+                <div>
+                  <h3 className="font-display text-[19px] font-medium text-[var(--color-deep-ink)] mb-2">
+                    {v.title}
+                  </h3>
+                  <p className="text-[15px] text-[var(--color-deep-ink)] opacity-80 leading-relaxed">
+                    {v.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* 4. Team — tone="paper" */}
+        <Section size="default" tone="paper">
+          <SectionRail label="THE TEAM" />
+
+          <div className="max-w-xl mb-12">
+            <h2 className="text-[clamp(36px,4.5vw,52px)] font-display font-medium text-[var(--color-ink)] leading-tight">
+              The team.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 min-[901px]:grid-cols-4 gap-8 sm:gap-6 items-start">
+            {team.map((m) => (
+              <div key={m.name} className="flex flex-col items-start text-left group">
+                <div className="w-full aspect-square rounded-[var(--radius-md,8px)] border border-[var(--color-rule)] bg-[var(--color-sunk)] overflow-hidden mb-4 relative">
+                  <img
+                    src={m.image}
+                    alt={m.name}
+                    loading="lazy"
+                    decoding="async"
+                    className={`w-full h-full object-cover grayscale contrast-105 group-hover:grayscale-0 transition-[filter] duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] ${m.imageClass || ""}`}
+                  />
+                </div>
+                <div className="font-mono text-[13px] text-[var(--color-brass)] mb-1.5">
+                  {m.num}
+                </div>
+                <h3 className="font-display text-[19px] font-medium text-[var(--color-ink)]">
+                  {m.name}
+                </h3>
+                <div className="font-mono text-[13px] text-[var(--color-ink-3)] mt-1 mb-2.5">
+                  {m.role}
+                </div>
+                <p className="text-[15px] text-[var(--color-ink-2)] leading-relaxed">
+                  {m.bio}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* 5. ClosingCTA */}
+        <Section size="default" tone="paper" divider={false}>
+          <ClosingCTA />
+        </Section>
+      </main>
 
       <Footer />
-      <StickerBoard />
     </div>
   );
 }

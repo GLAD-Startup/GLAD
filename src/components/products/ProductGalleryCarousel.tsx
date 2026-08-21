@@ -190,18 +190,18 @@ export function ProductGalleryCarousel() {
       className="py-20 md:py-28 relative overflow-hidden isolate border-t border-border/60 bg-background text-foreground select-none"
     >
       {/* 1. Large Watermark Text Behind Heading */}
-      <div className="pointer-events-none absolute left-1/2 top-12 md:top-16 -translate-x-1/2 -z-10 select-none font-serif italic text-[7rem] sm:text-[12rem] md:text-[17rem] leading-none text-foreground/15 dark:text-foreground/20 whitespace-nowrap">
+      <div className="pointer-events-none absolute left-1/2 top-12 md:top-16 -translate-x-1/2 -z-10 select-none font-serif italic text-[7rem] sm:text-[12rem] md:text-[17rem] leading-none text-foreground/15 whitespace-nowrap">
         gallery
       </div>
 
       {/* 2. Section Header */}
       <div className="mx-auto max-w-5xl px-6 text-center space-y-3 relative z-10">
-        <span className="inline-block text-xs uppercase font-mono font-bold tracking-[0.3em] text-amber-500/90 dark:text-amber-400">
+        <span className="inline-block text-xs uppercase font-mono font-bold tracking-[0.3em] text-amber-500/90">
           VISUAL PLATFORM
         </span>
         <h2 className="text-3xl sm:text-5xl md:text-6xl font-serif font-medium tracking-tight text-foreground">
           The Operating System{" "}
-          <span className="font-serif italic bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 dark:from-amber-300 dark:via-amber-400 dark:to-amber-500 bg-clip-text text-transparent">
+          <span className="font-serif italic text-[var(--color-brass)]">
             for Modern Real Estate
           </span>
         </h2>
@@ -266,7 +266,7 @@ export function ProductGalleryCarousel() {
                   {Array.from({ length: 9 }).map((_, i) => (
                     <div
                       key={`top-hole-${i}`}
-                      className="w-3 sm:w-3.5 h-2 rounded-[2px] bg-zinc-400/40 dark:bg-zinc-300/30 border border-white/10"
+                      className="w-3 sm:w-3.5 h-2 rounded-[2px] bg-zinc-400/40 border border-white/10"
                     />
                   ))}
                 </div>
@@ -279,7 +279,7 @@ export function ProductGalleryCarousel() {
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-95 contrast-105"
                   />
                   {/* Dark vignette overlay for text legibility */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-black/80" />
 
                   {/* Header Badges on Image */}
                   <div className="absolute top-2 left-2.5 right-2.5 flex items-center justify-between text-[10px] font-mono tracking-wider font-bold">
@@ -305,7 +305,7 @@ export function ProductGalleryCarousel() {
                   {Array.from({ length: 9 }).map((_, i) => (
                     <div
                       key={`bot-hole-${i}`}
-                      className="w-3 sm:w-3.5 h-2 rounded-[2px] bg-zinc-400/40 dark:bg-zinc-300/30 border border-white/10"
+                      className="w-3 sm:w-3.5 h-2 rounded-[2px] bg-zinc-400/40 border border-white/10"
                     />
                   ))}
                 </div>

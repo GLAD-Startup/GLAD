@@ -15,5 +15,11 @@ export function ScrollProgress() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  return <div id="scroll-progress" style={{ width: `${width}%` }} />;
+  return (
+    <div
+      id="scroll-progress"
+      className="fixed top-0 left-0 h-[2px] bg-[var(--color-brass)] z-[100] transition-[width] duration-75 select-none pointer-events-none"
+      style={{ width: `${width}%` }}
+    />
+  );
 }
