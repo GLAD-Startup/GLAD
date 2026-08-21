@@ -469,7 +469,7 @@ export const testimonials: Testimonial[] = [
     metric: "10,000+ Community Reach",
     rating: 5,
     logo: prayasLogo,
-    verified: false,
+    verified: true,
   },
   {
     quote:
@@ -481,7 +481,7 @@ export const testimonials: Testimonial[] = [
     metric: "Zero Stock Discrepancies",
     rating: 5,
     logo: glaCanteenLogo,
-    verified: false,
+    verified: true,
   },
   {
     quote:
@@ -493,7 +493,7 @@ export const testimonials: Testimonial[] = [
     metric: "3x Online Inquiries",
     rating: 5,
     logo: earthTravelsLogo,
-    verified: false,
+    verified: true,
   },
 ];
 

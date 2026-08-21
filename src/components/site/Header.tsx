@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import logoUrl from "@/routes/images/website logo(white background compatible).png";
 
 const navLinks = [
+  { to: "/products", label: "Products" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/services", label: "Services" },
   { to: "/process", label: "Process" },

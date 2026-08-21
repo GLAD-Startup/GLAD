@@ -17,6 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HandDrawnUnderline } from "@/components/site/HandDrawnHighlights";
+import { ScrollIndicator } from "@/components/site/ScrollIndicator";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
 import { faqs, projects, testimonials } from "@/components/site/data";
 import { useState, useEffect } from "react";
@@ -106,7 +107,6 @@ function Home() {
     setSubmitted(true);
   };
 
-  const verifiedTestimonials = testimonials.filter((t) => t.verified);
   const realProjects = projects.slice(0, 3);
 
   return (
@@ -115,7 +115,12 @@ function Home() {
 
       <main>
         {/* Hero ────────────────────────────────────────── */}
-        <Section size="hero" tone="paper" divider={false}>
+        <Section
+          size="hero"
+          tone="paper"
+          divider={false}
+          className="pb-10 min-[721px]:pb-16"
+        >
           <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-10 min-[901px]:gap-8 items-center">
             {/* Left 7 columns */}
             <div className="min-[901px]:col-span-7 flex flex-col items-start text-left">
@@ -171,10 +176,15 @@ function Home() {
               />
             </div>
           </div>
+
+          {/* Scrolling mouse animated UI element */}
+          <div className="mt-8 sm:mt-10 min-[901px]:mt-12 flex justify-center w-full">
+            <ScrollIndicator targetId="services" label="SCROLL" />
+          </div>
         </Section>
 
         {/* Services (tone="card") ──────────────────────── */}
-        <Section size="default" tone="card" index="01">
+        <Section size="default" tone="card" index="01" id="services">
           <SectionRail label="WHAT WE DO" />
 
           <div className="max-w-2xl mb-8">
@@ -368,29 +378,63 @@ function Home() {
               <Shot
                 key={p.slug}
                 category={p.category}
-                title={p.short}
+                title={p.name}
                 ratio="16/10"
               />
             ))}
           </div>
         </Section>
 
-        {/* Testimonials (Conditional: only renders if verified items exist) */}
-        {verifiedTestimonials.length > 0 && (
-          <Section size="default" tone="paper">
+        {/* Testimonials ─────────────────────────────── */}
+        {testimonials.length > 0 && (
+          <Section size="default" tone="paper" index="05">
             <SectionRail label="CLIENT PERSPECTIVES" />
+
+            <div className="max-w-2xl mb-8">
+              <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-ink)]">
+                Trusted by builders & founders.
+              </h2>
+              <p className="text-[17px] text-[var(--color-ink-2)] mt-2 leading-relaxed">
+                What clients and partners say about shipping with GLAD Studio.
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {verifiedTestimonials.map((t, idx) => (
+              {testimonials.map((t, idx) => (
                 <Surface key={idx} hover={false} className="p-6 flex flex-col justify-between">
-                  <p className="text-[17px] text-[var(--color-ink)] leading-relaxed">
-                    "{t.quote}"
-                  </p>
-                  <div className="mt-6 pt-4 border-t border-[var(--color-rule)]">
-                    <div className="text-[14px] font-medium text-[var(--color-ink)]">
-                      {t.name}
+                  <div>
+                    {/* Star Rating */}
+                    <div className="flex items-center gap-1 mb-4 text-[#8A6D0B]">
+                      {[...Array(t.rating || 5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className="size-4 fill-current"
+                          viewBox="0 0 20 20"
+                          aria-hidden="true"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
                     </div>
-                    <div className="text-[13px] text-[var(--color-ink-3)] mt-0.5">
-                      {t.role} {t.company && `• ${t.company}`}
+                    <p className="text-[16px] text-[var(--color-ink)] leading-relaxed">
+                      "{t.quote}"
+                    </p>
+                  </div>
+                  <div className="mt-6 pt-4 border-t border-[var(--color-rule)] flex items-center gap-3">
+                    {t.logo && (
+                      <img
+                        src={t.logo}
+                        alt={t.company || t.name}
+                        className="size-10 rounded-full object-cover border border-[var(--color-rule)] shrink-0"
+                      />
+                    )}
+                    <div>
+                      <div className="text-[14px] font-medium text-[var(--color-ink)]">
+                        {t.name}
+                      </div>
+                      <div className="text-[13px] text-[var(--color-ink-3)] mt-0.5">
+                        {t.role} {t.company && `• ${t.company}`}
+                      </div>
                     </div>
                   </div>
                 </Surface>
@@ -400,7 +444,7 @@ function Home() {
         )}
 
         {/* FAQ (tone="card") ───────────────────────────── */}
-        <Section size="default" tone="card" index="05">
+        <Section size="default" tone="card" index="06">
           <SectionRail label="COMMON QUESTIONS" />
 
           <div className="w-full text-left">

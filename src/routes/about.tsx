@@ -212,7 +212,7 @@ function AboutPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 min-[901px]:grid-cols-4 gap-8 sm:gap-6 items-start">
+          <div className="grid grid-cols-1 min-[641px]:grid-cols-4 gap-6 items-start">
             {team.map((m) => (
               <div key={m.name} className="flex flex-col items-start text-left group">
                 <div className="w-full aspect-square rounded-[var(--radius-md,8px)] border border-[var(--color-rule)] bg-[var(--color-sunk)] overflow-hidden mb-4 relative">
@@ -221,19 +221,19 @@ function AboutPage() {
                     alt={m.name}
                     loading="lazy"
                     decoding="async"
-                    className={`w-full h-full object-cover grayscale contrast-105 group-hover:grayscale-0 transition-[filter] duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] ${m.imageClass || ""}`}
+                    className={`w-full h-full object-cover transition-transform duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] group-hover:scale-[1.02] ${m.imageClass || ""}`}
                   />
                 </div>
                 <div className="font-mono text-[13px] text-[var(--color-brass)] mb-1.5">
                   {m.num}
                 </div>
-                <h3 className="font-display text-[19px] font-medium text-[var(--color-ink)]">
+                <h3 className="font-display text-[17px] min-[901px]:text-[19px] font-medium text-[var(--color-ink)]">
                   {m.name}
                 </h3>
-                <div className="font-mono text-[13px] text-[var(--color-ink-3)] mt-1 mb-2.5">
+                <div className="font-mono text-[12px] min-[901px]:text-[13px] text-[var(--color-ink-3)] mt-1 mb-2.5">
                   {m.role}
                 </div>
-                <p className="text-[15px] text-[var(--color-ink-2)] leading-relaxed">
+                <p className="text-[13px] min-[901px]:text-[14px] text-[var(--color-ink-2)] leading-relaxed">
                   {m.bio}
                 </p>
               </div>
