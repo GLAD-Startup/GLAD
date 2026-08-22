@@ -11,23 +11,25 @@ export interface LedgerRow {
 export interface LedgerProps extends React.HTMLAttributes<HTMLDivElement> {
   rows: LedgerRow[];
   hover?: boolean;
+  header?: React.ReactNode;
   className?: string;
 }
 
-export function Ledger({ rows, hover = false, className, ...props }: LedgerProps) {
+export function Ledger({ rows, hover = false, header, className, ...props }: LedgerProps) {
   return (
     <Surface
       hover={hover}
       className={cn("p-0 overflow-hidden w-full divide-y divide-[var(--color-rule)]", className)}
       {...props}
     >
+      {header && <div>{header}</div>}
       {rows.map((r, i) => {
         const isPercent = r.accent?.startsWith("%");
 
         return (
           <div
             key={`${r.key}-${i}`}
-            className="flex justify-between items-baseline gap-5 px-[22px] py-[15px]"
+            className="hero-ledger-row flex justify-between items-baseline gap-5 px-[22px] py-[15px]"
           >
             {/* Monospace Key */}
             <span className="font-mono text-[12px] tracking-[0.06em] uppercase text-[var(--color-ink-3)] shrink-0 select-none">

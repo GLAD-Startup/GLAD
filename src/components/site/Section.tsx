@@ -26,6 +26,7 @@ export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   tone?: SectionTone;
   divider?: boolean;
   index?: string | number;
+  background?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
   containerClassName?: string;
@@ -36,6 +37,7 @@ export function Section({
   tone = "paper",
   divider,
   index = "01",
+  background,
   children,
   className,
   containerClassName,
@@ -71,6 +73,7 @@ export function Section({
         )}
         {...props}
       >
+        {background}
         <div
           className={cn(
             "max-w-[1120px] mx-auto px-8 max-[720px]:px-5 w-full",

@@ -1651,3 +1651,225 @@
 .perspective-1200 {
   perspective: 1200px;
 }
+
+/* ── Hero Scoped Styles ────────────────────────────── */
+
+@property --hero-mask-radius {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+/* 2. Pointer-reactive Hairline Grid */
+.hero-grid-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 80%, transparent 100%);
+}
+
+.hero-grid-base {
+  position: absolute;
+  inset: 0;
+  opacity: 0.30;
+  background-size: 64px 64px;
+  background-image:
+    repeating-linear-gradient(to right, var(--color-rule) 0px, var(--color-rule) 1px, transparent 1px, transparent 64px),
+    repeating-linear-gradient(to bottom, var(--color-rule) 0px, var(--color-rule) 1px, transparent 1px, transparent 64px);
+}
+
+.hero-grid-reactive {
+  position: absolute;
+  inset: 0;
+  opacity: 0.90;
+  background-size: 64px 64px;
+  background-image:
+    repeating-linear-gradient(to right, var(--color-rule-hi) 0px, var(--color-rule-hi) 1px, transparent 1px, transparent 64px),
+    repeating-linear-gradient(to bottom, var(--color-rule-hi) 0px, var(--color-rule-hi) 1px, transparent 1px, transparent 64px);
+  mask-image: radial-gradient(var(--hero-mask-radius, 0px) circle at var(--mx, -9999px) var(--my, -9999px), #000 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(var(--hero-mask-radius, 0px) circle at var(--mx, -9999px) var(--my, -9999px), #000 0%, transparent 70%);
+  transition: --hero-mask-radius var(--duration-2, 300ms) var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1)),
+              opacity var(--duration-2, 300ms) var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .hero-grid-reactive {
+    display: none !important;
+  }
+}
+
+/* 3. Ledger Live Readout & Row Interactions */
+.hero-ledger-container {
+  transition: border-color var(--duration-2, 300ms) var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1)) !important;
+}
+
+.hero-ledger-container:hover {
+  border-color: var(--color-rule-hi) !important;
+}
+
+.hero-ledger-container .hero-ledger-row {
+  position: relative;
+  transition: background-color var(--duration-1, 150ms) var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.hero-ledger-container .hero-ledger-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--color-brass);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--duration-1, 150ms) var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.hero-ledger-container .hero-ledger-row:hover {
+  background-color: var(--color-sunk);
+}
+
+.hero-ledger-container .hero-ledger-row:hover::before {
+  transform: scaleY(1);
+}
+
+/* 4. Entrance Choreography */
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-animate-chip {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 0ms both;
+}
+
+.hero-animate-p {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 80ms both;
+}
+
+.hero-animate-buttons {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 140ms both;
+}
+
+.hero-animate-ledger-header {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 200ms both;
+}
+
+.hero-ledger-container .hero-ledger-row:nth-child(2) {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 240ms both;
+}
+
+.hero-ledger-container .hero-ledger-row:nth-child(3) {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 285ms both;
+}
+
+.hero-ledger-container .hero-ledger-row:nth-child(4) {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 330ms both;
+}
+
+.hero-ledger-container .hero-ledger-row:nth-child(5) {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 375ms both;
+}
+
+.hero-ledger-container .hero-ledger-row:nth-child(6) {
+  animation: hero-fade-in var(--duration-2, 300ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 420ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate-chip,
+  .hero-animate-p,
+  .hero-animate-buttons,
+  .hero-animate-ledger-header,
+  .hero-ledger-container .hero-ledger-row {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* 5. The Underline Draw */
+@keyframes hero-underline-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hero-underline-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: hero-underline-draw 520ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) 420ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-underline-path {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* 6. Button Micro-interactions (hero instance) */
+.hero-btn-primary {
+  transition: background-color var(--duration-1, 150ms) var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1)) !important;
+}
+
+.hero-btn-primary:hover {
+  background-color: #0C5A3E !important;
+}
+
+.hero-btn-ghost {
+  transition: background-color var(--duration-1, 150ms) var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1)),
+              border-color var(--duration-1, 150ms) var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1)) !important;
+}
+
+.hero-btn-ghost:hover {
+  border-color: var(--color-ink-3) !important;
+  background-color: var(--color-sunk) !important;
+}
+
+/* 7. Scroll Cue */
+@keyframes hero-scroll-cue-pulse {
+  0%, 100% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.hero-scroll-cue-container {
+  display: none;
+}
+
+@media (min-width: 901px) {
+  .hero-scroll-cue-container {
+    display: flex;
+  }
+}
+
+.hero-scroll-cue {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background-color: var(--color-rule-hi);
+  transform-origin: top;
+  animation: hero-scroll-cue-pulse 2400ms var(--ease-move, cubic-bezier(0.4, 0, 0.2, 1)) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-cue-container {
+    display: none !important;
+  }
+}
+

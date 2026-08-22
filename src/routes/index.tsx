@@ -17,6 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HandDrawnUnderline } from "@/components/site/HandDrawnHighlights";
+import { HeroGrid } from "@/components/site/HeroGrid";
 import { ScrollIndicator } from "@/components/site/ScrollIndicator";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
 import { faqs, projects, testimonials } from "@/components/site/data";
@@ -119,34 +120,38 @@ function Home() {
           size="hero"
           tone="paper"
           divider={false}
-          className="pb-10 min-[721px]:pb-16"
+          id="hero"
+          background={<HeroGrid />}
+          className="relative overflow-hidden flex flex-col justify-between min-h-[calc(100svh-64px)] pt-24 sm:pt-28 min-[901px]:pt-36 pb-8 min-[901px]:pb-10"
+          containerClassName="relative z-10 flex flex-col justify-between flex-1 w-full"
         >
-          <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-10 min-[901px]:gap-8 items-center">
-            {/* Left 7 columns */}
-            <div className="min-[901px]:col-span-7 flex flex-col items-start text-left">
-              {/* Capacity Chip with pluralisation fix */}
-              <Chip live>
+          <div className="grid grid-cols-1 min-[901px]:grid-cols-12 min-[901px]:gap-x-8 gap-y-10 min-[901px]:gap-y-0 items-start w-full">
+            {/* Left 6 columns (Columns 1-6) */}
+            <div className="min-[901px]:col-span-6 flex flex-col items-start text-left">
+              {/* Capacity Chip with entrance choreography */}
+              <Chip live className="hero-animate-chip">
                 {slots} {slots === 1 ? "slot" : "slots"} available for Q3
               </Chip>
 
-              {/* Widened h1 */}
-              <h1 className="max-w-[15ch] text-[clamp(52px,7vw,88px)] leading-[1.02] tracking-tight font-display font-medium text-[var(--color-ink)] mt-5">
+              {/* h1: No entrance animation (paints first frame) */}
+              <h1 className="max-w-[13ch] text-[clamp(44px,5.2vw,72px)] leading-[1.04] tracking-tight font-display font-medium text-[var(--color-ink)] mt-5">
                 We engineer digital products that{" "}
                 <HandDrawnUnderline>scale.</HandDrawnUnderline>
               </h1>
 
-              {/* 17px section intro paragraph */}
-              <p className="max-w-[52ch] text-[17px] text-[var(--color-ink-2)] mt-5 leading-relaxed">
+              {/* 17px section intro paragraph with entrance delay */}
+              <p className="hero-animate-p max-w-[46ch] text-[17px] text-[var(--color-ink-2)] mt-5 leading-relaxed">
                 Senior developers building high-performance web platforms, mobile apps, and
                 custom automation. Working staging builds from week three.
               </p>
 
-              {/* Single Primary Button visible in hero viewport */}
-              <div className="flex flex-wrap items-center gap-4 mt-8">
+              {/* Buttons with entrance delay and micro-interactions */}
+              <div className="hero-animate-buttons flex flex-wrap items-center gap-4 mt-8">
                 <Button
                   variant="primary"
                   size="md"
                   arrow
+                  className="hero-btn-primary"
                   data-cal-link="arjun-rajput-2mdsis"
                   data-cal-config={JSON.stringify({
                     layout: "month_view",
@@ -156,16 +161,33 @@ function Home() {
                   Book a discovery call
                 </Button>
 
-                <Button variant="ghost" size="md" asChild>
+                <Button variant="ghost" size="md" className="hero-btn-ghost" asChild>
                   <a href="#work">See our work</a>
                 </Button>
               </div>
             </div>
 
-            {/* Right 5 columns: vertically centred 5-row Ledger */}
-            <div className="min-[901px]:col-span-5 flex items-center w-full">
+            {/* Right 5 columns (Columns 8-12): Top edge aligns with h1 first-line cap height */}
+            <div className="min-[901px]:col-start-8 min-[901px]:col-span-5 w-full min-[901px]:mt-[52px]">
               <Ledger
-                className="w-full"
+                hover={false}
+                className="hero-ledger-container w-full"
+                header={
+                  <div className="hero-animate-ledger-header flex items-center justify-between px-[22px] py-[13px] bg-[var(--color-card)] select-none">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-3)] font-medium">
+                      STUDIO SPEC
+                    </span>
+                    <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.08em] uppercase text-[var(--color-ink-2)]">
+                      <span
+                        className="size-[6px] rounded-full bg-[var(--color-live)] shadow-[0_0_0_3px_rgb(15_110_76/0.12)] shrink-0"
+                        aria-hidden="true"
+                      />
+                      <span>
+                        {slots} {slots === 1 ? "slot" : "slots"} available for Q3
+                      </span>
+                    </div>
+                  </div>
+                }
                 rows={[
                   { key: "Senior Engineering", value: "0", accent: "junior handoffs" },
                   { key: "Working Staging Demo", value: "Week 03", accent: "live build" },
@@ -177,8 +199,8 @@ function Home() {
             </div>
           </div>
 
-          {/* Scrolling mouse animated UI element */}
-          <div className="mt-8 sm:mt-10 min-[901px]:mt-12 flex justify-center w-full">
+          {/* Scrolling mouse animated UI element positioned at bottom */}
+          <div className="mt-auto pt-10 sm:pt-14 min-[901px]:pt-16 pb-2 flex justify-center w-full">
             <ScrollIndicator targetId="services" label="SCROLL" />
           </div>
         </Section>
