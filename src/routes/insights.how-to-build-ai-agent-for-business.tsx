@@ -103,7 +103,10 @@ function HowToBuildAiAgentArticlePage() {
       <p>
         Consider an automated lead qualification workflow engineered for a B2B SaaS platform (as
         demonstrated in GLAD Studio's{" "}
-        <Link to="/portfolio/lead-enrichment">Lead Enrichment Case Study</Link>):
+        <Link to="/portfolio/$slug" params={{ slug: "lead-enrichment" }}>
+          Lead Enrichment Case Study
+        </Link>
+        ):
       </p>
 
       <pre>

@@ -103,8 +103,17 @@ function PortfolioPage() {
           <div className="grid grid-cols-1 min-[601px]:grid-cols-2 min-[901px]:grid-cols-3 gap-6 items-start">
             {sortedProjects.map((p) => (
               <div key={p.slug} className="flex flex-col">
-                <Link to={`/portfolio/${p.slug}`} className="block no-underline group">
-                  <Shot category={p.category} title={p.name} ratio="16/10" />
+                <Link
+                  to="/portfolio/$slug"
+                  params={{ slug: p.slug }}
+                  className="block no-underline group"
+                >
+                  <Shot
+                    src={p.cover || p.shots[0]?.src}
+                    category={p.category}
+                    title={p.name}
+                    ratio="16/10"
+                  />
                 </Link>
                 <div className="font-mono text-[12px] text-[var(--color-ink-3)] mt-2.5 px-0.5">
                   {p.stack.slice(0, 3).join(" · ")}

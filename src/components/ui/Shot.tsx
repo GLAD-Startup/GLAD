@@ -44,7 +44,7 @@ export const Shot = React.forwardRef<HTMLDivElement, ShotProps>(
         ref={ref}
         hover={hover}
         className={cn(
-          "p-0 overflow-hidden flex flex-col self-start h-auto w-full",
+          "p-0 overflow-hidden flex flex-col self-start h-auto w-full group",
           className
         )}
         {...props}
@@ -55,27 +55,15 @@ export const Shot = React.forwardRef<HTMLDivElement, ShotProps>(
           style={{ aspectRatio: ratio }}
         >
           {src ? (
-            <picture className="w-full h-full block">
-              <source
-                type="image/avif"
-                srcSet={getOptimizedSrcset(src, "avif")}
-                sizes={sizes}
-              />
-              <source
-                type="image/webp"
-                srcSet={getOptimizedSrcset(src, "webp")}
-                sizes={sizes}
-              />
-              <img
-                src={src}
-                alt={alt || title}
-                width={width}
-                height={height}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-            </picture>
+            <img
+              src={src}
+              alt={alt || title}
+              width={width}
+              height={height}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            />
           ) : (
             <div className="w-full h-full p-[12px] flex flex-col justify-center gap-[7px]">
               <div

@@ -2,11 +2,25 @@ import prayasLogo from "@/routes/images/prayas.jpg";
 import glaCanteenLogo from "@/routes/images/gla canteen.png";
 import earthTravelsLogo from "@/routes/images/earth travels.png";
 
+import corporateServerImg from "@/routes/images/settledesk/corporate-server.png";
+import modernOfficeFacadeImg from "@/routes/images/settledesk/modern-office-facade.png";
+import brokerDealImg from "@/routes/images/settledesk/broker-deal.png";
+import realEstateContractImg from "@/routes/images/settledesk/real-estate-contract.png";
+import skyscraperSunsetImg from "@/routes/images/settledesk/skyscraper-sunset.png";
+import hero3dImg from "@/routes/images/settledesk/hero-3d.png";
+import commission3dImg from "@/routes/images/settledesk/commission-3d.png";
+import properties3dImg from "@/routes/images/settledesk/properties-3d.png";
+import phone3dImg from "@/routes/images/settledesk/phone-3d.png";
+import realEstateAppImg from "@/routes/images/settledesk/real-estate-app.png";
+import brokerOfficeImg from "@/routes/images/settledesk/broker-office.png";
+import buildingImg from "@/routes/images/settledesk/building.png";
+
 export type Project = {
   slug: string;
   order: number;
   name: string;
   category: string;
+  cover?: string;
   summary: string;
   challenge: string;
   solution: string;
@@ -29,6 +43,7 @@ export const projects: Project[] = [
     order: 1,
     name: "Fluxor",
     category: "Desktop Application",
+    cover: corporateServerImg,
     summary: "Automated Document Orchestration & Asset Classification Engine",
     challenge:
       "Users were spending hours manually organizing, renaming, and sorting files across cluttered directories — a tedious, error-prone process.",
@@ -44,8 +59,8 @@ export const projects: Project[] = [
       "Reduced file organization time by over 80% for users with large, unstructured directories.",
     stack: ["Python", "ML models"],
     shots: [
-      { caption: "AI-driven file renaming and content analysis engine" },
-      { caption: "Batch file processing and automatic folder classification" },
+      { src: corporateServerImg, caption: "AI-driven file renaming and content analysis engine" },
+      { src: realEstateContractImg, caption: "Batch file processing and automatic folder classification" },
     ],
     seo: {
       title: "Fluxor — GLAD studio",
@@ -99,6 +114,7 @@ export const projects: Project[] = [
     order: 2,
     name: "Prayas App",
     category: "Mobile App",
+    cover: phone3dImg,
     summary: "Decentralized Medical Inventory Control & Resource Logistics Platform",
     challenge:
       "Prayas NGO needed a streamlined way to manage health equipment lending and coordinate blood donation drives across their community network.",
@@ -114,8 +130,8 @@ export const projects: Project[] = [
       "Enabled Prayas NGO to digitize their operations and serve their community more efficiently.",
     stack: ["React Native"],
     shots: [
-      { caption: "Blood donation coordination and donor-recipient matching interface" },
-      { caption: "Equipment lending management and real-time availability tracking" },
+      { src: phone3dImg, caption: "Blood donation coordination and donor-recipient matching interface" },
+      { src: realEstateAppImg, caption: "Equipment lending management and real-time availability tracking" },
     ],
     seo: {
       title: "Prayas App — GLAD studio",
@@ -169,6 +185,7 @@ export const projects: Project[] = [
     order: 3,
     name: "Stock Management",
     category: "Full Stack Platform",
+    cover: properties3dImg,
     summary: "Multi-Tenant Enterprise Inventory & Supply Chain Orchestration Suite",
     challenge:
       "A business with multiple sub-divisions was struggling to track inventory across departments using disconnected spreadsheets and manual processes.",
@@ -184,8 +201,8 @@ export const projects: Project[] = [
       "Unified inventory visibility across all business divisions, eliminating stock discrepancies.",
     stack: ["React Native", "React.js", "Node.js"],
     shots: [
-      { caption: "Multi-division inventory tracking dashboard and analytics" },
-      { caption: "Admin panel with real-time stock updates and reporting" },
+      { src: properties3dImg, caption: "Multi-division inventory tracking dashboard and analytics" },
+      { src: commission3dImg, caption: "Admin panel with real-time stock updates and reporting" },
     ],
     seo: {
       title: "Stock Management — GLAD studio",
@@ -239,6 +256,7 @@ export const projects: Project[] = [
     order: 4,
     name: "AI Mock Interview",
     category: "AI Product",
+    cover: hero3dImg,
     summary: "Low-Latency Conversational AI Technical Assessment Engine",
     challenge:
       "Job seekers lacked access to realistic, on-demand interview practice with meaningful feedback beyond generic question banks.",
@@ -254,8 +272,8 @@ export const projects: Project[] = [
       "Enabled candidates to practice with realistic, AI-evaluated interviews anytime, anywhere.",
     stack: ["React.js", "FastAPI", "HuggingFace", "MongoDB"],
     shots: [
-      { caption: "Role-specific question generation and live AI interview session" },
-      { caption: "Confidence analysis, semantic similarity scoring, and evaluation feedback" },
+      { src: hero3dImg, caption: "Role-specific question generation and live AI interview session" },
+      { src: brokerDealImg, caption: "Confidence analysis, semantic similarity scoring, and evaluation feedback" },
     ],
     seo: {
       title: "AI Mock Interview — GLAD studio",
@@ -309,6 +327,7 @@ export const projects: Project[] = [
     order: 5,
     name: "Lead Enrichment",
     category: "Business Automation",
+    cover: modernOfficeFacadeImg,
     summary: "High-Throughput Lead Sourcing & Automated Data Cleansing Pipeline",
     challenge:
       "Sales teams were manually researching leads, validating websites, and crafting outreach emails — a process that couldn't scale beyond a handful of prospects per day.",
@@ -324,8 +343,8 @@ export const projects: Project[] = [
       "Scaled outreach capacity from dozens to thousands of personalized leads per day.",
     stack: ["Python", "n8n", "PostgreSQL"],
     shots: [
-      { caption: "Automated lead enrichment and website validation pipeline" },
-      { caption: "AI-powered personalized email generation and batch execution engine" },
+      { src: modernOfficeFacadeImg, caption: "Automated lead enrichment and website validation pipeline" },
+      { src: skyscraperSunsetImg, caption: "AI-powered personalized email generation and batch execution engine" },
     ],
     seo: {
       title: "Lead Enrichment — GLAD studio",
@@ -379,6 +398,7 @@ export const projects: Project[] = [
     order: 6,
     name: "Q-SAFE",
     category: "Security Platform",
+    cover: buildingImg,
     summary: "Zero-Knowledge Encrypted Secure File Transmission Portal",
     challenge:
       "Organizations needed a secure, self-hosted way to share sensitive documents without relying on third-party services that lacked fine-grained access controls.",
@@ -394,8 +414,8 @@ export const projects: Project[] = [
       "Enabled secure, scalable document sharing for organizations handling sensitive data.",
     stack: ["Django REST Framework", "PostgreSQL", "Docker"],
     shots: [
-      { caption: "Zero-knowledge encrypted file transmission and QR code sharing portal" },
-      { caption: "Role-based access control and automated file expiration management" },
+      { src: buildingImg, caption: "Zero-knowledge encrypted file transmission and QR code sharing portal" },
+      { src: brokerOfficeImg, caption: "Role-based access control and automated file expiration management" },
     ],
     seo: {
       title: "Q-SAFE — GLAD studio",

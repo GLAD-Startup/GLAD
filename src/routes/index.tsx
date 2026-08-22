@@ -397,12 +397,19 @@ function Home() {
           {/* Render ONLY the first 3 real projects from data.ts */}
           <div className="grid grid-cols-1 min-[601px]:grid-cols-2 min-[901px]:grid-cols-3 gap-4 items-start">
             {realProjects.map((p) => (
-              <Shot
+              <Link
                 key={p.slug}
-                category={p.category}
-                title={p.name}
-                ratio="16/10"
-              />
+                to="/portfolio/$slug"
+                params={{ slug: p.slug }}
+                className="block no-underline group"
+              >
+                <Shot
+                  src={p.cover || p.shots[0]?.src}
+                  category={p.category}
+                  title={p.name}
+                  ratio="16/10"
+                />
+              </Link>
             ))}
           </div>
         </Section>

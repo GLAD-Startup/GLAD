@@ -4,7 +4,12 @@ import redditLogo from "../../routes/images/reddit-logo.png";
 import logoUrl from "../../routes/images/website logo(white background compatible).png";
 import { useState, MouseEvent } from "react";
 export function Footer() {
-  const socials = [
+  const socials: {
+    icon: any;
+    href: string;
+    label: string;
+    onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+  }[] = [
     {
       icon: Twitter,
       href: "https://x.com/_GLAD_Studio",

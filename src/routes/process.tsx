@@ -112,17 +112,17 @@ const steps = [
 
 const termsLedgerRows = [
   {
-    label: "IP Transfer",
+    key: "IP Transfer",
     value: "100%",
     accent: "Upon full settlement, GLAD Studio assigns all IP, code repositories, schemas, and assets.",
   },
   {
-    label: "Payment Terms",
+    key: "Payment Terms",
     value: "Milestones",
     accent: "Strictly fixed-scope, fixed-price milestone billing tied to signed-off deliverables.",
   },
   {
-    label: "Bug Guarantee",
+    key: "Bug Guarantee",
     value: "30 Days",
     accent: "Post-launch warranty resolving critical bugs or SOW specification deviations free of charge.",
   },

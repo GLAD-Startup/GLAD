@@ -17,6 +17,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import type { Service } from "@/data/services.data";
+import { projects } from "@/components/site/data";
 import { useEffect } from "react";
 
 export interface ServicePageProps {
@@ -102,7 +103,9 @@ export function ServicePage({ service }: ServicePageProps) {
 
                 {service.caseStudySlug && (
                   <Button variant="ghost" size="md" asChild>
-                    <Link to={`/portfolio/${service.caseStudySlug}`}>View case study</Link>
+                    <Link to="/portfolio/$slug" params={{ slug: service.caseStudySlug }}>
+                      View case study
+                    </Link>
                   </Button>
                 )}
               </div>
@@ -210,8 +213,16 @@ export function ServicePage({ service }: ServicePageProps) {
             <SectionRail label="RELATED WORK" />
 
             <div className="max-w-[520px]">
-              <Link to={`/portfolio/${service.caseStudySlug}`} className="block no-underline">
+              <Link 
+                to="/portfolio/$slug" 
+                params={{ slug: service.caseStudySlug }} 
+                className="block no-underline group"
+              >
                 <Shot
+                  src={
+                    projects.find((p) => p.slug === service.caseStudySlug)?.cover ||
+                    projects.find((p) => p.slug === service.caseStudySlug)?.shots[0]?.src
+                  }
                   category={service.name}
                   title={`Case Study: ${service.caseStudySlug
                     .split("-")

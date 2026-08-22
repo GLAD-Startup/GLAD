@@ -72,17 +72,17 @@ export const Route = createFileRoute("/contact")({
 
 const directContactRows = [
   {
-    label: "Direct Email",
+    key: "Direct Email",
     value: "hello@gladstudio.net",
     accent: "Direct inbox monitored by senior engineers.",
   },
   {
-    label: "Response Time",
+    key: "Response Time",
     value: "< 24 Hours",
     accent: "Guaranteed reply within one business day.",
   },
   {
-    label: "Discovery Call",
+    key: "Discovery Call",
     value: "30 Minutes",
     accent: "Book a direct video consultation on Cal.com.",
   },
