@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import type { PricingPlan } from "@/types/product-page";
 import { SectionRail } from "@/components/site/SectionRail";
 
@@ -47,9 +47,12 @@ export function ProductPricingTable({
               <button
                 type="button"
                 onClick={() => onSelectPlan?.(plan.name)}
-                className={`mt-8 w-full ${plan.featured ? "btn-primary" : "btn-secondary"}`}
+                className={`mt-8 w-full justify-center ${
+                  plan.featured ? "btn-primary" : "btn-secondary"
+                }`}
               >
-                {plan.ctaText}
+                <span>{plan.ctaText}</span>
+                <ArrowRight className="size-4 shrink-0" />
               </button>
             </div>
           ))}

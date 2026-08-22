@@ -164,14 +164,21 @@ function GladHmsLandingPage() {
 
         {/* Continuous Vector Background Wrapper */}
         <div className="relative isolate overflow-hidden">
-          {/* Continuous Background Image */}
-          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-20 mix-blend-luminosity">
+          {/* Continuous Background Image with bottom fade */}
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-20 mix-blend-luminosity"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 70%, transparent 95%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 70%, transparent 95%)",
+            }}
+          >
             <img
               src={hotelBgImg}
               alt="GLAD HMS Hotel Management System"
               className="w-full h-full object-cover object-center brightness-110 contrast-110"
             />
-            <div className="absolute inset-0 bg-transparent from-background via-transparent to-background" />
           </div>
 
           {/* 4. Security & Architecture Isolation */}

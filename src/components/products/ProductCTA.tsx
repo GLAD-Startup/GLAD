@@ -19,26 +19,63 @@ export function ProductCTA({
 
   return (
     <section id="demo" className="py-32 relative overflow-hidden isolate">
-      {/* Background Video */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      {/* Background Video with 4-side seamless fade */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden flex items-center justify-center">
         <video
           autoPlay
           loop
           muted
           playsInline
           preload="auto"
-          className="w-full h-full object-cover translate-y-10 scale-110 opacity-90 brightness-110 min-h-full min-w-full"
+          className="w-full h-full object-cover translate-y-1 scale-105 opacity-65 brightness-105 min-h-full min-w-full"
+          style={{
+            maskImage:
+              "radial-gradient(ellipse at 50% 43%, #000 28%, rgba(0,0,0,0.9) 52%, rgba(0,0,0,0.2) 75%, transparent 90%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse at 50% 43%, #000 28%, rgba(0,0,0,0.9) 52%, rgba(0,0,0,0.2) 75%, transparent 90%)",
+          }}
         >
           <source src={demoBgVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-background/20 backdrop-blur-[1px] z-10" />
 
-        {/* 4-Side Radial Vignette & Edge Fades matching exact screenshot style */}
-        <div className="absolute inset-0 bg-transparent from-transparent via-background/60 to-background z-10" />
-        <div className="absolute inset-x-0 top-0 h-44 bg-transparent from-background via-background/80 to-transparent z-10" />
-        <div className="absolute inset-x-0 bottom-0 h-44 bg-transparent from-background via-background/80 to-transparent z-10" />
-        <div className="absolute inset-y-0 left-0 w-72 bg-transparent from-background via-background/80 to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-72 bg-transparent from-background via-background/80 to-transparent z-10" />
+        {/* 4-Directional Edge Fade Gradients to guarantee 100% invisible borders on all sides */}
+        <div
+          className="absolute inset-x-0 top-0 h-24 pointer-events-none z-10"
+          style={{
+            background:
+              "linear-gradient(to bottom, var(--background, #F7F4ED) 0%, rgba(247,244,237,0.6) 30%, transparent 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 h-44 pointer-events-none z-10"
+          style={{
+            background:
+              "linear-gradient(to top, var(--background, #F7F4ED) 0%, rgba(247,244,237,0.8) 40%, transparent 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-y-0 left-0 w-48 md:w-80 pointer-events-none z-10"
+          style={{
+            background:
+              "linear-gradient(to right, var(--background, #F7F4ED) 0%, rgba(247,244,237,0.85) 35%, transparent 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-y-0 right-0 w-48 md:w-80 pointer-events-none z-10"
+          style={{
+            background:
+              "linear-gradient(to left, var(--background, #F7F4ED) 0%, rgba(247,244,237,0.85) 35%, transparent 100%)",
+          }}
+        />
+
+        {/* Overall soft radial vignette overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 43%, transparent 45%, rgba(247,244,237,0.45) 70%, var(--background, #F7F4ED) 92%)",
+          }}
+        />
       </div>
 
       <div className="mx-auto max-w-4xl px-6 text-center relative z-20">

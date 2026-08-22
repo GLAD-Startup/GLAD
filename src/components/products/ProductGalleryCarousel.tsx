@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, Sparkles, MoveHorizontal } from "lucide-react";
+import { SectionRail } from "@/components/site/SectionRail";
 
 import corporateServer from "@/routes/images/settledesk/corporate-server.png";
 import modernOfficeFacade from "@/routes/images/settledesk/modern-office-facade.png";
@@ -187,24 +188,17 @@ export function ProductGalleryCarousel() {
   return (
     <section
       id="gallery"
-      className="py-20 md:py-28 relative overflow-hidden isolate border-t border-border/60 bg-background text-foreground select-none"
+      className="py-24 relative overflow-hidden isolate border-t border-border bg-background text-foreground select-none"
     >
-      {/* 1. Large Watermark Text Behind Heading */}
-      <div className="pointer-events-none absolute left-1/2 top-12 md:top-16 -translate-x-1/2 -z-10 select-none font-serif italic text-[7rem] sm:text-[12rem] md:text-[17rem] leading-none text-foreground/15 whitespace-nowrap">
-        gallery
-      </div>
-
-      {/* 2. Section Header */}
-      <div className="mx-auto max-w-5xl px-6 text-center space-y-3 relative z-10">
-        <span className="inline-block text-xs uppercase font-mono font-bold tracking-[0.3em] text-amber-500/90">
-          VISUAL PLATFORM
-        </span>
-        <h2 className="text-3xl sm:text-5xl md:text-6xl font-serif font-medium tracking-tight text-foreground">
-          The Operating System{" "}
-          <span className="font-serif italic text-[var(--color-brass)]">
-            for Modern Real Estate
-          </span>
+      {/* Section Header */}
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionRail index="03" label="Visual Platform" meta="Interactive 3D Preview" />
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-medium text-[var(--color-ink)] text-center mb-4">
+          The Operating System for Modern Real Estate
         </h2>
+        <p className="text-[14px] text-[var(--color-ink-2)] max-w-2xl mx-auto text-center leading-relaxed">
+          Rotate through the unified architecture powering modern brokerage operations.
+        </p>
       </div>
 
       {/* 4. 3D Cylindrical Film Strip Carousel Container */}
@@ -276,25 +270,26 @@ export function ProductGalleryCarousel() {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-95 contrast-105"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-105 contrast-105"
                   />
-                  {/* Dark vignette overlay for text legibility */}
-                  <div className="absolute inset-0 bg-black/80" />
+                  {/* Subtle top and bottom gradients for text legibility while keeping images crisp and bright */}
+                  <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
 
                   {/* Header Badges on Image */}
-                  <div className="absolute top-2 left-2.5 right-2.5 flex items-center justify-between text-[10px] font-mono tracking-wider font-bold">
-                    <span className="px-2 py-0.5 rounded bg-black/70 text-amber-400 border border-amber-500/30 backdrop-blur-md">
+                  <div className="absolute top-2 left-2.5 right-2.5 flex items-center justify-between text-[10px] font-mono tracking-wider font-bold z-10">
+                    <span className="px-2 py-0.5 rounded bg-black/80 text-amber-400 border border-amber-500/40 backdrop-blur-md">
                       {item.tag}
                     </span>
-                    <span className="text-zinc-400 font-mono">{item.number}</span>
+                    <span className="text-zinc-300 font-mono drop-shadow">{item.number}</span>
                   </div>
 
                   {/* Title & Subtitle at bottom of Film Frame */}
-                  <div className="absolute bottom-2.5 left-3 right-3 space-y-0.5 text-left">
-                    <h3 className="text-xs sm:text-sm font-semibold font-sans text-white tracking-tight leading-snug line-clamp-1 group-hover:text-amber-300 transition-colors">
+                  <div className="absolute bottom-2.5 left-3 right-3 space-y-0.5 text-left z-10">
+                    <h3 className="text-xs sm:text-sm font-semibold font-sans text-white tracking-tight leading-snug line-clamp-1 group-hover:text-amber-300 transition-colors drop-shadow-md">
                       {item.title}
                     </h3>
-                    <p className="text-[10px] sm:text-xs text-zinc-300/80 font-mono tracking-normal line-clamp-1">
+                    <p className="text-[10px] sm:text-xs text-zinc-300/90 font-mono tracking-normal line-clamp-1 drop-shadow">
                       {item.subtitle}
                     </p>
                   </div>
@@ -380,10 +375,10 @@ export function ProductGalleryCarousel() {
                   <span>{selectedItem.subtitle}</span>
                   <span>{selectedItem.number}</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold font-serif text-foreground">
+                <h3 className="text-2xl sm:text-3xl font-bold font-display text-[var(--color-ink)]">
                   {selectedItem.title}
                 </h3>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                <p className="text-sm sm:text-base text-[var(--color-ink-2)] leading-relaxed">
                   {selectedItem.description}
                 </p>
               </div>
@@ -391,9 +386,9 @@ export function ProductGalleryCarousel() {
               <div className="pt-2 flex justify-end">
                 <button
                   onClick={() => setSelectedItem(null)}
-                  className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-semibold text-sm transition-all shadow-md active:scale-95"
+                  className="btn-primary"
                 >
-                  Close Inspection
+                  <span>Close Inspection</span>
                 </button>
               </div>
             </motion.div>

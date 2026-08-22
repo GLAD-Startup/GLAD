@@ -105,14 +105,21 @@ function SettleDeskLandingPage() {
 
         {/* Continuous Vector Background Wrapper spanning Security, Workflow & Story */}
         <div className="relative isolate overflow-hidden">
-          {/* Continuous Background Watermark Image */}
-          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-30 mix-blend-luminosity">
+          {/* Continuous Background Watermark Image with bottom fade */}
+          <div
+            className="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-30 mix-blend-luminosity"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 70%, transparent 95%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, #000 0%, #000 45%, rgba(0,0,0,0.5) 70%, transparent 95%)",
+            }}
+          >
             <img
               src={buildingVectorBg}
               alt=""
               className="w-full h-full object-cover object-center brightness-125 contrast-110"
             />
-            <div className="absolute inset-0 bg-transparent from-background via-transparent to-background" />
           </div>
 
           {/* 5. Database Row-Level Security (RLS) Isolation */}
