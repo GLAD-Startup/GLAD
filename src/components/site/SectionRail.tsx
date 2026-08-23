@@ -33,7 +33,7 @@ export function SectionRail({
   return (
     <div
       className={cn(
-        "flex items-center gap-[14px] mb-[28px] w-full select-none",
+        "flex items-center gap-2.5 sm:gap-[14px] mb-5 sm:mb-[28px] w-full min-w-0 overflow-hidden select-none",
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ export function SectionRail({
       {/* Label: stays brass in deep tone, ink-3 in light */}
       <span
         className={cn(
-          "font-mono text-[12px] tracking-[0.14em] uppercase shrink-0 font-medium",
+          "font-mono text-[11px] sm:text-[12px] tracking-[0.12em] sm:tracking-[0.14em] uppercase shrink-0 font-medium truncate max-w-[220px] sm:max-w-none",
           isDeep ? "text-[var(--color-brass)]" : "text-[var(--color-ink-3)]"
         )}
       >
@@ -54,13 +54,13 @@ export function SectionRail({
       </span>
 
       {/* 1px Rule */}
-      <div className="h-px flex-1 bg-[var(--color-rule)]" aria-hidden="true" />
+      <div className="h-px flex-1 min-w-[12px] bg-[var(--color-rule)]" aria-hidden="true" />
 
-      {/* Optional Meta */}
+      {/* Optional Meta - hidden on small mobile to prevent text blowout */}
       {meta && (
         <span
           className={cn(
-            "font-mono text-[12px] tracking-[0.14em] uppercase shrink-0 font-medium",
+            "font-mono text-[12px] tracking-[0.14em] uppercase shrink-0 font-medium hidden sm:inline-block truncate max-w-[260px] md:max-w-none",
             isDeep
               ? "text-[color-mix(in_oklab,var(--color-deep-ink)_60%,transparent)]"
               : "text-[var(--color-ink-3)]"

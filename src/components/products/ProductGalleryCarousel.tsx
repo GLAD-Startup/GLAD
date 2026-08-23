@@ -111,6 +111,7 @@ export function ProductGalleryCarousel() {
   const [dragStartX, setDragStartX] = useState(0);
   const [startRotation, setStartRotation] = useState(0);
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [radius, setRadius] = useState(460);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
@@ -118,6 +119,24 @@ export function ProductGalleryCarousel() {
   useEffect(() => {
     isDraggingRef.current = isDragging;
   }, [isDragging]);
+
+  useEffect(() => {
+    const updateRadius = () => {
+      if (typeof window !== "undefined") {
+        const w = window.innerWidth;
+        if (w < 480) {
+          setRadius(270);
+        } else if (w < 768) {
+          setRadius(340);
+        } else {
+          setRadius(460);
+        }
+      }
+    };
+    updateRadius();
+    window.addEventListener("resize", updateRadius);
+    return () => window.removeEventListener("resize", updateRadius);
+  }, []);
 
   // Non-stopping continuous smooth 60fps auto-spin loop with slightly reduced speed
   useEffect(() => {
@@ -183,20 +202,19 @@ export function ProductGalleryCarousel() {
   // Radius for 3D cylinder
   const totalItems = GALLERY_ITEMS.length;
   const angleStep = 360 / totalItems;
-  const radius = 460; // 3D radius in px
 
   return (
     <section
       id="gallery"
-      className="py-24 relative overflow-hidden isolate border-t border-border bg-background text-foreground select-none"
+      className="py-16 sm:py-24 relative overflow-hidden isolate border-t border-border bg-background text-foreground select-none"
     >
       {/* Section Header */}
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionRail index="03" label="Visual Platform" meta="Interactive 3D Preview" />
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-medium text-[var(--color-ink)] text-center mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-medium text-[var(--color-ink)] text-center mb-3 sm:mb-4">
           The Operating System for Modern Real Estate
         </h2>
-        <p className="text-[14px] text-[var(--color-ink-2)] max-w-2xl mx-auto text-center leading-relaxed">
+        <p className="text-xs sm:text-[14px] text-[var(--color-ink-2)] max-w-2xl mx-auto text-center leading-relaxed">
           Rotate through the unified architecture powering modern brokerage operations.
         </p>
       </div>
@@ -208,7 +226,7 @@ export function ProductGalleryCarousel() {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="mt-12 md:mt-16 relative w-full h-[480px] sm:h-[520px] md:h-[560px] flex items-center justify-center cursor-grab active:cursor-grabbing touch-none overflow-visible"
+        className="mt-8 sm:mt-12 md:mt-16 relative w-full h-[420px] sm:h-[500px] md:h-[560px] flex items-center justify-center cursor-grab active:cursor-grabbing touch-none overflow-visible"
         style={{
           perspective: "1300px",
           perspectiveOrigin: "50% 45%",
@@ -216,7 +234,7 @@ export function ProductGalleryCarousel() {
       >
         {/* The 3D Rotating Ring */}
         <div
-          className="relative w-[300px] sm:w-[340px] md:w-[380px] h-[220px] sm:h-[240px] md:h-[260px] transition-transform duration-75 ease-out"
+          className="relative w-[250px] xs:w-[290px] sm:w-[340px] md:w-[380px] h-[180px] xs:h-[210px] sm:h-[240px] md:h-[260px] transition-transform duration-75 ease-out"
           style={{
             transformStyle: "preserve-3d",
             transform: `rotateX(13deg) rotateY(${rotationY}deg)`,
@@ -246,7 +264,7 @@ export function ProductGalleryCarousel() {
                     setRotationY((prev) => prev - normalizedAngle);
                   }
                 }}
-                className="absolute inset-0 rounded-2xl bg-[#141416] border border-zinc-700/80 shadow-2xl transition-all duration-300 group hover:border-amber-500/80 hover:shadow-amber-500/10 cursor-pointer overflow-hidden flex flex-col justify-between p-2.5 sm:p-3"
+                className="absolute inset-0 rounded-2xl bg-[#141416] border border-zinc-700/80 shadow-2xl transition-all duration-300 group hover:border-amber-500/80 hover:shadow-amber-500/10 cursor-pointer overflow-hidden flex flex-col justify-between p-2 sm:p-3"
                 style={{
                   transformStyle: "preserve-3d",
                   transform: `rotateY(${index * angleStep}deg) translateZ(${radius}px)`,
@@ -260,36 +278,36 @@ export function ProductGalleryCarousel() {
                   {Array.from({ length: 9 }).map((_, i) => (
                     <div
                       key={`top-hole-${i}`}
-                      className="w-3 sm:w-3.5 h-2 rounded-[2px] bg-zinc-400/40 border border-white/10"
+                      className="w-2.5 sm:w-3.5 h-1.5 sm:h-2 rounded-[2px] bg-zinc-400/40 border border-white/10"
                     />
                   ))}
                 </div>
 
                 {/* Main Content Area inside Film Strip Frame */}
-                <div className="relative my-1.5 flex-1 rounded-lg overflow-hidden bg-zinc-950 border border-white/10 group-hover:border-amber-500/40 transition-colors">
+                <div className="relative my-1 flex-1 rounded-lg overflow-hidden bg-zinc-950 border border-white/10 group-hover:border-amber-500/40 transition-colors">
                   <img
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-105 contrast-105"
                   />
                   {/* Subtle top and bottom gradients for text legibility while keeping images crisp and bright */}
-                  <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
-                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 top-0 h-10 sm:h-12 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-20 sm:h-24 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
 
                   {/* Header Badges on Image */}
-                  <div className="absolute top-2 left-2.5 right-2.5 flex items-center justify-between text-[10px] font-mono tracking-wider font-bold z-10">
-                    <span className="px-2 py-0.5 rounded bg-black/80 text-amber-400 border border-amber-500/40 backdrop-blur-md">
+                  <div className="absolute top-1.5 sm:top-2 left-2 sm:left-2.5 right-2 sm:right-2.5 flex items-center justify-between text-[9px] sm:text-[10px] font-mono tracking-wider font-bold z-10">
+                    <span className="px-1.5 sm:px-2 py-0.5 rounded bg-black/80 text-amber-400 border border-amber-500/40 backdrop-blur-md">
                       {item.tag}
                     </span>
                     <span className="text-zinc-300 font-mono drop-shadow">{item.number}</span>
                   </div>
 
                   {/* Title & Subtitle at bottom of Film Frame */}
-                  <div className="absolute bottom-2.5 left-3 right-3 space-y-0.5 text-left z-10">
-                    <h3 className="text-xs sm:text-sm font-semibold font-sans text-white tracking-tight leading-snug line-clamp-1 group-hover:text-amber-300 transition-colors drop-shadow-md">
+                  <div className="absolute bottom-2 sm:bottom-2.5 left-2 sm:left-3 right-2 sm:right-3 space-y-0.5 text-left z-10">
+                    <h3 className="text-[11px] sm:text-sm font-semibold font-sans text-white tracking-tight leading-snug line-clamp-1 group-hover:text-amber-300 transition-colors drop-shadow-md">
                       {item.title}
                     </h3>
-                    <p className="text-[10px] sm:text-xs text-zinc-300/90 font-mono tracking-normal line-clamp-1 drop-shadow">
+                    <p className="text-[9px] sm:text-xs text-zinc-300/90 font-mono tracking-normal line-clamp-1 drop-shadow">
                       {item.subtitle}
                     </p>
                   </div>
@@ -300,7 +318,7 @@ export function ProductGalleryCarousel() {
                   {Array.from({ length: 9 }).map((_, i) => (
                     <div
                       key={`bot-hole-${i}`}
-                      className="w-3 sm:w-3.5 h-2 rounded-[2px] bg-zinc-400/40 border border-white/10"
+                      className="w-2.5 sm:w-3.5 h-1.5 sm:h-2 rounded-[2px] bg-zinc-400/40 border border-white/10"
                     />
                   ))}
                 </div>
@@ -310,21 +328,22 @@ export function ProductGalleryCarousel() {
         </div>
 
         {/* 5. Center Bottom Badge & Navigation Arrows */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3 sm:gap-4">
+        <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-4 max-w-[calc(100vw-32px)]">
           <button
             onClick={(e) => {
               e.stopPropagation();
               spinPrev();
             }}
-            className="size-9 sm:size-10 rounded-full border border-border bg-card/90 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all shadow-lg active:scale-95"
+            className="size-8 sm:size-10 rounded-full border border-border bg-card/90 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all shadow-lg active:scale-95 shrink-0"
             aria-label="Spin Left"
           >
             <ChevronLeft className="size-4 sm:size-5" />
           </button>
 
-          <div className="px-4 py-2 rounded-full border border-border/80 bg-card/90 backdrop-blur-md shadow-xl flex items-center gap-2 text-[11px] font-mono font-bold tracking-widest text-muted-foreground uppercase">
-            <MoveHorizontal className="size-3.5 text-amber-500 animate-pulse" />
-            <span>DRAG TO SPIN · CLICK TO INSPECT</span>
+          <div className="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-border/80 bg-card/90 backdrop-blur-md shadow-xl flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[11px] font-mono font-bold tracking-wider sm:tracking-widest text-muted-foreground uppercase shrink-0 truncate">
+            <MoveHorizontal className="size-3 sm:size-3.5 text-amber-500 animate-pulse shrink-0" />
+            <span className="hidden xs:inline">DRAG TO SPIN · CLICK TO INSPECT</span>
+            <span className="xs:hidden">DRAG TO SPIN</span>
           </div>
 
           <button
@@ -332,7 +351,7 @@ export function ProductGalleryCarousel() {
               e.stopPropagation();
               spinNext();
             }}
-            className="size-9 sm:size-10 rounded-full border border-border bg-card/90 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all shadow-lg active:scale-95"
+            className="size-8 sm:size-10 rounded-full border border-border bg-card/90 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all shadow-lg active:scale-95 shrink-0"
             aria-label="Spin Right"
           >
             <ChevronRight className="size-4 sm:size-5" />

@@ -138,30 +138,34 @@ function ProductsIndexPage() {
       <main className="pt-36 pb-24 md:pt-44 md:pb-32 relative">
         <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none" />
 
-        <div className="mx-auto max-w-7xl px-6 relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 relative z-10">
           <SectionRail index="01" label="Our Products" />
-<h2 className="text-3xl sm:text-4xl font-display font-medium text-[var(--color-ink)] mb-4">Software Platforms Built to Scale</h2>
-<p className="text-[14px] text-[var(--color-ink-2)] max-w-2xl mb-8 leading-relaxed">Proprietary SaaS systems designed, engineered, and operated by Glad Studio.</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-medium text-[var(--color-ink)] mb-3 sm:mb-4">
+            Software Platforms Built to Scale
+          </h2>
+          <p className="text-xs sm:text-[14px] text-[var(--color-ink-2)] max-w-2xl mb-6 sm:mb-8 leading-relaxed">
+            Proprietary SaaS systems designed, engineered, and operated by Glad Studio.
+          </p>
 
           {/* Product Listing Grid */}
-          <div className="mt-16 space-y-12">
+          <div className="mt-10 sm:mt-16 space-y-8 sm:space-y-12">
             {productsData.map((product) => {
               const Icon = product.icon;
               const isLive = product.status === "Live";
 
               return (
                 <Reveal key={product.slug} direction="up">
-                  <div className="surface p-6 md:p-10 rounded-3xl overflow-hidden group">
-                    <div className="grid gap-10 lg:grid-cols-12 items-center">
+                  <div className="surface p-4 sm:p-6 md:p-10 rounded-3xl overflow-hidden group">
+                    <div className="grid gap-6 sm:gap-10 lg:grid-cols-12 items-center">
                       {/* Left Details */}
-                      <div className="lg:col-span-7 space-y-6">
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-surface text-xs font-bold uppercase tracking-wider text-[#e5b84c]">
-                            <Icon className="size-3.5" />
+                      <div className="lg:col-span-7 space-y-4 sm:space-y-6">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                          <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border border-border bg-surface text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#e5b84c]">
+                            <Icon className="size-3 sm:size-3.5" />
                             {product.category}
                           </span>
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider ${
+                            className={`px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider ${
                               isLive
                                 ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/30"
                                 : "bg-muted text-muted-foreground border border-border"
@@ -172,37 +176,37 @@ function ProductsIndexPage() {
                         </div>
 
                         <div>
-                          <h2 className="text-3xl md:text-5xl font-bold font-display text-foreground">
+                          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold font-display text-foreground">
                             {product.name}
                           </h2>
-                          <p className="mt-2 text-base md:text-lg font-semibold text-[#e5b84c]">
+                          <p className="mt-1.5 sm:mt-2 text-sm sm:text-base md:text-lg font-semibold text-[#e5b84c]">
                             {product.tagline}
                           </p>
                         </div>
 
-                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl">
+                        <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl">
                           {product.description}
                         </p>
 
                         {/* Feature Checklist */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 pt-1 sm:pt-2">
                           {product.keyFeatures.map((feat) => (
                             <div key={feat} className="flex items-start gap-2 text-xs font-medium">
-                              <CheckCircle2 className="size-4 text-[#e5b84c] shrink-0 mt-0.5" />
+                              <CheckCircle2 className="size-3.5 sm:size-4 text-[#e5b84c] shrink-0 mt-0.5" />
                               <span>{feat}</span>
                             </div>
                           ))}
                         </div>
 
                         {/* Actions */}
-                        <div className="pt-4 flex flex-wrap items-center gap-4">
+                        <div className="pt-2 sm:pt-4 flex flex-wrap items-center gap-3 sm:gap-4">
                           {isLive ? (
-                            <Link to={product.route} className="btn-primary">
+                            <Link to={product.route} className="btn-primary w-full sm:w-auto justify-center">
                               <span>Explore {product.name}</span>
                               <ArrowRight className="size-4" />
                             </Link>
                           ) : (
-                            <span className="btn-secondary opacity-60 cursor-not-allowed">
+                            <span className="btn-secondary opacity-60 cursor-not-allowed w-full sm:w-auto justify-center">
                               In Active Development
                             </span>
                           )}
@@ -211,7 +215,7 @@ function ProductsIndexPage() {
 
                       {/* Right Visual Stage */}
                       <div className="lg:col-span-5">
-                        <div className="relative aspect-[4/3] rounded-2xl border border-border bg-background/60 p-4 overflow-hidden flex items-center justify-center">
+                        <div className="relative aspect-[4/3] rounded-2xl border border-border bg-background/60 p-3 sm:p-4 overflow-hidden flex items-center justify-center">
                           <img
                             src={product.heroImage}
                             alt={`${product.name} Showcase Graphic`}
@@ -221,13 +225,13 @@ function ProductsIndexPage() {
                           />
 
                           {/* Quick Metrics Bar */}
-                          <div className="absolute bottom-3 inset-x-3 grid grid-cols-3 gap-2 bg-surface/90 backdrop-blur-md p-2.5 rounded-xl border border-border">
+                          <div className="absolute bottom-2 sm:bottom-3 inset-x-2 sm:inset-x-3 grid grid-cols-3 gap-1 sm:gap-2 bg-surface/90 backdrop-blur-md p-2 sm:p-2.5 rounded-xl border border-border">
                             {product.metrics.map((m) => (
                               <div key={m.label} className="text-center">
-                                <div className="font-mono text-xs font-bold text-foreground">
+                                <div className="font-mono text-[10px] sm:text-xs font-bold text-foreground truncate">
                                   {m.value}
                                 </div>
-                                <div className="text-[9px] text-muted-foreground uppercase font-medium">
+                                <div className="text-[8px] sm:text-[9px] text-muted-foreground uppercase font-medium truncate">
                                   {m.label}
                                 </div>
                               </div>

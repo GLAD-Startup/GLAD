@@ -18,7 +18,7 @@ export function ProductCTA({
   });
 
   return (
-    <section id="demo" className="py-32 relative overflow-hidden isolate">
+    <section id="demo" className="py-16 sm:py-24 md:py-32 relative overflow-hidden isolate">
       {/* Background Video with 4-side seamless fade */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden flex items-center justify-center">
         <video
@@ -78,21 +78,21 @@ export function ProductCTA({
         />
       </div>
 
-      <div className="mx-auto max-w-4xl px-6 text-center relative z-20">
-        <h2 className="text-4xl md:text-6xl font-bold font-display leading-tight">{title}</h2>
-        <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center relative z-20">
+        <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold font-display leading-tight">{title}</h2>
+        <p className="mt-4 sm:mt-6 text-xs sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           {sub}
         </p>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <button onClick={onPrimaryCtaClick} className="btn-primary">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 sm:gap-4 max-w-xs sm:max-w-none mx-auto">
+          <button onClick={onPrimaryCtaClick} className="btn-primary w-full sm:w-auto justify-center">
             <span>{primaryCtaText}</span>
             <ArrowRight className="size-4" />
           </button>
           <button
             data-cal-link="arjun-rajput-2mdsis"
             data-cal-config={calConfig}
-            className="btn-secondary"
+            className="btn-secondary w-full sm:w-auto justify-center"
           >
             <Phone className="size-4" />
             <span>Book a Discovery Call</span>

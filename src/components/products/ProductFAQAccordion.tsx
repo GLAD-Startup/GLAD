@@ -15,12 +15,14 @@ export function ProductFAQAccordion({
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24 relative border-t border-border">
-      <div className="mx-auto max-w-4xl px-6">
+    <section className="py-16 sm:py-24 relative border-t border-border">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <SectionRail index="FAQ" label={eyebrow} meta={typeof title === 'string' ? title : undefined} />
-        <h2 className="text-3xl sm:text-4xl font-display font-medium text-[var(--color-ink)] text-center mb-8">{title}</h2>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-medium text-[var(--color-ink)] text-center mb-6 sm:mb-8">
+          {title}
+        </h2>
 
-        <div className="mt-12 space-y-4">
+        <div className="mt-8 sm:mt-12 space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
@@ -31,7 +33,7 @@ export function ProductFAQAccordion({
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 font-semibold text-sm md:text-base hover:text-[#e5b84c] transition-colors"
+                  className="w-full p-4 sm:p-6 text-left flex items-center justify-between gap-3 sm:gap-4 font-semibold text-xs sm:text-sm md:text-base hover:text-[#e5b84c] transition-colors"
                 >
                   <span>{faq.question}</span>
                   <ChevronDown
@@ -41,7 +43,7 @@ export function ProductFAQAccordion({
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-6 text-xs md:text-sm text-muted-foreground leading-relaxed border-t border-border/40 pt-4">
+                  <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-xs sm:text-sm text-muted-foreground leading-relaxed border-t border-border/40 pt-3 sm:pt-4">
                     {faq.answer}
                   </div>
                 )}
