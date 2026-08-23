@@ -19,6 +19,9 @@ import {
 import { HandDrawnUnderline } from "@/components/site/HandDrawnHighlights";
 import { HeroGrid } from "@/components/site/HeroGrid";
 import { ScrollIndicator } from "@/components/site/ScrollIndicator";
+import { ScrollKineticText, EditorialScrollManifesto } from "@/components/site/ScrollKineticText";
+import { BlueprintVerticalTrace } from "@/components/site/BlueprintVerticalTrace";
+import { SlotNumberRoller } from "@/components/site/SlotNumberRoller";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
 import { faqs, projects, testimonials } from "@/components/site/data";
 import { useState, useEffect } from "react";
@@ -113,6 +116,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-live)] selection:text-[var(--color-card)]">
       <Header />
+      <BlueprintVerticalTrace />
 
       <main>
         {/* Hero ────────────────────────────────────────── */}
@@ -183,7 +187,7 @@ function Home() {
                         aria-hidden="true"
                       />
                       <span>
-                        {slots} {slots === 1 ? "slot" : "slots"} available for Q3
+                        <SlotNumberRoller value={slots} /> {slots === 1 ? "slot" : "slots"} available for Q3
                       </span>
                     </div>
                   </div>
@@ -213,10 +217,12 @@ function Home() {
             <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-ink)]">
               Services built to ship.
             </h2>
-            <p className="text-[17px] text-[var(--color-ink-2)] mt-2 leading-relaxed">
-              Senior developers only. Clean codebases, predictable delivery, and full IP
-              ownership from day one.
-            </p>
+            <ScrollKineticText
+              text="Senior developers only. Clean codebases, predictable delivery, and full IP ownership from day one."
+              highlightWords={["senior", "developers", "predictable", "ownership"]}
+              tone="card"
+              className="text-[17px] text-[var(--color-ink-2)] mt-2 leading-relaxed"
+            />
           </div>
 
           <div className="surface p-2 sm:p-4">
@@ -258,6 +264,16 @@ function Home() {
           </div>
         </Section>
 
+        {/* Editorial Kinetic Scroll Manifesto ───────────────── */}
+        <section className="border-t border-b border-[var(--color-rule)] bg-[var(--color-card)] overflow-hidden">
+          <EditorialScrollManifesto
+            tagline="THE ENGINEERING STANDARD"
+            statement="We build software systems that scale — senior developers, clean architecture, fixed milestone delivery, and working staging builds from week three."
+            highlightWords={["systems", "scale", "senior", "clean", "architecture", "three"]}
+            tone="card"
+          />
+        </section>
+
         {/* Why Us (tone="paper") ────────────────────────── */}
         <Section size="default" tone="paper" index="02">
           <SectionRail label="WHY TEAMS CHOOSE US" />
@@ -268,9 +284,9 @@ function Home() {
 
           {/* Bordered 4-cell group with high density */}
           <div className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] overflow-hidden grid grid-cols-1 min-[561px]:grid-cols-2 min-[901px]:grid-cols-4 divide-y min-[561px]:divide-y-0 min-[901px]:divide-x divide-[var(--color-rule)]">
-            <div className="p-[28px] min-[561px]:max-[900px]:border-r min-[561px]:max-[900px]:border-b min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start">
+            <div className="p-[28px] min-[561px]:max-[900px]:border-r min-[561px]:max-[900px]:border-b min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start group">
               <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
-                01
+                <SlotNumberRoller value="01" delay={0.05} />
               </div>
               <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
                 Fast Development
@@ -280,9 +296,9 @@ function Home() {
               </p>
             </div>
 
-            <div className="p-[28px] min-[561px]:max-[900px]:border-b min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start">
+            <div className="p-[28px] min-[561px]:max-[900px]:border-b min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start group">
               <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
-                02
+                <SlotNumberRoller value="02" delay={0.15} />
               </div>
               <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
                 Transparent Comms
@@ -292,9 +308,9 @@ function Home() {
               </p>
             </div>
 
-            <div className="p-[28px] min-[561px]:max-[900px]:border-r min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start">
+            <div className="p-[28px] min-[561px]:max-[900px]:border-r min-[561px]:max-[900px]:border-[var(--color-rule)] flex flex-col items-start group">
               <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
-                03
+                <SlotNumberRoller value="03" delay={0.25} />
               </div>
               <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
                 Modern Stack
@@ -304,9 +320,9 @@ function Home() {
               </p>
             </div>
 
-            <div className="p-[28px] flex flex-col items-start">
+            <div className="p-[28px] flex flex-col items-start group">
               <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
-                04
+                <SlotNumberRoller value="04" delay={0.35} />
               </div>
               <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
                 Full IP Ownership
@@ -322,9 +338,17 @@ function Home() {
         <Section size="default" tone="deep" index="03">
           <SectionRail label="HOW WE WORK" />
 
-          <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-deep-ink)] mb-8">
-            Process with zero mystery.
-          </h2>
+          <div className="max-w-3xl mb-8">
+            <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-deep-ink)]">
+              Process with zero mystery.
+            </h2>
+            <ScrollKineticText
+              text="From initial architecture discovery to production DNS handover, every milestone is scoped, tracked, and delivered with weekly demo builds."
+              highlightWords={["architecture", "discovery", "production", "weekly", "demo"]}
+              tone="deep"
+              className="text-[16px] sm:text-[17px] text-[var(--color-deep-ink-2,#A0AEC0)] mt-2 leading-relaxed"
+            />
+          </div>
 
           <div className="border border-[var(--color-deep-rule)] rounded-[var(--radius-lg,14px)] bg-[#171B20] p-2 sm:p-4">
             <Row
@@ -395,8 +419,8 @@ function Home() {
           </div>
 
           {/* Render ONLY the first 3 real projects from data.ts */}
-          <div className="grid grid-cols-1 min-[601px]:grid-cols-2 min-[901px]:grid-cols-3 gap-4 items-start">
-            {realProjects.map((p) => (
+          <div className="grid grid-cols-1 min-[601px]:grid-cols-2 min-[901px]:grid-cols-3 gap-6 items-start">
+            {realProjects.map((p, idx) => (
               <Link
                 key={p.slug}
                 to="/portfolio/$slug"
@@ -404,6 +428,7 @@ function Home() {
                 className="block no-underline group"
               >
                 <Shot
+                  index={idx}
                   src={p.cover || p.shots[0]?.src}
                   category={p.category}
                   title={p.name}

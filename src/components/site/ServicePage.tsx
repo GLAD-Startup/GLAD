@@ -9,6 +9,8 @@ import { Ledger } from "@/components/site/Ledger";
 import { Shot } from "@/components/ui/Shot";
 import { Chip } from "@/components/ui/Chip";
 import { Button } from "@/components/ui/Button";
+import { SlotNumberRoller } from "@/components/site/SlotNumberRoller";
+import { cn } from "@/lib/utils";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
 import {
   Accordion,
@@ -133,15 +135,23 @@ export function ServicePage({ service }: ServicePageProps) {
             )}
           </div>
 
-          {/* Bordered capabilities grid: 3-col desktop, 2-col 900px, 1-col 560px */}
-          <div className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] overflow-hidden grid grid-cols-1 min-[561px]:grid-cols-2 min-[901px]:grid-cols-3 divide-y min-[561px]:divide-y-0 divide-[var(--color-rule)]">
+          {/* Bordered capabilities 2x2 grid */}
+          <div className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] overflow-hidden grid grid-cols-1 min-[641px]:grid-cols-2 divide-y min-[641px]:divide-y-0 divide-[var(--color-rule)]">
             {service.capabilities.map((cap, idx) => (
               <div
                 key={cap.title}
-                className="p-[28px] min-[561px]:border-r min-[561px]:border-b min-[561px]:border-[var(--color-rule)] flex flex-col items-start"
+                className={cn(
+                  "p-[28px] sm:p-[32px] flex flex-col items-start group",
+                  // Right border on odd columns (col 1 in 2-col layout)
+                  idx % 2 === 0 && "min-[641px]:border-r min-[641px]:border-[var(--color-rule)]",
+                  // Bottom border on top row items
+                  idx < service.capabilities.length - 2 && "min-[641px]:border-b min-[641px]:border-[var(--color-rule)]",
+                  // If odd number of items, ensure last row before bottom is bordered
+                  idx === service.capabilities.length - 2 && service.capabilities.length % 2 !== 0 && "min-[641px]:border-b min-[641px]:border-[var(--color-rule)]"
+                )}
               >
                 <div className="font-mono text-[20px] text-[var(--color-brass)] font-medium mb-3">
-                  {String(idx + 1).padStart(2, "0")}
+                  <SlotNumberRoller value={String(idx + 1).padStart(2, "0")} delay={idx * 0.1} />
                 </div>
                 <h3 className="font-display text-[19px] font-medium tracking-tight text-[var(--color-ink)] mb-2">
                   {cap.title}

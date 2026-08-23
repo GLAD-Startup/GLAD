@@ -201,18 +201,43 @@ function ProjectDetailPage() {
         )}
 
         {/* 6. Next / previous (tone="paper" divider={false}) */}
-        <Section size="default" tone="paper" divider={false}>
-          <div className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] p-2 sm:p-4 grid grid-cols-1 min-[721px]:grid-cols-2 gap-4">
-            <Row
-              title={`← ${prevProject.name}`}
-              description={prevProject.category}
-              href={`/portfolio/${prevProject.slug}`}
-            />
-            <Row
-              title={`${nextProject.name} →`}
-              description={nextProject.category}
-              href={`/portfolio/${nextProject.slug}`}
-            />
+        <Section size="compact" tone="paper" divider={false}>
+          <div className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] p-4 sm:p-6 grid grid-cols-1 min-[721px]:grid-cols-2 gap-4 sm:gap-6 divide-y min-[721px]:divide-y-0 min-[721px]:divide-x divide-[var(--color-rule)]">
+            {/* Previous Project (Left Aligned) */}
+            <Link
+              to="/portfolio/$slug"
+              params={{ slug: prevProject.slug }}
+              className="flex flex-col items-start text-left group p-3 sm:p-4 rounded-lg hover:bg-[var(--color-sunk)]/50 transition-colors duration-200 no-underline"
+            >
+              <span className="font-mono text-[10px] sm:text-[11px] tracking-wider uppercase text-[var(--color-brass)] font-semibold mb-1">
+                PREVIOUS CASE STUDY
+              </span>
+              <div className="font-display text-[18px] sm:text-[20px] font-medium text-[var(--color-ink)] group-hover:text-[var(--color-brass)] transition-colors flex items-center gap-2">
+                <span className="transition-transform duration-200 group-hover:-translate-x-1">←</span>
+                <span>{prevProject.name}</span>
+              </div>
+              <span className="text-[13px] text-[var(--color-ink-3)] mt-1">
+                {prevProject.category}
+              </span>
+            </Link>
+
+            {/* Next Project (Right Aligned) */}
+            <Link
+              to="/portfolio/$slug"
+              params={{ slug: nextProject.slug }}
+              className="flex flex-col items-end text-right justify-self-end w-full group p-3 sm:p-4 rounded-lg hover:bg-[var(--color-sunk)]/50 transition-colors duration-200 no-underline pt-4 min-[721px]:pt-3 min-[721px]:pl-6"
+            >
+              <span className="font-mono text-[10px] sm:text-[11px] tracking-wider uppercase text-[var(--color-brass)] font-semibold mb-1">
+                NEXT CASE STUDY
+              </span>
+              <div className="font-display text-[18px] sm:text-[20px] font-medium text-[var(--color-ink)] group-hover:text-[var(--color-brass)] transition-colors flex items-center gap-2 justify-end">
+                <span>{nextProject.name}</span>
+                <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+              </div>
+              <span className="text-[13px] text-[var(--color-ink-3)] mt-1">
+                {nextProject.category}
+              </span>
+            </Link>
           </div>
         </Section>
 

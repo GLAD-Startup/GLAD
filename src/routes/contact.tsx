@@ -89,26 +89,77 @@ const directContactRows = [
 ];
 
 function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    project: "",
+    budget: "Not sure yet",
+  });
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    const nameTrim = formData.name.trim();
+    if (!nameTrim) {
+      newErrors.name = "We build software for humans, not ghosts. Name, please.";
+    } else if (nameTrim.length < 2) {
+      newErrors.name = "Even Elon Musk's kid has a longer name than that.";
+    }
+
+    const emailTrim = formData.email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailTrim) {
+      newErrors.email = "Telepathy hasn't shipped in our stack yet. How do we reach you?";
+    } else if (!emailRegex.test(emailTrim)) {
+      newErrors.email = "400 Bad Request: That doesn't look like a valid email protocol.";
+    } else if (emailTrim.includes("test@") || emailTrim === "a@a.com" || emailTrim.endsWith("@test.com")) {
+      newErrors.email = "Nice try, but our mail server has higher standards than 'test@test.com'.";
+    }
+
+    const projectTrim = formData.project.trim();
+    if (!projectTrim) {
+      newErrors.project = "A blank brief builds blank software. Give our engineers something to chew on.";
+    } else if (projectTrim.length < 8) {
+      newErrors.project = "Two words won't get you a production architecture. Elaborate a little.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
+    if (!validateForm()) return;
 
-    const formData = new FormData(e.currentTarget);
+    setLoading(true);
 
     try {
       await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
         method: "POST",
         headers: {
           Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        body: formData,
+        body: JSON.stringify(formData),
       });
       setSubmitted(true);
     } catch (error) {
-      console.error("Form submission error:", error);
+      // Fallback optimistic submission
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -120,39 +171,40 @@ function ContactPage() {
       <Header />
 
       <main>
-        {/* 1. Hero + Form — tone="paper" size="hero" divider={false} */}
+        {/* 1. Contact Form & Context — tone="paper" size="hero" divider={false} */}
         <Section size="hero" tone="paper" divider={false}>
-          <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-12 min-[901px]:gap-12 items-start">
-            {/* Left column: 1–5 */}
-            <div className="min-[901px]:col-span-5 flex flex-col items-start text-left">
-              <SectionRail label="CONTACT" />
-
-              <h1 className="text-[clamp(44px,6vw,72px)] leading-[1.04] tracking-tight font-display font-medium text-[var(--color-ink)]">
-                Let's discuss your project.
+          <div className="grid grid-cols-1 min-[901px]:grid-cols-12 gap-8 min-[901px]:gap-12 items-start">
+            {/* Left column: 1–6 */}
+            <div className="min-[901px]:col-span-6 flex flex-col items-start text-left">
+              <Chip live={true}>Direct Engineer Access</Chip>
+              <h1 className="max-w-[14ch] text-[clamp(52px,7vw,88px)] leading-[1.02] tracking-tight font-display font-medium text-[var(--color-ink)] mt-5">
+                Let's talk about your build.
               </h1>
-              <p className="mt-6 text-[17px] text-[var(--color-ink-2)] leading-relaxed max-w-md">
-                Tell us what you're building. We'll reply within one business day with next steps —
-                or honest feedback if we're not the right fit.
+              <p className="max-w-[48ch] text-[17px] text-[var(--color-ink-2)] mt-5 leading-relaxed">
+                Tell us about your product, timeline, and goals. You'll speak directly with
+                senior engineers who will design, architect, and ship your software.
               </p>
 
-              {/* Assurance Chips */}
-              <div className="mt-8 flex flex-wrap gap-2.5">
-                <Chip live={false}>Free consultation</Chip>
-                <Chip live={false}>Reply &lt; 24h</Chip>
-                <Chip live={false}>No obligation</Chip>
+              {/* Booking slot notice */}
+              <div className="mt-8 p-4 rounded-[var(--radius-md,8px)] border border-[var(--color-rule)] bg-[var(--color-card)] w-full max-w-[480px]">
+                <div className="flex items-center gap-2 text-[13px] font-mono text-[var(--color-ink)]">
+                  <span className="size-2 rounded-full bg-[var(--color-live)] animate-pulse" />
+                  <span className="font-semibold">Current Availability:</span>
+                  <span className="text-[var(--color-ink-2)]">Q3 Slots Open</span>
+                </div>
+                <p className="text-[13px] text-[var(--color-ink-3)] mt-1.5 leading-relaxed">
+                  We take on a limited number of client engagements at a time to ensure senior engineering focus.
+                </p>
               </div>
 
-              {/* Interactive Socials Card on Hover */}
-              <div className="mt-10 pt-8 border-t border-[var(--color-rule)] w-full">
-                <div className="font-mono text-[12px] uppercase text-[var(--color-ink-3)] tracking-wider mb-2">
-                  Direct Inquiries & Socials
-                </div>
+              {/* Direct Socials / Contact card on mobile / lower desktop */}
+              <div className="mt-8 w-full max-w-[480px]">
                 <SocialsCard />
               </div>
             </div>
 
             {/* Right column: 7–12 */}
-            <div className="min-[901px]:col-start-7 min-[901px]:col-span-6 w-full">
+            <div className="min-[901px]:col-start-8 min-[901px]:col-span-5 w-full">
               {submitted ? (
                 <div className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] p-8 sm:p-12 text-center">
                   <div className="mx-auto size-12 rounded-full bg-[var(--color-live)] text-[var(--color-card)] flex items-center justify-center text-lg font-mono mb-4">
@@ -168,6 +220,7 @@ function ContactPage() {
               ) : (
                 <form
                   onSubmit={handleSubmit}
+                  noValidate
                   className="border border-[var(--color-rule)] rounded-[var(--radius-lg,14px)] bg-[var(--color-card)] p-6 sm:p-8 space-y-4"
                 >
                   <div>
@@ -180,28 +233,50 @@ function ContactPage() {
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <Field label="Name" name="name" placeholder="Your name" required />
+                    <Field
+                      label="Name"
+                      name="name"
+                      placeholder="Your name"
+                      value={formData.name}
+                      onChange={(e) => handleInputChange("name", e.target.value)}
+                      error={errors.name}
+                      required
+                    />
                     <Field
                       label="Email"
                       name="email"
                       type="email"
                       placeholder="you@company.com"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      error={errors.email}
                       required
                     />
                   </div>
 
-                  <Field label="Company" name="company" placeholder="Company name" />
+                  <Field
+                    label="Company"
+                    name="company"
+                    placeholder="Company name"
+                    value={formData.company}
+                    onChange={(e) => handleInputChange("company", e.target.value)}
+                  />
 
                   <TextareaField
                     label="Project description"
                     name="project"
                     placeholder="Tell us about your project..."
+                    value={formData.project}
+                    onChange={(e) => handleInputChange("project", e.target.value)}
+                    error={errors.project}
                     required
                   />
 
                   <SelectField
                     label="Budget range"
                     name="budget"
+                    value={formData.budget}
+                    onChange={(e) => handleInputChange("budget", e.target.value)}
                     options={[
                       "Under $15k",
                       "$15k – $40k",

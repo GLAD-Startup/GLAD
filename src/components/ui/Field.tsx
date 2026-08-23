@@ -1,4 +1,5 @@
 import * as React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /* ─── Field (Input / Textarea) ─────────────────────────── */
@@ -11,6 +12,7 @@ export interface FieldProps
   textarea?: boolean;
   rows?: number;
   containerClassName?: string;
+  onCustomInvalid?: (name: string) => void;
 }
 
 export const Field = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, FieldProps>(
@@ -27,6 +29,7 @@ export const Field = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, Fi
       required,
       className,
       containerClassName,
+      onInvalid,
       ...props
     },
     ref
@@ -34,22 +37,32 @@ export const Field = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, Fi
     const inputId = id || name || React.useId();
 
     const inputClasses = cn(
-      "w-full rounded-[var(--radius-md,8px)] bg-[var(--color-card)] border border-[var(--color-rule)] px-[14px] text-[14px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-3)] transition-colors duration-150 outline-none",
-      "focus:border-[var(--color-live)] focus:shadow-[0_0_0_3px_rgb(15_110_76/0.12)]",
-      error && "border-[#B4402F] focus:border-[#B4402F] focus:shadow-[0_0_0_3px_rgba(180,64,47,0.12)]",
+      "w-full rounded-[var(--radius-md,8px)] bg-[var(--color-card)] border px-[14px] text-[14px] text-[var(--color-ink)] placeholder:text-[var(--color-ink-3)] transition-all duration-200 outline-none",
+      error
+        ? "border-[#D14343] bg-[#D14343]/[0.02] shadow-[0_0_0_3px_rgba(209,67,67,0.12)]"
+        : "border-[var(--color-rule)] focus:border-[var(--color-live)] focus:shadow-[0_0_0_3px_rgb(15_110_76/0.12)]",
       textarea ? "h-auto min-h-[100px] py-[10px] resize-y" : "h-[44px]",
       className
     );
 
+    const handleInvalid = (e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      e.preventDefault(); // Suppress generic browser tooltip
+      if (onInvalid) {
+        onInvalid(e as any);
+      }
+    };
+
     return (
-      <div className={cn("flex flex-col", containerClassName)}>
+      <div className={cn("flex flex-col relative", containerClassName)}>
         {label && (
           <label
             htmlFor={inputId}
-            className="mb-[6px] text-[13px] font-medium text-[var(--color-ink-2)]"
+            className="mb-[6px] text-[13px] font-medium text-[var(--color-ink-2)] flex items-center justify-between"
           >
-            {label}
-            {required && <span className="text-[var(--color-brass)] ml-0.5">*</span>}
+            <span>
+              {label}
+              {required && <span className="text-[var(--color-brass)] ml-0.5">*</span>}
+            </span>
           </label>
         )}
 
@@ -60,6 +73,7 @@ export const Field = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, Fi
             required={required}
             rows={rows}
             ref={ref as React.Ref<HTMLTextAreaElement>}
+            onInvalid={handleInvalid}
             className={inputClasses}
             {...(props as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
           />
@@ -70,16 +84,30 @@ export const Field = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, Fi
             type={type}
             required={required}
             ref={ref as React.Ref<HTMLInputElement>}
+            onInvalid={handleInvalid}
             className={inputClasses}
             {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
           />
         )}
 
-        {error ? (
-          <p className="mt-[6px] text-[12px] text-[#B4402F]">{error}</p>
-        ) : helperText ? (
-          <p className="mt-[6px] text-[12px] text-[var(--color-ink-3)]">{helperText}</p>
-        ) : null}
+        <AnimatePresence mode="wait">
+          {error ? (
+            <motion.div
+              initial={{ opacity: 0, y: -4, x: -3 }}
+              animate={{ opacity: 1, y: 0, x: [ -3, 3, -2, 2, 0 ] }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.25 }}
+              className="mt-[6px] flex items-start gap-1.5 text-[12px] text-[#D14343] font-medium leading-snug"
+            >
+              <span className="font-mono text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-[#D14343]/10 text-[#D14343] shrink-0">
+                REQUIRED
+              </span>
+              <span>{error}</span>
+            </motion.div>
+          ) : helperText ? (
+            <p className="mt-[6px] text-[12px] text-[var(--color-ink-3)]">{helperText}</p>
+          ) : null}
+        </AnimatePresence>
       </div>
     );
   }
