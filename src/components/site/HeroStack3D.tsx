@@ -212,11 +212,11 @@ interface OrbitConfig {
 
 function getOrbitConfig(width: number): OrbitConfig {
   if (width < 1280) {
-    // Tablet: center (82%, 22%), base radius 290px
-    return { hubXPct: 82, hubYPct: 22, r: 290 };
+    // Tablet: center (82%, 29%), base radius 290px
+    return { hubXPct: 82, hubYPct: 29, r: 290 };
   }
-  // Desktop: center (80%, 24%), base radius 390px
-  return { hubXPct: 80, hubYPct: 24, r: 390 };
+  // Desktop: center (80%, 30%), base radius 390px
+  return { hubXPct: 80, hubYPct: 30, r: 390 };
 }
 
 /* ── Shared Card UI ─────────────────────────────────────── */
@@ -544,9 +544,9 @@ export function HeroOrbit() {
         className="absolute z-10 flex items-center justify-center pointer-events-none"
         style={{
           left: "80%",
-          top: "24%",
-          width: 320,
-          height: 320,
+          top: "30%",
+          width: 270,
+          height: 270,
           transform: "translate(-50%, -50%)",
         }}
       >
@@ -572,10 +572,10 @@ export function HeroOrbit() {
         </div>
 
         {/* Rotating subtle dashed brass accent ring */}
-        <div className="pointer-events-none absolute inset-4 rounded-full border border-dashed border-[var(--color-brass)]/40 animate-spin-slow opacity-60 select-none" />
+        <div className="pointer-events-none absolute inset-3 rounded-full border border-dashed border-[var(--color-brass)]/40 animate-spin-slow opacity-60 select-none" />
 
         {/* Pinned Telemetry Label Centered Below Sphere */}
-        <div className="absolute top-[calc(50%+90px)] left-1/2 -translate-x-1/2 pointer-events-none flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-[var(--color-rule)] bg-[var(--color-card)]/95 shadow-sm whitespace-nowrap z-30 select-none">
+        <div className="absolute top-[calc(50%+76px)] left-1/2 -translate-x-1/2 pointer-events-none flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-[var(--color-rule)] bg-[var(--color-card)]/95 shadow-sm whitespace-nowrap z-30 select-none">
           <span className="size-1.5 rounded-full bg-[var(--color-live)] animate-ping" />
           <span className="text-[8.5px] font-mono font-bold text-[var(--color-ink)] tracking-wider uppercase">
             GLAD CORE // 260 NODES

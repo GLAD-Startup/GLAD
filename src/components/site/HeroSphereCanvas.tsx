@@ -213,8 +213,8 @@ function BreathingSphereMesh({ reducedMotion }: BreathingSphereMeshProps) {
   const curTiltY = useRef(0);
   const baseRotY = useRef(0.2);
 
-  // Detail 3 = 642 vertices, detail 4 = 2562 vertices
-  const geometry = useMemo(() => new THREE.IcosahedronGeometry(1.22, 3), []);
+  // Detail 3 = 642 vertices (reduced size: 1.08)
+  const geometry = useMemo(() => new THREE.IcosahedronGeometry(1.08, 3), []);
 
   const pointUniforms = useMemo(
     () => ({
@@ -367,7 +367,7 @@ export default function HeroSphereCanvas({ reducedMotion = false }: HeroSphereCa
   return (
     <div
       className="relative select-none pointer-events-none"
-      style={{ width: "320px", height: "320px" }}
+      style={{ width: "270px", height: "270px" }}
     >
       <Canvas
         dpr={[1, 1.75]}

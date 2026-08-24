@@ -9,11 +9,11 @@ export function HeroSphereFallback() {
   return (
     <div
       className="relative rounded-full flex items-center justify-center select-none pointer-events-none"
-      style={{ width: "320px", height: "320px" }}
+      style={{ width: "270px", height: "270px" }}
     >
       <svg
         className="w-full h-full overflow-visible"
-        viewBox="0 0 320 320"
+        viewBox="0 0 270 270"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -25,13 +25,13 @@ export function HeroSphereFallback() {
         </defs>
 
         {/* Ambient Core Radial Sheen */}
-        <circle cx="160" cy="160" r="130" fill="url(#sphereCoreGlow)" />
+        <circle cx="135" cy="135" r="110" fill="url(#sphereCoreGlow)" />
 
         {/* Outer dashed guide */}
         <circle
-          cx="160"
-          cy="160"
-          r="120"
+          cx="135"
+          cy="135"
+          r="100"
           fill="none"
           stroke="var(--color-rule-hi)"
           strokeWidth="1"
@@ -41,9 +41,9 @@ export function HeroSphereFallback() {
 
         {/* Inner concentric ring */}
         <circle
-          cx="160"
-          cy="160"
-          r="84"
+          cx="135"
+          cy="135"
+          r="70"
           fill="none"
           stroke="var(--color-rule-hi)"
           strokeWidth="0.8"
@@ -53,20 +53,20 @@ export function HeroSphereFallback() {
 
         {/* Precision Crosshairs */}
         <line
-          x1="160"
-          y1="40"
-          x2="160"
-          y2="280"
+          x1="135"
+          y1="30"
+          x2="135"
+          y2="240"
           stroke="var(--color-rule-hi)"
           strokeWidth="0.7"
           strokeDasharray="2 4"
           opacity="0.3"
         />
         <line
-          x1="40"
-          y1="160"
-          x2="280"
-          y2="160"
+          x1="30"
+          y1="135"
+          x2="240"
+          y2="135"
           stroke="var(--color-rule-hi)"
           strokeWidth="0.7"
           strokeDasharray="2 4"
@@ -74,13 +74,11 @@ export function HeroSphereFallback() {
         />
 
         {/* Center Node Points */}
-        <circle cx="160" cy="160" r="4" fill="#0F6E4C" opacity="0.8" />
-        <circle cx="120" cy="130" r="2.5" fill="#0F6E4C" opacity="0.6" />
-        <circle cx="200" cy="130" r="2.5" fill="#7C3AED" opacity="0.6" />
-        <circle cx="130" cy="190" r="2.5" fill="#7C3AED" opacity="0.6" />
-        <circle cx="190" cy="190" r="2.5" fill="#0F6E4C" opacity="0.6" />
-        <circle cx="160" cy="100" r="2" fill="#C8A84E" opacity="0.7" />
-        <circle cx="160" cy="220" r="2" fill="#C8A84E" opacity="0.7" />
+        <circle cx="135" cy="135" r="3.5" fill="#0F6E4C" opacity="0.8" />
+        <circle cx="100" cy="110" r="2.2" fill="#0F6E4C" opacity="0.6" />
+        <circle cx="170" cy="110" r="2.2" fill="#7C3AED" opacity="0.6" />
+        <circle cx="110" cy="160" r="2.2" fill="#7C3AED" opacity="0.6" />
+        <circle cx="160" cy="160" r="2.2" fill="#0F6E4C" opacity="0.6" />
       </svg>
     </div>
   );
@@ -138,7 +136,7 @@ export function HeroSphere3D() {
   return (
     <div
       className="relative pointer-events-auto"
-      style={{ width: "320px", height: "320px" }}
+      style={{ width: "270px", height: "270px" }}
     >
       <SphereErrorBoundary>
         <Suspense fallback={<HeroSphereFallback />}>

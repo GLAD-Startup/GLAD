@@ -143,7 +143,7 @@ function Home() {
         >
           <div className="grid grid-cols-1 min-[901px]:grid-cols-12 min-[901px]:gap-x-8 gap-y-10 min-[901px]:gap-y-0 items-start w-full">
             {/* Left 6 columns (Columns 1-6) */}
-            <div className="min-[901px]:col-span-6 flex flex-col items-start text-left relative z-30">
+            <div className="min-[901px]:col-span-6 flex flex-col items-start text-left relative z-30 min-[901px]:-translate-x-6 lg:-translate-x-10 xl:-translate-x-14">
               {/* Capacity Chip with entrance choreography */}
               <Chip live className="hero-animate-chip">
                 {slots} {slots === 1 ? "slot" : "slots"} available for Q3
