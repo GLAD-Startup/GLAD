@@ -202,14 +202,11 @@ export function TeamCursorHoverList({ members }: TeamCursorHoverListProps) {
                 className={`w-full h-full object-cover ${activeMember.imageClass || ""}`}
               />
 
-              {/* Glass Info Badge Overlay */}
-              <div className="absolute inset-x-2.5 bottom-2.5 bg-black/75 backdrop-blur-md rounded-xl p-3 border border-white/15 text-white">
-                <div className="font-display font-medium text-[14px] leading-tight text-white">
+              {/* Glass Name Badge Overlay */}
+              <div className="absolute inset-x-2.5 bottom-2.5 bg-black/80 backdrop-blur-md rounded-xl py-2 px-3.5 border border-white/15 text-white text-center">
+                <span className="font-display font-medium text-[13.5px] leading-tight text-white">
                   {activeMember.name}
-                </div>
-                <div className="font-mono text-[11px] text-[#A7F3D0] mt-0.5 tracking-tight truncate">
-                  {activeMember.role}
-                </div>
+                </span>
               </div>
             </div>
           </motion.div>

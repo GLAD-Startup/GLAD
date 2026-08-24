@@ -17,89 +17,57 @@ interface CardData {
   title: string;
   subtitle: string;
   icon: typeof Globe;
-  accent: string;
   tag: string;
-  specs: { label: string; val: string }[];
 }
 
 const CARDS: CardData[] = [
   {
     id: "web",
     number: "01",
-    title: "WEB PLATFORMS",
-    subtitle: "React 19 · Edge SSR · Motion",
+    title: "Web Platforms",
+    subtitle: "React 19 · Edge SSR · Vite",
     icon: Globe,
-    accent: "#0F6E4C",
-    tag: "EDGE SSR",
-    specs: [
-      { label: "TTFB", val: "< 45ms" },
-      { label: "Score", val: "100/100" },
-    ],
+    tag: "High Throughput",
   },
   {
     id: "mobile",
     number: "02",
-    title: "MOBILE",
+    title: "Mobile Apps",
     subtitle: "iOS · Android · React Native",
     icon: Smartphone,
-    accent: "#4F46E5",
-    tag: "60 FPS",
-    specs: [
-      { label: "Crash-free", val: "99.9%" },
-      { label: "Store", val: "4.8★" },
-    ],
+    tag: "Cross-Platform",
   },
   {
     id: "ai",
     number: "03",
-    title: "AI AGENTS",
-    subtitle: "Python · LangGraph · RAG",
+    title: "AI Systems",
+    subtitle: "Multi-Agent · Vector RAG · LLMs",
     icon: Sparkles,
-    accent: "#C8A84E",
-    tag: "AGENTS",
-    specs: [
-      { label: "Tokens", val: "streamed" },
-      { label: "Eval", val: "passing" },
-    ],
+    tag: "Autonomous",
   },
   {
     id: "data",
     number: "04",
-    title: "DATA PLATFORMS",
-    subtitle: "PostgreSQL & Vector Store",
+    title: "Data Platforms",
+    subtitle: "PostgreSQL · Redis · Edge",
     icon: Database,
-    accent: "#7C3AED",
-    tag: "DATA CLOUD",
-    specs: [
-      { label: "Uptime", val: "99.99%" },
-      { label: "Cluster", val: "Multi-Region" },
-    ],
+    tag: "Cloud Native",
   },
   {
     id: "security",
     number: "05",
-    title: "AUTONOMOUS SECURITY",
-    subtitle: "Zero-Trust VPC · Encryption",
+    title: "Cloud & Security",
+    subtitle: "Zero-Trust · AES-256 · VPC",
     icon: ShieldCheck,
-    accent: "#E11D48",
-    tag: "SOC2",
-    specs: [
-      { label: "Cipher", val: "AES-256" },
-      { label: "VPC", val: "Isolated" },
-    ],
+    tag: "Hardened",
   },
   {
     id: "automation",
     number: "06",
-    title: "AUTOMATION",
+    title: "Automation",
     subtitle: "FastAPI · Queues · Webhooks",
     icon: Zap,
-    accent: "#D97706",
-    tag: "FASTAPI",
-    specs: [
-      { label: "Jobs/day", val: "12k" },
-      { label: "Retry", val: "idempotent" },
-    ],
+    tag: "Zero Overhead",
   },
 ];
 
@@ -140,57 +108,37 @@ function getOrbitConfig(width: number): OrbitConfig {
 function CardInner({ card }: { card: CardData }) {
   const IconComp = card.icon;
   return (
-    <div className="p-3 sm:p-3.5 flex flex-col justify-between gap-2">
-      {/* Category & Status */}
-      <div className="flex items-center justify-between gap-1.5">
-        <div className="flex items-center gap-1.5 min-w-0">
-          <span
-            className="size-1.5 rounded-full shrink-0 shadow-[0_0_0_2px_rgba(0,0,0,0.06)]"
-            style={{ backgroundColor: card.accent }}
-          />
-          <span className="font-mono text-[9.5px] font-bold tracking-[0.06em] text-[var(--color-ink)] truncate">
-            {card.number} // {card.title}
-          </span>
-        </div>
-        <span className="shrink-0 px-1.5 py-0.5 rounded-[4px] border border-[var(--color-rule)] bg-[#F5F2EB] text-[8px] font-mono font-bold text-[var(--color-ink)]">
-          {card.tag}
+    <div className="p-3.5 sm:p-4 flex flex-col justify-between h-full gap-2.5">
+      {/* Top: Index badge & Clean Icon pill */}
+      <div className="flex items-center justify-between">
+        <span className="font-mono text-[11px] font-semibold text-[var(--color-brass)] bg-[var(--color-sunk)] px-2 py-0.5 rounded border border-[var(--color-rule)]">
+          {card.number}
         </span>
+        <div className="size-6 rounded-md bg-[var(--color-sunk)] border border-[var(--color-rule)] flex items-center justify-center text-[var(--color-ink-2)]">
+          <IconComp className="size-3.5" />
+        </div>
       </div>
 
-      {/* Subtitle & Icon */}
-      <div className="flex items-center justify-between gap-2">
-        <div className="text-[11.5px] font-semibold text-[var(--color-ink)] truncate">
+      {/* Center: Title & Subtitle */}
+      <div>
+        <div className="font-display text-[14px] font-semibold text-[var(--color-ink)] leading-tight tracking-tight mb-1">
+          {card.title}
+        </div>
+        <div className="font-mono text-[11px] text-[var(--color-ink-3)] leading-tight">
           {card.subtitle}
         </div>
-        <IconComp className="size-3.5 shrink-0" style={{ color: card.accent }} />
       </div>
 
-      {/* Spec Metrics */}
-      <div className="flex items-center gap-1.5 pt-1.5 border-t border-[var(--color-rule)]/80">
-        {card.specs.map((spec, si) => (
-          <span
-            key={si}
-            className="px-1.5 py-0.5 rounded-[4px] bg-[#F4F1EA] border border-[#DDD6C8] text-[8.5px] font-mono text-[var(--color-ink)] font-medium"
-          >
-            <span className="text-[var(--color-ink-3)] font-normal">{spec.label}:</span>{" "}
-            <strong className="font-bold text-[var(--color-ink)]">{spec.val}</strong>
-          </span>
-        ))}
+      {/* Bottom: Capability Tag & Status */}
+      <div className="pt-2 border-t border-[var(--color-rule)]/70 flex items-center justify-between">
+        <span className="font-mono text-[9.5px] font-medium text-[var(--color-ink-2)] uppercase tracking-wider">
+          {card.tag}
+        </span>
+        <span className="font-mono text-[9px] text-[var(--color-live)] font-semibold uppercase tracking-wider">
+          Live
+        </span>
       </div>
     </div>
-  );
-}
-
-/* ── Corner Blueprint Marks ─────────────────────────────── */
-
-function CornerMarks() {
-  return (
-    <>
-      <span className="pointer-events-none absolute top-1 left-1.5 text-[7.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
-      <span className="pointer-events-none absolute top-1 right-1.5 text-[7.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
-      <span className="pointer-events-none absolute bottom-1 left-1.5 text-[7.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
-      <span className="pointer-events-none absolute bottom-1 right-1.5 text-[7.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
-    </>
   );
 }
 
@@ -349,8 +297,8 @@ export function HeroOrbit() {
             node.style.pointerEvents = "none";
           } else {
             const isHovered = hoveredIdxRef.current === i;
-            const liftY = isHovered ? -6 : 0;
-            const hoverScale = isHovered ? 1.03 : 1.0;
+            const liftY = isHovered ? -5 : 0;
+            const hoverScale = isHovered ? 1.025 : 1.0;
 
             node.style.display = "block";
             node.style.visibility = "visible";
@@ -492,9 +440,8 @@ export function HeroOrbit() {
         <div className="pointer-events-none absolute inset-3 rounded-full border border-dashed border-[var(--color-brass)]/40 animate-spin-slow opacity-60 select-none" />
 
         {/* Pinned Telemetry Label Centered Below Sphere */}
-        <div className="absolute top-[calc(50%+76px)] left-1/2 -translate-x-1/2 pointer-events-none flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-[var(--color-rule)] bg-[var(--color-card)]/95 shadow-sm whitespace-nowrap z-30 select-none">
-          <span className="size-1.5 rounded-full bg-[var(--color-live)] animate-ping" />
-          <span className="text-[8.5px] font-mono font-bold text-[var(--color-ink)] tracking-wider uppercase">
+        <div className="absolute top-[calc(50%+76px)] left-1/2 -translate-x-1/2 pointer-events-none flex items-center px-3 py-1 rounded-full border border-[var(--color-rule)] bg-[var(--color-card)]/95 shadow-xs whitespace-nowrap z-30 select-none">
+          <span className="text-[9px] font-mono font-semibold text-[var(--color-ink)] tracking-wider uppercase">
             GLAD CORE // 260 NODES
           </span>
         </div>
@@ -507,7 +454,7 @@ export function HeroOrbit() {
           ref={(el) => { cardRefs.current[i] = el; }}
           onPointerEnter={() => onCardEnter(i)}
           onPointerLeave={onCardLeave}
-          className="absolute top-0 left-0 pointer-events-auto w-[225px] lg:w-[235px] rounded-[13px] border-[1.5px] border-[#D6CFBE] bg-white/[0.97] shadow-[0_14px_30px_-6px_rgba(25,28,33,0.10),0_2px_6px_rgba(0,0,0,0.04)] backdrop-blur-lg cursor-default select-none hover:border-[var(--color-ink)] hover:shadow-[0_24px_48px_-10px_rgba(25,28,33,0.18),0_4px_12px_rgba(0,0,0,0.06)] transition-[border-color,box-shadow] duration-200 ease-out"
+          className="absolute top-0 left-0 pointer-events-auto w-[230px] lg:w-[240px] rounded-[16px] border border-[#DDD6C8] bg-white/[0.97] shadow-[0_10px_28px_-6px_rgba(20,24,30,0.08),0_2px_6px_rgba(0,0,0,0.03)] backdrop-blur-md cursor-default select-none hover:border-[var(--color-ink)]/50 hover:shadow-[0_18px_40px_-8px_rgba(20,24,30,0.14)] transition-[border-color,box-shadow] duration-200 ease-out"
           style={{
             willChange: "transform",
             visibility: "hidden",
@@ -515,7 +462,6 @@ export function HeroOrbit() {
             opacity: 1,
           }}
         >
-          <CornerMarks />
           <CardInner card={card} />
         </div>
       ))}
@@ -533,10 +479,8 @@ export function HeroMobileCards() {
       {CARDS.map((card) => (
         <div
           key={card.id}
-          className="relative w-full rounded-[14px] border-[1.5px] border-[#D6CFBE] bg-white/[0.97] shadow-[0_6px_18px_-4px_rgba(25,28,33,0.08)] backdrop-blur-lg select-none"
+          className="relative w-full rounded-[16px] border border-[#DDD6C8] bg-white/[0.97] shadow-[0_6px_18px_-4px_rgba(20,24,30,0.06)] backdrop-blur-md select-none"
         >
-          <span className="pointer-events-none absolute top-1.5 left-2 text-[8.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
-          <span className="pointer-events-none absolute top-1.5 right-2 text-[8.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
           <CardInner card={card} />
         </div>
       ))}
