@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArticlePage } from "@/components/site/ArticlePage";
+import { InsightPipelineCard } from "@/components/site/InsightPipelineCard";
 import { articles, buildArticleHead } from "@/data/insights.data";
 
 const article = articles.find((a) => a.slug === "rag-vs-fine-tuning")!;
@@ -73,19 +74,77 @@ function RagVsFineTuningPage() {
         relevant information whenever a user submits a query.
       </p>
 
-      <pre>
-        <code>
-{`The Production RAG Sequence
-1. User Question Ingested
-   "What is our corporate policy on remote expense stipends?"
-2. Embedding & Vector Retrieval
-   Query converted to vector -> pgvector performs hybrid search across policy chunks.
-3. Context Construction
-   Top-k reranked policy excerpts appended to prompt context.
-4. Grounded LLM Response
-   LLM generates answer citing Section 4.2 of the Employee Handbook with zero hallucination.`}
-        </code>
-      </pre>
+      <InsightPipelineCard
+        title="The Production RAG Sequence"
+        badge="RAG PIPELINE TRACE"
+        steps={[
+          {
+            step: "01",
+            title: "User Question Ingestion",
+            description: "\"What is our corporate policy on remote expense stipends?\"",
+            tag: "INPUT QUERY",
+            output: {
+              status: "INGESTED",
+              latency: "4ms",
+              data: {
+                query_text: "What is our corporate policy on remote expense stipends?",
+                language: "en-US",
+                extracted_intent: "EXPENSE_POLICY_INQUIRY",
+              },
+            },
+          },
+          {
+            step: "02",
+            title: "Embedding & Vector Retrieval",
+            description: "Query converted to dense vector -> pgvector performs hybrid search across policy chunks in PostgreSQL.",
+            tag: "PGVECTOR",
+            output: {
+              status: "RETRIEVED",
+              latency: "38ms",
+              data: {
+                embedding_model: "text-embedding-3-small (1536d)",
+                pgvector_index: "policy_chunks_hnsw_cosine",
+                chunks_retrieved: 8,
+                top_cosine_sim: 0.938,
+              },
+            },
+          },
+          {
+            step: "03",
+            title: "Context Construction & Reranking",
+            description: "Top-k reciprocal rank reranked policy excerpts are compressed and appended to prompt context window.",
+            tag: "RERANK",
+            output: {
+              status: "RERANKED",
+              latency: "52ms",
+              data: {
+                reranker: "cohere-rerank-v3",
+                top_k: 2,
+                selected_sources: [
+                  "Employee_Handbook_2026.pdf (Section 4.2: Remote Stipends)",
+                  "Finance_Reimbursement_Addendum.md (Clause 1.4)",
+                ],
+                token_reduction: "64% context compression",
+              },
+            },
+          },
+          {
+            step: "04",
+            title: "Grounded LLM Response Generation",
+            description: "LLM generates verifiable answer citing Section 4.2 of the Employee Handbook with zero hallucination.",
+            tag: "GROUNDED",
+            output: {
+              status: "GENERATED",
+              latency: "410ms",
+              data: {
+                answer: "Remote full-time employees are eligible for a monthly home office stipend of $150 (Section 4.2). Expense claims must be submitted by the 25th of each month.",
+                source_citations: ["Section 4.2, p. 19"],
+                hallucination_score: 0.0,
+              },
+            },
+          },
+        ]}
+      />
 
       <h2>What Is Fine-Tuning?</h2>
       <p>

@@ -158,7 +158,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               ],
               contactPoint: {
                 "@type": "ContactPoint",
-                email: "hello@gladstudio.net",
+                email: "contact@gladstudio.net",
                 contactType: "customer service",
               },
             },

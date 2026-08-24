@@ -288,7 +288,7 @@ export const Route = createFileRoute("/products/settledesk")({
 Forms submit directly to FormSubmit via AJAX:
 
 ```ts
-await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
+await fetch("https://formsubmit.co/ajax/contact@gladstudio.net", {
   method: "POST",
   headers: { "Content-Type": "application/json", Accept: "application/json" },
   body: JSON.stringify(formData),

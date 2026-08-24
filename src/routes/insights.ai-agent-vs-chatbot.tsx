@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArticlePage } from "@/components/site/ArticlePage";
+import { InsightPipelineCard } from "@/components/site/InsightPipelineCard";
 import { articles, buildArticleHead } from "@/data/insights.data";
 
 const article = articles.find((a) => a.slug === "ai-agent-vs-chatbot")!;
@@ -167,17 +168,71 @@ function AiAgentVsChatbotPage() {
         as LangGraph or CrewAI.
       </p>
 
-      <pre>
-        <code>
-{`The Agentic Execution Loop
-1. User Goal Received
-   ↓ LLM evaluates state & selects tool from catalog
-2. Tool Invocation (API / Database / RAG)
-   ↓ Tool returns observation (JSON / Error)
-3. Agent Evaluates Observation
-   ↓ Goal complete? If NO -> Loop back to Step 1. If YES -> Return final result.`}
-        </code>
-      </pre>
+      <InsightPipelineCard
+        title="The Agentic Execution Loop"
+        badge="STATE MACHINE TRACE"
+        steps={[
+          {
+            step: "01",
+            title: "User Goal Ingested",
+            description: "Foundation LLM evaluates conversation/memory state & selects appropriate tool from registered catalog.",
+            tag: "STATE EVAL",
+            output: {
+              status: "STATE_EVALUATED",
+              latency: "18ms",
+              data: {
+                goal: "Reconcile June vendor invoices against bank ledger",
+                state: "STATE_INIT",
+                next_action: "TOOL_SELECTION_REQUIRED",
+              },
+            },
+          },
+          {
+            step: "02",
+            title: "Autonomous Tool Invocation",
+            description: "Agent dispatches structured call to REST API, PostgreSQL Database, or pgvector RAG store.",
+            tag: "TOOL DISPATCH",
+            output: {
+              status: "DISPATCHED",
+              latency: "140ms",
+              data: {
+                selected_tool: "reconcile_invoices_sql",
+                input_payload: { month: "2026-06", match_tolerance: 0.01 },
+                endpoint: "internal_db_gateway",
+              },
+            },
+          },
+          {
+            step: "03",
+            title: "Observation & Schema Evaluation",
+            description: "Agent evaluates returned JSON payload/error against termination criteria and state transitions.",
+            tag: "OBSERVE",
+            output: {
+              status: "OBSERVED",
+              latency: "45ms",
+              data: {
+                tool_output: { matched: 84, unmatched_discrepancies: 0 },
+                state_transition: "GOAL_CRITERIA_SATISFIED",
+              },
+            },
+          },
+          {
+            step: "04",
+            title: "Cyclic State Transition or Final Result",
+            description: "If goal incomplete -> Loop back to Step 01 with updated memory. If complete -> Return verified result to user.",
+            tag: "CYCLIC LOOP",
+            output: {
+              status: "COMPLETED",
+              latency: "12ms",
+              data: {
+                final_status: "SUCCESS_VERIFIED",
+                loop_iterations: 1,
+                summary: "All 84 vendor invoices verified and balanced to bank ledger. Zero discrepancies.",
+              },
+            },
+          },
+        ]}
+      />
 
       <p>
         To learn how to engineer this loop from scratch, read our complete guide on{" "}

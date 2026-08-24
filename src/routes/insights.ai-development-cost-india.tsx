@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArticlePage } from "@/components/site/ArticlePage";
+import { InsightPipelineCard } from "@/components/site/InsightPipelineCard";
 import { articles, buildArticleHead } from "@/data/insights.data";
 
 const article = articles.find((a) => a.slug === "ai-development-cost-india")!;
@@ -174,14 +175,76 @@ function AiDevelopmentCostPage() {
         production RAG pipeline consists of nine interconnected engineering stages:
       </p>
 
-      <pre>
-        <code>
-{`Source Documents -> Parsing & Cleaning -> Semantic Chunking -> Vector Embeddings
-↓ pgvector Storage & Indexing (HNSW / IVFFlat)
-User Query -> Hybrid Vector/BM25 Search -> Reciprocal Rank Reranking
-↓ Context Compression -> LLM Generation -> Citation Validation`}
-        </code>
-      </pre>
+      <InsightPipelineCard
+        title="Production RAG Architecture Pipeline"
+        badge="ARCHITECTURE TRACE"
+        steps={[
+          {
+            step: "01",
+            title: "Document Ingestion & Preparation",
+            description: "Source Documents -> Parsing & Cleaning -> Semantic Chunking -> Vector Embeddings",
+            tag: "EMBEDDING",
+            output: {
+              status: "CHUNKS_PREPARED",
+              latency: "120ms",
+              data: {
+                documents_processed: 42,
+                chunk_strategy: "Semantic (512 tokens with 10% overlap)",
+                total_vectors_generated: 1240,
+                embedding_model: "text-embedding-3-small",
+              },
+            },
+          },
+          {
+            step: "02",
+            title: "Vector Indexing & Storage",
+            description: "pgvector Storage & Indexing with high-throughput (HNSW / IVFFlat) indexing algorithms.",
+            tag: "INDEXING",
+            output: {
+              status: "INDEXED",
+              latency: "85ms",
+              data: {
+                database: "PostgreSQL 16 + pgvector",
+                index_type: "HNSW (m=16, ef_construction=64)",
+                query_qps_capacity: "1,200 QPS",
+                storage_overhead: "4.2 MB",
+              },
+            },
+          },
+          {
+            step: "03",
+            title: "Hybrid Retrieval & Reranking",
+            description: "User Query -> Hybrid Vector / BM25 Search -> Reciprocal Rank Reranking (RRF).",
+            tag: "HYBRID RETRIEVAL",
+            output: {
+              status: "RETRIEVED",
+              latency: "26ms",
+              data: {
+                hybrid_weights: { dense_vector: 0.7, sparse_bm25: 0.3 },
+                candidate_pool: 20,
+                reranked_top_k: 3,
+                mean_reciprocal_rank: 0.96,
+              },
+            },
+          },
+          {
+            step: "04",
+            title: "Synthesis & Attribution Verification",
+            description: "Context Compression -> LLM Generation -> Deterministic Citation Validation.",
+            tag: "VERIFICATION",
+            output: {
+              status: "VALIDATED",
+              latency: "320ms",
+              data: {
+                llm: "Claude 3.5 Sonnet",
+                token_usage: { prompt: 840, completion: 124 },
+                citation_coverage: "100%",
+                hallucination_check: "PASSED",
+              },
+            },
+          },
+        ]}
+      />
 
       <p>
         The cost of building a RAG application scales with document heterogeneity. Clean markdown

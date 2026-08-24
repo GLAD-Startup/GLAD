@@ -315,7 +315,7 @@ function PrivacyPage() {
               <br />
               Email: <a href="mailto:contact@gladstudio.net">contact@gladstudio.net</a>
               <br />
-              General Contact: <a href="mailto:hello@gladstudio.net">hello@gladstudio.net</a>
+              General Contact: <a href="mailto:contact@gladstudio.net">contact@gladstudio.net</a>
               <br />
               Website: <a href="https://gladstudio.net">https://gladstudio.net</a>
             </p>

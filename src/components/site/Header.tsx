@@ -60,8 +60,11 @@ export function Header() {
       <ScrollProgress />
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 h-[64px] min-h-[64px] max-h-[64px] bg-[var(--color-card)] border-b select-none transition-all duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]",
-          scrolled ? "border-[var(--color-rule)]" : "border-transparent",
+          "fixed top-0 left-0 right-0 z-50 h-[64px] min-h-[64px] max-h-[64px] select-none transition-all duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))]",
+          "bg-[var(--color-card)]/80 backdrop-blur-md backdrop-saturate-150 border-b",
+          scrolled
+            ? "border-[var(--color-rule)]/80 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.06),_0_1px_2px_rgba(0,0,0,0.02)]"
+            : "border-transparent",
           visible ? "translate-y-0" : "-translate-y-full"
         )}
       >
@@ -83,8 +86,8 @@ export function Header() {
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-[13px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] font-medium"
-                activeProps={{ className: "text-[var(--color-ink)] font-semibold" }}
+                className="text-[13px] text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] font-medium hover:bg-[var(--color-ink)]/5 rounded-full px-2.5 py-1 -mx-1"
+                activeProps={{ className: "text-[var(--color-ink)] font-semibold bg-[var(--color-ink)]/5" }}
               >
                 {n.label}
               </Link>
@@ -111,7 +114,7 @@ export function Header() {
           {/* Mobile Sheet Toggle Button (44x44px target) */}
           <button
             type="button"
-            className="min-[721px]:hidden size-[44px] flex items-center justify-center rounded-[var(--radius-md,8px)] border border-[var(--color-rule)] bg-[var(--color-card)] text-[var(--color-ink)] hover:bg-[var(--color-sunk)] transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] cursor-pointer"
+            className="min-[721px]:hidden size-[44px] flex items-center justify-center rounded-[var(--radius-md,8px)] border border-[var(--color-rule)]/80 bg-[var(--color-card)]/80 backdrop-blur-md text-[var(--color-ink)] hover:bg-[var(--color-sunk)] transition-colors duration-[var(--duration-1,150ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] cursor-pointer"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle navigation menu"
             aria-expanded={open}
@@ -128,7 +131,7 @@ export function Header() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              className="min-[721px]:hidden overflow-hidden border-b border-[var(--color-rule)] bg-[var(--color-card)] shadow-[0_4px_12px_rgba(25,28,33,0.06)]"
+              className="min-[721px]:hidden overflow-hidden border-b border-[var(--color-rule)]/80 bg-[var(--color-card)]/90 backdrop-blur-xl shadow-[0_12px_32px_-4px_rgba(0,0,0,0.08)]"
             >
               <div className="px-5 py-4 flex flex-col gap-1">
                 <Link

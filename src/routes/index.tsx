@@ -169,37 +169,57 @@ function Home() {
                   <a href="#work">See our work</a>
                 </Button>
               </div>
+
+              {/* Studio Telemetry Readout */}
+              <div className="hero-animate-p flex flex-wrap items-center gap-3 text-[11px] font-mono text-[var(--color-ink-3)] select-none mt-8 pt-4 border-t border-[var(--color-rule)]/60 max-w-[460px]">
+                <span className="flex items-center gap-1.5 text-[var(--color-ink)]">
+                  <span className="size-1.5 rounded-full bg-[var(--color-live)] animate-pulse" />
+                  <span className="font-semibold text-[var(--color-live)]">ENGINE ACTIVE</span>
+                </span>
+                <span>•</span>
+                <span>LATENCY &lt; 14MS</span>
+                <span>•</span>
+                <span>100% IP TRANSFER</span>
+              </div>
             </div>
 
             {/* Right 5 columns (Columns 8-12): Top edge aligns with h1 first-line cap height */}
             <div className="min-[901px]:col-start-8 min-[901px]:col-span-5 w-full min-[901px]:mt-[52px]">
-              <Ledger
-                hover={false}
-                className="hero-ledger-container w-full"
-                header={
-                  <div className="hero-animate-ledger-header flex items-center justify-between px-[22px] py-[13px] bg-[var(--color-card)] select-none">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-3)] font-medium">
-                      STUDIO SPEC
-                    </span>
-                    <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.08em] uppercase text-[var(--color-ink-2)]">
-                      <span
-                        className="size-[6px] rounded-full bg-[var(--color-live)] shadow-[0_0_0_3px_rgb(15_110_76/0.12)] shrink-0"
-                        aria-hidden="true"
-                      />
-                      <span>
-                        <SlotNumberRoller value={slots} /> {slots === 1 ? "slot" : "slots"} available for Q3
+              <div className="relative group">
+                {/* Precision blueprint corner ticks */}
+                <span className="pointer-events-none absolute -top-2.5 -left-2.5 text-[10px] font-mono text-[var(--color-ink-3)]/60 select-none z-20">+</span>
+                <span className="pointer-events-none absolute -top-2.5 -right-2.5 text-[10px] font-mono text-[var(--color-ink-3)]/60 select-none z-20">+</span>
+                <span className="pointer-events-none absolute -bottom-2.5 -left-2.5 text-[10px] font-mono text-[var(--color-ink-3)]/60 select-none z-20">+</span>
+                <span className="pointer-events-none absolute -bottom-2.5 -right-2.5 text-[10px] font-mono text-[var(--color-ink-3)]/60 select-none z-20">+</span>
+
+                <Ledger
+                  hover={false}
+                  className="hero-ledger-container w-full shadow-[0_12px_36px_-10px_rgba(15,110,76,0.12)] border-[var(--color-rule)] transition-all duration-300 group-hover:shadow-[0_18px_44px_-10px_rgba(15,110,76,0.2)]"
+                  header={
+                    <div className="hero-animate-ledger-header flex items-center justify-between px-[22px] py-[13px] bg-[var(--color-card)] select-none">
+                      <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-3)] font-medium">
+                        STUDIO SPEC
                       </span>
+                      <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.08em] uppercase text-[var(--color-ink-2)]">
+                        <span
+                          className="size-[6px] rounded-full bg-[var(--color-live)] shadow-[0_0_0_3px_rgb(15_110_76/0.12)] shrink-0"
+                          aria-hidden="true"
+                        />
+                        <span>
+                          <SlotNumberRoller value={slots} /> {slots === 1 ? "slot" : "slots"} available for Q3
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                }
-                rows={[
-                  { key: "Senior Engineering", value: "0", accent: "junior handoffs" },
-                  { key: "Working Staging Demo", value: "Week 03", accent: "live build" },
-                  { key: "Codebase Ownership", value: "100", accent: "% client owned" },
-                  { key: "Sprint Iteration", value: "Weekly", accent: "cadence" },
-                  { key: "Intellectual Property", value: "Full", accent: "IP transfer" },
-                ]}
-              />
+                  }
+                  rows={[
+                    { key: "Senior Engineering", value: "0", accent: "junior handoffs" },
+                    { key: "Working Staging Demo", value: "Week 03", accent: "live build" },
+                    { key: "Codebase Ownership", value: "100", accent: "% client owned" },
+                    { key: "Sprint Iteration", value: "Weekly", accent: "cadence" },
+                    { key: "Intellectual Property", value: "Full", accent: "IP transfer" },
+                  ]}
+                />
+              </div>
             </div>
           </div>
 

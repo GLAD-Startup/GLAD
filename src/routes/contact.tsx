@@ -73,7 +73,7 @@ export const Route = createFileRoute("/contact")({
 const directContactRows = [
   {
     key: "Direct Email",
-    value: "hello@gladstudio.net",
+    value: "contact@gladstudio.net",
     accent: "Direct inbox monitored by senior engineers.",
   },
   {
@@ -149,7 +149,7 @@ function ContactPage() {
     setLoading(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/hello@gladstudio.net", {
+      await fetch("https://formsubmit.co/ajax/contact@gladstudio.net", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -374,10 +374,15 @@ function SocialsCard() {
   return (
     <div className="socials-card mt-4">
       <div className="socials-card-bg" />
-      <div className="socials-card-logo select-none">Socials</div>
+      <div className="socials-card-logo-wrap select-none">
+        <div className="socials-card-logo">Socials</div>
+        <div className="socials-card-hint">
+          <span>Hover to explore</span>
+        </div>
+      </div>
 
       {/* Email */}
-      <a href="mailto:hello@gladstudio.net" aria-label="Email">
+      <a href="mailto:contact@gladstudio.net" aria-label="Email">
         <div className="socials-card-box socials-box-1 cursor-pointer">
           <span className="socials-card-icon">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="svg">

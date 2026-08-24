@@ -210,7 +210,7 @@ Inbound links to each of the 28 canonical URLs:
 ### Step 9 — Generative Engine Signals (GEO)
 
 1. **`llms.txt` Synchronized:** Contains all 28 canonical routes with concise one-line descriptions matching current offerings.
-2. **Entity Consistency:** Organization name (`"GLAD Studio"`), canonical domain (`https://gladstudio.net`), and primary contact email (`hello@gladstudio.net`) are consistent across JSON-LD, footer, and meta descriptions.
+2. **Entity Consistency:** Organization name (`"GLAD Studio"`), canonical domain (`https://gladstudio.net`), and primary contact email (`contact@gladstudio.net`) are consistent across JSON-LD, footer, and meta descriptions.
 3. **No Cookie Gating:** Server responses to unauthenticated, cookie-free GET requests return 100% complete body markup.
 4. **`robots.txt`:** Allows all search and AI crawlers with clean `Allow: /` and sitemap declaration.
 

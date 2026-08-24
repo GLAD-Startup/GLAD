@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArticlePage } from "@/components/site/ArticlePage";
+import { InsightPipelineCard } from "@/components/site/InsightPipelineCard";
 import { articles, buildArticleHead } from "@/data/insights.data";
 
 const article = articles.find((a) => a.slug === "what-is-ai-agent-development")!;
@@ -27,24 +28,118 @@ function WhatIsAiAgentDevelopmentPage() {
         within an iterative sense-plan-act loop. The conceptual flow follows seven distinct stages:
       </p>
 
-      <pre>
-        <code>
-{`1. Goal Ingestion
-   User provides an objective: "Verify unbilled hotel folios and notify managers."
-2. Task Decomposition (Planning)
-   Agent plans: Step 1 (Query database) -> Step 2 (Calculate GST slabs) -> Step 3 (Send Slack alert).
-3. Tool Selection
-   Agent chooses tool: query_folios_sql()
-4. Tool Execution & Observation
-   Backend executes query, returns JSON dataset of unbilled stays.
-5. Reasoning on Observation
-   Agent evaluates returned records against threshold criteria.
-6. Subsequent Tool Execution
-   Agent selects next tool: send_slack_alert()
-7. Termination & Summary
-   Agent verifies all tasks succeeded and returns final status to user.`}
-        </code>
-      </pre>
+      <InsightPipelineCard
+        title="The Autonomous Execution Loop"
+        badge="EXECUTION LOOP TRACE"
+        steps={[
+          {
+            step: "01",
+            title: "Goal Ingestion",
+            description: "User provides an objective: \"Verify unbilled hotel folios and notify managers.\"",
+            tag: "INPUT",
+            output: {
+              status: "INGESTED",
+              latency: "10ms",
+              data: {
+                goal: "Verify unbilled hotel folios and notify managers",
+                user_id: "usr_ops_842",
+                parameters: { date_scope: "LAST_48_HOURS", threshold_inr: 5000 },
+              },
+            },
+          },
+          {
+            step: "02",
+            title: "Task Decomposition (Planning)",
+            description: "Agent plans: Step 1 (Query database) -> Step 2 (Calculate GST slabs) -> Step 3 (Send Slack alert).",
+            tag: "PLANNING",
+            output: {
+              status: "PLANNED",
+              latency: "140ms",
+              data: {
+                plan_id: "plan_948a",
+                dag_steps: [
+                  "1. query_folios_sql(unbilled=true)",
+                  "2. calculate_gst_tax(tax_slab=0.18)",
+                  "3. send_slack_alert(channel='#hotel-finance')",
+                ],
+              },
+            },
+          },
+          {
+            step: "03",
+            title: "Tool Selection",
+            description: "Agent evaluates available tool catalogue and selects: query_folios_sql().",
+            tag: "TOOL SELECT",
+            output: {
+              status: "SELECTED",
+              latency: "15ms",
+              data: {
+                tool_name: "query_folios_sql",
+                catalog_match_confidence: 0.99,
+                auth_scope: "READ_ONLY_FINANCE_DB",
+              },
+            },
+          },
+          {
+            step: "04",
+            title: "Tool Execution & Observation",
+            description: "Backend executes SQL query and returns structured JSON dataset of unbilled stays.",
+            tag: "EXECUTION",
+            output: {
+              status: "QUERY_OK",
+              latency: "45ms",
+              data: {
+                sql: "SELECT * FROM folios WHERE status = 'UNBILLED' AND checkout_date < NOW() - INTERVAL '24h'",
+                records_found: 3,
+                total_outstanding_inr: 48500,
+              },
+            },
+          },
+          {
+            step: "05",
+            title: "Reasoning on Observation",
+            description: "Agent evaluates returned records against threshold criteria and tax policies.",
+            tag: "LLM REASON",
+            output: {
+              status: "EVALUATED",
+              latency: "210ms",
+              data: {
+                findings: "3 folios overdue > 24 hours. Total risk exposure: ₹48,500 + 18% GST.",
+                decision: "TRIGGER_IMMEDIATE_ESCALATION",
+              },
+            },
+          },
+          {
+            step: "06",
+            title: "Subsequent Tool Execution",
+            description: "Agent selects and triggers next tool: send_slack_alert().",
+            tag: "DISPATCH",
+            output: {
+              status: "ALERTED",
+              latency: "68ms",
+              data: {
+                tool_call: "send_slack_alert(#hotel-finance)",
+                message: "⚠️ Audit Alert: 3 Unbilled Folios detected (Total: ₹57,230 incl. GST). Review folios #104, #109, #112.",
+                delivery_status: "200_OK",
+              },
+            },
+          },
+          {
+            step: "07",
+            title: "Termination & Summary",
+            description: "Agent verifies all tasks succeeded and returns final structured audit status to user.",
+            tag: "COMPLETION",
+            output: {
+              status: "ALL_TASKS_COMPLETE",
+              latency: "8ms",
+              data: {
+                summary: "Autonomous audit completed successfully in 496ms. 3 folios identified and manager notified.",
+                execution_cost: "$0.0031",
+              },
+            },
+          },
+        ]}
+      />
 
       <h2>Core Components of an AI Agent</h2>
       <p>

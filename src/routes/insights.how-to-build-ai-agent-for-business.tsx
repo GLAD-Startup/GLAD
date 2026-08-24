@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArticlePage } from "@/components/site/ArticlePage";
+import { InsightPipelineCard } from "@/components/site/InsightPipelineCard";
 import { articles, buildArticleHead } from "@/data/insights.data";
 
 const article = articles.find((a) => a.slug === "how-to-build-ai-agent-for-business")!;
@@ -109,16 +110,99 @@ function HowToBuildAiAgentArticlePage() {
         ):
       </p>
 
-      <pre>
-        <code>
-{`The Pipeline Sequence:
-1. Inbound lead submits company name & work email.
-2. Agent invokes search_web() to fetch company headcount, revenue signals, and tech stack.
-3. Agent invokes query_icp_rag() to compare company profile against Ideal Customer Profile guidelines in vector store.
-4. Agent calculates fit score (1–100) and formats enriched CRM payload via Pydantic model.
-5. Agent writes record to PostgreSQL database and alerts account executive via Slack webhook if score > 80.`}
-        </code>
-      </pre>
+      <InsightPipelineCard
+        title="The Pipeline Sequence"
+        badge="AGENT PIPELINE SEQUENCE"
+        steps={[
+          {
+            step: "01",
+            title: "Inbound lead submits company name & work email.",
+            description: "Payload captured through webhook and initialized in agent memory state.",
+            tag: "INGEST",
+            output: {
+              status: "CAPTURED",
+              latency: "14ms",
+              data: {
+                event: "webhook.lead_ingested",
+                lead: {
+                  name: "Alex Mercer",
+                  company: "Meridian Labs",
+                  domain: "meridian.io",
+                  email: "alex@meridian.io",
+                },
+                ip_geo: "San Francisco, CA",
+              },
+            },
+          },
+          {
+            step: "02",
+            title: "Agent invokes search_web() to fetch company headcount, revenue signals, and tech stack.",
+            description: "Multi-modal web crawler returns structured JSON signals on the prospect company.",
+            tag: "TOOL CALL",
+            output: {
+              status: "EXTRACTED",
+              latency: "380ms",
+              data: {
+                tool_call: "search_web(\"Meridian Labs\")",
+                extracted_signals: {
+                  headcount: "94 employees",
+                  funding_stage: "Series B ($18M)",
+                  cloud_stack: ["Next.js", "PostgreSQL", "AWS"],
+                  hiring_signal: "12 open engineering positions",
+                },
+              },
+            },
+          },
+          {
+            step: "03",
+            title: "Agent invokes query_icp_rag() to compare company profile against Ideal Customer Profile guidelines in vector store.",
+            description: "Hybrid vector search matches company against high-converting customer segments in pgvector.",
+            tag: "RAG QUERY",
+            output: {
+              status: "MATCHED",
+              latency: "42ms",
+              data: {
+                vector_search: "query_icp_rag(dims=1536)",
+                matched_cluster: "Enterprise B2B SaaS (50-200 HC)",
+                cosine_similarity: 0.948,
+                segment_weight: "HIGH_PRIORITY",
+              },
+            },
+          },
+          {
+            step: "04",
+            title: "Agent calculates fit score (1–100) and formats enriched CRM payload via Pydantic model.",
+            description: "Strict schema validation ensures zero null field propagation or malformed types.",
+            tag: "PYDANTIC",
+            output: {
+              status: "VALIDATED",
+              latency: "6ms",
+              data: {
+                pydantic_model: "LeadProfilePayload",
+                calculated_fit_score: 92,
+                tier: "A+",
+                confidence: 0.99,
+                routed_action: "DISPATCH_DIRECT_TO_AE",
+              },
+            },
+          },
+          {
+            step: "05",
+            title: "Agent writes record to PostgreSQL database and alerts account executive via Slack webhook if score > 80.",
+            description: "Qualified opportunities trigger instant notifications with full enrichment context.",
+            tag: "DISPATCH",
+            output: {
+              status: "DELIVERED",
+              latency: "75ms",
+              data: {
+                database_insert: "INSERT INTO crm_leads ('ld_9841', 92) -> SUCCESS",
+                slack_webhook: "POST #leads-enterprise -> 200 OK",
+                alert_preview: "🚀 High-Value Lead Alert: Meridian Labs (Fit Score: 92/100)",
+              },
+            },
+          },
+        ]}
+      />
 
       <h2>Adding Knowledge: Integrating RAG with Agents</h2>
       <p>

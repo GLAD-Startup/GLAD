@@ -32,7 +32,7 @@ export function HeroGrid() {
       if (isInside) {
         heroEl.style.setProperty("--mx", `${latestX}px`);
         heroEl.style.setProperty("--my", `${latestY}px`);
-        heroEl.style.setProperty("--hero-mask-radius", "280px");
+        heroEl.style.setProperty("--hero-mask-radius", "320px");
       } else {
         heroEl.style.setProperty("--hero-mask-radius", "0px");
       }
@@ -72,10 +72,21 @@ export function HeroGrid() {
       aria-hidden="true"
       className="hero-grid-container"
     >
-      {/* Base Layer: 64px square grid in var(--color-rule) at 0.30 opacity */}
+      {/* Base Grid Layer: 64px square grid */}
       <div className="hero-grid-base" />
-      {/* Reactive Layer: 64px square grid in var(--color-rule-hi) at 0.90 opacity revealed via pointer mask */}
+
+      {/* Precision Blueprint Laser Beams (Top-to-Bottom and Left-to-Right) */}
+      <div className="hero-laser-top-to-bottom" />
+      <div className="hero-laser-left-to-right" />
+
+      {/* Pointer-Reactive Grid Spotlight */}
       <div className="hero-grid-reactive" />
+
+      {/* Precision Blueprint Calibration Crosses */}
+      <span className="pointer-events-none absolute top-4 left-6 text-[10px] font-mono text-[var(--color-ink-3)]/40 select-none">+</span>
+      <span className="pointer-events-none absolute top-4 right-6 text-[10px] font-mono text-[var(--color-ink-3)]/40 select-none">+</span>
+      <span className="pointer-events-none absolute bottom-8 left-6 text-[10px] font-mono text-[var(--color-ink-3)]/40 select-none">+</span>
+      <span className="pointer-events-none absolute bottom-8 right-6 text-[10px] font-mono text-[var(--color-ink-3)]/40 select-none">+</span>
     </div>
   );
 }

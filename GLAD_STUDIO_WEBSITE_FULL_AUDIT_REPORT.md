@@ -311,7 +311,7 @@ Each article includes:
 6. **Spline 3D Embed**:
    - WebGL 3D interactive mesh embedded into the homepage hero.
 7. **FormSubmit AJAX Lead Pipeline**:
-   - Headless form endpoints submitting directly to `hello@gladstudio.net` with asynchronous state feedback.
+   - Headless form endpoints submitting directly to `contact@gladstudio.net` with asynchronous state feedback.
 
 ---
 

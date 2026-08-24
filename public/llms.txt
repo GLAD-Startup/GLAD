@@ -59,6 +59,6 @@
 - **Q-SAFE**: Zero-Knowledge Encrypted Secure File Transmission Portal (https://gladstudio.net/portfolio/q-safe)
 
 ## Contact Information
-- Email: hello@gladstudio.net
+- Email: contact@gladstudio.net
 - Website: https://gladstudio.net
 - Location: India (Serving global client base)
