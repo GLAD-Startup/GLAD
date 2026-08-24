@@ -144,13 +144,8 @@ function Home() {
           <div className="grid grid-cols-1 min-[901px]:grid-cols-12 min-[901px]:gap-x-8 gap-y-10 min-[901px]:gap-y-0 items-start w-full">
             {/* Left 6 columns (Columns 1-6) */}
             <div className="min-[901px]:col-span-6 flex flex-col items-start text-left relative z-30 min-[901px]:-translate-x-6 lg:-translate-x-10 xl:-translate-x-14">
-              {/* Capacity Chip with entrance choreography */}
-              <Chip live className="hero-animate-chip">
-                {slots} {slots === 1 ? "slot" : "slots"} available for Q3
-              </Chip>
-
               {/* h1: Dynamic Kinetic Heading */}
-              <h1 className="max-w-[13ch] text-[clamp(44px,5.2vw,72px)] leading-[1.04] tracking-tight font-display font-medium text-[var(--color-ink)] mt-5">
+              <h1 className="max-w-[13ch] text-[clamp(44px,5.2vw,72px)] leading-[1.04] tracking-tight font-display font-medium text-[var(--color-ink)]">
                 We engineer digital products that{" "}
                 <span className="inline-block relative min-w-[5ch]">
                   <AnimatePresence mode="wait">

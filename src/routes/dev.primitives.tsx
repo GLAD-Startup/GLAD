@@ -225,7 +225,7 @@ export function PrimitivesGallery() {
               { key: "Codebase Ownership", value: "100", accent: "% client" },
               { key: "Sprint Cadence", value: "1", accent: "week" },
               { key: "Deployment Latency", value: "< 24", accent: "hours" },
-              { key: "Active Capacity", value: "2", accent: "slots Q3" },
+              { key: "Active Capacity", value: "2", accent: "projects" },
             ]}
           />
         </section>

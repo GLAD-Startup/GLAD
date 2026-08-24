@@ -185,15 +185,15 @@ function ContactPage() {
                 senior engineers who will design, architect, and ship your software.
               </p>
 
-              {/* Booking slot notice */}
+              {/* Availability notice */}
               <div className="mt-8 p-4 rounded-[var(--radius-md,8px)] border border-[var(--color-rule)] bg-[var(--color-card)] w-full max-w-[480px]">
                 <div className="flex items-center gap-2 text-[13px] font-mono text-[var(--color-ink)]">
                   <span className="size-2 rounded-full bg-[var(--color-live)] animate-pulse" />
                   <span className="font-semibold">Current Availability:</span>
-                  <span className="text-[var(--color-ink-2)]">Q3 Slots Open</span>
+                  <span className="text-[var(--color-ink-2)]">Accepting New Projects</span>
                 </div>
                 <p className="text-[13px] text-[var(--color-ink-3)] mt-1.5 leading-relaxed">
-                  We take on a limited number of client engagements at a time to ensure senior engineering focus.
+                  We partner directly with high-growth teams and founders to architect and ship software.
                 </p>
               </div>
 

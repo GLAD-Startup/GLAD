@@ -7,15 +7,9 @@ import {
   Database,
   ShieldCheck,
   Zap,
-  Server,
-  Activity,
-  Layers,
-  Workflow,
-  CreditCard,
-  LifeBuoy,
 } from "lucide-react";
 
-/* ── Card data (12 capabilities) ─────────────────────────── */
+/* ── Card data (6 core capabilities for clean, non-overlapping spacing) ─ */
 
 interface CardData {
   id: string;
@@ -39,7 +33,7 @@ const CARDS: CardData[] = [
     tag: "EDGE SSR",
     specs: [
       { label: "TTFB", val: "< 45ms" },
-      { label: "Lighthouse", val: "100/100" },
+      { label: "Score", val: "100/100" },
     ],
   },
   {
@@ -62,7 +56,7 @@ const CARDS: CardData[] = [
     subtitle: "Python · LangGraph · RAG",
     icon: Sparkles,
     accent: "#C8A84E",
-    tag: "MULTI-MODEL",
+    tag: "AGENTS",
     specs: [
       { label: "Tokens", val: "streamed" },
       { label: "Eval", val: "passing" },
@@ -88,9 +82,9 @@ const CARDS: CardData[] = [
     subtitle: "Zero-Trust VPC · Encryption",
     icon: ShieldCheck,
     accent: "#E11D48",
-    tag: "SOC2 READY",
+    tag: "SOC2",
     specs: [
-      { label: "Encryption", val: "AES-256 GCM" },
+      { label: "Cipher", val: "AES-256" },
       { label: "VPC", val: "Isolated" },
     ],
   },
@@ -101,97 +95,19 @@ const CARDS: CardData[] = [
     subtitle: "FastAPI · Queues · Webhooks",
     icon: Zap,
     accent: "#D97706",
-    tag: "AUTOMATED",
+    tag: "FASTAPI",
     specs: [
       { label: "Jobs/day", val: "12k" },
       { label: "Retry", val: "idempotent" },
-    ],
-  },
-  {
-    id: "delivery",
-    number: "07",
-    title: "DELIVERY",
-    subtitle: "Docker · CI/CD · Staging",
-    icon: Server,
-    accent: "#0284C7",
-    tag: "CI/CD",
-    specs: [
-      { label: "Staging", val: "week 3" },
-      { label: "Deploys", val: "daily" },
-    ],
-  },
-  {
-    id: "observability",
-    number: "08",
-    title: "OBSERVABILITY",
-    subtitle: "Traces · Logs · Alerts",
-    icon: Activity,
-    accent: "#059669",
-    tag: "TELEMETRY",
-    specs: [
-      { label: "p95", val: "< 180ms" },
-      { label: "SLO", val: "99.9%" },
-    ],
-  },
-  {
-    id: "design-systems",
-    number: "09",
-    title: "DESIGN SYSTEMS",
-    subtitle: "Tokens · Figma · Storybook",
-    icon: Layers,
-    accent: "#DB2777",
-    tag: "SYSTEM",
-    specs: [
-      { label: "Components", val: "120+" },
-      { label: "A11y", val: "WCAG AA" },
-    ],
-  },
-  {
-    id: "integrations",
-    number: "10",
-    title: "INTEGRATIONS",
-    subtitle: "REST · GraphQL · Webhooks",
-    icon: Workflow,
-    accent: "#8B5CF6",
-    tag: "API",
-    specs: [
-      { label: "Partners", val: "40+" },
-      { label: "Sync", val: "realtime" },
-    ],
-  },
-  {
-    id: "payments",
-    number: "11",
-    title: "PAYMENTS",
-    subtitle: "UPI · Cards · Subscriptions",
-    icon: CreditCard,
-    accent: "#059669",
-    tag: "FINTECH",
-    specs: [
-      { label: "PCI", val: "scoped" },
-      { label: "Settlement", val: "T+1" },
-    ],
-  },
-  {
-    id: "support",
-    number: "12",
-    title: "SUPPORT",
-    subtitle: "SLA · Monitoring · On-call",
-    icon: LifeBuoy,
-    accent: "#D97706",
-    tag: "24/7 SLA",
-    specs: [
-      { label: "Response", val: "< 2h" },
-      { label: "Coverage", val: "24/7" },
     ],
   },
 ];
 
 /* ── Constants ──────────────────────────────────────────── */
 
-const CARD_COUNT = CARDS.length; // 12
-const ANGULAR_OFFSET = 360 / CARD_COUNT; // 30° equidistant spacing
-const REVOLUTION_MS = 48_000; // 48 s per full revolution
+const CARD_COUNT = CARDS.length; // 6 cards
+const ANGULAR_OFFSET = 360 / CARD_COUNT; // 60° spacing guarantees 130px+ clearance on compact radius
+const REVOLUTION_MS = 44_000; // 44 s per full revolution
 const DEG_PER_MS = 360 / REVOLUTION_MS; // constant speed across all cards
 
 /* ── Helpers ────────────────────────────────────────────── */
@@ -207,16 +123,16 @@ function normAngle(a: number): number {
 interface OrbitConfig {
   hubXPct: number;
   hubYPct: number;
-  r: number; // base single circle radius
+  r: number; // base compact radius close to the sphere
 }
 
 function getOrbitConfig(width: number): OrbitConfig {
   if (width < 1280) {
-    // Tablet: center (82%, 29%), base radius 290px
-    return { hubXPct: 82, hubYPct: 29, r: 290 };
+    // Tablet: center (82%, 29%), compact radius 280px (chord spacing 280px > 215px card width)
+    return { hubXPct: 82, hubYPct: 29, r: 280 };
   }
-  // Desktop: center (80%, 30%), base radius 390px
-  return { hubXPct: 80, hubYPct: 30, r: 390 };
+  // Desktop: center (82%, 30%), compact radius 360px (chord spacing 360px > 230px card width)
+  return { hubXPct: 82, hubYPct: 30, r: 360 };
 }
 
 /* ── Shared Card UI ─────────────────────────────────────── */
@@ -224,37 +140,37 @@ function getOrbitConfig(width: number): OrbitConfig {
 function CardInner({ card }: { card: CardData }) {
   const IconComp = card.icon;
   return (
-    <div className="p-3.5 sm:p-4 flex flex-col justify-between gap-2.5">
+    <div className="p-3 sm:p-3.5 flex flex-col justify-between gap-2">
       {/* Category & Status */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-1.5">
+        <div className="flex items-center gap-1.5 min-w-0">
           <span
-            className="size-2 rounded-full shadow-[0_0_0_3px_rgba(0,0,0,0.06)]"
+            className="size-1.5 rounded-full shrink-0 shadow-[0_0_0_2px_rgba(0,0,0,0.06)]"
             style={{ backgroundColor: card.accent }}
           />
-          <span className="font-mono text-[10.5px] font-bold tracking-[0.08em] text-[var(--color-ink)]">
+          <span className="font-mono text-[9.5px] font-bold tracking-[0.06em] text-[var(--color-ink)] truncate">
             {card.number} // {card.title}
           </span>
         </div>
-        <span className="px-1.5 py-0.5 rounded-[4px] border border-[var(--color-rule)] bg-[#F5F2EB] text-[8.5px] font-mono font-bold text-[var(--color-ink)]">
+        <span className="shrink-0 px-1.5 py-0.5 rounded-[4px] border border-[var(--color-rule)] bg-[#F5F2EB] text-[8px] font-mono font-bold text-[var(--color-ink)]">
           {card.tag}
         </span>
       </div>
 
       {/* Subtitle & Icon */}
       <div className="flex items-center justify-between gap-2">
-        <div className="text-[12.5px] font-semibold text-[var(--color-ink)] truncate">
+        <div className="text-[11.5px] font-semibold text-[var(--color-ink)] truncate">
           {card.subtitle}
         </div>
-        <IconComp className="size-4 shrink-0" style={{ color: card.accent }} />
+        <IconComp className="size-3.5 shrink-0" style={{ color: card.accent }} />
       </div>
 
       {/* Spec Metrics */}
-      <div className="flex items-center gap-1.5 pt-2 border-t border-[var(--color-rule)]/80">
+      <div className="flex items-center gap-1.5 pt-1.5 border-t border-[var(--color-rule)]/80">
         {card.specs.map((spec, si) => (
           <span
             key={si}
-            className="px-2 py-0.5 rounded-[5px] bg-[#F4F1EA] border border-[#DDD6C8] text-[9.5px] font-mono text-[var(--color-ink)] font-medium"
+            className="px-1.5 py-0.5 rounded-[4px] bg-[#F4F1EA] border border-[#DDD6C8] text-[8.5px] font-mono text-[var(--color-ink)] font-medium"
           >
             <span className="text-[var(--color-ink-3)] font-normal">{spec.label}:</span>{" "}
             <strong className="font-bold text-[var(--color-ink)]">{spec.val}</strong>
@@ -270,19 +186,20 @@ function CardInner({ card }: { card: CardData }) {
 function CornerMarks() {
   return (
     <>
-      <span className="pointer-events-none absolute top-1.5 left-2 text-[8.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
-      <span className="pointer-events-none absolute top-1.5 right-2 text-[8.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
-      <span className="pointer-events-none absolute bottom-1.5 left-2 text-[8.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
-      <span className="pointer-events-none absolute bottom-1.5 right-2 text-[8.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
+      <span className="pointer-events-none absolute top-1 left-1.5 text-[7.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
+      <span className="pointer-events-none absolute top-1 right-1.5 text-[7.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
+      <span className="pointer-events-none absolute bottom-1 left-1.5 text-[7.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
+      <span className="pointer-events-none absolute bottom-1 right-1.5 text-[7.5px] font-mono text-[var(--color-ink-3)] font-bold select-none">+</span>
     </>
   );
 }
 
 /* ════════════════════════════════════════════════════════════
    HeroOrbit — desktop/tablet orbit overlay
-   - Single circle, equidistant 30°, constant flow (no hover pause)
-   - Dynamic scroll expansion: circle expands as page scrolls down,
-     cards spread apart and exit the screen while sphere stays in place.
+   - Compact radius (360px), tight around sphere, away from text
+   - 6 equidistant cards at 60° (360px chord distance, 130px gap)
+   - Zero overlap, constant uninterrupted flow
+   - Dynamic scroll expansion: circle expands as page scrolls down
    ════════════════════════════════════════════════════════════ */
 
 export function HeroOrbit() {
@@ -372,9 +289,9 @@ export function HeroOrbit() {
       // Scroll-driven expansion: circle grows as user scrolls down
       const scrollY = window.scrollY || window.pageYOffset || 0;
       const expansion = scrollY * 2.2;
-      const currentR = cfg.r + expansion; // circle expands on scroll
+      const currentR = cfg.r + expansion; // compact base radius expands on scroll
 
-      // Update SVG rings with current expanding radius
+      // Update SVG rings with current radius
       if (svgMainRingRef.current) {
         svgMainRingRef.current.setAttribute("cx", String(hx));
         svgMainRingRef.current.setAttribute("cy", String(hy));
@@ -385,14 +302,14 @@ export function HeroOrbit() {
       if (svgInnerRingRef.current) {
         svgInnerRingRef.current.setAttribute("cx", String(hx));
         svgInnerRingRef.current.setAttribute("cy", String(hy));
-        svgInnerRingRef.current.setAttribute("r", String(Math.max(0, currentR - 120)));
+        svgInnerRingRef.current.setAttribute("r", String(Math.max(0, currentR - 100)));
         const opacity = Math.max(0, 0.30 - (scrollY / 900) * 0.28);
         svgInnerRingRef.current.setAttribute("opacity", String(opacity));
       }
       if (svgOuterRingRef.current) {
         svgOuterRingRef.current.setAttribute("cx", String(hx));
         svgOuterRingRef.current.setAttribute("cy", String(hy));
-        svgOuterRingRef.current.setAttribute("r", String(currentR + 120));
+        svgOuterRingRef.current.setAttribute("r", String(currentR + 100));
         const opacity = Math.max(0, 0.22 - (scrollY / 900) * 0.22);
         svgOuterRingRef.current.setAttribute("opacity", String(opacity));
       }
@@ -402,16 +319,16 @@ export function HeroOrbit() {
         angleRef.current = normAngle(angleRef.current + DEG_PER_MS * dt);
       }
 
-      // Position each card along the expanding circular trajectory
+      // Position each of the 6 cards along the compact circular trajectory
       for (let i = 0; i < CARD_COUNT; i++) {
         const node = cardRefs.current[i];
         if (!node) continue;
 
-        // Equidistant 30° spacing
+        // Equidistant 60° spacing on compact circle (always 130px+ clearance)
         const cardAngle = normAngle(angleRef.current + i * ANGULAR_OFFSET);
 
-        // Visible sweep arc across the right & bottom-left quadrants
-        const isVisibleAngle = cardAngle >= 20 && cardAngle <= 250;
+        // Visible sweep arc across the right & bottom-left quadrants (~15° to ~255°)
+        const isVisibleAngle = cardAngle >= 15 && cardAngle <= 255;
 
         if (!isVisibleAngle) {
           node.style.display = "none";
@@ -432,7 +349,7 @@ export function HeroOrbit() {
             node.style.pointerEvents = "none";
           } else {
             const isHovered = hoveredIdxRef.current === i;
-            const liftY = isHovered ? -8 : 0;
+            const liftY = isHovered ? -6 : 0;
             const hoverScale = isHovered ? 1.03 : 1.0;
 
             node.style.display = "block";
@@ -463,8 +380,8 @@ export function HeroOrbit() {
           const node = cardRefs.current[i];
           if (!node) continue;
 
-          if (i < 6) {
-            const staticAngle = arcStart + ((arcEnd - arcStart) / 5) * i;
+          if (i < 4) {
+            const staticAngle = arcStart + ((arcEnd - arcStart) / 3) * i;
             const rad = staticAngle * DEG2RAD;
             const x = hx + Math.cos(rad) * currentR;
             const y = hy + Math.sin(rad) * currentR;
@@ -543,7 +460,7 @@ export function HeroOrbit() {
         ref={hubRef}
         className="absolute z-10 flex items-center justify-center pointer-events-none"
         style={{
-          left: "80%",
+          left: "82%",
           top: "30%",
           width: 270,
           height: 270,
@@ -583,14 +500,14 @@ export function HeroOrbit() {
         </div>
       </div>
 
-      {/* Orbiting cards on Single Circle (12 Total, Equidistant at 30°, Equal Speed) */}
+      {/* Orbiting cards on Single Circle (6 Equidistant Cards at 60°, Zero Overlap) */}
       {CARDS.map((card, i) => (
         <div
           key={card.id}
           ref={(el) => { cardRefs.current[i] = el; }}
           onPointerEnter={() => onCardEnter(i)}
           onPointerLeave={onCardLeave}
-          className="absolute top-0 left-0 pointer-events-auto w-[265px] lg:w-[280px] rounded-[14px] border-[1.5px] border-[#D6CFBE] bg-white/[0.97] shadow-[0_14px_30px_-6px_rgba(25,28,33,0.10),0_2px_6px_rgba(0,0,0,0.04)] backdrop-blur-lg cursor-default select-none hover:border-[var(--color-ink)] hover:shadow-[0_24px_48px_-10px_rgba(25,28,33,0.18),0_4px_12px_rgba(0,0,0,0.06)] transition-[border-color,box-shadow] duration-200 ease-out"
+          className="absolute top-0 left-0 pointer-events-auto w-[225px] lg:w-[235px] rounded-[13px] border-[1.5px] border-[#D6CFBE] bg-white/[0.97] shadow-[0_14px_30px_-6px_rgba(25,28,33,0.10),0_2px_6px_rgba(0,0,0,0.04)] backdrop-blur-lg cursor-default select-none hover:border-[var(--color-ink)] hover:shadow-[0_24px_48px_-10px_rgba(25,28,33,0.18),0_4px_12px_rgba(0,0,0,0.06)] transition-[border-color,box-shadow] duration-200 ease-out"
           style={{
             willChange: "transform",
             visibility: "hidden",
