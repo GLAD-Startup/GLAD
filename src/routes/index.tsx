@@ -23,7 +23,8 @@ import { HeroGrid } from "@/components/site/HeroGrid";
 import { HeroOrbit, HeroMobileCards } from "@/components/site/HeroStack3D";
 import { ScrollIndicator } from "@/components/site/ScrollIndicator";
 import { ScrollKineticText, EditorialScrollManifesto } from "@/components/site/ScrollKineticText";
-import { BlueprintVerticalTrace } from "@/components/site/BlueprintVerticalTrace";
+import { ServicesExpandingAccordion } from "@/components/site/ServicesExpandingAccordion";
+import { ProcessCinematicZoom } from "@/components/site/ProcessCinematicZoom";
 import { SlotNumberRoller } from "@/components/site/SlotNumberRoller";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
 import { faqs, projects, testimonials } from "@/components/site/data";
@@ -128,7 +129,6 @@ function Home() {
   return (
     <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-live)] selection:text-[var(--color-card)]">
       <Header />
-      <BlueprintVerticalTrace />
 
       <main>
         {/* Hero ────────────────────────────────────────── */}
@@ -230,43 +230,7 @@ function Home() {
             />
           </div>
 
-          <div className="surface p-2 sm:p-4">
-            <Row
-              index="01"
-              title="MVP Development"
-              description="Ship a credible v1 in weeks, not quarters. Fixed scope, senior developers, and working staging builds from week three."
-              meta="4 – 8 WEEKS"
-              href="/services/mvp-development"
-            />
-            <Row
-              index="02"
-              title="Web Applications"
-              description="Custom dashboards, SaaS, CRM and internal platforms with clean architecture, robust security, and type-safe frontends."
-              meta="6 – 16 WEEKS"
-              href="/services/web-application-development"
-            />
-            <Row
-              index="03"
-              title="Mobile Apps"
-              description="Cross-platform iOS and Android applications with native feel, offline-first sync, and store submissions handled end-to-end."
-              meta="8 – 14 WEEKS"
-              href="/services/mobile-app-development"
-            />
-            <Row
-              index="04"
-              title="AI Solutions"
-              description="Custom LLM integrations, document intelligence, RAG pipelines, and automated agent workflows embedded into your product."
-              meta="4 – 12 WEEKS"
-              href="/services/ai-solutions"
-            />
-            <Row
-              index="05"
-              title="Business Automation"
-              description="Eliminate manual workflows, sync disparate systems, and build automated operational pipelines that save hundreds of hours."
-              meta="3 – 8 WEEKS"
-              href="/services/business-automation"
-            />
-          </div>
+          <ServicesExpandingAccordion />
         </Section>
 
         {/* Editorial Kinetic Scroll Manifesto ───────────────── */}
@@ -339,73 +303,8 @@ function Home() {
           </div>
         </Section>
 
-        {/* Process (tone="deep" <- DARK BAND) ──────────── */}
-        <Section size="default" tone="deep" index="03">
-          <SectionRail label="HOW WE WORK" />
-
-          <div className="max-w-3xl mb-8">
-            <h2 className="text-[clamp(30px,3vw,38px)] font-display font-medium text-[var(--color-deep-ink)]">
-              Process with zero mystery.
-            </h2>
-            <ScrollKineticText
-              text="From initial architecture discovery to production DNS handover, every milestone is scoped, tracked, and delivered with weekly demo builds."
-              highlightWords={["architecture", "discovery", "production", "weekly", "demo"]}
-              tone="deep"
-              className="text-[16px] sm:text-[17px] text-[var(--color-deep-ink-2,#A0AEC0)] mt-2 leading-relaxed"
-            />
-          </div>
-
-          <div className="border border-[var(--color-deep-rule)] rounded-[var(--radius-lg,14px)] bg-[#171B20] p-2 sm:p-4">
-            <Row
-              index="01"
-              title="Discovery"
-              description="Technical audit, architecture roadmap, fixed-scope alignment, and sprint backlog."
-              meta="WEEK 01"
-            />
-            <Row
-              index="02"
-              title="Requirements"
-              description="Schema definition, API contracts, UI wireframes, and milestone sign-off."
-              meta="WEEK 01"
-            />
-            <Row
-              index="03"
-              title="Planning"
-              description="Repository setup, CI/CD pipeline, staging environment, and initial core scaffolds."
-              meta="WEEK 02"
-            />
-            <Row
-              index="04"
-              title="Design"
-              description="Interactive prototypes, typography system, responsive components, and user flows."
-              meta="WEEK 02 – 03"
-            />
-            <Row
-              index="05"
-              title="Development"
-              description="Weekly sprint iterations, continuous staging deployments, and automated testing."
-              meta="WEEK 03 – ONWARD"
-            />
-            <Row
-              index="06"
-              title="Launch"
-              description="Production deployment, DNS/SSL handover, full IP transfer, and ongoing maintenance."
-              meta="FINAL WEEK"
-            />
-          </div>
-
-          <div className="mt-8">
-            <Link
-              to="/process"
-              className="inline-flex items-center gap-1.5 text-[14px] text-[var(--color-deep-ink)] font-medium hover:underline group"
-            >
-              <span>Explore our full engineering process</span>
-              <span className="inline-block transition-transform duration-[var(--duration-1)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] group-hover:translate-x-[3px]">
-                →
-              </span>
-            </Link>
-          </div>
-        </Section>
+        {/* Process (tone="deep" <- DARK BAND with Apple-style Cinematic Zoom) ──────────── */}
+        <ProcessCinematicZoom />
 
         {/* Selected Work (tone="paper") ─────────────────── */}
         <Section size="default" tone="paper" index="04" id="work">

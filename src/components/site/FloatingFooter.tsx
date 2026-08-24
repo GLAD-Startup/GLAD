@@ -21,8 +21,19 @@ export function FloatingFooter() {
 
     const checkVisibility = () => {
       const scrollY = window.scrollY;
-      // Show when scrolled down past 280px and footer is not on screen
-      const shouldShow = scrollY > 280 && !isFooterIntersecting;
+      const footerEl = document.querySelector("footer");
+      
+      let footerNear = false;
+      if (footerEl) {
+        const rect = footerEl.getBoundingClientRect();
+        // Disappear as soon as the main footer comes within 80px of the viewport bottom
+        if (rect.top <= window.innerHeight + 80) {
+          footerNear = true;
+        }
+      }
+
+      // Show when scrolled down past 280px and footer is not visible/near
+      const shouldShow = scrollY > 280 && !isFooterIntersecting && !footerNear;
       setVisible(shouldShow);
     };
 
@@ -35,7 +46,7 @@ export function FloatingFooter() {
           isFooterIntersecting = entry.isIntersecting;
           checkVisibility();
         },
-        { threshold: 0.1, rootMargin: "0px 0px 40px 0px" }
+        { threshold: 0, rootMargin: "0px 0px 100px 0px" }
       );
       observer.observe(footerEl);
     }
@@ -45,10 +56,12 @@ export function FloatingFooter() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     checkVisibility();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       if (observer && footerEl) {
         observer.unobserve(footerEl);
         observer.disconnect();

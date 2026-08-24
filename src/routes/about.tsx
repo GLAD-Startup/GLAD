@@ -4,6 +4,7 @@ import { Footer } from "@/components/site/Footer";
 import { Section } from "@/components/site/Section";
 import { SectionRail } from "@/components/site/SectionRail";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
+import { TeamCursorHoverList } from "@/components/site/TeamCursorHoverList";
 import arjunImg from "./images/arjun.jpg";
 import jatinImg from "./images/jatin.jpg";
 import parthImg from "./images/parth.jpeg";
@@ -206,39 +207,13 @@ function AboutPage() {
         <Section size="default" tone="paper">
           <SectionRail label="THE TEAM" />
 
-          <div className="max-w-xl mb-12">
+          <div className="max-w-xl mb-10">
             <h2 className="text-[clamp(36px,4.5vw,52px)] font-display font-medium text-[var(--color-ink)] leading-tight">
               The team.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 min-[641px]:grid-cols-4 gap-6 items-start">
-            {team.map((m) => (
-              <div key={m.name} className="flex flex-col items-start text-left group">
-                <div className="w-full aspect-square rounded-[var(--radius-md,8px)] border border-[var(--color-rule)] bg-[var(--color-sunk)] overflow-hidden mb-4 relative">
-                  <img
-                    src={m.image}
-                    alt={m.name}
-                    loading="lazy"
-                    decoding="async"
-                    className={`w-full h-full object-cover transition-transform duration-[var(--duration-2,300ms)] ease-[var(--ease-move,cubic-bezier(0.4,0,0.2,1))] group-hover:scale-[1.02] ${m.imageClass || ""}`}
-                  />
-                </div>
-                <div className="font-mono text-[13px] text-[var(--color-brass)] mb-1.5">
-                  {m.num}
-                </div>
-                <h3 className="font-display text-[17px] min-[901px]:text-[19px] font-medium text-[var(--color-ink)]">
-                  {m.name}
-                </h3>
-                <div className="font-mono text-[12px] min-[901px]:text-[13px] text-[var(--color-ink-3)] mt-1 mb-2.5">
-                  {m.role}
-                </div>
-                <p className="text-[13px] min-[901px]:text-[14px] text-[var(--color-ink-2)] leading-relaxed">
-                  {m.bio}
-                </p>
-              </div>
-            ))}
-          </div>
+          <TeamCursorHoverList members={team} />
         </Section>
 
         {/* 5. ClosingCTA */}
