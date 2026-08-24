@@ -207,17 +207,6 @@ function Home() {
                 <span>100% IP TRANSFER</span>
               </div>
 
-              {/* Tech Stack Floating Pill Ticker */}
-              <div className="hero-animate-p flex flex-wrap items-center gap-2 mt-4 max-w-[480px]">
-                {["React 19", "Python AI Agents", "FastAPI", "PostgreSQL", "Docker", "iOS/Android"].map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2.5 py-1 rounded-full border border-[var(--color-rule)]/80 bg-[var(--color-card)]/80 backdrop-blur-sm text-[11px] font-mono text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:border-[var(--color-brass)]/60 hover:bg-[var(--color-card)] hover:-translate-y-0.5 transition-all duration-150 cursor-default shadow-xs"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
             </div>
           </div>
 
