@@ -24,6 +24,7 @@ import { HeroOrbit, HeroMobileCards } from "@/components/site/HeroStack3D";
 import { ScrollIndicator } from "@/components/site/ScrollIndicator";
 import { ScrollKineticText, EditorialScrollManifesto } from "@/components/site/ScrollKineticText";
 import { ServicesExpandingAccordion } from "@/components/site/ServicesExpandingAccordion";
+import { RotatingXYZCards } from "@/components/site/RotatingXYZCards";
 import { ProcessCinematicZoom } from "@/components/site/ProcessCinematicZoom";
 import { SlotNumberRoller } from "@/components/site/SlotNumberRoller";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
@@ -234,13 +235,18 @@ function Home() {
         </Section>
 
         {/* Editorial Kinetic Scroll Manifesto ───────────────── */}
-        <section className="border-t border-b border-[var(--color-rule)] bg-[var(--color-card)] overflow-hidden">
+        <section className="relative border-t border-b border-[var(--color-rule)] bg-[var(--color-card)] overflow-hidden">
           <EditorialScrollManifesto
             tagline="THE ENGINEERING STANDARD"
             statement="We build software systems that scale — senior developers, clean architecture, fixed milestone delivery, and working staging builds from week three."
             highlightWords={["systems", "scale", "senior", "clean", "architecture", "three"]}
             tone="card"
           />
+
+          {/* Dynamic 3D Rotating Stack Cards in Bottom Right */}
+          <div className="md:absolute bottom-4 right-6 lg:right-16 flex justify-end pb-8 md:pb-0 pointer-events-none z-10">
+            <RotatingXYZCards />
+          </div>
         </section>
 
         {/* Why Us (tone="paper") ────────────────────────── */}
