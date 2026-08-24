@@ -16,15 +16,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { HandDrawnUnderline } from "@/components/site/HandDrawnHighlights";
 import { HeroGrid } from "@/components/site/HeroGrid";
+import { HeroOrbit, HeroMobileCards } from "@/components/site/HeroStack3D";
 import { ScrollIndicator } from "@/components/site/ScrollIndicator";
 import { ScrollKineticText, EditorialScrollManifesto } from "@/components/site/ScrollKineticText";
 import { BlueprintVerticalTrace } from "@/components/site/BlueprintVerticalTrace";
 import { SlotNumberRoller } from "@/components/site/SlotNumberRoller";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
 import { faqs, projects, testimonials } from "@/components/site/data";
-import { useState, useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
 import { createServerFn } from "@tanstack/react-start";
 
@@ -102,6 +104,16 @@ function Home() {
   const { slots } = Route.useLoaderData();
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  const kineticWords = ["scale.", "convert.", "endure.", "ship fast."];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % kineticWords.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleEnquirySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -125,22 +137,35 @@ function Home() {
           tone="paper"
           divider={false}
           id="hero"
-          background={<HeroGrid />}
-          className="relative overflow-hidden flex flex-col justify-between min-h-[calc(100svh-64px)] pt-24 sm:pt-28 min-[901px]:pt-36 pb-8 min-[901px]:pb-10"
+          background={<><HeroGrid /><HeroOrbit /></>}
+          className="relative overflow-hidden isolate flex flex-col justify-between min-h-[calc(100svh-64px)] pt-24 sm:pt-28 min-[901px]:pt-36 pb-8 min-[901px]:pb-10"
           containerClassName="relative z-10 flex flex-col justify-between flex-1 w-full"
         >
           <div className="grid grid-cols-1 min-[901px]:grid-cols-12 min-[901px]:gap-x-8 gap-y-10 min-[901px]:gap-y-0 items-start w-full">
             {/* Left 6 columns (Columns 1-6) */}
-            <div className="min-[901px]:col-span-6 flex flex-col items-start text-left">
+            <div className="min-[901px]:col-span-6 flex flex-col items-start text-left relative z-30">
               {/* Capacity Chip with entrance choreography */}
               <Chip live className="hero-animate-chip">
                 {slots} {slots === 1 ? "slot" : "slots"} available for Q3
               </Chip>
 
-              {/* h1: No entrance animation (paints first frame) */}
+              {/* h1: Dynamic Kinetic Heading */}
               <h1 className="max-w-[13ch] text-[clamp(44px,5.2vw,72px)] leading-[1.04] tracking-tight font-display font-medium text-[var(--color-ink)] mt-5">
                 We engineer digital products that{" "}
-                <HandDrawnUnderline>scale.</HandDrawnUnderline>
+                <span className="inline-block relative min-w-[5ch]">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={wordIndex}
+                      initial={{ y: 16, opacity: 0, filter: "blur(3px)" }}
+                      animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                      exit={{ y: -16, opacity: 0, filter: "blur(3px)" }}
+                      transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                      className="inline-block text-[var(--color-ink)] underline decoration-[var(--color-brass)] decoration-2 underline-offset-4"
+                    >
+                      {kineticWords[wordIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
               </h1>
 
               {/* 17px section intro paragraph with entrance delay */}
@@ -181,50 +206,26 @@ function Home() {
                 <span>•</span>
                 <span>100% IP TRANSFER</span>
               </div>
-            </div>
 
-            {/* Right 5 columns (Columns 8-12): Top edge aligns with h1 first-line cap height */}
-            <div className="min-[901px]:col-start-8 min-[901px]:col-span-5 w-full min-[901px]:mt-[52px]">
-              <div className="relative group">
-                {/* Precision blueprint corner ticks */}
-                <span className="pointer-events-none absolute -top-2.5 -left-2.5 text-[10px] font-mono text-[var(--color-ink-3)]/60 select-none z-20">+</span>
-                <span className="pointer-events-none absolute -top-2.5 -right-2.5 text-[10px] font-mono text-[var(--color-ink-3)]/60 select-none z-20">+</span>
-                <span className="pointer-events-none absolute -bottom-2.5 -left-2.5 text-[10px] font-mono text-[var(--color-ink-3)]/60 select-none z-20">+</span>
-                <span className="pointer-events-none absolute -bottom-2.5 -right-2.5 text-[10px] font-mono text-[var(--color-ink-3)]/60 select-none z-20">+</span>
-
-                <Ledger
-                  hover={false}
-                  className="hero-ledger-container w-full shadow-[0_12px_36px_-10px_rgba(15,110,76,0.12)] border-[var(--color-rule)] transition-all duration-300 group-hover:shadow-[0_18px_44px_-10px_rgba(15,110,76,0.2)]"
-                  header={
-                    <div className="hero-animate-ledger-header flex items-center justify-between px-[22px] py-[13px] bg-[var(--color-card)] select-none">
-                      <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--color-ink-3)] font-medium">
-                        STUDIO SPEC
-                      </span>
-                      <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.08em] uppercase text-[var(--color-ink-2)]">
-                        <span
-                          className="size-[6px] rounded-full bg-[var(--color-live)] shadow-[0_0_0_3px_rgb(15_110_76/0.12)] shrink-0"
-                          aria-hidden="true"
-                        />
-                        <span>
-                          <SlotNumberRoller value={slots} /> {slots === 1 ? "slot" : "slots"} available for Q3
-                        </span>
-                      </div>
-                    </div>
-                  }
-                  rows={[
-                    { key: "Senior Engineering", value: "0", accent: "junior handoffs" },
-                    { key: "Working Staging Demo", value: "Week 03", accent: "live build" },
-                    { key: "Codebase Ownership", value: "100", accent: "% client owned" },
-                    { key: "Sprint Iteration", value: "Weekly", accent: "cadence" },
-                    { key: "Intellectual Property", value: "Full", accent: "IP transfer" },
-                  ]}
-                />
+              {/* Tech Stack Floating Pill Ticker */}
+              <div className="hero-animate-p flex flex-wrap items-center gap-2 mt-4 max-w-[480px]">
+                {["React 19", "Python AI Agents", "FastAPI", "PostgreSQL", "Docker", "iOS/Android"].map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 rounded-full border border-[var(--color-rule)]/80 bg-[var(--color-card)]/80 backdrop-blur-sm text-[11px] font-mono text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:border-[var(--color-brass)]/60 hover:bg-[var(--color-card)] hover:-translate-y-0.5 transition-all duration-150 cursor-default shadow-xs"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Scrolling mouse animated UI element positioned at bottom */}
-          <div className="mt-auto pt-10 sm:pt-14 min-[901px]:pt-16 pb-2 flex justify-center w-full">
+          {/* Mobile: static card stack (hidden on desktop where orbit is in background) */}
+          <HeroMobileCards />
+
+          {/* Scrolling mouse animated UI element positioned slightly higher */}
+          <div className="mt-auto pt-4 sm:pt-6 min-[901px]:pt-8 pb-1 sm:pb-2 -translate-y-3 sm:-translate-y-5 flex justify-center w-full">
             <ScrollIndicator targetId="services" label="SCROLL" />
           </div>
         </Section>
