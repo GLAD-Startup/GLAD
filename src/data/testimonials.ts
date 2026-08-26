@@ -1,0 +1,50 @@
+export interface TestimonialItem {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  clientName: string;
+  quote: string;
+  outcome: string;
+  avatarSrc: string;
+  verified: boolean;
+}
+
+export const testimonialsData: TestimonialItem[] = [
+  {
+    id: '01',
+    name: 'Prayas NGO Team',
+    role: 'Community Leaders · Prayas NGO',
+    company: 'Prayas NGO',
+    clientName: 'Prayas NGO',
+    quote:
+      "The Prayas App transformed how we coordinate blood donations and health equipment lending. It's now the backbone of our community outreach.",
+    outcome: '10,000+ Community Reach',
+    avatarSrc: '/clients/prayas.jpg',
+    verified: true,
+  },
+  {
+    id: '02',
+    name: 'Rakesh Khetan',
+    role: 'Owner & Operator · GLA Canteen',
+    company: 'GLA Canteen',
+    clientName: 'GLA Canteen',
+    quote:
+      'GLA Canteen Stock Management transformed our daily inventory tracking and order workflow, giving us clear visibility into stock levels and sales.',
+    outcome: 'Zero Stock Discrepancies',
+    avatarSrc: '/clients/gla-canteen.png',
+    verified: true,
+  },
+  {
+    id: '03',
+    name: 'Nitesh Khandelwal',
+    role: 'Founder & Director · Earth Travels India',
+    company: 'Earth Travels India',
+    clientName: 'Earth Travels India',
+    quote:
+      'The website developed for Earth Travels India presents our travel packages and services beautifully, significantly elevating our online presence.',
+    outcome: '3x Online Inquiries',
+    avatarSrc: '/clients/earth-travels.png',
+    verified: true,
+  },
+];
