@@ -75,8 +75,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-bg text-fg antialiased overflow-x-hidden cursor-none">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="bg-bg text-fg antialiased overflow-x-hidden cursor-none"
+    >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                  if (!reduced) {
+                    document.documentElement.classList.add('intro-armed');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

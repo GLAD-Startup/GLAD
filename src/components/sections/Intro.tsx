@@ -37,8 +37,8 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* Contact PillButton */}
-        <div className="xl:absolute xl:left-[530px] xl:top-[250px] z-10">
+        {/* Contact PillButton shifted down */}
+        <div className="xl:absolute xl:left-[530px] xl:top-[295px] z-10">
           <PillButton href="/contact">Book a Call</PillButton>
         </div>
 

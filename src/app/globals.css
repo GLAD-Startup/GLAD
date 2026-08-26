@@ -217,3 +217,51 @@ img, video {
     animation: none;
   }
 }
+
+/* Page-Load Hero Intro Armed States (prevents initial paint flash before GSAP starts) */
+html.intro-armed {
+  overflow: hidden !important;
+}
+
+html.intro-armed [data-intro="wordmark"] {
+  opacity: 0 !important;
+  transform: translate3d(0, -500px, 0) scale(0.72) !important;
+  color: var(--fg-dim) !important;
+  transform-origin: center center !important;
+}
+
+html.intro-armed [data-intro="wordmark-divider"] {
+  transform: scaleX(0) !important;
+  transform-origin: center center !important;
+}
+
+html.intro-armed [data-intro="video-card"] {
+  opacity: 0 !important;
+  transform: translate3d(0, 26px, 0) scale(0.94) !important;
+}
+
+html.intro-armed [data-intro="word-rail"] {
+  clip-path: inset(0 100% 0 0) !important;
+}
+
+html.intro-armed [data-intro="headline-line"] {
+  transform: translate3d(0, 100%, 0) !important;
+}
+
+html.intro-armed [data-intro="cycling-underline"] {
+  opacity: 0 !important;
+}
+
+html.intro-armed [data-intro="nav"] {
+  opacity: 0 !important;
+  transform: translate3d(0, -14px, 0) !important;
+}
+
+html.intro-armed [data-intro="nav-hairline"] {
+  transform: scaleX(0) !important;
+  transform-origin: left center !important;
+}
+
+html.intro-armed [data-intro="eyebrow"] {
+  opacity: 0 !important;
+}

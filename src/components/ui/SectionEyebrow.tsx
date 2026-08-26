@@ -6,6 +6,7 @@ export interface SectionEyebrowProps {
   index: React.ReactNode;
   right: React.ReactNode;
   className?: string;
+  'data-intro'?: string;
 }
 
 export default function SectionEyebrow({
@@ -13,9 +14,11 @@ export default function SectionEyebrow({
   index,
   right,
   className,
+  'data-intro': dataIntro,
 }: SectionEyebrowProps) {
   return (
     <div
+      data-intro={dataIntro}
       className={clsx(
         'relative w-full h-[40px] px-[20px] md:px-[28px] xl:px-[40px] border-y border-line flex items-center bg-bg select-none',
         className

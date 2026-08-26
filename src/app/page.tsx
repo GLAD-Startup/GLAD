@@ -1,3 +1,4 @@
+import HeroIntro from '@/components/hero/HeroIntro';
 import Hero from '@/components/sections/Hero';
 import Wordmark from '@/components/sections/Wordmark';
 import Intro from '@/components/sections/Intro';
@@ -16,8 +17,10 @@ import Footer from '@/components/layout/Footer';
 export default function Home() {
   return (
     <main className="min-h-screen bg-bg">
-      <Hero />
-      <Wordmark />
+      <HeroIntro>
+        <Hero />
+        <Wordmark />
+      </HeroIntro>
       <Intro />
       <FeaturedWorks />
       <Services />

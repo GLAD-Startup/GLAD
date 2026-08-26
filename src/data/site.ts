@@ -15,6 +15,15 @@ export interface ContactChannel {
   external: boolean;
 }
 
+export const cyclingWords = [
+  'इरादा',
+  'मक़सद',
+  'हुनर',
+  'लगन',
+  'नीयत',
+  'जुनून',
+] as const;
+
 export const siteConfig = {
   name: 'GLAD studio',
   tagline: 'Web, Mobile & AI Product Engineering',

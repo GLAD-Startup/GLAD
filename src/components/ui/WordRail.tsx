@@ -5,9 +5,10 @@ import Marquee from '@/components/ui/Marquee';
 export interface WordRailProps {
   items: string[];
   className?: string;
+  contentClassName?: string;
 }
 
-export default function WordRail({ items, className }: WordRailProps) {
+export default function WordRail({ items, className, contentClassName }: WordRailProps) {
   return (
     <div
       className={clsx(
@@ -16,11 +17,16 @@ export default function WordRail({ items, className }: WordRailProps) {
       )}
     >
       {/* 1. Desktop & Tablet Static Row (>=810px) */}
-      <div className="hidden min-[810px]:flex w-full h-full items-center justify-around">
+      <div
+        className={clsx(
+          'hidden min-[810px]:flex w-full h-full items-center justify-around',
+          contentClassName
+        )}
+      >
         {items.map((item, idx) => (
           <span
             key={idx}
-            className="font-semibold text-rail-fg tracking-normal text-[11px] xl:text-[13px]"
+            className="font-semibold text-rail-fg tracking-normal text-[11px] xl:text-[13px] whitespace-nowrap"
           >
             {item}
           </span>
