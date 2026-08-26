@@ -156,11 +156,7 @@ export default function Clients() {
     <>
       <section
         id="products"
-        className="relative w-full h-auto xl:h-[2600px] bg-bg select-none py-16 xl:py-0 px-[20px] md:px-[28px] xl:px-0 flex flex-col xl:block gap-[72px] xl:gap-0"
-        style={{
-          perspective: typeof window !== 'undefined' && window.innerWidth >= 1200 ? '1400px' : undefined,
-          perspectiveOrigin: '50% 50%',
-        }}
+        className="relative w-full h-auto xl:h-[2600px] bg-bg select-none py-16 xl:py-0 px-[20px] md:px-[28px] xl:px-0 flex flex-col xl:block gap-[72px] xl:gap-0 xl:[perspective:1400px] xl:[perspective-origin:50%_50%]"
       >
         {/* Floating Center Block that cards float around */}
         <div className="z-40 xl:absolute xl:top-1/2 xl:left-1/2 xl:-translate-x-1/2 xl:-translate-y-1/2 text-center max-w-[560px] mx-auto px-4 pointer-events-auto bg-bg/85 backdrop-blur-md p-8 rounded-[16px] border border-line shadow-2xl">
@@ -177,12 +173,7 @@ export default function Clients() {
         </div>
 
         {/* 3D Stage on Desktop / Normal Flow on Mobile */}
-        <div
-          className="w-full h-full relative flex flex-col xl:block gap-[72px] xl:gap-0"
-          style={{
-            transformStyle: typeof window !== 'undefined' && window.innerWidth >= 1200 ? 'preserve-3d' : undefined,
-          }}
-        >
+        <div className="w-full h-full relative flex flex-col xl:block gap-[72px] xl:gap-0 xl:[transform-style:preserve-3d]">
           {productCards.map((card) => (
             <PerspectiveCard
               key={card.id}
