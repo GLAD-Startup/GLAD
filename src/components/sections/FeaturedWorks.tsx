@@ -1,4 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, { useRef, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Divider from '@/components/ui/Divider';
 import Marquee from '@/components/ui/Marquee';
 import PillButton from '@/components/ui/PillButton';
@@ -7,16 +11,46 @@ import ProjectCard from '@/components/ui/ProjectCard';
 import { projectsData } from '@/data/work';
 
 export default function FeaturedWorks() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const marqueeContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      if (!marqueeContentRef.current || !sectionRef.current) return;
+
+      gsap.fromTo(
+        marqueeContentRef.current,
+        { y: 70, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 65%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="work" className="relative w-full bg-bg select-none">
+    <section ref={sectionRef} id="work" className="relative w-full bg-bg select-none">
       {/* 1. Marquee Band */}
-      <Divider />
-      <div className="relative w-full overflow-hidden py-2 bg-bg">
-        <Marquee speed={20}>
-          <span className="t-marquee text-fg pr-[80px] whitespace-nowrap block">
-            Selected Works©
-          </span>
-        </Marquee>
+      <div className="relative w-full overflow-hidden py-3 bg-bg">
+        <div ref={marqueeContentRef} className="will-change-transform">
+          <Marquee speed={20}>
+            <span className="t-marquee text-fg pr-[80px] whitespace-nowrap block">
+              Selected Works©
+            </span>
+          </Marquee>
+        </div>
       </div>
       <Divider />
 
