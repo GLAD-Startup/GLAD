@@ -8,10 +8,18 @@ import SectionEyebrow from '@/components/ui/SectionEyebrow';
 export default function Intro() {
   return (
     <>
-      <section className="relative w-full h-auto xl:h-[1240px] bg-bg select-none px-[20px] md:px-[28px] xl:px-0 py-12 xl:py-0 flex flex-col xl:block gap-8 xl:gap-0">
-        {/* Portrait — Full width above statement on <1200px, Bleeding left on >=1200px */}
+      {/* Section Eyebrow 01 positioned directly above the photo with underline below it */}
+      <SectionEyebrow
+        data-intro="eyebrow"
+        left={<>STUDIO OVERVIEW <span lang="hi">स्टूडियो</span></>}
+        index="(GLD® — 01)"
+        right="PRODUCT ENGINEERING"
+      />
+
+      <section className="relative w-full h-auto xl:h-[1240px] bg-bg select-none px-[20px] md:px-[28px] xl:px-0 py-8 xl:py-0 flex flex-col xl:block gap-8 xl:gap-0">
+        {/* Portrait — Positioned directly below GLD 1 eyebrow */}
         <div
-          className="w-full max-w-[500px] h-[500px] md:h-[640px] mx-auto xl:mx-0 xl:w-[476px] xl:h-[806px] xl:absolute xl:-left-[16px] xl:top-[56px] rounded-[12px] overflow-hidden z-20 bg-surface border border-line-solid shadow-2xl relative shrink-0"
+          className="w-full max-w-[500px] h-[500px] md:h-[640px] mx-auto xl:mx-0 xl:w-[476px] xl:h-[806px] xl:absolute xl:-left-[16px] xl:top-[48px] rounded-[12px] overflow-hidden z-20 bg-surface border border-line-solid shadow-2xl relative shrink-0"
           data-cursor="view"
         >
           <Media
@@ -24,7 +32,7 @@ export default function Intro() {
         </div>
 
         {/* Statement — Senior team of four statement */}
-        <div className="xl:absolute xl:left-[530px] xl:top-[96px] w-full max-w-[950px] z-10">
+        <div className="xl:absolute xl:left-[530px] xl:top-[88px] w-full max-w-[950px] z-10">
           <p className="t-heading-sm text-fg">
             A senior team of four
             <sup
@@ -37,20 +45,20 @@ export default function Intro() {
           </p>
         </div>
 
-        {/* Contact PillButton shifted down */}
-        <div className="xl:absolute xl:left-[530px] xl:top-[295px] z-10">
+        {/* Contact PillButton */}
+        <div className="xl:absolute xl:left-[530px] xl:top-[285px] z-10">
           <PillButton href="/contact">Book a Call</PillButton>
         </div>
 
-        {/* Word Rail positioned at top: 438px on desktop, or normal flow in mobile/tablet */}
-        <div className="xl:absolute xl:top-[438px] xl:left-0 w-full z-[5] pointer-events-none my-4 xl:my-0">
+        {/* Word Rail positioned at top: 430px on desktop, or normal flow in mobile/tablet */}
+        <div className="xl:absolute xl:top-[430px] xl:left-0 w-full z-[5] pointer-events-none my-4 xl:my-0">
           <WordRail
             items={['Independent', 'Senior Team', 'Product Studio', 'India-Based']}
           />
         </div>
 
         {/* Core Tech Stack Logo Grid — 5 cols × 2 rows on >=1200px, 2-column on <1200px */}
-        <div className="w-full max-w-[500px] xl:max-w-none xl:absolute xl:left-[530px] xl:top-[558px] z-10">
+        <div className="w-full max-w-[500px] xl:max-w-none xl:absolute xl:left-[530px] xl:top-[550px] z-10">
           <span className="text-[11px] font-semibold text-accent uppercase tracking-wider block mb-3">
             Core Production Stack
           </span>

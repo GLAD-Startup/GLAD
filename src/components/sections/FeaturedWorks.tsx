@@ -12,12 +12,9 @@ export default function FeaturedWorks() {
       {/* 1. Marquee Band */}
       <Divider />
       <div className="relative w-full overflow-hidden py-2 bg-bg">
-        {/* Vertical Tick Mark Detail */}
-        <div className="absolute left-[20px] top-1/2 -translate-y-1/2 w-[2px] h-[150px] bg-fg z-20 pointer-events-none" />
-
-        <Marquee speed={30}>
+        <Marquee speed={20}>
           <span className="t-marquee text-fg pr-[80px] whitespace-nowrap block">
-            Selected Work©
+            Selected Works©
           </span>
         </Marquee>
       </div>
@@ -34,7 +31,7 @@ export default function FeaturedWorks() {
         </p>
 
         <div>
-          <PillButton href="/portfolio">See Work</PillButton>
+          <PillButton href="/portfolio">See Works</PillButton>
         </div>
       </div>
 

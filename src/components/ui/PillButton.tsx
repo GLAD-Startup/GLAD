@@ -23,8 +23,8 @@ export default function PillButton({
 
   const commonClasses = clsx(
     'group relative inline-flex items-center justify-center',
-    'border border-fg rounded-[999px] px-[36px] py-[16px] min-h-[52px] bg-transparent text-fg',
-    'uppercase text-[14px] md:text-[14.5px] font-semibold tracking-[0.04em]',
+    'border border-fg rounded-[999px] px-[26px] md:px-[30px] py-[10px] md:py-[11px] min-h-[46px] md:min-h-[48px] bg-transparent text-fg',
+    'uppercase text-[19px] md:text-[20px] font-bold tracking-[-0.015em] leading-none',
     'transition-colors duration-[220ms] ease-out',
     'hover:bg-fg hover:text-bg',
     'cursor-pointer select-none overflow-hidden',
@@ -35,7 +35,7 @@ export default function PillButton({
     if (typeof children === 'string') {
       const text = children;
       return (
-        <span className="relative inline-flex overflow-hidden font-semibold">
+        <span className="relative inline-flex overflow-hidden font-bold">
           {text.split('').map((char, index) => (
             <span
               key={index}
@@ -43,9 +43,9 @@ export default function PillButton({
             >
               {/* Primary letter: translates from 0% to -100% on hover */}
               <span
-                className="block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform"
+                className="block transition-transform duration-[500ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-full will-change-transform"
                 style={{
-                  transitionDelay: `${index * 15}ms`,
+                  transitionDelay: `${index * 25}ms`,
                 }}
               >
                 {char === ' ' ? '\u00A0' : char}
@@ -54,9 +54,9 @@ export default function PillButton({
               {/* Duplicate letter: absolute inset-0 starts at +100% and lands at exact 0% on hover */}
               <span
                 aria-hidden="true"
-                className="absolute inset-0 block translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 will-change-transform"
+                className="absolute inset-0 block translate-y-full transition-transform duration-[500ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0 will-change-transform"
                 style={{
-                  transitionDelay: `${index * 15}ms`,
+                  transitionDelay: `${index * 25}ms`,
                 }}
               >
                 {char === ' ' ? '\u00A0' : char}

@@ -20,7 +20,7 @@ export default function SectionEyebrow({
     <div
       data-intro={dataIntro}
       className={clsx(
-        'relative w-full h-[40px] px-[20px] md:px-[28px] xl:px-[40px] border-y border-line flex items-center bg-bg select-none',
+        'relative w-full h-[44px] md:h-[48px] px-[20px] md:px-[28px] xl:px-[40px] border-b border-line flex items-center bg-bg select-none mt-10 md:mt-16 xl:mt-20',
         className
       )}
     >
