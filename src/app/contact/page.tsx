@@ -21,8 +21,8 @@ const directChannels = [
     external: false,
   },
   {
-    label: 'Mathura, Uttar Pradesh, India',
-    href: 'https://maps.google.com/?q=Mathura,Uttar+Pradesh,India',
+    label: 'Vrindavan, Uttar Pradesh, India',
+    href: 'https://maps.google.com/?q=Vrindavan,Uttar+Pradesh,India',
     external: true,
   },
   {

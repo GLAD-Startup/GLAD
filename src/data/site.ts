@@ -21,18 +21,18 @@ export const siteConfig = {
   legalName: 'GLAD Studio',
   foundedYear: 2024,
   location: {
-    city: 'Mathura',
+    city: 'Vrindavan',
     state: 'Uttar Pradesh',
     country: 'India',
     countryHi: 'भारत',
-    fullAddress: 'Mathura, Uttar Pradesh, India',
-    coordinates: '27.4924° N, 77.6737° E',
+    fullAddress: 'Vrindavan, Uttar Pradesh, India',
+    coordinates: '27.5806° N, 77.7006° E',
   },
   contact: {
     email: 'hello@gladstudio.net',
     inquiryEmail: 'sayhi@gladstudio.net',
     phone: '+91 94572 45650',
-    phoneDisplay: '+91 (0) Mathura Studio',
+    phoneDisplay: '+91 (0) Vrindavan Studio',
   },
   socials: {
     x: 'https://x.com/_GLAD_Studio',
@@ -49,8 +49,8 @@ export const siteConfig = {
   ] as NavLink[],
   contactLinks: [
     {
-      label: 'Office: Mathura, Uttar Pradesh, India.',
-      href: 'https://maps.google.com/?q=Mathura,Uttar+Pradesh,India',
+      label: 'Office: Vrindavan, Uttar Pradesh, India.',
+      href: 'https://maps.google.com/?q=Vrindavan,Uttar+Pradesh,India',
       external: true,
     },
     {

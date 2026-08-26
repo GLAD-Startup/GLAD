@@ -11,7 +11,7 @@ export default function WordRail({ items, className }: WordRailProps) {
   return (
     <div
       className={clsx(
-        'relative z-0 w-full h-[27px] bg-rail-bg text-rail-fg select-none overflow-hidden',
+        'relative z-0 w-full h-[26px] bg-rail-bg text-rail-fg select-none overflow-hidden',
         className
       )}
     >

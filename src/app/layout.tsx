@@ -58,7 +58,7 @@ const organizationJsonLd = {
   ],
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Mathura',
+    addressLocality: 'Vrindavan',
     addressRegion: 'Uttar Pradesh',
     addressCountry: 'IN',
   },

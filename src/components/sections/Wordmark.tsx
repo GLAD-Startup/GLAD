@@ -18,9 +18,9 @@ export default function Wordmark() {
 
       gsap.fromTo(
         wordmarkRef.current,
-        { xPercent: -2 },
+        { xPercent: -3 },
         {
-          xPercent: 2,
+          xPercent: 3,
           ease: 'none',
           scrollTrigger: {
             trigger: containerRef.current,
@@ -39,18 +39,20 @@ export default function Wordmark() {
     <>
       <section
         ref={containerRef}
-        className="relative w-full overflow-hidden pt-[17px] pb-[28px] bg-bg flex justify-center items-center select-none"
+        className="relative w-full overflow-hidden pt-[18px] md:pt-[24px] px-[20px] md:px-[28px] xl:px-[40px] pb-[20px] md:pb-[30px] bg-bg flex justify-center items-center select-none"
       >
         <div
           ref={wordmarkRef}
-          className="font-normal text-fg text-center whitespace-nowrap will-change-transform select-none tracking-[-0.045em] leading-[0.78]"
+          className="t-wordmark font-normal text-fg text-center whitespace-nowrap will-change-transform"
           style={{
-            fontSize: 'clamp(0px, 29vw, 470px)',
+            fontSize: 'clamp(0px, 13.5vw, 250px)',
+            lineHeight: 0.80,
+            letterSpacing: '-0.045em',
           }}
         >
-          GLAD
+          GLAD studio
           <sup
-            className="tracking-normal font-normal ml-1"
+            className="tracking-normal font-normal ml-0.5"
             style={{ fontSize: '0.30em', verticalAlign: 'super' }}
           >
             ®
@@ -61,11 +63,10 @@ export default function Wordmark() {
       <Divider />
 
       <SectionEyebrow
-        left={<>STUDIO OVERVIEW <span lang="hi" className="text-[1.05em]">स्टूडियो</span></>}
-        index="(GLD® — 02)"
+        left={<>STUDIO OVERVIEW <span lang="hi">स्टूडियो</span></>}
+        index="(GLD® — 01)"
         right="PRODUCT ENGINEERING"
       />
     </>
   );
 }
-

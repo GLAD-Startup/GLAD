@@ -4,6 +4,65 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { siteConfig } from '@/data/site';
 
+interface RollingNavLinkProps {
+  href: string;
+  label: string;
+  onClick?: () => void;
+  className?: string;
+  isMobile?: boolean;
+}
+
+function RollingNavLink({
+  href,
+  label,
+  onClick,
+  className = '',
+  isMobile = false,
+}: RollingNavLinkProps) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      data-cursor="link"
+      className={`group relative inline-flex items-center overflow-hidden select-none ${className}`}
+    >
+      <span className="inline-flex overflow-hidden relative">
+        {label.split('').map((char, index) => (
+          <span
+            key={index}
+            className="relative inline-flex flex-col overflow-hidden h-[1.3em] leading-none justify-start"
+          >
+            {/* Primary letter: slides UP on hover */}
+            <span
+              className={`inline-block transition-transform duration-350 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform ${
+                isMobile ? 'text-fg' : 'text-fg-muted group-hover:text-fg'
+              }`}
+              style={{
+                transitionDelay: `${index * 22}ms`,
+              }}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+
+            {/* Duplicate letter from below: slides UP into place on hover */}
+            <span
+              aria-hidden="true"
+              className={`absolute top-full left-0 inline-block transition-transform duration-350 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform ${
+                isMobile ? 'text-accent' : 'text-fg font-medium'
+              }`}
+              style={{
+                transitionDelay: `${index * 22}ms`,
+              }}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+          </span>
+        ))}
+      </span>
+    </Link>
+  );
+}
+
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -22,52 +81,47 @@ export default function Nav() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 w-full h-[82px] border-b border-line bg-bg z-50 select-none flex justify-center"
+        className="fixed top-0 left-0 right-0 w-full h-[84px] border-b border-line bg-bg z-50 select-none flex justify-center"
       >
-        <div className="w-full h-full px-[20px] md:px-[24px] relative flex items-center">
-          {/* Left Column (0%): GLAD Studio Logo */}
+        <div className="w-full max-w-[1512px] h-full px-[20px] md:px-[28px] xl:px-[40px] relative flex items-center justify-between">
+          {/* Left Column: GLAD Studio Logo (Increased size) */}
           <div className="flex items-center">
             <Link
               href="/"
               data-cursor="link"
-              className="flex items-center transition-opacity duration-200 hover:opacity-80"
+              className="flex items-center transition-opacity duration-200 hover:opacity-85"
               aria-label={`${siteConfig.name} Home`}
             >
               <img
                 src="/brand/website-logo-white-background-compatible.png"
                 alt={siteConfig.name}
-                style={{ height: '26px', width: 'auto' }}
-                className="block h-[26px] w-auto object-contain"
+                style={{ height: '42px', width: 'auto' }}
+                className="block object-contain"
               />
             </Link>
           </div>
 
-          {/* Desktop & Tablet Center Column (46% from left, left-aligned) */}
-          <div className="hidden min-[810px]:flex absolute left-[46%] flex-col justify-center gap-0.5 text-left">
+          {/* Desktop & Tablet Center Column (>=810px) */}
+          <div className="hidden min-[810px]:flex absolute left-[46%] -translate-x-1/2 flex-col justify-center gap-1">
             <span className="text-[13px] font-semibold text-fg leading-tight">
               Quick Links
             </span>
-            <div className="text-[13px] font-normal text-fg-muted leading-tight">
+            <div className="text-[13px] font-normal text-fg-muted leading-tight flex items-center flex-wrap gap-x-1">
               {siteConfig.navLinks.map((link, idx) => (
                 <React.Fragment key={link.label}>
-                  <Link
-                    href={link.href}
-                    data-cursor="link"
-                    className="hover:text-fg transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                  {idx < siteConfig.navLinks.length - 1 && ', '}
+                  <RollingNavLink href={link.href} label={link.label} />
+                  {idx < siteConfig.navLinks.length - 1 && (
+                    <span className="text-fg-muted/60 select-none">, </span>
+                  )}
                 </React.Fragment>
               ))}
             </div>
           </div>
 
-          {/* Desktop & Tablet Right Column (76% from left, left-aligned) */}
-          <div className="hidden min-[810px]:flex absolute left-[76%] flex-col justify-center gap-0.5 text-left">
+          {/* Desktop & Tablet Right Column (>=810px) */}
+          <div className="hidden min-[810px]:flex flex-col items-end text-right justify-center gap-1">
             <span className="text-[13px] font-semibold text-fg leading-tight">
-              Based in {siteConfig.location.city}{' '}
-              <span lang="hi" className="text-[1.05em]">{siteConfig.location.countryHi}</span>
+              Based in {siteConfig.location.city} <span lang="hi">{siteConfig.location.countryHi}</span>
             </span>
             <span className="text-[13px] font-normal text-fg-muted leading-tight">
               Software & AI Product Studio
@@ -78,7 +132,7 @@ export default function Nav() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="min-[810px]:hidden ml-auto p-2 text-fg focus:outline-none flex flex-col items-end justify-center gap-1.5 w-9 h-9"
+            className="min-[810px]:hidden p-2 text-fg focus:outline-none flex flex-col items-end justify-center gap-1.5 w-9 h-9"
             aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
           >
             <span
@@ -106,18 +160,18 @@ export default function Nav() {
           {/* Navigation Links at 34px */}
           <div className="flex flex-col gap-6">
             {siteConfig.navLinks.map((link) => (
-              <Link
+              <RollingNavLink
                 key={link.label}
                 href={link.href}
+                label={link.label}
+                isMobile
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-[34px] font-normal text-fg hover:text-accent transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
+                className="text-[34px] font-normal text-fg"
+              />
             ))}
           </div>
 
-          {/* Mathura Meta Block at Bottom */}
+          {/* Vrindavan Meta Block at Bottom */}
           <div className="border-t border-line pt-6 flex flex-col gap-2">
             <span className="text-[15px] font-semibold text-fg">
               Based in {siteConfig.location.city} <span lang="hi">{siteConfig.location.countryHi}</span>
