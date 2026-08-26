@@ -22,10 +22,10 @@ export default function Nav() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 w-full h-[84px] border-b border-line bg-bg z-50 select-none flex justify-center"
+        className="fixed top-0 left-0 right-0 w-full h-[82px] border-b border-line bg-bg z-50 select-none flex justify-center"
       >
-        <div className="w-full max-w-[1512px] h-full px-[20px] md:px-[28px] xl:px-[40px] relative flex items-center justify-between">
-          {/* Left Column: GLAD Studio Logo */}
+        <div className="w-full h-full px-[20px] md:px-[24px] relative flex items-center">
+          {/* Left Column (0%): GLAD Studio Logo */}
           <div className="flex items-center">
             <Link
               href="/"
@@ -37,13 +37,13 @@ export default function Nav() {
                 src="/brand/website-logo-white-background-compatible.png"
                 alt={siteConfig.name}
                 style={{ height: '26px', width: 'auto' }}
-                className="block object-contain"
+                className="block h-[26px] w-auto object-contain"
               />
             </Link>
           </div>
 
-          {/* Desktop & Tablet Center Column (>=810px) */}
-          <div className="hidden min-[810px]:flex absolute left-[46%] -translate-x-1/2 flex-col justify-center gap-1">
+          {/* Desktop & Tablet Center Column (46% from left, left-aligned) */}
+          <div className="hidden min-[810px]:flex absolute left-[46%] flex-col justify-center gap-0.5 text-left">
             <span className="text-[13px] font-semibold text-fg leading-tight">
               Quick Links
             </span>
@@ -63,10 +63,11 @@ export default function Nav() {
             </div>
           </div>
 
-          {/* Desktop & Tablet Right Column (>=810px) */}
-          <div className="hidden min-[810px]:flex flex-col items-end text-right justify-center gap-1">
+          {/* Desktop & Tablet Right Column (76% from left, left-aligned) */}
+          <div className="hidden min-[810px]:flex absolute left-[76%] flex-col justify-center gap-0.5 text-left">
             <span className="text-[13px] font-semibold text-fg leading-tight">
-              Based in {siteConfig.location.city} <span lang="hi">{siteConfig.location.countryHi}</span>
+              Based in {siteConfig.location.city}{' '}
+              <span lang="hi" className="text-[1.05em]">{siteConfig.location.countryHi}</span>
             </span>
             <span className="text-[13px] font-normal text-fg-muted leading-tight">
               Software & AI Product Studio
@@ -77,7 +78,7 @@ export default function Nav() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="min-[810px]:hidden p-2 text-fg focus:outline-none flex flex-col items-end justify-center gap-1.5 w-9 h-9"
+            className="min-[810px]:hidden ml-auto p-2 text-fg focus:outline-none flex flex-col items-end justify-center gap-1.5 w-9 h-9"
             aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
           >
             <span

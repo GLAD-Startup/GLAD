@@ -17,7 +17,7 @@ export default function SectionEyebrow({
   return (
     <div
       className={clsx(
-        'relative w-full h-[40px] px-[20px] md:px-[28px] xl:px-[40px] border-y border-line flex items-center bg-bg select-none',
+        'relative w-full h-[40px] px-[20px] md:px-[24px] xl:px-[24px] border-y border-line flex items-center bg-bg select-none',
         className
       )}
     >
