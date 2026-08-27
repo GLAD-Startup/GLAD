@@ -1,5 +1,9 @@
-import React from 'react';
+'use client';
+
+import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 
@@ -62,22 +66,56 @@ const whyUsRows = [
 ];
 
 export default function Awards() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      if (!headlineRef.current || !sectionRef.current) return;
+
+      gsap.fromTo(
+        headlineRef.current,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 65%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <>
-      <section id="why-us" className="relative w-full bg-bg select-none">
+      <section
+        ref={sectionRef}
+        id="why-us"
+        className="relative w-full bg-bg select-none"
+      >
         {/* 1. Headline */}
-        <div className="w-full flex justify-center pt-[70px] xl:pt-[100px] px-[20px] md:px-[28px] xl:px-0">
+        <div className="w-full flex justify-center pt-[70px] xl:pt-[100px] pb-[32px] -mb-[32px] px-[20px] md:px-[28px] xl:px-0 overflow-hidden">
           <h2
-            className="t-display text-fg whitespace-nowrap xl:translate-x-[120px]"
+            ref={headlineRef}
+            className="t-display text-fg whitespace-nowrap xl:translate-x-[120px] will-change-transform pb-[0.2em]"
             style={{
               fontSize: 'clamp(0px, 12.6vw, 220px)',
-              lineHeight: 0.88,
+              lineHeight: 0.92,
               letterSpacing: '-0.035em',
             }}
           >
             Why Us
             <sup
-              className="font-normal tracking-normal ml-1"
+              className="font-normal tracking-normal ml-1 inline-block"
               style={{ fontSize: '0.23em', verticalAlign: 'super' }}
             >
               (4)
