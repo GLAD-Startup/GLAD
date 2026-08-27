@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -8,10 +8,56 @@ import WordRail from '@/components/ui/WordRail';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import { processRows } from '@/data/process';
 
+const rotatingTeam = [
+  {
+    src: '/team/arjun.jpg',
+    name: 'Arjun Singh Rajput',
+    role: 'CEO & Head of Strategy',
+  },
+  {
+    src: '/team/jatin.jpg',
+    name: 'Jatin Khetan',
+    role: 'CFO & Head of Product & Design',
+  },
+  {
+    src: '/team/somesh.jpeg',
+    name: 'Somesh Rajput',
+    role: 'CTO & Head of Engineering',
+  },
+  {
+    src: '/team/parth.jpeg',
+    name: 'Parth Garg',
+    role: 'COO & Head of Operations',
+  },
+];
+
+const PROCESS_SYNONYMS = [
+  'Process.',
+  'Practice.',
+  'Method.',
+  'Craft.',
+  'System.',
+  'Ritual.',
+];
+
 export default function Tenure() {
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const [currentTeamIdx, setCurrentTeamIdx] = useState(0);
+  const [wordIdx, setWordIdx] = useState(0);
+  const [displayedWord, setDisplayedWord] = useState(PROCESS_SYNONYMS[0]);
+  const isFirstMount = useRef(true);
 
+  // 1. Team photo rotator (2.6s interval)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTeamIdx((prev) => (prev + 1) % rotatingTeam.length);
+    }, 2600);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // 2. Initial entrance scroll animation
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -21,12 +67,12 @@ export default function Tenure() {
 
       gsap.fromTo(
         chars,
-        { y: 40, opacity: 0 },
+        { yPercent: 100, opacity: 0 },
         {
-          y: 0,
+          yPercent: 0,
           opacity: 1,
-          stagger: 0.02,
-          ease: 'none',
+          stagger: 0.025,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: headlineRef.current,
             start: 'top 96%',
@@ -40,7 +86,59 @@ export default function Tenure() {
     return () => ctx.revert();
   }, []);
 
-  const headlineLetters = 'Process.'.split('');
+  // 3. Staggered letter-by-letter slide up replacement cycling
+  useEffect(() => {
+    let isCancelled = false;
+
+    const interval = setInterval(() => {
+      if (!headlineRef.current) return;
+      const chars = headlineRef.current.querySelectorAll('.process-char');
+
+      // Slide out current letters UP one by one
+      gsap.to(chars, {
+        yPercent: -105,
+        opacity: 0,
+        stagger: 0.025,
+        duration: 0.35,
+        ease: 'power2.in',
+        onComplete: () => {
+          if (isCancelled) return;
+          setWordIdx((prev) => {
+            const next = (prev + 1) % PROCESS_SYNONYMS.length;
+            setDisplayedWord(PROCESS_SYNONYMS[next]);
+            return next;
+          });
+        },
+      });
+    }, 3200);
+
+    return () => {
+      isCancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
+
+  // When displayedWord updates, slide IN incoming letters one by one from below
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    if (!headlineRef.current) return;
+    const chars = headlineRef.current.querySelectorAll('.process-char');
+
+    gsap.fromTo(
+      chars,
+      { yPercent: 105, opacity: 0 },
+      {
+        yPercent: 0,
+        opacity: 1,
+        stagger: 0.03,
+        duration: 0.45,
+        ease: 'power3.out',
+      }
+    );
+  }, [displayedWord]);
 
   return (
     <>
@@ -49,62 +147,51 @@ export default function Tenure() {
         id="process"
         className="relative w-full bg-bg select-none"
       >
-        {/* Top Area with Headline & Corner Image */}
-        <div className="relative pt-[10px] md:pt-[14px] xl:pt-[16px] px-[20px] md:px-[28px] xl:px-[40px] flex flex-col md:flex-row justify-between items-start">
-          {/* Headline with Staggered Character Spans */}
+        {/* Top Area with Decoupled Headline & Corner Image */}
+        <div className="relative pt-[16px] md:pt-[20px] xl:pt-[24px] px-[20px] md:px-[28px] xl:px-[40px] min-h-[160px] md:min-h-[220px] xl:min-h-[265px]">
+          {/* Headline with Staggered Character Spans — Decoupled with full descender clearance */}
           <h2
             ref={headlineRef}
-            className="t-display-sm text-fg inline-flex overflow-hidden ml-[-4px]"
+            className="t-display-sm text-fg inline-flex items-baseline ml-[-4px] -mt-[2px] md:-mt-[6px] xl:-mt-[8px]"
             style={{
               fontSize: 'clamp(0px, 10vw, 175px)',
               lineHeight: 0.90,
               letterSpacing: '-0.035em',
             }}
           >
-            {headlineLetters.map((char, index) => (
+            {displayedWord.split('').map((char, index) => (
               <span
-                key={index}
-                className="process-char inline-block will-change-transform opacity-0"
+                key={`${wordIdx}-${index}`}
+                className="inline-block overflow-hidden h-[1.18em] leading-none align-baseline relative pb-[0.22em] -mb-[0.22em]"
               >
-                {char}
+                <span className="process-char inline-block will-change-transform opacity-100">
+                  {char}
+                </span>
               </span>
             ))}
           </h2>
 
-          {/* Corner Image + Signature Scribble */}
-          <div className="mt-8 md:mt-0 xl:absolute xl:right-[44px] xl:top-[90px] flex flex-col items-center z-10 self-end md:self-auto">
+          {/* Corner Team Photo — Decoupled and strictly anchored on the right */}
+          <div className="mt-4 md:mt-0 md:absolute md:right-[28px] xl:right-[40px] md:top-[12px] xl:top-[16px] z-10">
             <div
               data-cursor="view"
-              data-cursor-text="Parth Garg"
-              data-cursor-subtext="COO & Head of Operations"
-              className="w-[110px] md:w-[136px] h-[150px] md:h-[185px] rounded-[8px] overflow-hidden bg-surface border border-line-solid relative shadow-md"
+              data-cursor-text={rotatingTeam[currentTeamIdx].name}
+              data-cursor-subtext={rotatingTeam[currentTeamIdx].role}
+              className="w-[145px] md:w-[170px] xl:w-[195px] h-[190px] md:h-[220px] xl:h-[255px] rounded-[10px] overflow-hidden bg-surface border border-line-solid relative shadow-lg"
             >
-              <Image
-                src="/team/parth.jpeg"
-                alt="Parth Garg — COO & Head of Operations"
-                fill
-                unoptimized
-                className="object-cover block"
-              />
+              {rotatingTeam.map((member, idx) => (
+                <Image
+                  key={member.src}
+                  src={member.src}
+                  alt={`${member.name} — ${member.role}`}
+                  fill
+                  unoptimized
+                  className={`object-cover block transition-opacity duration-700 ease-in-out ${
+                    idx === currentTeamIdx ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                  }`}
+                />
+              ))}
             </div>
-
-            {/* Handwritten Signature Scribble */}
-            <svg
-              width="110"
-              height="40"
-              viewBox="0 0 110 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="mt-3 opacity-85 text-fg"
-            >
-              <path
-                d="M6 28C18 24 35 12 48 10C61 8 32 32 42 32C52 32 85 14 96 12C102 11 82 28 88 26C94 24 104 18 106 16"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
           </div>
         </div>
 
@@ -179,7 +266,7 @@ export default function Tenure() {
       </section>
 
       {/* Section Eyebrow */}
-      <div className="mt-[70px] xl:mt-[90px]">
+      <div className="mt-[105px] xl:mt-[140px]">
         <SectionEyebrow
           left={<>CLIENT FEEDBACK <span lang="hi">समीक्षा</span></>}
           index="(GLD® — 06)"
