@@ -13,187 +13,152 @@ const useIsomorphicLayoutEffect =
 
 export const CYCLE_ADVANCE = 1.0;
 
-export interface CardPathKeyframe {
-  p: number;
-  xVw: number;
-  yVh: number;
-  z: number;
-  rotateY: number;
-  shadowAlpha: number;
-}
+export function calculateCylindricalCarousel(index: number, progress: number) {
+  const TOTAL_CARDS = 11;
+  const TURNS = 1.0;
 
-export const CARD_PATH_KEYFRAMES: CardPathKeyframe[] = [
-  { p: 0.0, xVw: 34, yVh: 52, z: -900, rotateY: -75, shadowAlpha: 0 },
-  { p: 0.2, xVw: 16, yVh: 22, z: -420, rotateY: -42, shadowAlpha: 0.15 },
-  { p: 0.42, xVw: -1, yVh: -2, z: 220, rotateY: -4, shadowAlpha: 0.3 },
-  { p: 0.62, xVw: -14, yVh: -22, z: -180, rotateY: 62, shadowAlpha: 0.2 },
-  { p: 0.8, xVw: -24, yVh: -40, z: -560, rotateY: 118, shadowAlpha: 0.08 },
-  { p: 1.0, xVw: -36, yVh: -60, z: -960, rotateY: 172, shadowAlpha: 0 },
-];
+  // Base angle evenly spaced around the 3D cylinder
+  const baseAngle = (index / TOTAL_CARDS) * 360;
 
-export function interpolateCardPath(p: number) {
-  const kf = CARD_PATH_KEYFRAMES;
-  let k0 = kf[0];
-  let k1 = kf[kf.length - 1];
+  // Total current angle wrapped to [0, 360)
+  const thetaDeg = gsap.utils.wrap(0, 360, baseAngle + progress * 360 * TURNS);
+  const rad = (thetaDeg * Math.PI) / 180;
 
-  for (let i = 0; i < kf.length - 1; i++) {
-    if (p >= kf[i].p && p <= kf[i + 1].p) {
-      k0 = kf[i];
-      k1 = kf[i + 1];
-      break;
-    }
+  const sinT = Math.sin(rad);
+  const cosT = Math.cos(rad);
+
+  // Cylinder radius in vw / px
+  const R_x = 23; // vw
+  const R_z = 520; // px
+
+  // X coordinate along cylinder circumference
+  const xVw = sinT * R_x - 4; // -4vw center bias to frame with right column
+
+  // Y coordinate: Top-to-bottom helical progression
+  // Front half (0 -> 180 deg): descends from top (-18vh) to bottom (+36vh)
+  // Back half (180 -> 360 deg): ascends from bottom (+36vh) back to top (-18vh)
+  let yVh: number;
+  if (thetaDeg <= 180) {
+    yVh = -18 + (thetaDeg / 180) * 54;
+  } else {
+    yVh = 36 - ((thetaDeg - 180) / 180) * 54;
   }
 
-  const range = k1.p - k0.p;
-  const t = range === 0 ? 0 : (p - k0.p) / range;
+  // Z coordinate: front apex at 0px, back of cylinder at -1040px
+  const z = (cosT - 1) * R_z;
 
-  const xVw = k0.xVw + (k1.xVw - k0.xVw) * t;
-  const yVh = k0.yVh + (k1.yVh - k0.yVh) * t;
-  const z = k0.z + (k1.z - k0.z) * t;
-  const rotateY = k0.rotateY + (k1.rotateY - k0.rotateY) * t;
-  const shadowAlpha = k0.shadowAlpha + (k1.shadowAlpha - k0.shadowAlpha) * t;
+  // Tangential 3D rotation around the cylinder
+  const rotateY = -thetaDeg;
 
-  return { xVw, yVh, z, rotateY, shadowAlpha };
-}
-
-export function computeCardOpacity(p: number) {
-  if (p < 0.08) {
-    return Math.max(0, p / 0.08);
+  // Atmospheric opacity: front hemisphere is crisp (1.0), back hemisphere fades
+  let opacity = 1.0;
+  if (cosT < -0.1) {
+    opacity = Math.max(0, (cosT + 0.85) / 0.75);
   }
-  if (p > 0.92) {
-    return Math.max(0, (1.0 - p) / 0.08);
-  }
-  return 1.0;
+
+  // Shadow: full at front apex, fades as card turns away
+  const shadowAlpha = Math.max(
+    0,
+    0.32 *
+      Math.max(0, cosT * 0.75 + 0.25) *
+      Math.max(0, 1 - Math.abs(sinT) * 0.35)
+  );
+
+  return {
+    xVw,
+    yVh,
+    z,
+    rotateY,
+    shadowAlpha,
+    opacity: Math.max(0, Math.min(1, opacity)),
+    thetaDeg,
+  };
 }
 
 const productCards = [
   {
     id: 1,
-    baseOffset: 0.45,
-    xNudge: 0,
-    yNudge: 0,
-    scale: 1.0,
-    w: 500,
-    h: 340,
+    w: 480,
+    h: 320,
     label: 'GLAD HMS',
     subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
     src: '/products/hotel-building.png',
   },
   {
     id: 2,
-    baseOffset: 0.6,
-    xNudge: 7,
-    yNudge: -6,
-    scale: 0.82,
-    w: 205,
-    h: 330,
+    w: 220,
+    h: 340,
     label: 'SettleDesk',
     subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
     src: '/products/building.png',
   },
   {
     id: 3,
-    baseOffset: 0.68,
-    xNudge: -5,
-    yNudge: 9,
-    scale: 0.74,
-    w: 122,
-    h: 175,
+    w: 260,
+    h: 180,
     label: 'GLAD HMS',
     subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
     src: '/products/hotel-building-transparent.png',
   },
   {
     id: 4,
-    baseOffset: 0.3,
-    xNudge: 4,
-    yNudge: 7,
-    scale: 0.95,
-    w: 215,
-    h: 205,
+    w: 200,
+    h: 260,
     label: 'SettleDesk',
     subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
     src: '/products/settledesk-logo.png',
   },
   {
     id: 5,
-    baseOffset: 0.22,
-    xNudge: -8,
-    yNudge: -4,
-    scale: 0.68,
-    w: 235,
-    h: 165,
+    w: 230,
+    h: 160,
     label: 'GLAD HMS',
     subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
     src: '/work/fluxor/corporate-server.png',
   },
   {
     id: 6,
-    baseOffset: 0.75,
-    xNudge: 6,
-    yNudge: 11,
-    scale: 0.88,
-    w: 155,
-    h: 340,
+    w: 200,
+    h: 320,
     label: 'SettleDesk',
     subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
     src: '/work/stock-management/properties-3d.png',
   },
   {
     id: 7,
-    baseOffset: 0.52,
-    xNudge: -3,
-    yNudge: -9,
-    scale: 1.08,
-    w: 495,
-    h: 335,
+    w: 480,
+    h: 320,
     label: 'GLAD HMS',
     subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
     src: '/products/hotel-building.png',
   },
   {
     id: 8,
-    baseOffset: 0.38,
-    xNudge: 9,
-    yNudge: 3,
-    scale: 0.78,
-    w: 250,
-    h: 300,
+    w: 240,
+    h: 280,
     label: 'SettleDesk',
     subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
     src: '/products/graphic-design-building-architecture-creative-city-building-vector.png',
   },
   {
     id: 9,
-    baseOffset: 0.85,
-    xNudge: -6,
-    yNudge: -7,
-    scale: 0.92,
-    w: 240,
-    h: 220,
+    w: 230,
+    h: 210,
     label: 'GLAD HMS',
     subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
     src: '/work/ai-mock-interview/hero-3d.png',
   },
   {
     id: 10,
-    baseOffset: 0.12,
-    xNudge: 2,
-    yNudge: 12,
-    scale: 0.7,
-    w: 500,
-    h: 335,
+    w: 480,
+    h: 320,
     label: 'SettleDesk',
     subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
     src: '/work/stock-management/commission-3d.png',
   },
   {
     id: 11,
-    baseOffset: 0.93,
-    xNudge: -7,
-    yNudge: 5,
-    scale: 0.86,
-    w: 212,
+    w: 220,
     h: 340,
     label: 'GLAD HMS',
     subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
@@ -314,45 +279,35 @@ export default function Clients() {
 
             // Function to render the 3D field at any given scroll progress
             const renderField = (progress: number, isInViewport: boolean) => {
-              let minDistanceToClosest = Infinity;
+              let minDistanceToApex = Infinity;
               let closestProduct = 'GLAD HMS';
 
               cards.forEach((cardEl, idx) => {
                 if (!cardEl) return;
                 const cardConfig = productCards[idx];
-                const p = gsap.utils.wrap(
-                  0,
-                  1,
-                  cardConfig.baseOffset + progress * CYCLE_ADVANCE
-                );
+                const { xVw, yVh, z, rotateY, shadowAlpha, opacity, thetaDeg } =
+                  calculateCylindricalCarousel(idx, progress);
 
-                const { xVw, yVh, z, rotateY, shadowAlpha } =
-                  interpolateCardPath(p);
-                const opacity = computeCardOpacity(p);
-
-                const finalX = xVw + cardConfig.xNudge;
-                const finalY = yVh + cardConfig.yNudge;
-
-                cardEl.style.transform = `translate3d(${finalX}vw, ${finalY}vh, ${z}px) rotateY(${rotateY}deg)`;
+                cardEl.style.transform = `translate3d(${xVw}vw, ${yVh}vh, ${z}px) rotateY(${rotateY}deg)`;
                 cardEl.style.boxShadow = `0 24px 60px -32px rgba(10, 10, 11, ${shadowAlpha.toFixed(3)})`;
                 cardEl.style.opacity = opacity.toFixed(3);
 
-                // Find card nearest to p = 0.42 (flat, closest point)
-                const distToApex = Math.min(
-                  Math.abs(p - 0.42),
-                  1 - Math.abs(p - 0.42)
-                );
-                if (distToApex < minDistanceToClosest) {
-                  minDistanceToClosest = distToApex;
+                // Find card nearest to theta = 0 deg (front apex)
+                const distToApex = Math.min(thetaDeg, 360 - thetaDeg);
+                if (distToApex < minDistanceToApex) {
+                  minDistanceToApex = distToApex;
                   closestProduct = cardConfig.label.includes('GLAD')
                     ? 'GLAD HMS'
                     : 'SettleDesk';
                 }
 
-                // Video gating: play when p in [0.32, 0.62] and section is in viewport
+                // Video gating: play when card is in front sector (theta < 90 or theta > 270) and section is in viewport
                 const videoEl = cardEl.querySelector('video');
                 if (videoEl) {
-                  if (isInViewport && p >= 0.32 && p <= 0.62) {
+                  if (
+                    isInViewport &&
+                    (thetaDeg <= 75 || thetaDeg >= 285)
+                  ) {
                     videoEl.play().catch(() => {});
                   } else {
                     videoEl.pause();
@@ -517,34 +472,30 @@ export default function Clients() {
         <div className="stage min-[1024px]:sticky min-[1024px]:top-0 min-[1024px]:h-screen w-full overflow-hidden min-[1024px]:[perspective:1500px] min-[1024px]:[perspective-origin:38%_45%] [isolation:isolate] flex flex-col justify-center">
           {/* Field: 0% to 62% */}
           <div className="field w-full min-[1024px]:w-[62%] h-full absolute inset-y-0 left-0 min-[1024px]:[transform-style:preserve-3d] min-[1024px]:block hidden pointer-events-none">
-            {productCards.map((card, idx) => {
-              const scaledW = Math.round(card.w * card.scale);
-              const scaledH = Math.round(card.h * card.scale);
-              return (
-                <div
-                  key={card.id}
-                  ref={(el) => {
-                    cardsRef.current[idx] = el;
-                  }}
-                  className="perspective-card absolute [backface-visibility:visible] [transform-origin:50%_50%] rounded-[14px] overflow-hidden bg-bg border border-line-solid pointer-events-auto shadow-[0_20px_50px_-24px_rgba(10,10,11,0.28)]"
-                  style={{
-                    width: `${scaledW}px`,
-                    height: `${scaledH}px`,
-                    marginLeft: `${-scaledW / 2}px`,
-                    marginTop: `${-scaledH / 2}px`,
-                    left: '50%',
-                    top: '50%',
-                  }}
-                >
-                  <PerspectiveCardContent
-                    src={card.src}
-                    label={card.label}
-                    subtitle={card.subtitle}
-                    w={scaledW}
-                  />
-                </div>
-              );
-            })}
+            {productCards.map((card, idx) => (
+              <div
+                key={card.id}
+                ref={(el) => {
+                  cardsRef.current[idx] = el;
+                }}
+                className="perspective-card absolute [backface-visibility:visible] [transform-origin:50%_50%] rounded-[14px] overflow-hidden bg-bg border border-line-solid pointer-events-auto shadow-[0_20px_50px_-24px_rgba(10,10,11,0.28)]"
+                style={{
+                  width: `${card.w}px`,
+                  height: `${card.h}px`,
+                  marginLeft: `${-card.w / 2}px`,
+                  marginTop: `${-card.h / 2}px`,
+                  left: '50%',
+                  top: '50%',
+                }}
+              >
+                <PerspectiveCardContent
+                  src={card.src}
+                  label={card.label}
+                  subtitle={card.subtitle}
+                  w={card.w}
+                />
+              </div>
+            ))}
           </div>
 
           {/* Copy Column: 66% to 100% (Top-aligned at 26% stage height, flush left) */}
