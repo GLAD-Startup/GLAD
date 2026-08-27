@@ -10,6 +10,7 @@ export interface MediaProps extends React.HTMLAttributes<HTMLDivElement> {
   radius?: number | string;
   video?: boolean;
   className?: string;
+  mediaClassName?: string;
   priority?: boolean;
   style?: React.CSSProperties;
   'data-cursor'?: string;
@@ -23,6 +24,7 @@ export default function Media({
   radius,
   video = false,
   className,
+  mediaClassName,
   priority = false,
   style,
   'data-cursor': dataCursor,
@@ -59,7 +61,7 @@ export default function Media({
           muted
           loop
           playsInline
-          className="w-full h-full object-cover block"
+          className={clsx("w-full h-full object-cover block", mediaClassName)}
           style={{ borderRadius: formattedRadius }}
         />
       ) : isFill ? (

@@ -17,13 +17,14 @@ export default function Intro() {
       />
 
       <section className="relative w-full h-auto xl:h-[1240px] bg-bg select-none px-[20px] md:px-[28px] xl:px-0 py-8 xl:py-0 flex flex-col xl:block gap-8 xl:gap-0">
-        {/* Portrait — Positioned directly below GLD 1 eyebrow */}
+        {/* Video Card — Positioned directly below GLD 1 eyebrow */}
         <div
           className="w-full max-w-[500px] h-[500px] md:h-[640px] mx-auto xl:mx-0 xl:w-[476px] xl:h-[806px] xl:absolute xl:-left-[16px] xl:top-[48px] rounded-[12px] overflow-hidden z-20 bg-surface border border-line-solid shadow-2xl relative shrink-0"
           data-cursor="view"
         >
           <Media
-            src="/team/arjun.jpg"
+            src="/videos/hero%20section.mp4"
+            video
             alt="Studio engineering craft"
             w={476}
             h={806}
