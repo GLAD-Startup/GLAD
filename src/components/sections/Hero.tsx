@@ -64,16 +64,17 @@ export default function Hero() {
           </span>
         </h1>
 
-        {/* Video Card: Desktop absolute right-bleed / Mobile full-width 16/11 aspect */}
+        {/* Video Card: 9:16 portrait full-scale video card matching native dimensions */}
         <div
           ref={videoCardRef}
           data-intro="video-card"
           data-cursor="view"
-          className="mt-8 xl:mt-0 w-full aspect-[16/11] max-w-[640px] xl:w-[392px] xl:h-[372px] xl:aspect-auto xl:absolute xl:top-[30px] xl:-right-[32px] rounded-[14px] overflow-hidden z-20 will-change-transform bg-surface border border-line-solid shadow-2xl"
+          data-cursor-text="GLAD Studio"
+          data-cursor-pill="white"
+          className="mt-8 xl:mt-0 w-full max-w-[300px] sm:max-w-[320px] aspect-[9/16] mx-auto xl:mx-0 xl:w-[260px] xl:h-[462px] xl:aspect-auto xl:absolute xl:top-[24px] xl:right-[8px] rounded-[14px] overflow-hidden z-20 will-change-transform bg-surface border border-line-solid shadow-2xl"
         >
-          {/* TODO: Replace with GLAD studio product demo video when available */}
           <video
-            src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+            src="/videos/hero%20section.mp4"
             autoPlay
             muted
             loop
@@ -90,7 +91,7 @@ export default function Hero() {
         >
           <WordRail
             items={['MVP Development', 'Web Apps', 'Mobile Apps', 'AI Solutions']}
-            contentClassName="xl:w-[calc(100%-420px)] xl:justify-between px-[20px] md:px-[28px] xl:px-[40px]"
+            contentClassName="xl:w-[calc(100%-300px)] xl:justify-between px-[20px] md:px-[28px] xl:px-[40px]"
           />
         </div>
       </section>

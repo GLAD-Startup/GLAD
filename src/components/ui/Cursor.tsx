@@ -11,8 +11,13 @@ export default function Cursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const modeRef = useRef<CursorMode>('default');
   const isWhiteRef = useRef<boolean>(false);
+  const viewTextRef = useRef<string>('VIEW');
+  const isPillWhiteRef = useRef<boolean>(false);
+
   const [mode, setMode] = useState<CursorMode>('default');
   const [isWhite, setIsWhite] = useState<boolean>(false);
+  const [viewText, setViewText] = useState<string>('VIEW');
+  const [isPillWhite, setIsPillWhite] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -47,15 +52,33 @@ export default function Cursor() {
       const target = e.target as Element | null;
       if (!target) return;
 
-      const isView = target.closest('[data-cursor="view"]') !== null;
+      const viewTarget = target.closest('[data-cursor="view"], [data-cursor-text]');
+      const isView = viewTarget !== null;
       const isWhitePointer = target.closest('[data-cursor="pointer-white"], [data-cursor-white="true"]') !== null;
-      const isClickable = isWhitePointer || target.closest(
+      const isClickable = !isView && (isWhitePointer || target.closest(
         'a, button, [role="button"], [data-cursor="link"], [data-cursor="pointer"], .cursor-pointer, input, select, textarea, label, summary'
-      ) !== null;
+      ) !== null);
 
       let nextMode: CursorMode = 'default';
-      if (isView) {
+      let nextViewText = 'VIEW';
+      let nextIsPillWhite = false;
+
+      if (isView && viewTarget) {
         nextMode = 'view';
+        const customText = viewTarget.getAttribute('data-cursor-text');
+        if (customText) {
+          nextViewText = customText;
+        }
+        const pillVariant = viewTarget.getAttribute('data-cursor-pill');
+        const isWhiteAttr = viewTarget.getAttribute('data-cursor-white');
+        if (
+          pillVariant === 'white' ||
+          pillVariant === 'light' ||
+          isWhiteAttr === 'true' ||
+          customText === 'GLAD Studio'
+        ) {
+          nextIsPillWhite = true;
+        }
       } else if (isClickable) {
         nextMode = 'pointer';
       }
@@ -63,6 +86,16 @@ export default function Cursor() {
       if (modeRef.current !== nextMode) {
         modeRef.current = nextMode;
         setMode(nextMode);
+      }
+
+      if (viewTextRef.current !== nextViewText) {
+        viewTextRef.current = nextViewText;
+        setViewText(nextViewText);
+      }
+
+      if (isPillWhiteRef.current !== nextIsPillWhite) {
+        isPillWhiteRef.current = nextIsPillWhite;
+        setIsPillWhite(nextIsPillWhite);
       }
 
       if (isWhiteRef.current !== isWhitePointer) {
@@ -141,17 +174,25 @@ export default function Cursor() {
         </svg>
       </div>
 
-      {/* 3. View State: 'VIEW' pill centered at mouse */}
+      {/* 3. View State: Pill centered at mouse */}
       <div
         className={clsx(
-          'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[72px] h-[34px] rounded-[999px] bg-fg text-bg shadow-lg flex items-center justify-center transition-all duration-250 ease-out overflow-hidden will-change-transform',
+          'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 px-4 h-[34px] min-w-[72px] rounded-[999px] shadow-lg flex items-center justify-center transition-all duration-200 ease-out overflow-hidden will-change-transform border',
+          isPillWhite
+            ? 'bg-[#FFFFFF] text-[#0A0A0B] border-[rgba(10,10,11,0.08)] shadow-[0_4px_16px_rgba(0,0,0,0.12)]'
+            : 'bg-fg text-bg border-transparent',
           mode === 'view'
             ? 'scale-100 opacity-100'
             : 'scale-0 opacity-0 pointer-events-none'
         )}
       >
-        <span className="text-[12px] font-semibold text-bg uppercase tracking-wider select-none">
-          VIEW
+        <span
+          className={clsx(
+            'text-[12.5px] select-none font-semibold whitespace-nowrap',
+            viewText === 'VIEW' ? 'uppercase tracking-wider' : 'tracking-[-0.01em]'
+          )}
+        >
+          {viewText}
         </span>
       </div>
     </div>

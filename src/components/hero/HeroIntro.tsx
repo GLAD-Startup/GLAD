@@ -88,10 +88,9 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           wordmark.style.transformOrigin = 'center center';
         }
 
-        // Pause video initially until beat 1.62s
+        // Ensure video is playing
         if (video) {
-          video.pause();
-          video.currentTime = 0;
+          video.play().catch(() => {});
         }
 
         // Set initial GSAP values matching the from states
@@ -166,11 +165,11 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           },
         });
 
-        // 0.55s: Wordmark — drop from below header smoothly and slowly (duration: 1.30s)
+        // 0.55s: Wordmark — drop from below header smoothly and slowly, stopping just a little up (duration: 1.30s)
         tl.to(
           wordmark,
           {
-            y: 0,
+            y: -48,
             opacity: 1,
             duration: 1.30,
             ease: 'power3.out',
@@ -178,12 +177,13 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           0.55
         );
 
-        // 1.85s - 2.20s: hold in the faded, reduced state for 0.35s
+        // 1.85s - 2.20s: hold in the faded, reduced state for 0.35s slightly higher up
 
-        // 2.20s: Wordmark — zoom: scale: 0.72 -> 1, color: var(--fg-dim) -> var(--fg) (#0A0A0B)
+        // 2.20s: Wordmark — zoom & settle: y: -48 -> 0, scale: 0.72 -> 1, color: var(--fg-dim) -> var(--fg) (#0A0A0B)
         tl.to(
           wordmark,
           {
+            y: 0,
             scale: 1,
             color: '#0A0A0B',
             duration: 0.90,
