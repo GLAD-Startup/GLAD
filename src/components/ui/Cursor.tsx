@@ -12,11 +12,13 @@ export default function Cursor() {
   const modeRef = useRef<CursorMode>('default');
   const isWhiteRef = useRef<boolean>(false);
   const viewTextRef = useRef<string>('VIEW');
+  const viewSubtextRef = useRef<string>('');
   const isPillWhiteRef = useRef<boolean>(false);
 
   const [mode, setMode] = useState<CursorMode>('default');
   const [isWhite, setIsWhite] = useState<boolean>(false);
   const [viewText, setViewText] = useState<string>('VIEW');
+  const [viewSubtext, setViewSubtext] = useState<string>('');
   const [isPillWhite, setIsPillWhite] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -61,6 +63,7 @@ export default function Cursor() {
 
       let nextMode: CursorMode = 'default';
       let nextViewText = 'VIEW';
+      let nextViewSubtext = '';
       let nextIsPillWhite = false;
 
       if (isView && viewTarget) {
@@ -68,6 +71,10 @@ export default function Cursor() {
         const customText = viewTarget.getAttribute('data-cursor-text');
         if (customText) {
           nextViewText = customText;
+        }
+        const customSubtext = viewTarget.getAttribute('data-cursor-subtext');
+        if (customSubtext) {
+          nextViewSubtext = customSubtext;
         }
         const pillVariant = viewTarget.getAttribute('data-cursor-pill');
         const isWhiteAttr = viewTarget.getAttribute('data-cursor-white');
@@ -91,6 +98,11 @@ export default function Cursor() {
       if (viewTextRef.current !== nextViewText) {
         viewTextRef.current = nextViewText;
         setViewText(nextViewText);
+      }
+
+      if (viewSubtextRef.current !== nextViewSubtext) {
+        viewSubtextRef.current = nextViewSubtext;
+        setViewSubtext(nextViewSubtext);
       }
 
       if (isPillWhiteRef.current !== nextIsPillWhite) {
@@ -177,23 +189,40 @@ export default function Cursor() {
       {/* 3. View State: Pill centered at mouse */}
       <div
         className={clsx(
-          'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 px-4 h-[34px] min-w-[72px] rounded-[999px] shadow-lg flex items-center justify-center transition-all duration-200 ease-out overflow-hidden will-change-transform border',
+          'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-[999px] shadow-2xl flex items-center justify-center transition-all duration-200 ease-out overflow-hidden will-change-transform border',
+          viewSubtext ? 'px-[22px] py-[8px] min-h-[46px]' : 'px-4 h-[34px] min-w-[72px]',
           isPillWhite
-            ? 'bg-[#FFFFFF] text-[#0A0A0B] border-[rgba(10,10,11,0.08)] shadow-[0_4px_16px_rgba(0,0,0,0.12)]'
+            ? 'bg-[#FFFFFF] text-[#0A0A0B] border-[rgba(10,10,11,0.08)] shadow-[0_6px_24px_rgba(0,0,0,0.14)]'
             : 'bg-fg text-bg border-transparent',
           mode === 'view'
             ? 'scale-100 opacity-100'
             : 'scale-0 opacity-0 pointer-events-none'
         )}
       >
-        <span
-          className={clsx(
-            'text-[12.5px] select-none font-semibold whitespace-nowrap',
-            viewText === 'VIEW' ? 'uppercase tracking-wider' : 'tracking-[-0.01em]'
-          )}
-        >
-          {viewText}
-        </span>
+        {viewSubtext ? (
+          <div className="flex flex-col items-center justify-center text-center leading-snug">
+            <span className="text-[14.5px] font-semibold whitespace-nowrap tracking-[-0.015em] leading-tight">
+              {viewText}
+            </span>
+            <span
+              className={clsx(
+                'text-[11.5px] whitespace-nowrap font-normal pt-0.5 leading-tight',
+                isPillWhite ? 'text-[#55555A]' : 'text-[#BEBEBE]'
+              )}
+            >
+              {viewSubtext}
+            </span>
+          </div>
+        ) : (
+          <span
+            className={clsx(
+              'text-[12.5px] select-none font-semibold whitespace-nowrap',
+              viewText === 'VIEW' ? 'uppercase tracking-wider' : 'tracking-[-0.01em]'
+            )}
+          >
+            {viewText}
+          </span>
+        )}
       </div>
     </div>
   );

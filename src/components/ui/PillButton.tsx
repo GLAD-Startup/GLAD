@@ -23,11 +23,10 @@ export default function PillButton({
 
   const commonClasses = clsx(
     'group relative inline-flex items-center justify-center',
-    'border border-fg rounded-[999px] px-[26px] md:px-[30px] py-[10px] md:py-[11px] min-h-[46px] md:min-h-[48px] bg-transparent text-fg',
-    'uppercase text-[19px] md:text-[20px] font-bold tracking-[-0.015em] leading-none',
-    'transition-colors duration-[220ms] ease-out',
-    'hover:bg-fg hover:text-bg',
-    'cursor-pointer select-none overflow-hidden',
+    'border border-fg rounded-[999px] px-[28px] md:px-[34px] py-[12px] md:py-[13px] min-h-[46px] md:min-h-[50px]',
+    'bg-transparent text-fg',
+    'uppercase text-[16px] md:text-[18px] font-semibold tracking-[-0.015em] leading-none',
+    'cursor-pointer select-none overflow-hidden isolate',
     className
   );
 
@@ -35,17 +34,17 @@ export default function PillButton({
     if (typeof children === 'string') {
       const text = children;
       return (
-        <span className="relative inline-flex overflow-hidden font-bold">
+        <span className="relative z-10 inline-flex items-center overflow-hidden transition-colors duration-400 group-hover:text-bg">
           {text.split('').map((char, index) => (
             <span
               key={index}
-              className="relative inline-block overflow-hidden"
+              className="relative inline-block overflow-hidden h-[1.2em] leading-[1.2em]"
             >
               {/* Primary letter: translates from 0% to -100% on hover */}
               <span
-                className="block transition-transform duration-[500ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-full will-change-transform"
+                className="block transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full will-change-transform"
                 style={{
-                  transitionDelay: `${index * 25}ms`,
+                  transitionDelay: `${index * 20}ms`,
                 }}
               >
                 {char === ' ' ? '\u00A0' : char}
@@ -54,9 +53,9 @@ export default function PillButton({
               {/* Duplicate letter: absolute inset-0 starts at +100% and lands at exact 0% on hover */}
               <span
                 aria-hidden="true"
-                className="absolute inset-0 block translate-y-full transition-transform duration-[500ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0 will-change-transform"
+                className="absolute inset-0 block translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 will-change-transform"
                 style={{
-                  transitionDelay: `${index * 25}ms`,
+                  transitionDelay: `${index * 20}ms`,
                 }}
               >
                 {char === ' ' ? '\u00A0' : char}
@@ -66,8 +65,15 @@ export default function PillButton({
         </span>
       );
     }
-    return children;
+    return <span className="relative z-10 transition-colors duration-400 group-hover:text-bg">{children}</span>;
   };
+
+  const filler = (
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 z-0 rounded-[999px] bg-fg translate-y-full group-hover:translate-y-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+    />
+  );
 
   if (isExternal) {
     return (
@@ -79,6 +85,7 @@ export default function PillButton({
         rel={rel || (href.startsWith('http') ? 'noopener noreferrer' : undefined)}
         onClick={onClick}
       >
+        {filler}
         {renderContent()}
       </a>
     );
@@ -86,6 +93,7 @@ export default function PillButton({
 
   return (
     <Link href={href} data-cursor="pointer-white" className={commonClasses} onClick={onClick}>
+      {filler}
       {renderContent()}
     </Link>
   );

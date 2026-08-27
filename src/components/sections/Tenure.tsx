@@ -29,8 +29,8 @@ export default function Tenure() {
           ease: 'none',
           scrollTrigger: {
             trigger: headlineRef.current,
-            start: 'top 85%',
-            end: 'top 50%',
+            start: 'top 96%',
+            end: 'top 60%',
             scrub: true,
           },
         }
@@ -50,7 +50,7 @@ export default function Tenure() {
         className="relative w-full bg-bg select-none"
       >
         {/* Top Area with Headline & Corner Image */}
-        <div className="relative pt-[70px] xl:pt-[92px] px-[20px] md:px-[28px] xl:px-[40px] flex flex-col md:flex-row justify-between items-start">
+        <div className="relative pt-[10px] md:pt-[14px] xl:pt-[16px] px-[20px] md:px-[28px] xl:px-[40px] flex flex-col md:flex-row justify-between items-start">
           {/* Headline with Staggered Character Spans */}
           <h2
             ref={headlineRef}
@@ -72,9 +72,11 @@ export default function Tenure() {
           </h2>
 
           {/* Corner Image + Signature Scribble */}
-          <div className="mt-8 md:mt-0 xl:absolute xl:right-[44px] xl:top-[195px] flex flex-col items-center z-10 self-end md:self-auto">
+          <div className="mt-8 md:mt-0 xl:absolute xl:right-[44px] xl:top-[90px] flex flex-col items-center z-10 self-end md:self-auto">
             <div
               data-cursor="view"
+              data-cursor-text="Parth Garg"
+              data-cursor-subtext="COO & Head of Operations"
               className="w-[110px] md:w-[136px] h-[150px] md:h-[185px] rounded-[8px] overflow-hidden bg-surface border border-line-solid relative shadow-md"
             >
               <Image
@@ -107,7 +109,7 @@ export default function Tenure() {
         </div>
 
         {/* Word Rail */}
-        <div className="mt-[40px] xl:mt-[58px]">
+        <div className="mt-[24px] xl:mt-[34px]">
           <WordRail
             items={[
               'Discovery',
@@ -119,7 +121,7 @@ export default function Tenure() {
         </div>
 
         {/* Table Block with 8 Process Rows */}
-        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[82px]">
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] xl:mt-[56px]">
           <div className="border-t border-line">
             {processRows.map((row) => (
               <div

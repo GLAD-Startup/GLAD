@@ -46,8 +46,23 @@ export default function FeaturedWorks() {
       <div className="relative w-full overflow-hidden py-3 bg-bg">
         <div ref={marqueeContentRef} className="will-change-transform">
           <Marquee speed={20}>
-            <span className="t-marquee text-fg pr-[80px] whitespace-nowrap block">
-              Selected Works©
+            <span className="t-marquee text-fg pr-[80px] whitespace-nowrap inline-flex items-center">
+              Selected Works
+              <span className="inline-flex items-center ml-[0.06em] -translate-y-[0.14em]">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-[0.40em] h-[0.40em] inline-block"
+                  aria-label="Copyright"
+                >
+                  <circle cx="12" cy="12" r="9.5" />
+                  <path d="M14.5 9.2a3.6 3.6 0 0 0-5 0 3.6 3.6 0 0 0 0 5.6 3.6 3.6 0 0 0 5 0" />
+                </svg>
+              </span>
             </span>
           </Marquee>
         </div>
