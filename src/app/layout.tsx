@@ -78,7 +78,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className="bg-bg text-fg antialiased overflow-x-hidden cursor-none"
+      className="bg-bg text-fg antialiased overflow-x-clip cursor-none"
     >
       <head>
         <script
@@ -100,7 +100,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
-      <body className="bg-bg text-fg antialiased overflow-x-hidden cursor-none min-h-screen">
+      <body className="bg-bg text-fg antialiased overflow-x-clip cursor-none min-h-screen">
         <SmoothScroll>
           <Cursor />
           <Nav />

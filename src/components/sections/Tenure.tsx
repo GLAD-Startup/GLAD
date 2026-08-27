@@ -264,15 +264,6 @@ export default function Tenure() {
           </div>
         </div>
       </section>
-
-      {/* Section Eyebrow */}
-      <div className="mt-[105px] xl:mt-[140px]">
-        <SectionEyebrow
-          left={<>CLIENT FEEDBACK <span lang="hi">समीक्षा</span></>}
-          index="(GLD® — 06)"
-          right="VERIFIED CLIENTS"
-        />
-      </div>
     </>
   );
 }
