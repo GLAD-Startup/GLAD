@@ -11,177 +11,178 @@ import SectionEyebrow from '@/components/ui/SectionEyebrow';
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
-export const CYCLE_ADVANCE = 1.0;
+export interface Card3DTransform {
+  xVw: number;
+  yVh: number;
+  zPx: number;
+  rotateY: number;
+  rotateX: number;
+  scale: number;
+  opacity: number;
+  zIndex: number;
+  shadowAlpha: number;
+}
 
-export function calculateCylindricalCarousel(index: number, progress: number) {
-  const TOTAL_CARDS = 11;
-  const TURNS = 1.0;
+interface PathWaypoint {
+  s: number;
+  x: number;
+  y: number;
+  z: number;
+  rotY: number;
+  rotX: number;
+  scale: number;
+  opacity: number;
+}
 
-  // Base angle evenly spaced around the 3D cylinder
-  const baseAngle = (index / TOTAL_CARDS) * 360;
+/**
+ * Full-Viewport Serpentine 3D Waypoints:
+ * 1. Offscreen Lower-Right (s: 0.00 -> 0.16)
+ * 2. Bottom Middle Waypoint (s: 0.36) -> Curves and turns UP
+ * 3. Center Page Focus (s: 0.52) -> Flat facing camera, z: 0, scale: 1.02
+ * 4. Top Middle Waypoint (s: 0.68) -> Curves and turns LEFT
+ * 5. Top Left Exit & Fade (s: 0.84 -> 1.00)
+ */
+const WAYPOINTS: PathWaypoint[] = [
+  { s: 0.00, x: 46,  y: 62,  z: -280, rotY: -38, rotX: 6, scale: 0.74, opacity: 0 },
+  { s: 0.16, x: 38,  y: 38,  z: -180, rotY: -34, rotX: 5, scale: 0.82, opacity: 1 },
+  { s: 0.36, x: 0,   y: 22,  z: -60,  rotY: -4,  rotX: 2, scale: 0.96, opacity: 1 },
+  { s: 0.52, x: 0,   y: 0,   z: 0,    rotY: 0,   rotX: 0, scale: 1.02, opacity: 1 },
+  { s: 0.68, x: 0,   y: -22, z: -60,  rotY: 4,   rotX: -2, scale: 0.96, opacity: 1 },
+  { s: 0.84, x: -38, y: -38, z: -180, rotY: 34,  rotX: -5, scale: 0.82, opacity: 1 },
+  { s: 1.00, x: -46, y: -62, z: -280, rotY: 38,  rotX: -6, scale: 0.74, opacity: 0 },
+];
 
-  // Total current angle wrapped to [0, 360)
-  const thetaDeg = gsap.utils.wrap(0, 360, baseAngle + progress * 360 * TURNS);
-  const rad = (thetaDeg * Math.PI) / 180;
-
-  const sinT = Math.sin(rad);
-  const cosT = Math.cos(rad);
-
-  // Cylinder radius in vw / px
-  const R_x = 23; // vw
-  const R_z = 520; // px
-
-  // X coordinate along cylinder circumference
-  const xVw = sinT * R_x - 4; // -4vw center bias to frame with right column
-
-  // Y coordinate: Top-to-bottom helical progression
-  // Front half (0 -> 180 deg): descends from top (-18vh) to bottom (+36vh)
-  // Back half (180 -> 360 deg): ascends from bottom (+36vh) back to top (-18vh)
-  let yVh: number;
-  if (thetaDeg <= 180) {
-    yVh = -18 + (thetaDeg / 180) * 54;
-  } else {
-    yVh = 36 - ((thetaDeg - 180) / 180) * 54;
+export function evaluateCardPath(s: number): Card3DTransform {
+  if (s <= WAYPOINTS[0].s) {
+    const w = WAYPOINTS[0];
+    return {
+      xVw: w.x,
+      yVh: w.y,
+      zPx: w.z,
+      rotateY: w.rotY,
+      rotateX: w.rotX,
+      scale: w.scale,
+      opacity: 0,
+      zIndex: 1,
+      shadowAlpha: 0,
+    };
   }
 
-  // Z coordinate: front apex at 0px, back of cylinder at -1040px
-  const z = (cosT - 1) * R_z;
-
-  // Tangential 3D rotation around the cylinder
-  const rotateY = -thetaDeg;
-
-  // Atmospheric opacity: front hemisphere is crisp (1.0), back hemisphere fades
-  let opacity = 1.0;
-  if (cosT < -0.1) {
-    opacity = Math.max(0, (cosT + 0.85) / 0.75);
+  if (s >= WAYPOINTS[WAYPOINTS.length - 1].s) {
+    const w = WAYPOINTS[WAYPOINTS.length - 1];
+    return {
+      xVw: w.x,
+      yVh: w.y,
+      zPx: w.z,
+      rotateY: w.rotY,
+      rotateX: w.rotX,
+      scale: w.scale,
+      opacity: 0,
+      zIndex: 1,
+      shadowAlpha: 0,
+    };
   }
 
-  // Shadow: full at front apex, fades as card turns away
-  const shadowAlpha = Math.max(
-    0,
-    0.32 *
-      Math.max(0, cosT * 0.75 + 0.25) *
-      Math.max(0, 1 - Math.abs(sinT) * 0.35)
-  );
+  let idx = 0;
+  for (let i = 0; i < WAYPOINTS.length - 1; i++) {
+    if (s >= WAYPOINTS[i].s && s <= WAYPOINTS[i + 1].s) {
+      idx = i;
+      break;
+    }
+  }
+
+  const p0 = WAYPOINTS[idx];
+  const p1 = WAYPOINTS[idx + 1];
+  const segProgress = (s - p0.s) / (p1.s - p0.s);
+
+  // Smoothstep interpolation
+  const t = segProgress * segProgress * (3 - 2 * segProgress);
+
+  const xVw = p0.x + (p1.x - p0.x) * t;
+  const yVh = p0.y + (p1.y - p0.y) * t;
+  const zPx = p0.z + (p1.z - p0.z) * t;
+  const rotateY = p0.rotY + (p1.rotY - p0.rotY) * t;
+  const rotateX = p0.rotX + (p1.rotX - p0.rotX) * t;
+  const scale = p0.scale + (p1.scale - p0.scale) * t;
+  const opacity = p0.opacity + (p1.opacity - p0.opacity) * t;
+
+  const centerDist = Math.abs(s - 0.52);
+  const zIndex = Math.max(1, Math.round(25 - centerDist * 20));
+  const shadowAlpha = opacity * 0.35 * Math.max(0, 1 - centerDist * 1.5);
 
   return {
     xVw,
     yVh,
-    z,
+    zPx,
     rotateY,
+    rotateX,
+    scale,
+    opacity,
+    zIndex,
     shadowAlpha,
-    opacity: Math.max(0, Math.min(1, opacity)),
-    thetaDeg,
   };
 }
 
 const productCards = [
   {
     id: 1,
-    w: 480,
-    h: 320,
+    num: '01',
     label: 'GLAD HMS',
-    subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
+    tagline: 'Modular Hotel Management & Operations Platform',
+    desc: 'Full-stack enterprise hospitality OS with real-time room inventory, folio management, and multi-property RBAC.',
+    stats: '100% MODULAR · ROW-LEVEL LOCKS · SCOPED RBAC',
+    href: '/products/glad-hms',
     src: '/products/hotel-building.png',
   },
   {
     id: 2,
-    w: 220,
-    h: 340,
+    num: '02',
     label: 'SettleDesk',
-    subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
+    tagline: 'Enterprise Brokerage Operating System',
+    desc: 'Unified transaction management platform connecting 500+ commercial brokers with automated settlement pipelines.',
+    stats: '500+ BROKERS · 10,000+ UNITS · 99.9% UPTIME',
+    href: '/products/settledesk',
     src: '/products/building.png',
   },
   {
     id: 3,
-    w: 260,
-    h: 180,
-    label: 'GLAD HMS',
-    subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
-    src: '/products/hotel-building-transparent.png',
-  },
-  {
-    id: 4,
-    w: 200,
-    h: 260,
-    label: 'SettleDesk',
-    subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
-    src: '/products/settledesk-logo.png',
-  },
-  {
-    id: 5,
-    w: 230,
-    h: 160,
-    label: 'GLAD HMS',
-    subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
+    num: '03',
+    label: 'Fluxor',
+    tagline: 'High-Throughput Financial Data Pipeline',
+    desc: 'Event-driven market data ingestion system processing 100k+ events/sec with sub-millisecond latency.',
+    stats: '100K+ EPS · < 2MS LATENCY · DISTRIBUTED ARCH',
+    href: '/work/fluxor',
     src: '/work/fluxor/corporate-server.png',
   },
   {
-    id: 6,
-    w: 200,
-    h: 320,
-    label: 'SettleDesk',
-    subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
+    id: 4,
+    num: '04',
+    label: 'Prayas App',
+    tagline: 'Mobile Real Estate & Asset Platform',
+    desc: 'Cross-platform mobile application featuring interactive 3D spatial tours, mortgage calculators, and lead management.',
+    stats: 'FLUTTER · 50K+ DOWNLOADS · OFFLINE-FIRST',
+    href: '/work/prayas-app',
+    src: '/work/prayas-app/phone-3d.png',
+  },
+  {
+    id: 5,
+    num: '05',
+    label: 'Stock Manager',
+    tagline: 'Automated Commission & Inventory Engine',
+    desc: 'Real-time multi-warehouse inventory tracker with automated ledger reconciliation and broker payout calculation.',
+    stats: 'REAL-TIME LEDGER · MULTI-TENANT · AUDIT READY',
+    href: '/work/stock-management',
     src: '/work/stock-management/properties-3d.png',
   },
   {
-    id: 7,
-    w: 480,
-    h: 320,
-    label: 'GLAD HMS',
-    subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
-    src: '/products/hotel-building.png',
-  },
-  {
-    id: 8,
-    w: 240,
-    h: 280,
-    label: 'SettleDesk',
-    subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
-    src: '/products/graphic-design-building-architecture-creative-city-building-vector.png',
-  },
-  {
-    id: 9,
-    w: 230,
-    h: 210,
-    label: 'GLAD HMS',
-    subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
+    id: 6,
+    num: '06',
+    label: 'AI Interviewer',
+    tagline: 'GenAI Voice & Simulation Assessment',
+    desc: 'Autonomous multimodal interviewer simulating realistic technical and executive assessments with instant rubric scoring.',
+    stats: 'LLM VOICE PIPELINE · ADAPTIVE RUBRICS · REAL-TIME STT',
+    href: '/work/ai-mock-interview',
     src: '/work/ai-mock-interview/hero-3d.png',
-  },
-  {
-    id: 10,
-    w: 480,
-    h: 320,
-    label: 'SettleDesk',
-    subtitle: 'SettleDesk — Run Your Entire Brokerage on One Platform',
-    src: '/work/stock-management/commission-3d.png',
-  },
-  {
-    id: 11,
-    w: 220,
-    h: 340,
-    label: 'GLAD HMS',
-    subtitle: 'GLAD HMS — Modular Hotel Management & Operations Platform',
-    src: '/work/q-safe/building.png',
-  },
-];
-
-const productsData = [
-  {
-    id: 'glad-hms',
-    name: 'GLAD HMS',
-    href: '/products/glad-hms',
-    oneliner: 'Modular hotel management and operations platform',
-    // Source: internal product architecture metrics
-    stats: '100% MODULAR · ROW-LEVEL LOCKS · SCOPED RBAC',
-  },
-  {
-    id: 'settledesk',
-    name: 'SettleDesk',
-    href: '/products/settledesk',
-    oneliner: 'Run your entire brokerage on one platform',
-    // Source: internal product architecture metrics
-    stats: '500+ BROKERS · 10,000+ UNITS · 99.9% UPTIME',
   },
 ];
 
@@ -199,7 +200,7 @@ function PerspectiveCardContent({
   w: number;
 }) {
   return (
-    <div className="w-full h-full relative group bg-bg">
+    <div className="w-full h-full relative group bg-bg select-none">
       {/* Media */}
       {video ? (
         <video
@@ -209,32 +210,35 @@ function PerspectiveCardContent({
           loop
           playsInline
           preload="none"
-          className="w-full h-full object-cover block"
+          className="w-full h-full object-cover block transition-transform duration-500 group-hover:scale-105"
         />
       ) : (
         <Image
           src={src}
-          alt={`${label} product platform visual`}
+          alt={`${label} platform visual`}
           fill
           unoptimized
-          className="object-cover block"
+          className="object-cover block transition-transform duration-500 group-hover:scale-105"
         />
       )}
 
-      {/* Product Wordmark Overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center select-none p-3 text-center bg-black/20 group-hover:bg-black/35 transition-colors duration-300">
+      {/* Scrim Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/15 group-hover:via-black/35 transition-colors duration-300 pointer-events-none" />
+
+      {/* Product Wordmark Overlay on Center */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center select-none p-4 text-center pointer-events-none">
         <span
-          className="text-white font-semibold leading-tight select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+          className="text-white font-semibold leading-tight select-none drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)] tracking-[-0.02em]"
           style={{
-            fontSize: `clamp(13px, ${Math.round(w * 0.075)}px, 26px)`,
+            fontSize: `clamp(20px, ${Math.round(w * 0.075)}px, 34px)`,
           }}
         >
           {label}
         </span>
 
-        {/* Hover Subtitle */}
+        {/* Subtitle */}
         {subtitle && (
-          <span className="mt-2 text-[11px] md:text-[12px] text-white/90 font-normal px-2.5 py-1 rounded bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-w-[90%] leading-snug">
+          <span className="mt-2.5 text-[12px] md:text-[13px] text-white/90 font-normal px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-w-[90%] leading-snug">
             {subtitle}
           </span>
         )}
@@ -246,8 +250,10 @@ function PerspectiveCardContent({
 export default function Clients() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const copyColRef = useRef<HTMLDivElement>(null);
-  const [activeProduct, setActiveProduct] = useState<string>('GLAD HMS');
+  const bottomLeftRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState<number>(0);
+
+  const activeCard = productCards[activeIdx] || productCards[0];
 
   useIsomorphicLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -256,7 +262,7 @@ export default function Clients() {
     if (!section) return;
 
     const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[];
-    const copyCol = copyColRef.current;
+    const bottomLeftEl = bottomLeftRef.current;
 
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
@@ -274,183 +280,118 @@ export default function Clients() {
           };
 
           if (isDesktop && cards.length > 0) {
-            let lastProduct = 'GLAD HMS';
+            let lastActiveIndex = 0;
             let lastSwitchTime = 0;
+            const totalCards = productCards.length;
+            const stagger = 0.34;
+            const totalSpan = 1 + (totalCards - 1) * stagger;
 
-            // Function to render the 3D field at any given scroll progress
-            const renderField = (progress: number, isInViewport: boolean) => {
-              let minDistanceToApex = Infinity;
-              let closestProduct = 'GLAD HMS';
+            // Render all cards along the full-stage S-curve
+            const renderField = (progress: number) => {
+              const currentT = progress * totalSpan;
+              let minCenterDist = Infinity;
+              let closestIndex = 0;
 
               cards.forEach((cardEl, idx) => {
                 if (!cardEl) return;
-                const cardConfig = productCards[idx];
-                const { xVw, yVh, z, rotateY, shadowAlpha, opacity, thetaDeg } =
-                  calculateCylindricalCarousel(idx, progress);
+                const s = currentT - idx * stagger;
+                const {
+                  xVw,
+                  yVh,
+                  zPx,
+                  rotateY,
+                  rotateX,
+                  scale,
+                  opacity,
+                  zIndex,
+                  shadowAlpha,
+                } = evaluateCardPath(s);
 
-                cardEl.style.transform = `translate3d(${xVw}vw, ${yVh}vh, ${z}px) rotateY(${rotateY}deg)`;
-                cardEl.style.boxShadow = `0 24px 60px -32px rgba(10, 10, 11, ${shadowAlpha.toFixed(3)})`;
+                cardEl.style.transform = `translate3d(${xVw}vw, ${yVh}vh, ${zPx}px) rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(${scale})`;
+                cardEl.style.boxShadow = `0 24px 60px -20px rgba(10, 10, 11, ${shadowAlpha.toFixed(3)})`;
                 cardEl.style.opacity = opacity.toFixed(3);
+                cardEl.style.zIndex = `${zIndex}`;
+                cardEl.style.pointerEvents = opacity > 0.4 ? 'auto' : 'none';
 
-                // Find card nearest to theta = 0 deg (front apex)
-                const distToApex = Math.min(thetaDeg, 360 - thetaDeg);
-                if (distToApex < minDistanceToApex) {
-                  minDistanceToApex = distToApex;
-                  closestProduct = cardConfig.label.includes('GLAD')
-                    ? 'GLAD HMS'
-                    : 'SettleDesk';
-                }
-
-                // Video gating: play when card is in front sector (theta < 90 or theta > 270) and section is in viewport
-                const videoEl = cardEl.querySelector('video');
-                if (videoEl) {
-                  if (
-                    isInViewport &&
-                    (thetaDeg <= 75 || thetaDeg >= 285)
-                  ) {
-                    videoEl.play().catch(() => {});
-                  } else {
-                    videoEl.pause();
+                if (s >= 0 && s <= 1) {
+                  const dist = Math.abs(s - 0.52);
+                  if (dist < minCenterDist) {
+                    minCenterDist = dist;
+                    closestIndex = idx;
                   }
                 }
               });
 
-              // Debounce product sync switch to 400ms minimum
+              // Slide-up animation for Bottom-Left info panel as animation starts
+              if (progress > 0.02) {
+                const introFactor = Math.min(1, (progress - 0.02) / 0.10);
+                const ease = introFactor * (2 - introFactor);
+                if (bottomLeftEl) {
+                  bottomLeftEl.style.opacity = `${ease}`;
+                  bottomLeftEl.style.transform = `translate3d(0, ${(1 - ease) * 24}px, 0)`;
+                }
+              } else {
+                if (bottomLeftEl) {
+                  bottomLeftEl.style.opacity = '0';
+                  bottomLeftEl.style.transform = 'translate3d(0, 24px, 0)';
+                }
+              }
+
+              // Debounce active card index switch
               const now = performance.now();
               if (
-                closestProduct !== lastProduct &&
-                now - lastSwitchTime > 400
+                closestIndex !== lastActiveIndex &&
+                now - lastSwitchTime > 280
               ) {
-                lastProduct = closestProduct;
+                lastActiveIndex = closestIndex;
                 lastSwitchTime = now;
-                setActiveProduct(closestProduct);
+                setActiveIdx(closestIndex);
               }
             };
 
             const setWillChange = (active: boolean) => {
               cards.forEach((cardEl) => {
                 if (cardEl) {
-                  cardEl.style.willChange = active ? 'transform' : 'auto';
+                  cardEl.style.willChange = active
+                    ? 'transform, opacity'
+                    : 'auto';
                 }
               });
             };
 
-            const pauseAllVideos = () => {
-              cards.forEach((cardEl) => {
-                const videoEl = cardEl?.querySelector('video');
-                if (videoEl) videoEl.pause();
-              });
-            };
+            // Set initial state (all offscreen in lower right, panel hidden)
+            renderField(0);
 
-            // 1. Synchronously apply the rest preset (progress = 0) on mount
-            renderField(0, false);
-
-            // 2. Drive cyclic motion via ScrollTrigger onUpdate
+            // Drive continuous 3D scroll scrub
             ScrollTrigger.create({
               trigger: section,
               start: 'top top',
               end: 'bottom bottom',
-              scrub: 0.8,
+              scrub: 0.65,
               invalidateOnRefresh: true,
               onUpdate: (self) => {
-                renderField(self.progress, true);
+                renderField(self.progress);
               },
               onEnter: () => {
                 setWillChange(true);
-                renderField(0, true);
+                renderField(0);
               },
               onEnterBack: () => {
                 setWillChange(true);
               },
               onLeave: () => {
                 setWillChange(false);
-                pauseAllVideos();
               },
               onLeaveBack: () => {
                 setWillChange(false);
-                pauseAllVideos();
+                renderField(0);
               },
             });
-
-            // 3. Column entrance animation (scroll-triggered once, start: 'top 70%')
-            if (copyCol) {
-              const tlCol = gsap.timeline({
-                scrollTrigger: {
-                  trigger: section,
-                  start: 'top 70%',
-                  toggleActions: 'play none none none',
-                },
-              });
-
-              const eyebrow = copyCol.querySelector('.col-eyebrow');
-              const headingLines =
-                copyCol.querySelectorAll('.col-heading-line');
-              const subline = copyCol.querySelector('.col-subline');
-              const rows = copyCol.querySelectorAll('.product-row');
-              const hairlines = copyCol.querySelectorAll('.col-hairline');
-
-              if (eyebrow) {
-                tlCol.fromTo(
-                  eyebrow,
-                  { opacity: 0, y: 12 },
-                  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
-                );
-              }
-              if (headingLines.length > 0) {
-                tlCol.fromTo(
-                  headingLines,
-                  { yPercent: 100 },
-                  {
-                    yPercent: 0,
-                    duration: 0.7,
-                    stagger: 0.08,
-                    ease: 'power3.out',
-                  },
-                  '-=0.3'
-                );
-              }
-              if (subline) {
-                tlCol.fromTo(
-                  subline,
-                  { opacity: 0, y: 14 },
-                  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
-                  '-=0.35'
-                );
-              }
-              if (hairlines.length > 0) {
-                tlCol.fromTo(
-                  hairlines,
-                  { scaleX: 0 },
-                  {
-                    scaleX: 1,
-                    duration: 0.6,
-                    stagger: 0.1,
-                    ease: 'power2.out',
-                    transformOrigin: 'left center',
-                  },
-                  '-=0.3'
-                );
-              }
-              if (rows.length > 0) {
-                tlCol.fromTo(
-                  rows,
-                  { opacity: 0, y: 18 },
-                  {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.55,
-                    stagger: 0.1,
-                    ease: 'power2.out',
-                  },
-                  '-=0.45'
-                );
-              }
-            }
           }
         }
       );
 
-      // Refresh ScrollTrigger once fonts are fully loaded
+      // Refresh ScrollTrigger once fonts are ready
       if ('fonts' in document) {
         document.fonts.ready.then(() => {
           ScrollTrigger.refresh();
@@ -466,24 +407,71 @@ export default function Clients() {
       <section
         ref={sectionRef}
         id="products"
-        className="relative w-full h-auto min-[1024px]:h-[340vh] bg-bg select-none"
+        className="relative w-full h-auto min-[1024px]:h-[480vh] bg-bg select-none"
       >
         {/* Sticky Stage on Desktop */}
-        <div className="stage min-[1024px]:sticky min-[1024px]:top-0 min-[1024px]:h-screen w-full overflow-hidden min-[1024px]:[perspective:1500px] min-[1024px]:[perspective-origin:38%_45%] [isolation:isolate] flex flex-col justify-center">
-          {/* Field: 0% to 62% */}
-          <div className="field w-full min-[1024px]:w-[62%] h-full absolute inset-y-0 left-0 min-[1024px]:[transform-style:preserve-3d] min-[1024px]:block hidden pointer-events-none">
+        <div className="stage min-[1024px]:sticky min-[1024px]:top-0 min-[1024px]:h-screen w-full overflow-hidden min-[1024px]:[perspective:1400px] min-[1024px]:[perspective-origin:50%_50%] [isolation:isolate] flex flex-col justify-center relative">
+          
+          {/* 1. Extreme Top Right: Main Headline & Section Identifier */}
+          <div className="hidden min-[1024px]:flex absolute top-[90px] xl:top-[120px] right-[32px] xl:right-[48px] max-w-[440px] z-30 pointer-events-auto flex-col items-start text-left">
+            <div className="text-[11px] font-medium tracking-[0.045em] uppercase text-accent mb-2">
+              PROPRIETARY SYSTEMS (GLD® — 08)
+            </div>
+            <h3 className="t-heading-sm text-fg leading-[1.12]">
+              Software platforms<br />built to scale.
+            </h3>
+            <p className="t-body-sm text-fg-muted mt-2 max-w-[340px]">
+              Proprietary SaaS systems designed, engineered, and operated by GLAD studio.
+            </p>
+          </div>
+
+          {/* 2. Extreme Bottom Left: Combined Project Name, Tagline, Specs & Link (Slides up as scroll starts) */}
+          <div
+            ref={bottomLeftRef}
+            className="hidden min-[1024px]:flex absolute bottom-[90px] xl:bottom-[120px] left-[32px] xl:left-[48px] max-w-[460px] z-30 pointer-events-auto flex-col items-start text-left transition-all duration-300 will-change-transform opacity-0 translate-y-6"
+          >
+            <div className="text-[11px] font-semibold tracking-[0.045em] uppercase text-accent mb-1 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+              ACTIVE PLATFORM ({activeCard.num} / 06)
+            </div>
+            <h4 className="text-[26px] xl:text-[32px] font-medium text-fg tracking-[-0.02em] leading-tight">
+              {activeCard.label}
+            </h4>
+            <p className="text-[13.5px] text-fg font-normal mt-1 max-w-[400px] leading-snug">
+              {activeCard.tagline}
+            </p>
+            <p className="text-[13px] text-fg-muted mt-2 max-w-[420px] leading-relaxed">
+              {activeCard.desc}
+            </p>
+            <div className="mt-3.5 flex items-center gap-3 flex-wrap">
+              <span className="text-[10.5px] uppercase tracking-[0.04em] text-fg-dim font-medium border border-line-solid px-2.5 py-1 rounded-full bg-surface">
+                {activeCard.stats}
+              </span>
+              <Link
+                href={activeCard.href}
+                data-cursor="link"
+                className="text-[13px] font-medium text-fg hover:text-accent transition-colors duration-200 inline-flex items-center gap-0.5"
+              >
+                Explore Platform ↗
+              </Link>
+            </div>
+          </div>
+
+          {/* 3. Full-Screen 3D Visual Stage */}
+          <div className="field w-full h-full absolute inset-0 min-[1024px]:[transform-style:preserve-3d] min-[1024px]:block hidden pointer-events-none">
             {productCards.map((card, idx) => (
               <div
                 key={card.id}
                 ref={(el) => {
                   cardsRef.current[idx] = el;
                 }}
-                className="perspective-card absolute [backface-visibility:visible] [transform-origin:50%_50%] rounded-[14px] overflow-hidden bg-bg border border-line-solid pointer-events-auto shadow-[0_20px_50px_-24px_rgba(10,10,11,0.28)]"
+                data-cursor="view"
+                className="perspective-card absolute [backface-visibility:hidden] [transform-style:preserve-3d] [transform-origin:50%_50%] rounded-[16px] overflow-hidden bg-surface border border-line-solid transition-[box-shadow] duration-200"
                 style={{
-                  width: `${card.w}px`,
-                  height: `${card.h}px`,
-                  marginLeft: `${-card.w / 2}px`,
-                  marginTop: `${-card.h / 2}px`,
+                  width: '500px',
+                  height: '320px',
+                  marginLeft: '-250px',
+                  marginTop: '-160px',
                   left: '50%',
                   top: '50%',
                 }}
@@ -491,100 +479,43 @@ export default function Clients() {
                 <PerspectiveCardContent
                   src={card.src}
                   label={card.label}
-                  subtitle={card.subtitle}
-                  w={card.w}
+                  subtitle={card.tagline}
+                  w={500}
                 />
               </div>
             ))}
           </div>
 
-          {/* Copy Column: 66% to 100% (Top-aligned at 26% stage height, flush left) */}
-          <div
-            ref={copyColRef}
-            className="z-30 min-[1024px]:absolute min-[1024px]:top-[26%] min-[1024px]:left-[66%] min-[1024px]:right-[40px] max-w-[440px] px-5 min-[1024px]:px-0 pointer-events-auto my-8 min-[1024px]:my-0 flex flex-col items-start text-left"
-          >
-            <div className="col-eyebrow text-[11px] font-medium tracking-[0.045em] uppercase text-accent mb-2.5">
-              PROPRIETARY SYSTEMS
-            </div>
-            <div className="overflow-hidden">
-              <h3 className="col-heading-line t-heading-sm text-fg leading-[1.15]">
-                Software platforms
-              </h3>
-            </div>
-            <div className="overflow-hidden">
-              <h3 className="col-heading-line t-heading-sm text-fg leading-[1.15]">
-                built to scale.
-              </h3>
-            </div>
-            <p className="col-subline t-body-sm text-fg-muted mt-3 max-w-[360px]">
-              Proprietary SaaS systems designed, engineered, and operated by
-              GLAD studio.
-            </p>
-
-            {/* Product Rows Table */}
-            <div className="product-rows-container mt-7 w-full">
-              <div className="col-hairline w-full h-[1px] bg-line" />
-              {productsData.map((prod) => {
-                const isActive = activeProduct === prod.name;
-                return (
-                  <React.Fragment key={prod.id}>
-                    <Link
-                      href={prod.href}
-                      data-cursor="link"
-                      className="product-row group relative block py-[22px] transition-colors duration-300 hover:bg-[rgba(10,10,11,0.02)] pr-4 pl-3.5"
-                    >
-                      {/* 3px Accent Bar */}
-                      <div
-                        className={clsx(
-                          'absolute left-0 top-0 bottom-0 w-[3px] bg-accent transition-transform duration-300 origin-center',
-                          isActive ? 'scale-y-100' : 'scale-y-0'
-                        )}
-                      />
-
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <h4
-                            className={clsx(
-                              'text-[19px] font-medium transition-all duration-300 group-hover:translate-x-1.5',
-                              isActive ? 'text-fg' : 'text-fg-muted'
-                            )}
-                          >
-                            {prod.name}
-                          </h4>
-                          <p className="text-[13.5px] text-fg-muted mt-1 leading-snug">
-                            {prod.oneliner}
-                          </p>
-                          <div className="text-[11px] uppercase tracking-[0.04em] text-fg-muted mt-2 font-medium">
-                            {prod.stats}
-                          </div>
-                        </div>
-                        <span className="text-fg-muted text-[18px] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 select-none">
-                          ↗
-                        </span>
-                      </div>
-                    </Link>
-                    <div className="col-hairline w-full h-[1px] bg-line" />
-                  </React.Fragment>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Mobile Fallback Grid (< 1024px) */}
-          <div className="min-[1024px]:hidden px-5 md:px-7 grid grid-cols-1 sm:grid-cols-2 gap-6 pb-16">
-            {productCards.map((card) => (
-              <div
-                key={card.id}
-                className="rounded-[14px] overflow-hidden bg-bg border border-line-solid relative h-[260px] sm:h-[300px]"
-              >
-                <PerspectiveCardContent
-                  src={card.src}
-                  label={card.label}
-                  subtitle={card.subtitle}
-                  w={card.w}
-                />
+          {/* Mobile Fallback Layout (< 1024px) */}
+          <div className="min-[1024px]:hidden px-5 md:px-7 pt-12 pb-16 flex flex-col gap-6">
+            <div className="text-left">
+              <div className="text-[11px] font-medium tracking-[0.045em] uppercase text-accent mb-2">
+                PROPRIETARY SYSTEMS (GLD® — 08)
               </div>
-            ))}
+              <h3 className="t-heading-sm text-fg leading-[1.12]">
+                Software platforms built to scale.
+              </h3>
+              <p className="t-body-sm text-fg-muted mt-2">
+                Proprietary SaaS systems designed, engineered, and operated by GLAD studio.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-4">
+              {productCards.map((card) => (
+                <div
+                  key={card.id}
+                  data-cursor="view"
+                  className="rounded-[16px] overflow-hidden bg-surface border border-line-solid relative h-[260px] sm:h-[300px]"
+                >
+                  <PerspectiveCardContent
+                    src={card.src}
+                    label={card.label}
+                    subtitle={card.tagline}
+                    w={480}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
