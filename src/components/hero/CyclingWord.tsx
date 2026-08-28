@@ -51,6 +51,8 @@ export default function CyclingWord() {
     }
   }, []);
 
+  const transitionRef = useRef<() => void>(() => {});
+
   // Transition sequence: outgoing rolls up, incoming rolls in, wrapper and underline glide width
   const transitionToNextWord = useCallback(() => {
     // If browser tab is hidden, pause and wait for visibility change
@@ -75,7 +77,7 @@ export default function CyclingWord() {
     const underlineEl = underlineRef.current;
 
     if (!currentEl || !nextEl || !wrapperEl || !underlineEl) {
-      timeoutRef.current = setTimeout(transitionToNextWord, 2200);
+      timeoutRef.current = setTimeout(() => transitionRef.current(), 2200);
       return;
     }
 
@@ -104,7 +106,7 @@ export default function CyclingWord() {
 
         // Hold current word for 2.2s before next transition
         if (!isPausedRef.current) {
-          timeoutRef.current = setTimeout(transitionToNextWord, 2200);
+          timeoutRef.current = setTimeout(() => transitionRef.current(), 2200);
         }
       },
     });
@@ -146,6 +148,10 @@ export default function CyclingWord() {
 
     tlRef.current = tl;
   }, [measureAllWidths]);
+
+  useEffect(() => {
+    transitionRef.current = transitionToNextWord;
+  }, [transitionToNextWord]);
 
   useIsomorphicLayoutEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');

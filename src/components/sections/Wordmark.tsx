@@ -3,8 +3,6 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Divider from '@/components/ui/Divider';
-import SectionEyebrow from '@/components/ui/SectionEyebrow';
 
 export default function Wordmark() {
   const containerRef = useRef<HTMLElement>(null);
@@ -51,7 +49,31 @@ export default function Wordmark() {
           transformOrigin: 'center center',
         }}
       >
-        GLAD Studio
+        <span>GLAD</span>{' '}
+        <span className="relative inline-block">
+          {/* Base dim layer during drop and hold */}
+          <span
+            aria-hidden="true"
+            className="inline-block select-none"
+            style={{
+              paddingTop: '0.10em',
+              paddingBottom: '0.28em',
+              marginTop: '-0.10em',
+              marginBottom: '-0.28em',
+              paddingRight: '0.04em',
+              paddingLeft: '0.02em',
+            }}
+          >
+            Studio
+          </span>
+          {/* Dynamic gradient fill layer that wipes from bottom to top */}
+          <span
+            data-intro="studio-gradient"
+            className="studio-gradient-text absolute inset-0 select-none will-change-[clip-path]"
+          >
+            Studio
+          </span>
+        </span>
         <sup
           className="tracking-normal font-normal ml-0.5"
           style={{ fontSize: '0.30em', verticalAlign: 'super' }}

@@ -65,6 +65,9 @@ export default function HeroIntro({ children }: HeroIntroProps) {
       ctx = gsap.context(() => {
         // Query elements by data-intro attributes
         const wordmark = document.querySelector('[data-intro="wordmark"]');
+        const studioGradient = document.querySelector(
+          '[data-intro="studio-gradient"], [data-intro="glad-gradient"]'
+        );
         const wordmarkDividers = document.querySelectorAll(
           '[data-intro="wordmark-divider"]'
         );
@@ -101,6 +104,12 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           color: '#A8A8AD', // var(--fg-dim)
           transformOrigin: 'center center',
         });
+
+        if (studioGradient) {
+          gsap.set(studioGradient, {
+            clipPath: 'inset(100% 0 0 0)',
+          });
+        }
 
         gsap.set(wordmarkDividers, {
           scaleX: 0,
@@ -151,8 +160,11 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             }
 
             // Remove will-change compositor layer from wordmark
-            // Clear residual GSAP inline styles on nav so Tailwind scroll classes (-translate-y-full) work
+            // Clear residual GSAP inline styles on nav and studioGradient
             gsap.set(nav, { clearProps: 'transform,opacity' });
+            if (studioGradient) {
+              gsap.set(studioGradient, { clearProps: 'clipPath' });
+            }
 
             // Mark session as played
             sessionStorage.setItem('glad-intro-played', 'true');
@@ -165,21 +177,21 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           },
         });
 
-        // 0.55s: Wordmark — drop from below header smoothly and slowly, stopping just a little up (duration: 1.30s)
+        // 0.45s: Wordmark — drop smoothly from above into the temporary shifted-up position
         tl.to(
           wordmark,
           {
-            y: -48,
+            y: -140,
             opacity: 1,
-            duration: 1.30,
+            duration: 1.15,
             ease: 'power3.out',
           },
-          0.55
+          0.45
         );
 
-        // 1.85s - 2.20s: hold in the faded, reduced state for 0.35s slightly higher up
+        // 1.60s - 2.35s: stays at the temporary shifted-up position for ~0.75-1s
 
-        // 2.20s: Wordmark — zoom & settle: y: -48 -> 0, scale: 0.72 -> 1, color: var(--fg-dim) -> var(--fg) (#0A0A0B)
+        // 2.35s: Wordmark — zoom & settle: y: -140 -> 0, scale: 0.72 -> 1, color: var(--fg-dim) -> var(--fg) (#0A0A0B)
         tl.to(
           wordmark,
           {
@@ -189,10 +201,23 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.90,
             ease: 'expo.out',
           },
-          2.20
+          2.35
         );
 
-        // 2.20s: Wordmark dividers: scaleX: 0 -> 1 from center
+        // 2.35s: Studio gradient fill animation: wipe from bottom to top (inset(100% 0 0 0) -> inset(0% 0 0 0))
+        if (studioGradient) {
+          tl.to(
+            studioGradient,
+            {
+              clipPath: 'inset(0% 0 0 0)',
+              duration: 0.90,
+              ease: 'power2.out',
+            },
+            2.35
+          );
+        }
+
+        // 2.35s: Wordmark dividers: scaleX: 0 -> 1 from center
         tl.to(
           wordmarkDividers,
           {
@@ -200,10 +225,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.90,
             ease: 'expo.out',
           },
-          2.20
+          2.35
         );
 
-        // 2.90s: Video card: y: 26px, scale: 0.94, opacity: 0 -> y: 0, scale: 1, opacity: 1
+        // 3.05s: Video card: y: 26px, scale: 0.94, opacity: 0 -> y: 0, scale: 1, opacity: 1
         tl.to(
           videoCard,
           {
@@ -218,10 +243,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
               }
             },
           },
-          2.90
+          3.05
         );
 
-        // 3.04s: Word rail: clip-path: inset(0 100% 0 0) -> inset(0 0% 0 0)
+        // 3.19s: Word rail: clip-path: inset(0 100% 0 0) -> inset(0 0% 0 0)
         tl.to(
           wordRail,
           {
@@ -229,10 +254,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.55,
             ease: 'power3.inOut',
           },
-          3.04
+          3.19
         );
 
-        // 3.18s: Headline: per-line mask reveal y: 100% -> y: 0, stagger: 0.06s
+        // 3.33s: Headline: per-line mask reveal y: 100% -> y: 0, stagger: 0.06s
         tl.to(
           headlineLines,
           {
@@ -241,10 +266,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             stagger: 0.06,
             ease: 'power3.out',
           },
-          3.18
+          3.33
         );
 
-        // 3.32s: Nav: y: -14px, opacity: 0 -> y: 0, opacity: 1
+        // 3.47s: Nav: y: -14px, opacity: 0 -> y: 0, opacity: 1
         tl.to(
           nav,
           {
@@ -256,10 +281,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
               gsap.set(nav, { clearProps: 'transform,opacity' });
             },
           },
-          3.32
+          3.47
         );
 
-        // 3.48s: Nav hairline: scaleX: 0 -> 1 from left
+        // 3.63s: Nav hairline: scaleX: 0 -> 1 from left
         tl.to(
           navHairline,
           {
@@ -267,10 +292,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.50,
             ease: 'power2.out',
           },
-          3.48
+          3.63
         );
 
-        // 3.62s: Eyebrow row: opacity: 0 -> 1
+        // 3.77s: Eyebrow row: opacity: 0 -> 1
         tl.to(
           eyebrow,
           {
@@ -278,7 +303,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.40,
             ease: 'power1.out',
           },
-          3.62
+          3.77
         );
       });
     };

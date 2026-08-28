@@ -193,6 +193,45 @@ img, video {
   animation: eyebrow-shimmer 4s linear infinite;
 }
 
+@keyframes glad-gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.studio-gradient-text,
+.glad-gradient-text {
+  display: inline-block;
+  background-image: linear-gradient(
+    135deg,
+    #A855F7 0%,
+    #8B5CF6 20%,
+    #6366F1 40%,
+    #3B82F6 60%,
+    #60A5FA 78%,
+    #38BDF8 92%,
+    #C084FC 100%
+  );
+  background-size: 240% 240%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glad-gradient-flow 7s ease-in-out infinite;
+  padding-top: 0.10em;
+  padding-bottom: 0.28em;
+  margin-top: -0.10em;
+  margin-bottom: -0.28em;
+  padding-right: 0.04em;
+  padding-left: 0.02em;
+  clip-path: inset(0% 0 0 0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -216,6 +255,11 @@ img, video {
     color: var(--accent);
     animation: none;
   }
+
+  .studio-gradient-text,
+  .glad-gradient-text {
+    animation: none !important;
+  }
 }
 
 /* Page-Load Hero Intro Armed States (prevents initial paint flash before GSAP starts) */
@@ -228,6 +272,11 @@ html.intro-armed [data-intro="wordmark"] {
   transform: translate3d(0, -500px, 0) scale(0.72) !important;
   color: var(--fg-dim) !important;
   transform-origin: center center !important;
+}
+
+html.intro-armed [data-intro="studio-gradient"],
+html.intro-armed [data-intro="glad-gradient"] {
+  clip-path: inset(100% 0 0 0) !important;
 }
 
 html.intro-armed [data-intro="wordmark-divider"] {

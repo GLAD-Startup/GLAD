@@ -67,7 +67,7 @@ export default function TestimonialCard({
     <div
       ref={cardRef}
       className={clsx(
-        'z-20 w-full max-w-[390px] mx-auto xl:mx-0 xl:absolute xl:[left:var(--card-x)] xl:[top:var(--card-y)] xl:w-[390px] bg-surface border border-line-solid rounded-[14px] p-[22px] will-change-transform select-none shadow-2xl transition-colors duration-200 hover:bg-surface-2',
+        'z-20 w-full max-w-[390px] mx-auto xl:mx-0 xl:absolute xl:[left:var(--card-x)] xl:[top:var(--card-y)] xl:w-[390px] bg-[#0A0A0B] border border-white/10 rounded-[14px] p-[22px] will-change-transform select-none shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] transition-colors duration-200 hover:bg-[#141416]',
         className
       )}
       style={
@@ -78,24 +78,24 @@ export default function TestimonialCard({
       }
     >
       {/* Quote */}
-      <p className="t-body text-fg text-[15px] xl:text-[15.5px] leading-[1.62] font-normal">
+      <p className="t-body text-[#FBFBF9] text-[15px] xl:text-[15.5px] leading-[1.62] font-normal">
         &ldquo;{quote}&rdquo;
       </p>
 
       {/* Outcome line below quote and above divider */}
       {outcome && (
-        <div className="mt-3.5 text-[13px] font-medium text-accent tracking-[0.02em]">
+        <div className="mt-3.5 text-[13px] font-medium text-accent-bright tracking-[0.02em]">
           Outcome: <span className="font-semibold">{outcome}</span>
         </div>
       )}
 
       {/* Divider */}
-      <div className="w-full h-[1px] bg-line mt-[16px] mb-[14px]" />
+      <div className="w-full h-[1px] bg-white/10 mt-[16px] mb-[14px]" />
 
       {/* Footer Row */}
       <div className="flex items-center gap-3">
         {/* Avatar */}
-        <div className="w-[44px] h-[44px] rounded-[8px] overflow-hidden relative shrink-0 bg-surface-2 border border-line-solid">
+        <div className="w-[44px] h-[44px] rounded-[8px] overflow-hidden relative shrink-0 bg-white/5 border border-white/10">
           <Image
             src={avatarSrc}
             alt={name}
@@ -108,7 +108,7 @@ export default function TestimonialCard({
         {/* Name + Role */}
         <div className="flex flex-col justify-center min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
-            <span className="text-[14.5px] font-medium text-fg truncate">
+            <span className="text-[14.5px] font-medium text-[#FBFBF9] truncate">
               {name}
             </span>
             {/* Blue Verified Badge */}
@@ -120,7 +120,7 @@ export default function TestimonialCard({
               <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.67-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.67-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.3 12l1.41-1.41 2.83 2.83 6.36-6.36 1.41 1.41-7.77 7.73z" />
             </svg>
           </div>
-          <span className="text-[12.5px] text-fg-muted font-normal truncate">
+          <span className="text-[12.5px] text-[#A8A8AD] font-normal truncate">
             {role}
           </span>
         </div>
@@ -128,7 +128,7 @@ export default function TestimonialCard({
         {/* Client wordmark on right edge in weight 600 */}
         {clientName && (
           <div className="ml-auto shrink-0 select-none text-right">
-            <span className="text-[14px] font-semibold text-fg tracking-tight">
+            <span className="text-[14px] font-semibold text-white/40 tracking-tight uppercase">
               {clientName}
             </span>
           </div>

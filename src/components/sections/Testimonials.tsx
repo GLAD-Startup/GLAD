@@ -52,27 +52,27 @@ const cardConfigs: CardConfig[] = [
 
 function TestimonialCardBody({ item }: { item: TestimonialItem }) {
   return (
-    <div className="w-full bg-bg border border-line-solid rounded-[14px] p-[24px] shadow-[0_24px_60px_-32px_rgba(10,10,11,0.35)] select-none">
+    <div className="w-full bg-[#0A0A0B] border border-white/10 rounded-[14px] p-[24px] shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] select-none transition-transform duration-300">
       {/* Quote */}
-      <p className="t-body text-fg text-[15px] xl:text-[15.5px] leading-[1.62] font-normal">
+      <p className="t-body text-[#FBFBF9] text-[15px] xl:text-[15.5px] leading-[1.62] font-normal">
         &ldquo;{item.quote}&rdquo;
       </p>
 
-      {/* Outcome line in --accent */}
+      {/* Outcome line in accent-bright for dark background */}
       {item.outcome && (
-        <div className="mt-3.5 text-[13px] font-medium text-accent tracking-[0.02em]">
+        <div className="mt-3.5 text-[13px] font-medium text-accent-bright tracking-[0.02em]">
           Outcome: <span className="font-semibold">{item.outcome}</span>
         </div>
       )}
 
       {/* Divider */}
-      <div className="w-full h-[1px] bg-line mt-[16px] mb-[14px]" />
+      <div className="w-full h-[1px] bg-white/10 mt-[16px] mb-[14px]" />
 
       {/* Footer Row */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           {/* Avatar */}
-          <div className="w-[44px] h-[44px] rounded-[8px] overflow-hidden relative shrink-0 bg-surface border border-line-solid">
+          <div className="w-[44px] h-[44px] rounded-[8px] overflow-hidden relative shrink-0 bg-white/5 border border-white/10">
             <Image
               src={item.avatarSrc}
               alt={item.name}
@@ -85,12 +85,12 @@ function TestimonialCardBody({ item }: { item: TestimonialItem }) {
           {/* Name & Role */}
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-fg text-[14.5px] leading-tight">
+              <span className="font-semibold text-[#FBFBF9] text-[14.5px] leading-tight">
                 {item.name}
               </span>
               {item.verified && (
                 <svg
-                  className="w-[14px] h-[14px] text-accent shrink-0"
+                  className="w-[14px] h-[14px] text-accent-bright shrink-0"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   aria-label="Verified Client"
@@ -103,7 +103,7 @@ function TestimonialCardBody({ item }: { item: TestimonialItem }) {
                 </svg>
               )}
             </div>
-            <p className="text-fg-muted text-[13px] leading-snug mt-0.5">
+            <p className="text-[#A8A8AD] text-[13px] leading-snug mt-0.5">
               {item.role}
             </p>
           </div>
@@ -111,7 +111,7 @@ function TestimonialCardBody({ item }: { item: TestimonialItem }) {
 
         {/* Client Name at right */}
         {item.clientName && (
-          <span className="text-fg-dim text-[12px] font-medium uppercase tracking-wider shrink-0 hidden sm:inline-block">
+          <span className="text-white/40 text-[12px] font-medium uppercase tracking-wider shrink-0 hidden sm:inline-block">
             {item.clientName}
           </span>
         )}

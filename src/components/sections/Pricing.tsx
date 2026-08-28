@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
@@ -8,10 +8,23 @@ import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import PillButton from '@/components/ui/PillButton';
 import { budgetBands } from '@/data/engagement';
 
+const PRICING_SYNONYMS = [
+  'Scope & Budget.',
+  'Pick Plans.',
+  'Plans & Rates.',
+  'Fixed Scope.',
+  'Investment.',
+  'Engagement.',
+];
+
 export default function Pricing() {
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const [wordIdx, setWordIdx] = useState(0);
+  const [displayedWord, setDisplayedWord] = useState(PRICING_SYNONYMS[0]);
+  const isFirstMount = useRef(true);
 
+  // 1. Initial entrance scroll animation
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -21,16 +34,16 @@ export default function Pricing() {
 
       gsap.fromTo(
         chars,
-        { y: 40, opacity: 0 },
+        { yPercent: 100, opacity: 0 },
         {
-          y: 0,
+          yPercent: 0,
           opacity: 1,
           stagger: 0.02,
-          ease: 'none',
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: headlineRef.current,
-            start: 'top 85%',
-            end: 'top 50%',
+            start: 'top 92%',
+            end: 'top 58%',
             scrub: true,
           },
         }
@@ -40,7 +53,59 @@ export default function Pricing() {
     return () => ctx.revert();
   }, []);
 
-  const headlineLetters = 'Scope & Budget.'.split('');
+  // 2. Staggered letter-by-letter slide up replacement cycling
+  useEffect(() => {
+    let isCancelled = false;
+
+    const interval = setInterval(() => {
+      if (!headlineRef.current) return;
+      const chars = headlineRef.current.querySelectorAll('.pricing-char');
+
+      // Slide out current letters UP one by one
+      gsap.to(chars, {
+        yPercent: -105,
+        opacity: 0,
+        stagger: 0.02,
+        duration: 0.35,
+        ease: 'power2.in',
+        onComplete: () => {
+          if (isCancelled) return;
+          setWordIdx((prev) => {
+            const next = (prev + 1) % PRICING_SYNONYMS.length;
+            setDisplayedWord(PRICING_SYNONYMS[next]);
+            return next;
+          });
+        },
+      });
+    }, 3200);
+
+    return () => {
+      isCancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
+
+  // 3. When displayedWord updates, slide IN incoming letters one by one from below
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    if (!headlineRef.current) return;
+    const chars = headlineRef.current.querySelectorAll('.pricing-char');
+
+    gsap.fromTo(
+      chars,
+      { yPercent: 105, opacity: 0 },
+      {
+        yPercent: 0,
+        opacity: 1,
+        stagger: 0.025,
+        duration: 0.45,
+        ease: 'power3.out',
+      }
+    );
+  }, [displayedWord]);
 
   return (
     <>
@@ -49,23 +114,25 @@ export default function Pricing() {
         id="pricing"
         className="relative w-full bg-bg select-none"
       >
-        {/* Headline */}
+        {/* Headline with Staggered Letter Replacement */}
         <div className="pt-[70px] xl:pt-[96px] px-[20px] md:px-[28px] xl:px-[40px]">
           <h2
             ref={headlineRef}
-            className="t-display-sm text-fg inline-flex overflow-hidden ml-[-4px]"
+            className="t-display-sm text-fg inline-flex items-baseline ml-[-4px]"
             style={{
               fontSize: 'clamp(0px, 9vw, 160px)',
               lineHeight: 0.90,
               letterSpacing: '-0.035em',
             }}
           >
-            {headlineLetters.map((char, index) => (
+            {displayedWord.split('').map((char, index) => (
               <span
-                key={index}
-                className="pricing-char inline-block will-change-transform opacity-0"
+                key={`${wordIdx}-${index}`}
+                className="inline-block overflow-hidden h-[1.18em] leading-none align-baseline relative pb-[0.22em] -mb-[0.22em]"
               >
-                {char === ' ' ? '\u00A0' : char}
+                <span className="pricing-char inline-block will-change-transform opacity-100">
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
               </span>
             ))}
           </h2>
