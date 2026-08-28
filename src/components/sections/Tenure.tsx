@@ -48,11 +48,11 @@ export default function Tenure() {
   const [displayedWord, setDisplayedWord] = useState(PROCESS_SYNONYMS[0]);
   const isFirstMount = useRef(true);
 
-  // 1. Team photo rotator (2.6s interval)
+  // 1. Team photo rotator (1.8s interval — slightly faster cycling)
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTeamIdx((prev) => (prev + 1) % rotatingTeam.length);
-    }, 2600);
+    }, 1800);
 
     return () => clearInterval(timer);
   }, []);
@@ -186,7 +186,7 @@ export default function Tenure() {
                   alt={`${member.name} — ${member.role}`}
                   fill
                   unoptimized
-                  className={`object-cover block transition-opacity duration-700 ease-in-out ${
+                  className={`object-cover block transition-opacity duration-500 ease-in-out ${
                     idx === currentTeamIdx ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
                   }`}
                 />

@@ -1,12 +1,45 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import { faqsData } from '@/data/faq';
 
+const rotatingTeam = [
+  {
+    src: '/team/arjun.jpg',
+    name: 'Arjun Singh Rajput',
+    role: 'CEO & Head of Strategy',
+  },
+  {
+    src: '/team/jatin.jpg',
+    name: 'Jatin Khetan',
+    role: 'CFO & Head of Product & Design',
+  },
+  {
+    src: '/team/somesh.jpeg',
+    name: 'Somesh Rajput',
+    role: 'CTO & Head of Engineering',
+  },
+  {
+    src: '/team/parth.jpeg',
+    name: 'Parth Garg',
+    role: 'COO & Head of Operations',
+  },
+];
+
 export default function Faq() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
+  const [currentTeamIdx, setCurrentTeamIdx] = useState(0);
+
+  // Rotating Team Photo (1.8s interval)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTeamIdx((prev) => (prev + 1) % rotatingTeam.length);
+    }, 1800);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const toggleFaq = (idx: number) => {
     setOpenIdx((prev) => (prev === idx ? null : idx));
@@ -15,8 +48,8 @@ export default function Faq() {
   return (
     <>
       <section id="faq" className="relative w-full bg-bg select-none pt-[70px] xl:pt-[90px]">
-        <div className="px-[20px] md:px-[28px] xl:px-[40px] grid grid-cols-1 xl:grid-cols-[540px_1fr] gap-[48px] xl:gap-[80px] items-start">
-          {/* Left Column */}
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] grid grid-cols-1 xl:grid-cols-[500px_1fr] gap-[48px] xl:gap-[72px] items-start">
+          {/* Left Column: FAQ Display, Rotating Leadership Photo, and Statement overlapping underneath */}
           <div className="flex flex-col">
             <h2
               className="t-display-sm text-fg"
@@ -29,31 +62,50 @@ export default function Faq() {
               FAQ.
             </h2>
 
-            <div className="mt-[20px] xl:mt-[30px] w-[180px] xl:w-[240px] h-[180px] xl:h-[240px] rounded-[12px] overflow-hidden bg-surface border border-line-solid relative shrink-0">
-              <Image
-                src="/team/arjun.jpg"
-                alt="GLAD Studio leadership"
-                fill
-                unoptimized
-                className="object-cover block"
-              />
+            {/* Rotating Leadership Photo */}
+            <div
+              data-cursor="view"
+              data-cursor-text={rotatingTeam[currentTeamIdx].name}
+              data-cursor-subtext={rotatingTeam[currentTeamIdx].role}
+              className="mt-[28px] xl:mt-[42px] w-[180px] xl:w-[240px] h-[180px] xl:h-[240px] rounded-[12px] overflow-hidden bg-surface border border-line-solid relative shrink-0 z-[1] shadow-lg"
+            >
+              {rotatingTeam.map((member, idx) => (
+                <Image
+                  key={member.src}
+                  src={member.src}
+                  alt={`${member.name} — ${member.role}`}
+                  fill
+                  unoptimized
+                  className={`object-cover block transition-opacity duration-500 ease-in-out ${
+                    idx === currentTeamIdx ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* "Clear Answers..." text placed under the photo, overlapping with difference blending */}
+            <div
+              className="-mt-[22px] xl:-mt-[32px] relative z-[2] max-w-[460px] pointer-events-none"
+              style={{
+                mixBlendMode: 'difference',
+              }}
+            >
+              <h3 className="text-[24px] sm:text-[30px] xl:text-[34px] font-normal text-white leading-[1.18] tracking-[-0.02em]">
+                Clear Answers on Scope,
+                <br />
+                Timelines and Cost
+                <br />
+                Before Any Work
+                <br />
+                Begins <span lang="hi" className="tracking-[0.02em]">जवाब</span>.
+              </h3>
             </div>
           </div>
 
-          {/* Right Column */}
-          <div className="flex flex-col">
-            <h3 className="t-heading-sm text-fg max-w-[680px]">
-              Clear Answers on Scope,
-              <br />
-              Timelines and Cost
-              <br />
-              Before Any Work
-              <br />
-              Begins <span lang="hi" className="tracking-[0.02em]">जवाब</span>.
-            </h3>
-
+          {/* Right Column: FAQ Questions brought up to the top */}
+          <div className="flex flex-col xl:pt-[10px]">
             {/* Accordion List with 8 Rows */}
-            <div className="mt-[36px] xl:mt-[56px] border-t border-line">
+            <div className="border-t border-line">
               {faqsData.map((item, idx) => {
                 const isOpen = openIdx === idx;
                 const panelId = `faq-panel-${idx}`;
@@ -127,7 +179,7 @@ export default function Faq() {
       </section>
 
       {/* Section Eyebrow */}
-      <div className="mt-[70px] xl:mt-[90px]">
+      <div className="mt-[120px] xl:mt-[160px]">
         <SectionEyebrow
           left={<>GET IN TOUCH <span lang="hi">समापन</span></>}
           index="(GLD® — 12)"

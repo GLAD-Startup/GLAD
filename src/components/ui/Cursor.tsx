@@ -10,16 +10,12 @@ type CursorMode = 'default' | 'pointer' | 'view';
 export default function Cursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const modeRef = useRef<CursorMode>('default');
-  const isWhiteRef = useRef<boolean>(false);
   const viewTextRef = useRef<string>('VIEW');
   const viewSubtextRef = useRef<string>('');
-  const isPillWhiteRef = useRef<boolean>(false);
 
   const [mode, setMode] = useState<CursorMode>('default');
-  const [isWhite, setIsWhite] = useState<boolean>(false);
   const [viewText, setViewText] = useState<string>('VIEW');
   const [viewSubtext, setViewSubtext] = useState<string>('');
-  const [isPillWhite, setIsPillWhite] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -56,15 +52,15 @@ export default function Cursor() {
 
       const viewTarget = target.closest('[data-cursor="view"], [data-cursor-text]');
       const isView = viewTarget !== null;
-      const isWhitePointer = target.closest('[data-cursor="pointer-white"], [data-cursor-white="true"]') !== null;
-      const isClickable = !isView && (isWhitePointer || target.closest(
-        'a, button, [role="button"], [data-cursor="link"], [data-cursor="pointer"], .cursor-pointer, input, select, textarea, label, summary'
-      ) !== null);
+      const isClickable =
+        !isView &&
+        target.closest(
+          'a, button, [role="button"], [data-cursor="link"], [data-cursor="pointer"], .cursor-pointer, input, select, textarea, label, summary'
+        ) !== null;
 
       let nextMode: CursorMode = 'default';
       let nextViewText = 'VIEW';
       let nextViewSubtext = '';
-      let nextIsPillWhite = false;
 
       if (isView && viewTarget) {
         nextMode = 'view';
@@ -75,16 +71,6 @@ export default function Cursor() {
         const customSubtext = viewTarget.getAttribute('data-cursor-subtext');
         if (customSubtext) {
           nextViewSubtext = customSubtext;
-        }
-        const pillVariant = viewTarget.getAttribute('data-cursor-pill');
-        const isWhiteAttr = viewTarget.getAttribute('data-cursor-white');
-        if (
-          pillVariant === 'white' ||
-          pillVariant === 'light' ||
-          isWhiteAttr === 'true' ||
-          customText === 'GLAD Studio'
-        ) {
-          nextIsPillWhite = true;
         }
       } else if (isClickable) {
         nextMode = 'pointer';
@@ -103,16 +89,6 @@ export default function Cursor() {
       if (viewSubtextRef.current !== nextViewSubtext) {
         viewSubtextRef.current = nextViewSubtext;
         setViewSubtext(nextViewSubtext);
-      }
-
-      if (isPillWhiteRef.current !== nextIsPillWhite) {
-        isPillWhiteRef.current = nextIsPillWhite;
-        setIsPillWhite(nextIsPillWhite);
-      }
-
-      if (isWhiteRef.current !== isWhitePointer) {
-        isWhiteRef.current = isWhitePointer;
-        setIsWhite(isWhitePointer);
       }
     };
 
@@ -146,25 +122,23 @@ export default function Cursor() {
       )}
       style={{
         transition: 'opacity 180ms ease',
+        mixBlendMode: 'difference',
       }}
     >
-      {/* 1. Default State: 10px solid black dot centered at mouse with spring animation */}
+      {/* 1. Default State: 10px solid white dot that inverts to black over light and white over black, with partial difference along boundaries */}
       <div
         className={clsx(
-          'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[10px] h-[10px] rounded-full bg-fg will-change-transform',
+          'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[10px] h-[10px] rounded-full bg-white will-change-transform',
           mode === 'default'
             ? 'scale-100 opacity-100 transition-all duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)]'
             : 'scale-0 opacity-0 transition-all duration-180 ease-in pointer-events-none'
         )}
       />
 
-      {/* 2. Pointer Hand State: Exact vector from brand black-finger-cursor */}
+      {/* 2. Pointer Hand State: Exact vector filled with #FFFFFF under mix-blend-mode: difference */}
       <div
         className={clsx(
           'absolute top-0 left-0 will-change-transform origin-[3.2px_0px]',
-          isWhite
-            ? 'filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]'
-            : 'filter drop-shadow-[0_1.5px_2.5px_rgba(0,0,0,0.18)]',
           mode === 'pointer'
             ? 'scale-100 opacity-100 rotate-0 -translate-x-[3.2px] -translate-y-0 transition-all duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)]'
             : 'scale-0 opacity-0 -rotate-12 -translate-x-[3.2px] -translate-y-0 transition-all duration-180 ease-in pointer-events-none'
@@ -180,20 +154,16 @@ export default function Cursor() {
         >
           <path
             d={POINTER_HAND_PATH}
-            fill={isWhite ? '#FBFBF9' : '#0A0A0B'}
-            className="transition-colors duration-200"
+            fill="#FFFFFF"
           />
         </svg>
       </div>
 
-      {/* 3. View State: Pill centered at mouse */}
+      {/* 3. View State: Pill centered at mouse with difference inversion */}
       <div
         className={clsx(
-          'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-[999px] shadow-2xl flex items-center justify-center transition-all duration-200 ease-out overflow-hidden will-change-transform border',
+          'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-[999px] flex items-center justify-center transition-all duration-200 ease-out overflow-hidden will-change-transform bg-white text-black',
           viewSubtext ? 'px-[22px] py-[8px] min-h-[46px]' : 'px-4 h-[34px] min-w-[72px]',
-          isPillWhite
-            ? 'bg-[#FFFFFF] text-[#0A0A0B] border-[rgba(10,10,11,0.08)] shadow-[0_6px_24px_rgba(0,0,0,0.14)]'
-            : 'bg-fg text-bg border-transparent',
           mode === 'view'
             ? 'scale-100 opacity-100'
             : 'scale-0 opacity-0 pointer-events-none'
@@ -201,22 +171,17 @@ export default function Cursor() {
       >
         {viewSubtext ? (
           <div className="flex flex-col items-center justify-center text-center leading-snug">
-            <span className="text-[14.5px] font-semibold whitespace-nowrap tracking-[-0.015em] leading-tight">
+            <span className="text-[14.5px] font-semibold whitespace-nowrap tracking-[-0.015em] leading-tight text-black">
               {viewText}
             </span>
-            <span
-              className={clsx(
-                'text-[11.5px] whitespace-nowrap font-normal pt-0.5 leading-tight',
-                isPillWhite ? 'text-[#55555A]' : 'text-[#BEBEBE]'
-              )}
-            >
+            <span className="text-[11.5px] whitespace-nowrap font-normal pt-0.5 leading-tight text-[#444444]">
               {viewSubtext}
             </span>
           </div>
         ) : (
           <span
             className={clsx(
-              'text-[12.5px] select-none font-semibold whitespace-nowrap',
+              'text-[12.5px] select-none font-semibold whitespace-nowrap text-black',
               viewText === 'VIEW' ? 'uppercase tracking-wider' : 'tracking-[-0.01em]'
             )}
           >

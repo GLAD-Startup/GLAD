@@ -233,7 +233,7 @@ export default function Pricing() {
       </section>
 
       {/* Section Eyebrow */}
-      <div className="mt-[70px] xl:mt-[90px]">
+      <div className="mt-[95px] xl:mt-[120px]">
         <SectionEyebrow
           left={<>ENGINEERING INSIGHTS <span lang="hi">लेख</span></>}
           index="(GLD® — 10)"

@@ -4,7 +4,6 @@ import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
 import PillButton from '@/components/ui/PillButton';
 import { siteConfig } from '@/data/site';
@@ -34,26 +33,24 @@ export default function Footer({
   const filmstripRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
     const strip = filmstripRef.current;
-    const footer = footerRef.current;
-    if (!strip || !footer) return;
-    if (window.innerWidth < 810) return;
+    if (!strip) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
+      // Continuous constant-speed automatic loop completely unaffected by scroll
       gsap.fromTo(
         strip,
-        { x: 0 },
+        { xPercent: 0 },
         {
-          x: -80,
+          xPercent: -50,
+          duration: 32,
           ease: 'none',
-          scrollTrigger: {
-            trigger: footer,
-            start: 'top bottom',
-            end: 'bottom bottom',
-            scrub: true,
-          },
+          repeat: -1,
         }
       );
     });
@@ -113,13 +110,13 @@ export default function Footer({
       id="footer"
       className="relative w-full bg-bg select-none pt-8 xl:pt-12 overflow-hidden"
     >
-      {/* 1. Full-Bleed Ragged Filmstrip with Real Work & Product Images */}
-      <div className="w-full overflow-x-auto no-scrollbar mb-[48px] xl:mb-[70px]">
+      {/* 1. Full-Bleed Ragged Filmstrip with Automatic Continuous Flow */}
+      <div className="w-full overflow-hidden mb-[48px] xl:mb-[70px] select-none pointer-events-none">
         <div
           ref={filmstripRef}
-          className="flex items-center gap-[12px] w-max will-change-transform pl-[20px] md:pl-[28px] xl:pl-[40px] py-4"
+          className="flex items-center gap-[16px] w-max will-change-transform py-4"
         >
-          {filmstripImages.map((item, idx) => (
+          {[...filmstripImages, ...filmstripImages].map((item, idx) => (
             <div
               key={idx}
               className={`rounded-[10px] overflow-hidden bg-surface border border-line-solid relative shrink-0 ${item.offset}`}
@@ -130,7 +127,7 @@ export default function Footer({
             >
               <Image
                 src={item.src}
-                alt={`GLAD Studio portfolio archival visual ${idx + 1}`}
+                alt={`GLAD Studio portfolio visual ${idx + 1}`}
                 fill
                 unoptimized
                 className="object-cover block"
