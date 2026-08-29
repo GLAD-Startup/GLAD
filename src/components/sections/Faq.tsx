@@ -83,7 +83,7 @@ export default function Faq() {
       <section
         ref={sectionRef}
         id="faq"
-        className="relative w-full bg-[#0A0A0B] text-[#FBFBF9] select-none pt-[70px] xl:pt-[90px]"
+        className="relative w-full bg-bg select-none pt-[70px] xl:pt-[90px]"
       >
         <div className="px-[20px] md:px-[28px] xl:px-[40px] grid grid-cols-1 xl:grid-cols-[500px_1fr] gap-[48px] xl:gap-[72px] items-start">
           {/* Left Column: FAQ Display, Rotating Leadership Photo, and Statement overlapping underneath */}
@@ -91,7 +91,7 @@ export default function Faq() {
             <div className="overflow-hidden pb-[0.3em] -mb-[0.3em]">
               <h2
                 ref={headlineRef}
-                className="t-display-sm text-[#FBFBF9] inline-block will-change-transform"
+                className="t-display-sm text-fg inline-block will-change-transform"
                 style={{
                   fontSize: 'clamp(0px, 9vw, 150px)',
                   lineHeight: 0.98,
@@ -114,7 +114,7 @@ export default function Faq() {
               data-cursor="view"
               data-cursor-text={rotatingTeam[currentTeamIdx].name}
               data-cursor-subtext={rotatingTeam[currentTeamIdx].role}
-              className="mt-[28px] xl:mt-[42px] w-[180px] xl:w-[240px] h-[180px] xl:h-[240px] rounded-[12px] overflow-hidden bg-[#141416] border border-white/[0.12] relative shrink-0 z-[1] shadow-2xl shadow-black/80"
+              className="mt-[28px] xl:mt-[42px] w-[180px] xl:w-[240px] h-[180px] xl:h-[240px] rounded-[12px] overflow-hidden bg-surface border border-line-solid relative shrink-0 z-[1] shadow-lg"
             >
               {rotatingTeam.map((member, idx) => (
                 <Image
@@ -152,7 +152,7 @@ export default function Faq() {
           {/* Right Column: FAQ Questions brought up to the top */}
           <div className="flex flex-col xl:pt-[10px]">
             {/* Accordion List with 8 Rows */}
-            <div className="border-t border-white/[0.10]">
+            <div className="border-t border-line">
               {faqsData.map((item, idx) => {
                 const isOpen = openIdx === idx;
                 const panelId = `faq-panel-${idx}`;
@@ -161,7 +161,7 @@ export default function Faq() {
                 return (
                   <div
                     key={idx}
-                    className="border-b border-white/[0.10] py-[22px] xl:py-[26px] transition-colors duration-200"
+                    className="border-b border-line py-[22px] xl:py-[26px] transition-colors duration-200"
                   >
                     <button
                       id={buttonId}
@@ -173,17 +173,17 @@ export default function Faq() {
                       aria-controls={panelId}
                     >
                       {/* Number */}
-                      <span className="w-[45px] xl:w-[70px] shrink-0 text-[13px] font-medium text-[#A8A8AD]">
+                      <span className="w-[45px] xl:w-[70px] shrink-0 text-[13px] font-medium text-fg-muted">
                         {item.number}
                       </span>
 
                       {/* Question */}
-                      <span className="flex-1 text-[16px] xl:text-[18px] font-medium text-[#FBFBF9] transition-colors duration-200 group-hover:text-accent-bright pr-2 leading-snug">
+                      <span className="flex-1 text-[16px] xl:text-[18px] font-medium text-fg transition-colors duration-200 group-hover:text-accent pr-2 leading-snug">
                         {item.question}
                       </span>
 
                       {/* + / - Rotating Glyph */}
-                      <div className="ml-auto shrink-0 w-6 h-6 flex items-center justify-center text-[#FBFBF9]">
+                      <div className="ml-auto shrink-0 w-6 h-6 flex items-center justify-center text-fg">
                         <svg
                           className={`w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                             isOpen ? 'rotate-45' : 'rotate-0'
@@ -212,7 +212,7 @@ export default function Faq() {
                       }`}
                     >
                       <div className="pt-[14px] xl:pt-[16px] pl-[45px] xl:pl-[70px]">
-                        <p className="t-body-sm text-[#A8A8AD] max-w-[620px] leading-[1.55]">
+                        <p className="t-body-sm text-fg-muted max-w-[620px] leading-[1.55]">
                           {item.answer}
                         </p>
                       </div>
@@ -228,7 +228,6 @@ export default function Faq() {
       {/* Section Eyebrow */}
       <div className="mt-[120px] xl:mt-[160px]">
         <SectionEyebrow
-          className="mt-0 border-t border-line"
           left={<>GET IN TOUCH <span lang="hi">समापन</span></>}
           index="(GLD® — 12)"
           right="STUDIO WRAP"

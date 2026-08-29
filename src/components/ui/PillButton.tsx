@@ -6,7 +6,6 @@ export interface PillButtonProps {
   href: string;
   children: React.ReactNode;
   className?: string;
-  variant?: 'light' | 'dark';
   target?: string;
   rel?: string;
   onClick?: () => void;
@@ -16,32 +15,26 @@ export default function PillButton({
   href,
   children,
   className,
-  variant = 'light',
   target,
   rel,
   onClick,
 }: PillButtonProps) {
   const isExternal = href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:');
-  const isDark = variant === 'dark';
 
   const commonClasses = clsx(
     'group relative inline-flex items-center justify-center',
-    'rounded-[999px] px-[28px] md:px-[34px] py-[12px] md:py-[13px] min-h-[46px] md:min-h-[50px]',
-    isDark
-      ? 'border border-white/40 hover:border-white bg-transparent text-[#FBFBF9]'
-      : 'border border-fg bg-transparent text-fg',
+    'border border-fg rounded-[999px] px-[28px] md:px-[34px] py-[12px] md:py-[13px] min-h-[46px] md:min-h-[50px]',
+    'bg-transparent text-fg',
     'uppercase text-[16px] md:text-[18px] font-semibold tracking-[-0.015em] leading-none',
     'cursor-pointer select-none overflow-hidden isolate',
     className
   );
 
-  const hoverTextColor = isDark ? 'group-hover:text-[#0A0A0B]' : 'group-hover:text-bg';
-
   const renderContent = () => {
     if (typeof children === 'string') {
       const text = children;
       return (
-        <span className={clsx('relative z-10 inline-flex items-center overflow-hidden transition-colors duration-400', hoverTextColor)}>
+        <span className="relative z-10 inline-flex items-center overflow-hidden transition-colors duration-400 group-hover:text-bg">
           {text.split('').map((char, index) => (
             <span
               key={index}
@@ -72,16 +65,13 @@ export default function PillButton({
         </span>
       );
     }
-    return <span className={clsx('relative z-10 transition-colors duration-400', hoverTextColor)}>{children}</span>;
+    return <span className="relative z-10 transition-colors duration-400 group-hover:text-bg">{children}</span>;
   };
 
   const filler = (
     <div
       aria-hidden="true"
-      className={clsx(
-        'absolute inset-0 z-0 rounded-[999px] translate-y-full group-hover:translate-y-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
-        isDark ? 'bg-[#FBFBF9]' : 'bg-fg'
-      )}
+      className="absolute inset-0 z-0 rounded-[999px] bg-fg translate-y-full group-hover:translate-y-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
     />
   );
 

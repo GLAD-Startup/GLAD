@@ -145,14 +145,14 @@ export default function Tenure() {
       <section
         ref={containerRef}
         id="process"
-        className="relative w-full bg-[#0A0A0B] text-[#FBFBF9] select-none"
+        className="relative w-full bg-bg select-none"
       >
         {/* Top Area with Decoupled Headline & Corner Image */}
         <div className="relative pt-[16px] md:pt-[20px] xl:pt-[24px] px-[20px] md:px-[28px] xl:px-[40px] min-h-[160px] md:min-h-[220px] xl:min-h-[265px]">
           {/* Headline with Staggered Character Spans — Decoupled with full descender clearance */}
           <h2
             ref={headlineRef}
-            className="t-display-sm text-[#FBFBF9] inline-flex items-baseline ml-[-4px] -mt-[2px] md:-mt-[6px] xl:-mt-[8px]"
+            className="t-display-sm text-fg inline-flex items-baseline ml-[-4px] -mt-[2px] md:-mt-[6px] xl:-mt-[8px]"
             style={{
               fontSize: 'clamp(0px, 10vw, 175px)',
               lineHeight: 0.90,
@@ -177,7 +177,7 @@ export default function Tenure() {
               data-cursor="view"
               data-cursor-text={rotatingTeam[currentTeamIdx].name}
               data-cursor-subtext={rotatingTeam[currentTeamIdx].role}
-              className="w-[145px] md:w-[170px] xl:w-[195px] h-[190px] md:h-[220px] xl:h-[255px] rounded-[10px] overflow-hidden bg-[#141416] border border-white/[0.12] relative shadow-2xl shadow-black/80"
+              className="w-[145px] md:w-[170px] xl:w-[195px] h-[190px] md:h-[220px] xl:h-[255px] rounded-[10px] overflow-hidden bg-surface border border-line-solid relative shadow-lg"
             >
               {rotatingTeam.map((member, idx) => (
                 <Image
@@ -204,61 +204,60 @@ export default function Tenure() {
               'Weekly Demos',
               'Post-Launch',
             ]}
-            className="bg-[#141416]/90 backdrop-blur-sm border-y border-white/[0.10] text-[#FBFBF9]"
           />
         </div>
 
         {/* Table Block with 8 Process Rows */}
         <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] xl:mt-[56px]">
-          <div className="border-t border-white/[0.10]">
+          <div className="border-t border-line">
             {processRows.map((row) => (
               <div
                 key={row.step}
                 data-cursor="link"
-                className="py-[18px] px-2 border-b border-white/[0.10] text-[15px] transition-colors duration-200 hover:bg-[#141416]"
+                className="py-[18px] px-2 border-b border-line text-[15px] transition-colors duration-200 hover:bg-surface"
               >
                 {/* Desktop 4-Column Grid (>=1200px) */}
                 <div className="hidden xl:grid grid-cols-[80px_230px_1fr_140px] items-center gap-4">
-                  <span className="text-left font-normal text-[#A8A8AD] text-[15px]">
+                  <span className="text-left font-normal text-fg-muted text-[15px]">
                     {row.step}
                   </span>
                   <div className="text-left">
-                    <span className="text-accent-bright font-medium text-[15px]">
+                    <span className="eyebrow-shimmer-accent font-medium text-[15px]">
                       {row.stage}
                     </span>
                   </div>
-                  <p className="text-left font-normal text-[#A8A8AD] text-[14px] leading-normal max-w-[560px]">
+                  <p className="text-left font-normal text-fg-muted text-[14px] leading-normal max-w-[560px]">
                     {row.description}
                   </p>
-                  <span className="text-right font-normal text-[#A8A8AD] text-[15px]">
+                  <span className="text-right font-normal text-fg-muted text-[15px]">
                     {row.when}
                   </span>
                 </div>
 
                 {/* Tablet 3-Column Grid (810px - 1199px) */}
                 <div className="hidden min-[810px]:grid xl:hidden grid-cols-[60px_1fr_120px] gap-4 items-center">
-                  <span className="font-normal text-[#A8A8AD] text-[14px]">{row.step}</span>
+                  <span className="font-normal text-fg-muted text-[14px]">{row.step}</span>
                   <div className="flex flex-col gap-1">
-                    <span className="text-accent-bright font-medium text-[15px]">
+                    <span className="eyebrow-shimmer-accent font-medium text-[15px]">
                       {row.stage}
                     </span>
-                    <span className="text-[#A8A8AD] text-[13.5px] leading-normal">{row.description}</span>
+                    <span className="text-fg-muted text-[13.5px] leading-normal">{row.description}</span>
                   </div>
-                  <span className="text-right font-normal text-[#A8A8AD] text-[14px]">{row.when}</span>
+                  <span className="text-right font-normal text-fg-muted text-[14px]">{row.when}</span>
                 </div>
 
                 {/* Mobile Stacked Block (<=809px) */}
                 <div className="flex flex-col gap-1.5 min-[810px]:hidden">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2.5">
-                      <span className="text-[#A8A8AD] text-[13px]">{row.step}</span>
-                      <span className="text-accent-bright font-medium text-[15px]">
+                      <span className="text-fg-muted text-[13px]">{row.step}</span>
+                      <span className="eyebrow-shimmer-accent font-medium text-[15px]">
                         {row.stage}
                       </span>
                     </div>
-                    <span className="text-[#A8A8AD] text-[12.5px]">{row.when}</span>
+                    <span className="text-fg-muted text-[12.5px]">{row.when}</span>
                   </div>
-                  <p className="text-[#A8A8AD] text-[13.5px] leading-normal">{row.description}</p>
+                  <p className="text-fg-muted text-[13.5px] leading-normal">{row.description}</p>
                 </div>
               </div>
             ))}

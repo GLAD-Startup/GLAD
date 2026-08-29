@@ -187,10 +187,8 @@ export default function Journal() {
         </div>
       </section>
 
-      {/* Section Eyebrow (GLD® — 11 leading into dark Section 11 FAQ) */}
+      {/* Section Eyebrow */}
       <SectionEyebrow
-        variant="dark"
-        className="mt-0 border-t border-white/[0.10]"
         left={<>FREQUENTLY ASKED <span lang="hi">प्रश्नावली</span></>}
         index="(GLD® — 11)"
         right="QUESTIONS & ANSWERS"

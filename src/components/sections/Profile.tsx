@@ -281,10 +281,8 @@ export default function Profile() {
         </div>
       </section>
 
-      {/* Section Eyebrow (GLD® — 05 leading into dark Section 5 Tenure) */}
+      {/* Section Eyebrow (GLD® — 05 duplicate intentional) */}
       <SectionEyebrow
-        variant="dark"
-        className="mt-0 border-t border-white/[0.10]"
         left={<>HOW WE SHIP <span lang="hi">प्रक्रिया</span></>}
         index="(GLD® — 05)"
         right="PREDICTABLE PROCESS"

@@ -194,13 +194,13 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           );
         }
 
-        // 2.75s: Wordmark — zoom & settle: y: -140 -> 0, scale: 0.72 -> 1, color: var(--fg-dim) -> var(--bg) (#FBFBF9)
+        // 2.75s: Wordmark — zoom & settle: y: -140 -> 0, scale: 0.72 -> 1, color: var(--fg-dim) -> var(--fg) (#0A0A0B)
         tl.to(
           wordmark,
           {
             y: 0,
             scale: 1,
-            color: '#FBFBF9',
+            color: '#0A0A0B',
             duration: 0.90,
             ease: 'expo.out',
           },
@@ -308,9 +308,5 @@ export default function HeroIntro({ children }: HeroIntroProps) {
     };
   }, []);
 
-  return (
-    <div ref={containerRef} className="w-full bg-[#0A0A0B] text-[#FBFBF9] select-none relative">
-      {children}
-    </div>
-  );
+  return <div ref={containerRef}>{children}</div>;
 }

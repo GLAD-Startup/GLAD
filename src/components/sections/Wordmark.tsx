@@ -36,12 +36,12 @@ export default function Wordmark() {
   return (
     <section
       ref={containerRef}
-      className="relative z-20 w-full overflow-visible pt-[18px] md:pt-[24px] px-[20px] md:px-[28px] xl:px-[40px] pb-[36px] md:pb-[56px] bg-[#0A0A0B] text-[#FBFBF9] flex justify-center items-center select-none"
+      className="relative z-20 w-full overflow-visible pt-[18px] md:pt-[24px] px-[20px] md:px-[28px] xl:px-[40px] pb-[30px] md:pb-[48px] bg-transparent flex justify-center items-center select-none"
     >
       <div
         ref={wordmarkRef}
         data-intro="wordmark"
-        className="t-wordmark font-normal text-[#FBFBF9] text-center whitespace-nowrap"
+        className="t-wordmark font-normal text-fg text-center whitespace-nowrap"
         style={{
           fontSize: 'clamp(0px, 13.5vw, 250px)',
           lineHeight: 0.80,
@@ -54,7 +54,7 @@ export default function Wordmark() {
           {/* Base dim layer during drop and hold */}
           <span
             aria-hidden="true"
-            className="inline-block select-none text-[#6B6B70]"
+            className="inline-block select-none"
             style={{
               paddingTop: '0.10em',
               paddingBottom: '0.28em',
@@ -75,7 +75,7 @@ export default function Wordmark() {
           </span>
         </span>
         <sup
-          className="tracking-normal font-normal ml-0.5 text-[#FBFBF9]"
+          className="tracking-normal font-normal ml-0.5"
           style={{ fontSize: '0.30em', verticalAlign: 'super' }}
         >
           ®

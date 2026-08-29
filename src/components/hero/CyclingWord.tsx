@@ -270,7 +270,7 @@ export default function CyclingWord() {
   // Reduced motion: static first word with underline rule
   if (reducedMotion) {
     return (
-      <span className="relative inline-block align-baseline mr-[0.02em] text-[#FBFBF9]">
+      <span className="relative inline-block align-baseline mr-[0.02em]">
         <span
           lang="hi"
           className="inline-block tracking-[0.02em]"
@@ -282,7 +282,7 @@ export default function CyclingWord() {
           {cyclingWords[0]}
         </span>
         <span
-          className="absolute left-0 bottom-[-12px] w-full h-[3px] bg-[#FBFBF9] rounded-[1px] pointer-events-none"
+          className="absolute left-0 bottom-[-12px] w-full h-[3px] bg-fg rounded-[1px] pointer-events-none"
           aria-hidden="true"
         />
       </span>
@@ -296,7 +296,7 @@ export default function CyclingWord() {
         ref={wrapperRef}
         aria-live="off"
         aria-hidden="true"
-        className="relative inline-block align-baseline will-change-[width] text-[#FBFBF9]"
+        className="relative inline-block align-baseline will-change-[width]"
         style={{ verticalAlign: 'baseline' }}
       >
         {/* Overflow hidden mask holding the word stack */}
@@ -309,7 +309,7 @@ export default function CyclingWord() {
           <span
             ref={currentWordRef}
             lang="hi"
-            className="inline-block tracking-[0.02em] whitespace-nowrap will-change-transform text-[#FBFBF9]"
+            className="inline-block tracking-[0.02em] whitespace-nowrap will-change-transform"
             style={{
               fontFamily: "'Noto Sans Devanagari', 'Noto Sans JP', sans-serif",
               fontSize: '1.05em',
@@ -322,7 +322,7 @@ export default function CyclingWord() {
           <span
             ref={nextWordRef}
             lang="hi"
-            className="absolute left-0 top-0 inline-block tracking-[0.02em] whitespace-nowrap will-change-transform opacity-0 text-[#FBFBF9]"
+            className="absolute left-0 top-0 inline-block tracking-[0.02em] whitespace-nowrap will-change-transform opacity-0"
             style={{
               fontFamily: "'Noto Sans Devanagari', 'Noto Sans JP', sans-serif",
               fontSize: '1.05em',
@@ -332,12 +332,12 @@ export default function CyclingWord() {
           </span>
         </span>
 
-        {/* Drawn Underline Rule: height 3px, bg #FBFBF9, border-radius 1px, 12px below baseline to clear below-baseline matras */}
+        {/* Drawn Underline Rule: height 3px, bg var(--fg), border-radius 1px, 12px below baseline to clear below-baseline matras */}
         <span
           ref={underlineRef}
           data-intro="cycling-underline"
           aria-hidden="true"
-          className="absolute left-0 bottom-[-12px] h-[3px] bg-[#FBFBF9] rounded-[1px] pointer-events-none will-change-[width]"
+          className="absolute left-0 bottom-[-12px] h-[3px] bg-fg rounded-[1px] pointer-events-none will-change-[width]"
         />
       </span>
 

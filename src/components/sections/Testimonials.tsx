@@ -238,7 +238,6 @@ export default function Testimonials() {
       {/* Section Eyebrow (GLD® — 06) — Normal-flow sibling immediately before the pinned section */}
       <div className="w-full relative bg-bg">
         <SectionEyebrow
-          className="mt-0 border-t border-line"
           left={<>CLIENT FEEDBACK <span lang="hi">समीक्षा</span></>}
           index="(GLD® — 06)"
           right="VERIFIED CLIENTS"
@@ -360,10 +359,8 @@ export default function Testimonials() {
         </div>
       </section>
 
-      {/* Section Eyebrow (GLD® — 07 leading into dark Section 7 Awards / Why Us) */}
+      {/* Section Eyebrow (GLD® — 07 leading into Awards) */}
       <SectionEyebrow
-        variant="dark"
-        className="mt-0 border-t border-white/[0.10]"
         left={<>WHY TEAMS CHOOSE US <span lang="hi">भरोसा</span></>}
         index="(GLD® — 07)"
         right="HOW WE WORK"
