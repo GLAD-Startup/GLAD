@@ -80,7 +80,7 @@ export default function FeaturedWorks() {
         </p>
 
         <div>
-          <PillButton href="/portfolio">See Works</PillButton>
+          <PillButton href="/work">See Works</PillButton>
         </div>
       </div>
 
@@ -93,7 +93,7 @@ export default function FeaturedWorks() {
             title={proj.title}
             category={proj.category}
             subtitle={proj.subtitle}
-            href={`/portfolio/${proj.slug}`}
+            href={`/work/${proj.slug}`}
             x={proj.x}
             y={proj.y}
             w={proj.w}

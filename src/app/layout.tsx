@@ -87,8 +87,9 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
+                  var isHome = window.location.pathname === '/';
                   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                  if (!reduced) {
+                  if (isHome && !reduced) {
                     document.documentElement.classList.add('intro-armed');
                   }
                 } catch(e) {}

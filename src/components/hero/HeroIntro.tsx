@@ -52,15 +52,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
         await document.fonts.ready;
       }
 
-      // 2. Lock scroll and scroll to top for the duration of the intro
-      window.scrollTo(0, 0);
-      document.body.style.overflow = 'hidden';
-      const lenisInstance = (
-        window as unknown as { lenis?: { stop: () => void; start: () => void } }
-      ).lenis;
-      if (lenisInstance) {
-        lenisInstance.stop();
-      }
+      // 2. Allow normal user scroll during intro (no scroll lock)
 
       ctx = gsap.context(() => {
         // Query elements by data-intro attributes
@@ -107,7 +99,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
 
         if (studioGradient) {
           gsap.set(studioGradient, {
-            clipPath: 'inset(100% 0 0 0)',
+            clipPath: 'inset(0 0 0 100%)',
           });
         }
 
@@ -189,9 +181,20 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           0.45
         );
 
-        // 1.60s - 2.35s: stays at the temporary shifted-up position for ~0.75-1s
+        // 0.95s - 2.75s: Studio gradient fill animation: slower right-to-left wipe (inset(0 0 0 100%) -> inset(0 0 0 0%))
+        if (studioGradient) {
+          tl.to(
+            studioGradient,
+            {
+              clipPath: 'inset(0 0 0 0%)',
+              duration: 1.80,
+              ease: 'power1.inOut',
+            },
+            0.95
+          );
+        }
 
-        // 2.35s: Wordmark — zoom & settle: y: -140 -> 0, scale: 0.72 -> 1, color: var(--fg-dim) -> var(--fg) (#0A0A0B)
+        // 2.75s: Wordmark — zoom & settle: y: -140 -> 0, scale: 0.72 -> 1, color: var(--fg-dim) -> var(--fg) (#0A0A0B)
         tl.to(
           wordmark,
           {
@@ -201,23 +204,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.90,
             ease: 'expo.out',
           },
-          2.35
+          2.75
         );
 
-        // 2.35s: Studio gradient fill animation: wipe from bottom to top (inset(100% 0 0 0) -> inset(0% 0 0 0))
-        if (studioGradient) {
-          tl.to(
-            studioGradient,
-            {
-              clipPath: 'inset(0% 0 0 0)',
-              duration: 0.90,
-              ease: 'power2.out',
-            },
-            2.35
-          );
-        }
-
-        // 2.35s: Wordmark dividers: scaleX: 0 -> 1 from center
+        // 2.75s: Wordmark dividers: scaleX: 0 -> 1 from center
         tl.to(
           wordmarkDividers,
           {
@@ -225,10 +215,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.90,
             ease: 'expo.out',
           },
-          2.35
+          2.75
         );
 
-        // 3.05s: Video card: y: 26px, scale: 0.94, opacity: 0 -> y: 0, scale: 1, opacity: 1
+        // 3.45s: Video card: y: 26px, scale: 0.94, opacity: 0 -> y: 0, scale: 1, opacity: 1
         tl.to(
           videoCard,
           {
@@ -243,10 +233,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
               }
             },
           },
-          3.05
+          3.45
         );
 
-        // 3.19s: Word rail: clip-path: inset(0 100% 0 0) -> inset(0 0% 0 0)
+        // 3.59s: Word rail: clip-path: inset(0 100% 0 0) -> inset(0 0% 0 0)
         tl.to(
           wordRail,
           {
@@ -254,10 +244,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.55,
             ease: 'power3.inOut',
           },
-          3.19
+          3.59
         );
 
-        // 3.33s: Headline: per-line mask reveal y: 100% -> y: 0, stagger: 0.06s
+        // 3.73s: Headline: per-line mask reveal y: 100% -> y: 0, stagger: 0.06s
         tl.to(
           headlineLines,
           {
@@ -266,10 +256,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             stagger: 0.06,
             ease: 'power3.out',
           },
-          3.33
+          3.73
         );
 
-        // 3.47s: Nav: y: -14px, opacity: 0 -> y: 0, opacity: 1
+        // 3.87s: Nav: y: -14px, opacity: 0 -> y: 0, opacity: 1
         tl.to(
           nav,
           {
@@ -281,10 +271,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
               gsap.set(nav, { clearProps: 'transform,opacity' });
             },
           },
-          3.47
+          3.87
         );
 
-        // 3.63s: Nav hairline: scaleX: 0 -> 1 from left
+        // 4.03s: Nav hairline: scaleX: 0 -> 1 from left
         tl.to(
           navHairline,
           {
@@ -292,10 +282,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.50,
             ease: 'power2.out',
           },
-          3.63
+          4.03
         );
 
-        // 3.77s: Eyebrow row: opacity: 0 -> 1
+        // 4.17s: Eyebrow row: opacity: 0 -> 1
         tl.to(
           eyebrow,
           {
@@ -303,7 +293,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.40,
             ease: 'power1.out',
           },
-          3.77
+          4.17
         );
       });
     };

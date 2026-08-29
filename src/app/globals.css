@@ -264,7 +264,7 @@ img, video {
 
 /* Page-Load Hero Intro Armed States (prevents initial paint flash before GSAP starts) */
 html.intro-armed {
-  overflow: hidden !important;
+  /* Scroll allowed during intro */
 }
 
 html.intro-armed [data-intro="wordmark"] {
@@ -276,7 +276,7 @@ html.intro-armed [data-intro="wordmark"] {
 
 html.intro-armed [data-intro="studio-gradient"],
 html.intro-armed [data-intro="glad-gradient"] {
-  clip-path: inset(100% 0 0 0) !important;
+  clip-path: inset(0 0 0 100%) !important;
 }
 
 html.intro-armed [data-intro="wordmark-divider"] {

@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
 import PillButton from '@/components/ui/PillButton';
 import { siteConfig } from '@/data/site';
@@ -31,8 +32,12 @@ export default function Footer({
   const isDetail = isWorkDetail || variant === 'work-detail';
   const footerRef = useRef<HTMLElement>(null);
   const filmstripRef = useRef<HTMLDivElement>(null);
+  const watermarkRef = useRef<HTMLDivElement>(null);
+  const watermarkContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const strip = filmstripRef.current;
     if (!strip) return;
 
@@ -42,7 +47,7 @@ export default function Footer({
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Continuous constant-speed automatic loop completely unaffected by scroll
+      // 1. Continuous filmstrip loop
       gsap.fromTo(
         strip,
         { xPercent: 0 },
@@ -53,6 +58,28 @@ export default function Footer({
           repeat: -1,
         }
       );
+
+      // 2. Smooth slide-up watermark reveal as user reaches footer
+      if (watermarkRef.current && watermarkContainerRef.current) {
+        gsap.fromTo(
+          watermarkRef.current,
+          {
+            yPercent: 70,
+            opacity: 0,
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: watermarkContainerRef.current,
+              start: 'top 92%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      }
     });
 
     return () => ctx.revert();
@@ -91,7 +118,7 @@ export default function Footer({
     { label: 'GLAD HMS', href: '/products/glad-hms' },
     { label: 'SettleDesk', href: '/products/settledesk' },
     { label: 'Insights', href: '/article/what-is-ai-agent-development' },
-    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Work', href: '/work' },
     { label: 'Process', href: '/#process' },
     { label: 'About', href: '/about' },
   ];
@@ -264,6 +291,24 @@ export default function Footer({
               Terms of Service
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* 6. Giant Faded Year Display Watermark (Centered with Increased Visibility & Smooth Scroll Slide-Up) */}
+      <div
+        ref={watermarkContainerRef}
+        className="w-full border-t border-line overflow-hidden select-none px-[20px] md:px-[28px] xl:px-[40px] pt-6 md:pt-10 pb-4 md:pb-8 flex justify-center items-center text-center"
+      >
+        <div
+          ref={watermarkRef}
+          className="text-fg/[0.15] font-normal leading-[0.80] tracking-[-0.045em] whitespace-nowrap select-none will-change-transform text-center mx-auto"
+          style={{
+            fontSize: 'clamp(72px, 20vw, 320px)',
+            fontFeatureSettings: '"zero" 1',
+          }}
+          aria-hidden="true"
+        >
+          ©2026.
         </div>
       </div>
     </footer>
