@@ -108,8 +108,10 @@ export default function FeaturedWorks() {
         ))}
       </div>
 
-      {/* 4. Concluding Section Eyebrow */}
+      {/* 4. Concluding Section Eyebrow for Section 3 (Services) */}
       <SectionEyebrow
+        variant="dark"
+        className="mt-0 border-t border-white/[0.10]"
         left={<>CAPABILITIES <span lang="hi">सेवाएँ</span></>}
         index="(GLD® — 03)"
         right="ENGINEERING SERVICES"

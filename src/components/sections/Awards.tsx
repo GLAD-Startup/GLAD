@@ -100,13 +100,13 @@ export default function Awards() {
       <section
         ref={sectionRef}
         id="why-us"
-        className="relative w-full bg-bg select-none"
+        className="relative w-full bg-[#0A0A0B] text-[#FBFBF9] select-none"
       >
         {/* 1. Headline */}
         <div className="w-full flex justify-center pt-[70px] xl:pt-[100px] pb-[32px] -mb-[32px] px-[20px] md:px-[28px] xl:px-0 overflow-hidden">
           <h2
             ref={headlineRef}
-            className="t-display text-fg whitespace-nowrap xl:translate-x-[120px] will-change-transform pb-[0.2em]"
+            className="t-display text-[#FBFBF9] whitespace-nowrap xl:translate-x-[120px] will-change-transform pb-[0.2em]"
             style={{
               fontSize: 'clamp(0px, 12.6vw, 220px)',
               lineHeight: 0.92,
@@ -115,7 +115,7 @@ export default function Awards() {
           >
             Why Us
             <sup
-              className="font-normal tracking-normal ml-1 inline-block"
+              className="font-normal tracking-normal ml-1 inline-block text-[#A8A8AD]"
               style={{ fontSize: '0.23em', verticalAlign: 'super' }}
             >
               (4)
@@ -125,34 +125,37 @@ export default function Awards() {
 
         {/* 2. Word Rail */}
         <div className="mt-[40px] xl:mt-[70px]">
-          <WordRail items={['Fast', 'Transparent', 'Modern', 'Scalable']} />
+          <WordRail
+            items={['Fast', 'Transparent', 'Modern', 'Scalable']}
+            className="bg-[#141416]/90 backdrop-blur-sm border-y border-white/[0.10] text-[#FBFBF9]"
+          />
         </div>
 
         {/* 3. Why Us Rows Table */}
         <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[88px]">
-          <div className="border-t border-line">
+          <div className="border-t border-white/[0.10]">
             {whyUsRows.map((row, idx) => (
               <div
                 key={idx}
                 data-cursor="link"
-                className="group py-[28px] md:py-[36px] xl:py-[44px] px-2 border-b border-line transition-colors duration-200 hover:bg-surface"
+                className="group py-[28px] md:py-[36px] xl:py-[44px] px-2 border-b border-white/[0.10] transition-colors duration-200 hover:bg-[#141416]"
               >
                 {/* Desktop 4-Column Grid (>=1200px) */}
                 <div className="hidden xl:grid grid-cols-[200px_300px_1fr_420px] items-start gap-4">
-                  <div className="text-[17px] font-semibold text-accent pt-1">
+                  <div className="text-[17px] font-semibold text-accent-bright pt-1">
                     {row.metric}
                   </div>
-                  <div className="text-[16px] font-medium text-fg pt-1">
+                  <div className="text-[16px] font-medium text-[#FBFBF9] pt-1">
                     {row.value}
                   </div>
-                  <p className="t-body-sm text-fg-muted max-w-[340px]">
+                  <p className="t-body-sm text-[#A8A8AD] max-w-[340px]">
                     {row.desc}
                   </p>
                   <div className="flex items-center gap-[10px] justify-end">
                     {row.thumbnails.map((src, sIdx) => (
                       <div
                         key={sIdx}
-                        className={`w-[86px] h-[122px] rounded-[6px] overflow-hidden bg-surface border border-line-solid relative shrink-0 transition-all duration-300 ease-out opacity-85 group-hover:opacity-100 group-hover:scale-[1.04] ${staggerOffsets[sIdx % staggerOffsets.length]}`}
+                        className={`w-[86px] h-[122px] rounded-[6px] overflow-hidden bg-[#141416] border border-white/[0.12] relative shrink-0 transition-all duration-300 ease-out opacity-85 group-hover:opacity-100 group-hover:scale-[1.04] ${staggerOffsets[sIdx % staggerOffsets.length]}`}
                       >
                         <Image
                           src={src}
@@ -170,16 +173,16 @@ export default function Awards() {
                 <div className="hidden min-[810px]:grid xl:hidden grid-cols-2 gap-4 items-center">
                   <div className="flex flex-col gap-1">
                     <div className="flex items-center gap-3">
-                      <span className="text-[16px] font-semibold text-accent">{row.metric}</span>
-                      <span className="text-[16px] font-medium text-fg">{row.value}</span>
+                      <span className="text-[16px] font-semibold text-accent-bright">{row.metric}</span>
+                      <span className="text-[16px] font-medium text-[#FBFBF9]">{row.value}</span>
                     </div>
-                    <p className="t-body-sm text-fg-muted max-w-[320px]">{row.desc}</p>
+                    <p className="t-body-sm text-[#A8A8AD] max-w-[320px]">{row.desc}</p>
                   </div>
                   <div className="flex items-center gap-[8px] justify-end overflow-hidden">
                     {row.thumbnails.map((src, sIdx) => (
                       <div
                         key={sIdx}
-                        className="w-[72px] h-[100px] rounded-[6px] overflow-hidden bg-surface border border-line-solid relative shrink-0"
+                        className="w-[72px] h-[100px] rounded-[6px] overflow-hidden bg-[#141416] border border-white/[0.12] relative shrink-0"
                       >
                         <Image
                           src={src}
@@ -196,15 +199,15 @@ export default function Awards() {
                 {/* Mobile Stacked Block (<=809px) */}
                 <div className="flex flex-col gap-3 min-[810px]:hidden">
                   <div className="flex justify-between items-center">
-                    <span className="text-[15px] font-medium text-fg">{row.value}</span>
-                    <span className="text-[15px] text-accent font-semibold">{row.metric}</span>
+                    <span className="text-[15px] font-medium text-[#FBFBF9]">{row.value}</span>
+                    <span className="text-[15px] text-accent-bright font-semibold">{row.metric}</span>
                   </div>
-                  <p className="t-body-sm text-fg-muted">{row.desc}</p>
+                  <p className="t-body-sm text-[#A8A8AD]">{row.desc}</p>
                   <div className="flex items-center gap-[8px] overflow-x-auto py-2">
                     {row.thumbnails.map((src, sIdx) => (
                       <div
                         key={sIdx}
-                        className="w-[72px] h-[100px] rounded-[6px] overflow-hidden bg-surface border border-line-solid relative shrink-0"
+                        className="w-[72px] h-[100px] rounded-[6px] overflow-hidden bg-[#141416] border border-white/[0.12] relative shrink-0"
                       >
                         <Image
                           src={src}
@@ -226,6 +229,7 @@ export default function Awards() {
       {/* Section Eyebrow */}
       <div className="mt-[70px] xl:mt-[90px]">
         <SectionEyebrow
+          className="mt-0 border-t border-line"
           left={<>OUR PRODUCTS <span lang="hi">उत्पाद</span></>}
           index="(GLD® — 08)"
           right="SAAS PLATFORMS"

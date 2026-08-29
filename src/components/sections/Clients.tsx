@@ -520,8 +520,10 @@ export default function Clients() {
         </div>
       </section>
 
-      {/* Section Eyebrow (GLD® — 09 leading into Pricing) */}
+      {/* Section Eyebrow (GLD® — 09 leading into dark Section 9 Pricing) */}
       <SectionEyebrow
+        variant="dark"
+        className="mt-0 border-t border-white/[0.10]"
         left={<>ENGAGEMENT MODELS <span lang="hi">योजनाएँ</span></>}
         index="(GLD® — 09)"
         right="SCOPE & BUDGET"

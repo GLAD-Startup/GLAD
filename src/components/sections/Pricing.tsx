@@ -112,13 +112,13 @@ export default function Pricing() {
       <section
         ref={containerRef}
         id="pricing"
-        className="relative w-full bg-bg select-none"
+        className="relative w-full bg-[#0A0A0B] text-[#FBFBF9] select-none"
       >
         {/* Headline with Staggered Letter Replacement */}
         <div className="pt-[70px] xl:pt-[96px] px-[20px] md:px-[28px] xl:px-[40px]">
           <h2
             ref={headlineRef}
-            className="t-display-sm text-fg inline-flex items-baseline ml-[-4px]"
+            className="t-display-sm text-[#FBFBF9] inline-flex items-baseline ml-[-4px]"
             style={{
               fontSize: 'clamp(0px, 9vw, 160px)',
               lineHeight: 0.90,
@@ -147,6 +147,7 @@ export default function Pricing() {
               'Senior Team',
               'You Own It',
             ]}
+            className="bg-[#141416]/90 backdrop-blur-sm border-y border-white/[0.10] text-[#FBFBF9]"
           />
         </div>
 
@@ -156,34 +157,34 @@ export default function Pricing() {
             <div
               key={plan.id}
               data-cursor="link"
-              className="bg-surface border border-line-solid rounded-[14px] pt-[26px] px-[24px] pb-[30px] flex flex-col justify-between transition-colors duration-200 hover:bg-surface-2"
+              className="bg-[#141416] border border-white/[0.10] rounded-[14px] pt-[26px] px-[24px] pb-[30px] flex flex-col justify-between transition-colors duration-200 hover:bg-[#1C1C1F] hover:border-white/20 shadow-xl shadow-black/50"
             >
               <div>
                 {/* Budget Band & Timeline Row */}
                 <div className="flex items-baseline gap-2">
                   <span
-                    className="text-fg font-medium tracking-tight"
+                    className="text-[#FBFBF9] font-medium tracking-tight"
                     style={{ fontSize: 'clamp(28px, 3.2vw, 46px)', lineHeight: 1.0 }}
                   >
                     {plan.budget}
                   </span>
-                  <span className="text-[14px] xl:text-[15px] text-fg-muted font-normal">
+                  <span className="text-[14px] xl:text-[15px] text-[#A8A8AD] font-normal">
                     · {plan.timeline}
                   </span>
                 </div>
 
                 {/* Plan Name */}
-                <h3 className="mt-[32px] text-[18px] font-medium text-fg">
+                <h3 className="mt-[32px] text-[18px] font-medium text-accent-bright">
                   {plan.name}
                 </h3>
 
                 {/* Description */}
-                <p className="mt-[10px] t-body text-fg-muted min-h-[48px] leading-relaxed">
+                <p className="mt-[10px] t-body text-[#A8A8AD] min-h-[48px] leading-relaxed">
                   {plan.description}
                 </p>
 
                 {/* Divider */}
-                <div className="mt-[24px] w-full h-[1px] bg-line" />
+                <div className="mt-[24px] w-full h-[1px] bg-white/[0.10]" />
 
                 {/* Feature Rows with Exact Opacity Ladder */}
                 <div className="mt-[24px] flex flex-col gap-[14px]">
@@ -197,7 +198,7 @@ export default function Pricing() {
                         }`}
                       >
                         <svg
-                          className="w-[14px] h-[14px] text-fg shrink-0 mt-1"
+                          className="w-[14px] h-[14px] text-accent-bright shrink-0 mt-1"
                           viewBox="0 0 14 14"
                           fill="none"
                           stroke="currentColor"
@@ -207,7 +208,7 @@ export default function Pricing() {
                         >
                           <polyline points="2.5 7.5 5.5 10.5 11.5 3.5" />
                         </svg>
-                        <span className="text-[14.5px] font-medium text-fg leading-snug">
+                        <span className={`text-[14.5px] font-medium leading-snug ${isActive ? 'text-[#FBFBF9]' : 'text-[#A8A8AD]'}`}>
                           {feature}
                         </span>
                       </div>
@@ -217,8 +218,8 @@ export default function Pricing() {
               </div>
 
               {/* Card CTA */}
-              <div className="mt-[32px] pt-4 border-t border-line flex justify-center">
-                <PillButton href="/contact">Start a Conversation</PillButton>
+              <div className="mt-[32px] pt-4 border-t border-white/[0.10] flex justify-center">
+                <PillButton href="/contact" variant="dark">Start a Conversation</PillButton>
               </div>
             </div>
           ))}
@@ -226,7 +227,7 @@ export default function Pricing() {
 
         {/* Indicative Disclaimer Note */}
         <div className="mt-10 xl:mt-12 px-[20px] text-center">
-          <p className="t-body-sm text-fg-muted max-w-[640px] mx-auto">
+          <p className="t-body-sm text-[#A8A8AD] max-w-[640px] mx-auto">
             Every project is quoted fixed-scope after a discovery call. These bands are indicative, not a price list.
           </p>
         </div>
@@ -235,6 +236,7 @@ export default function Pricing() {
       {/* Section Eyebrow */}
       <div className="mt-[95px] xl:mt-[120px]">
         <SectionEyebrow
+          className="mt-0 border-t border-line"
           left={<>ENGINEERING INSIGHTS <span lang="hi">लेख</span></>}
           index="(GLD® — 10)"
           right="TECHNICAL GUIDES"

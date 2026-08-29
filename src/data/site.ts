@@ -17,7 +17,6 @@ export interface ContactChannel {
 
 export const cyclingWords = [
   'इरादा',
-  'मक़सद',
   'हुनर',
   'लगन',
   'नीयत',
