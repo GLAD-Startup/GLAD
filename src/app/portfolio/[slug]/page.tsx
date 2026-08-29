@@ -9,6 +9,7 @@ import Marquee from '@/components/ui/Marquee';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
+import WorkCard from '@/components/ui/WorkCard';
 
 export function generateStaticParams() {
   return projectsData.map((p) => ({
@@ -286,32 +287,7 @@ export default async function PortfolioDetailPage({
 
           <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
             {nextProjects.map((nextProj) => (
-              <Link
-                key={nextProj.id}
-                href={`/portfolio/${nextProj.slug}`}
-                className="group block"
-              >
-                <div
-                  data-cursor="view"
-                  className="w-full aspect-[16/10] rounded-[12px] overflow-hidden relative bg-surface border border-line-solid"
-                >
-                  <Image
-                    src={nextProj.outerSrc}
-                    alt={nextProj.title}
-                    fill
-                    unoptimized
-                    className="object-cover block transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-3 flex justify-between items-baseline">
-                  <span className="text-[18px] font-medium text-fg group-hover:text-accent transition-colors">
-                    {nextProj.title}
-                  </span>
-                  <span className="text-[13px] text-fg-muted">
-                    {nextProj.category}
-                  </span>
-                </div>
-              </Link>
+              <WorkCard key={nextProj.id} project={nextProj} />
             ))}
           </div>
         </div>

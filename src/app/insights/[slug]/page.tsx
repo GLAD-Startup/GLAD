@@ -123,13 +123,13 @@ export default async function InsightsDetailPage({
       <main className="min-h-screen bg-bg select-none pt-[84px]">
         {/* 1. Title Marquee */}
         <Divider />
-        <div className="py-2 overflow-hidden bg-bg">
+        <div className="py-4 md:py-6 overflow-hidden bg-bg">
           <Marquee speed={28}>
             <span
-              className="t-marquee text-fg pr-[80px] whitespace-nowrap block"
+              className="t-marquee text-fg pr-[80px] whitespace-nowrap block pb-[0.22em] pt-[0.06em]"
               style={{
                 fontSize: 'clamp(0px, 11vw, 175px)',
-                lineHeight: 0.90,
+                lineHeight: 1.08,
                 letterSpacing: '-0.035em',
               }}
             >

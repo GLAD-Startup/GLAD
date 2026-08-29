@@ -57,13 +57,13 @@ export default async function WorkDetailPage({
     <main className="min-h-screen bg-bg select-none pt-[84px]">
       {/* 1. Title Marquee */}
       <Divider />
-      <div className="py-2 overflow-hidden bg-bg">
+      <div className="py-4 md:py-6 overflow-hidden bg-bg">
         <Marquee speed={28}>
           <span
-            className="t-marquee text-fg pr-[80px] whitespace-nowrap block"
+            className="t-marquee text-fg pr-[80px] whitespace-nowrap block pb-[0.22em] pt-[0.06em]"
             style={{
               fontSize: 'clamp(0px, 14vw, 220px)',
-              lineHeight: 0.90,
+              lineHeight: 1.08,
               letterSpacing: '-0.035em',
             }}
           >
@@ -169,17 +169,17 @@ export default async function WorkDetailPage({
 
       {/* 8. More Works Marquee */}
       <Divider />
-      <div className="py-2 overflow-hidden bg-bg">
+      <div className="py-4 md:py-6 overflow-hidden bg-bg">
         <Marquee speed={30}>
           <span
-            className="t-marquee text-fg pr-[80px] whitespace-nowrap block"
+            className="t-marquee text-fg pr-[80px] whitespace-nowrap block pb-[0.22em] pt-[0.06em]"
             style={{
               fontSize: 'clamp(0px, 14vw, 220px)',
-              lineHeight: 0.90,
+              lineHeight: 1.08,
               letterSpacing: '-0.035em',
             }}
           >
-            More Works©
+            More Works© /
           </span>
         </Marquee>
       </div>
@@ -193,7 +193,7 @@ export default async function WorkDetailPage({
           title={nextProject1.title}
           category={nextProject1.category}
           subtitle={nextProject1.subtitle}
-          href={`/portfolio/${nextProject1.slug}`}
+          href={`/work/${nextProject1.slug}`}
           x={60}
           y={0}
           w={650}
@@ -212,7 +212,7 @@ export default async function WorkDetailPage({
           title={nextProject2.title}
           category={nextProject2.category}
           subtitle={nextProject2.subtitle}
-          href={`/portfolio/${nextProject2.slug}`}
+          href={`/work/${nextProject2.slug}`}
           x={780}
           y={80}
           w={650}
@@ -226,10 +226,15 @@ export default async function WorkDetailPage({
         />
       </div>
 
-      {/* 10. FAQ */}
-      <div className="mt-[48px] xl:mt-[90px]">
-        <Faq />
+      {/* 10. Section Eyebrow (GLD® — 11) & FAQ */}
+      <div className="mt-[70px] md:mt-[100px] xl:mt-[140px]">
+        <SectionEyebrow
+          left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
+          index="(GLD® — 11)"
+          right="CLARIFICATIONS"
+        />
       </div>
+      <Faq />
 
       {/* 11. Footer with Email Me variant */}
       <Footer isWorkDetail />

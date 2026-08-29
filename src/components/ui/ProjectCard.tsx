@@ -33,7 +33,7 @@ export default function ProjectCard({
   index,
   category,
   subtitle,
-  href = '/portfolio',
+  href = '/work',
   x,
   y,
   w,
@@ -71,7 +71,7 @@ export default function ProjectCard({
     return () => mm.revert();
   }, []);
 
-  const hoverText = subtitle || category;
+  const hoverCategoryText = category || subtitle || 'Selected Work';
 
   return (
     <div
@@ -91,12 +91,14 @@ export default function ProjectCard({
     >
       <Link
         href={href}
-        data-cursor="link"
-        className="block relative w-full h-full"
+        data-cursor="view"
+        className="block relative w-full h-full outline-none"
+        aria-label={`${title} — ${category}`}
       >
         {/* Outer Image Box */}
-        <div className="relative w-full h-full rounded-[10px] overflow-hidden bg-surface border border-line-solid">
-          <div className="w-full h-full relative transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+        <div className="relative w-full h-full rounded-[12px] sm:rounded-[14px] overflow-hidden bg-surface border border-line-solid">
+          {/* Outer Image (Reduced dimming on hover) */}
+          <div className="w-full h-full relative transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.02] group-hover:opacity-75">
             <Image
               src={outerSrc}
               alt={title}
@@ -106,16 +108,20 @@ export default function ProjectCard({
             />
           </div>
 
-          {/* Centered Subtitle Band on Hover */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-[4] bg-fg text-bg py-2.5 px-4 text-center text-[12px] md:text-[13px] font-medium tracking-[0.01em] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-xl pointer-events-none select-none max-w-[90%] mx-auto rounded-[6px]">
-            {hoverText}
+          {/* White Ribbon Opening & Expanding Vertically on Hover (Matches WorkCard) */}
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-20 pointer-events-none flex items-center justify-center">
+            <div className="w-full h-[28px] md:h-[32px] bg-[#FBFBF9] border-y border-line-solid flex items-center justify-center px-4 origin-center scale-y-0 opacity-0 group-hover:scale-y-100 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] shadow-sm">
+              <span className="text-[12px] md:text-[13px] font-medium tracking-[-0.01em] text-fg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                {hoverCategoryText}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Inner Overlay Image with Parallax & Responsive Overlap */}
         <div
           ref={innerRef}
-          className="absolute rounded-[10px] overflow-hidden z-[2] shadow-2xl border border-line-solid bg-surface will-change-transform right-4 bottom-4 w-[50%] h-[55%] xl:right-auto xl:bottom-auto xl:[left:var(--inner-x)] xl:[top:var(--inner-y)] xl:[width:var(--inner-w)] xl:[height:var(--inner-h)]"
+          className="absolute rounded-[10px] sm:rounded-[12px] overflow-hidden z-10 shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-line-solid bg-surface will-change-transform right-4 bottom-4 w-[52%] h-[56%] xl:right-auto xl:bottom-auto xl:[left:var(--inner-x)] xl:[top:var(--inner-y)] xl:[width:var(--inner-w)] xl:[height:var(--inner-h)] pointer-events-none"
           style={
             {
               '--inner-x': `${innerX}px`,
@@ -125,7 +131,7 @@ export default function ProjectCard({
             } as React.CSSProperties
           }
         >
-          <div className="w-full h-full relative transition-transform duration-500 ease-out group-hover:scale-[1.06]">
+          <div className="w-full h-full relative transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.12]">
             <Image
               src={innerSrc}
               alt={`${title} detail`}
@@ -136,10 +142,28 @@ export default function ProjectCard({
           </div>
         </div>
 
-        {/* Caption Row beneath box */}
-        <div className="absolute top-full mt-[16px] left-0 w-full flex justify-between items-center t-body text-fg">
-          <span className="font-normal">{title}</span>
-          <span className="font-normal">({index})</span>
+        {/* Caption Row beneath box (Bold with Rolling Text Slide-Up Animation) */}
+        <div className="absolute top-full mt-[16px] left-0 w-full flex justify-between items-center text-[15px] xl:text-[16px] text-fg font-semibold px-0.5">
+          {/* Project Title: Rolling text slide-up on card hover (all at once) */}
+          <span className="relative inline-flex overflow-hidden font-semibold text-fg select-none">
+            {/* Primary line: slides up to -100% on hover */}
+            <span className="block transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform text-fg font-semibold">
+              {title}
+            </span>
+
+            {/* Duplicate line: slides in from +100% to 0% on hover */}
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 will-change-transform text-fg font-semibold"
+            >
+              {title}
+            </span>
+          </span>
+
+          {/* Project Index */}
+          <span className="font-semibold text-fg">
+            ({index})
+          </span>
         </div>
       </Link>
     </div>
