@@ -11,6 +11,21 @@ export interface PillButtonProps {
   onClick?: () => void;
 }
 
+const getChildrenText = (node: React.ReactNode): string | null => {
+  if (typeof node === 'string') return node;
+  if (typeof node === 'number') return String(node);
+  if (Array.isArray(node)) {
+    const parts: string[] = [];
+    for (const item of node) {
+      const str = getChildrenText(item);
+      if (str === null) return null;
+      parts.push(str);
+    }
+    return parts.join('');
+  }
+  return null;
+};
+
 export default function PillButton({
   href,
   children,
@@ -30,19 +45,20 @@ export default function PillButton({
     className
   );
 
+  const textContent = getChildrenText(children);
+
   const renderContent = () => {
-    if (typeof children === 'string') {
-      const text = children;
+    if (textContent !== null) {
       return (
-        <span className="relative z-10 inline-flex items-center overflow-hidden transition-colors duration-400 group-hover:text-bg">
-          {text.split('').map((char, index) => (
+        <span className="relative z-10 inline-flex items-center overflow-hidden transition-colors duration-300 group-hover:text-bg">
+          {textContent.split('').map((char, index) => (
             <span
               key={index}
               className="relative inline-block overflow-hidden h-[1.2em] leading-[1.2em]"
             >
               {/* Primary letter: translates from 0% to -100% on hover */}
               <span
-                className="block transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full will-change-transform"
+                className="block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform"
                 style={{
                   transitionDelay: `${index * 20}ms`,
                 }}
@@ -53,7 +69,7 @@ export default function PillButton({
               {/* Duplicate letter: absolute inset-0 starts at +100% and lands at exact 0% on hover */}
               <span
                 aria-hidden="true"
-                className="absolute inset-0 block translate-y-full transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 will-change-transform"
+                className="absolute inset-0 block translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 will-change-transform"
                 style={{
                   transitionDelay: `${index * 20}ms`,
                 }}
@@ -65,13 +81,13 @@ export default function PillButton({
         </span>
       );
     }
-    return <span className="relative z-10 transition-colors duration-400 group-hover:text-bg">{children}</span>;
+    return <span className="relative z-10 transition-colors duration-300 group-hover:text-bg">{children}</span>;
   };
 
   const filler = (
     <div
       aria-hidden="true"
-      className="absolute inset-0 z-0 rounded-[999px] bg-fg translate-y-full group-hover:translate-y-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
+      className="absolute inset-0 z-0 rounded-[999px] bg-fg translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
     />
   );
 

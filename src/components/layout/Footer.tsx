@@ -114,7 +114,7 @@ export default function Footer({
   ];
 
   const studioLinks = [
-    { label: 'Products', href: '/products' },
+    { label: 'All Products', href: '/products' },
     { label: 'GLAD HMS', href: '/products/glad-hms' },
     { label: 'SettleDesk', href: '/products/settledesk' },
     { label: 'Insights', href: '/article/what-is-ai-agent-development' },
