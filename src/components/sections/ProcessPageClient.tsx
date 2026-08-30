@@ -4,23 +4,21 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { processRows } from '@/data/process';
+import ProcessCard from '@/components/ui/ProcessCard';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
-import PillButton from '@/components/ui/PillButton';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
 
 export default function ProcessPageClient() {
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLHeadingElement>(null);
-  const descRef = useRef<HTMLParagraphElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // 1. Hero headline character slide-up reveal
+      // 1. Staggered character slide-up reveal on headline
       if (headlineRef.current) {
         const chars = headlineRef.current.querySelectorAll('.process-char');
         const sup = headlineRef.current.querySelector('.process-sup');
@@ -47,27 +45,9 @@ export default function ProcessPageClient() {
             '-=0.4'
           );
         }
-
-        if (subtitleRef.current) {
-          tl.fromTo(
-            subtitleRef.current,
-            { y: 25, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
-            '-=0.45'
-          );
-        }
-
-        if (descRef.current) {
-          tl.fromTo(
-            descRef.current,
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out' },
-            '-=0.45'
-          );
-        }
       }
 
-      // 2. Process cards staggered scroll reveal
+      // 2. Sequential cards entrance animation
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll('.process-step-card');
         gsap.fromTo(
@@ -77,7 +57,7 @@ export default function ProcessPageClient() {
             y: 0,
             opacity: 1,
             duration: 0.7,
-            stagger: 0.07,
+            stagger: 0.08,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: cardsRef.current,
@@ -94,92 +74,66 @@ export default function ProcessPageClient() {
 
   return (
     <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[84px]">
-      {/* 1. Hero Block with Masked Staggered Character Slide-Up Animation */}
-      <div className="pt-[48px] xl:pt-[80px] px-[20px] md:px-[28px] xl:px-[40px]">
-        <h1
-          ref={headlineRef}
-          className="t-display-sm text-fg whitespace-nowrap overflow-hidden pb-1"
-          style={{
-            fontSize: 'clamp(0px, 10vw, 150px)',
-            lineHeight: 0.9,
-            letterSpacing: '-0.035em',
-          }}
-        >
-          <span className="inline-block">
-            {'Process'.split('').map((char, index) => (
-              <span
-                key={index}
-                className="inline-block process-char will-change-transform"
-              >
-                {char}
-              </span>
-            ))}
-            <sup
-              className="font-normal tracking-normal ml-1 process-sup inline-block will-change-transform"
-              style={{ fontSize: '0.23em', verticalAlign: 'super' }}
-            >
-              (8)
-            </sup>
-          </span>
-        </h1>
-        <h2
-          ref={subtitleRef}
-          className="t-heading-sm text-fg mt-4 max-w-[800px] leading-[1.15] will-change-transform"
-        >
-          How we ship.
-        </h2>
-        <p
-          ref={descRef}
-          className="t-body text-fg-muted mt-3 max-w-[680px] will-change-transform"
-        >
-          Eight steps from first call to a live, supported product. No mystery, no scope creep, no rebuilds.
-        </p>
-      </div>
-
-      {/* 2. Eight Process Steps as Full Expanded Blocks */}
-      <div
-        ref={cardsRef}
-        className="px-[20px] md:px-[28px] xl:px-[40px] mt-[64px] xl:mt-[96px] grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-8"
-      >
-        {processRows.map((step) => (
-          <div
-            key={step.step}
-            className="process-step-card bg-surface border border-line-solid rounded-[14px] p-8 xl:p-10 flex flex-col justify-between transition-colors duration-200 hover:bg-surface-2 will-change-transform"
-          >
-            <div>
-              <div className="flex items-center justify-between">
-                <span className="text-[18px] font-semibold text-accent">
-                  {step.step}
-                </span>
-                <span className="text-[13px] font-semibold text-fg uppercase tracking-wider bg-bg px-3 py-1 rounded-full border border-line-solid">
-                  {step.when}
-                </span>
+      {/* 1. Sticky Two-Column Editorial Process Section with Vertical Divider (Matches Work Page) */}
+      <div className="w-full border-b border-line">
+        <div className="px-[20px] md:px-[28px] xl:px-[40px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[42%_58%] xl:grid-cols-[40%_60%]">
+            {/* Left Column: Stationary / Sticky Header Vertically Centered */}
+            <div className="py-[36px] md:py-[54px] xl:py-[72px] lg:pr-[36px] xl:pr-[48px]">
+              <div className="lg:sticky lg:top-[calc(50vh-130px)] xl:top-[calc(50vh-140px)] self-start space-y-5">
+                <h1
+                  ref={headlineRef}
+                  className="text-fg font-normal leading-[0.88] tracking-[-0.04em] select-none"
+                  style={{
+                    fontSize: 'clamp(50px, 8.2vw, 128px)',
+                  }}
+                >
+                  <span className="block overflow-hidden pb-1">
+                    <span className="inline-block">
+                      {'Our'.split('').map((ch, idx) => (
+                        <span key={idx} className="inline-block process-char will-change-transform">
+                          {ch}
+                        </span>
+                      ))}
+                    </span>
+                  </span>
+                  <span className="block overflow-hidden pt-1">
+                    <span className="inline-block whitespace-nowrap">
+                      {'Process'.split('').map((ch, idx) => (
+                        <span key={idx} className="inline-block process-char will-change-transform">
+                          {ch}
+                        </span>
+                      ))}
+                      <sup
+                        className="font-normal tracking-normal ml-2 xl:ml-3 text-[0.24em] align-super process-sup inline-block will-change-transform"
+                        style={{ verticalAlign: 'super' }}
+                      >
+                        ({processRows.length})
+                      </sup>
+                    </span>
+                  </span>
+                </h1>
+                <p className="t-body text-fg-muted max-w-[360px] leading-relaxed">
+                  Eight steps from first call to a live, supported product. No mystery, no scope creep, no rebuilds.
+                </p>
               </div>
-
-              <h3 className="text-[22px] xl:text-[24px] font-medium text-fg mt-6">
-                {step.stage}
-              </h3>
-
-              <p className="t-body text-fg-muted mt-3 leading-relaxed">
-                {step.description}
-              </p>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-line flex items-center justify-between text-[13px] text-fg-muted">
-              <span>Phase Checkpoint</span>
-              <span className="text-fg font-medium">Guaranteed Milestone</span>
+            {/* Right Column: Vertically Stacked Process Step Cards with Vertical Divider Line */}
+            <div
+              ref={cardsRef}
+              className="lg:border-l lg:border-line pt-[36px] md:pt-[54px] xl:pt-[72px] pb-[60px] md:pb-[80px] xl:pb-[110px] lg:pl-[36px] xl:pl-[48px] flex flex-col gap-[36px] sm:gap-[48px] xl:gap-[56px] w-full"
+            >
+              {processRows.map((step, idx) => (
+                <ProcessCard key={step.step} step={step} index={idx} />
+              ))}
             </div>
           </div>
-        ))}
+        </div>
       </div>
 
-      {/* 3. Action CTA */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[64px] xl:mt-[96px] text-center">
-        <PillButton href="/contact">Book a Discovery Call</PillButton>
-      </div>
-
-      {/* 4. Section Eyebrow preceding FAQ */}
-      <div className="mt-[80px] xl:mt-[110px]">
+      {/* 2. Section Eyebrow preceding FAQ pushed lower */}
+      <div className="mt-[70px] md:mt-[100px] xl:mt-[140px]">
         <SectionEyebrow
           left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
           index="(GLD® — 11)"
@@ -187,10 +141,10 @@ export default function ProcessPageClient() {
         />
       </div>
 
-      {/* 5. FAQ */}
+      {/* 3. FAQ Section */}
       <Faq />
 
-      {/* 6. Footer */}
+      {/* 4. Footer with Filmstrip Continuous Carousel */}
       <Footer />
     </main>
   );
