@@ -97,19 +97,21 @@ export default function ContactPageClient() {
         );
       }
 
-      // 4. Giant "Contact Now" headline reveal
+      // 4. Giant "Contact Now" staggered character slide-up reveal
       if (headlineRef.current) {
+        const chars = headlineRef.current.querySelectorAll('.contact-char');
         gsap.fromTo(
-          headlineRef.current,
-          { y: 40, opacity: 0 },
+          chars,
+          { yPercent: 110, opacity: 0 },
           {
-            y: 0,
+            yPercent: 0,
             opacity: 1,
             duration: 0.8,
+            stagger: 0.03,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: headlineRef.current,
-              start: 'top 90%',
+              start: 'top 92%',
               toggleActions: 'play none none reverse',
             },
           }
@@ -215,14 +217,24 @@ export default function ContactPageClient() {
       <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[24px] md:pt-[36px] xl:pt-[44px] pb-[16px] md:pb-[24px] overflow-hidden border-b border-line flex justify-center items-center text-center">
         <h1
           ref={headlineRef}
-          className="t-display text-fg font-normal select-none whitespace-nowrap will-change-transform text-center"
+          className="t-display text-fg font-normal select-none whitespace-nowrap will-change-transform text-center overflow-hidden py-1"
           style={{
             fontSize: 'clamp(56px, 13vw, 190px)',
             lineHeight: 0.88,
             letterSpacing: '-0.035em',
           }}
         >
-          Contact Now
+          {'Contact Now'.split('').map((char, index) => (
+            <span
+              key={index}
+              className={clsx(
+                'inline-block contact-char will-change-transform',
+                char === ' ' && 'w-[0.25em]'
+              )}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+          ))}
         </h1>
       </div>
 

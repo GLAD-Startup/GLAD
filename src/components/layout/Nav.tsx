@@ -292,7 +292,7 @@ export default function Nav() {
             </div>
 
             {/* Desktop & Tablet Center Column (>=1024px) */}
-            <div className="hidden lg:flex absolute left-[46%] -translate-x-1/2 flex-col justify-center gap-1">
+            <div className="hidden lg:flex absolute left-[47%] -translate-x-1/2 flex-col justify-center gap-1">
               <span className="text-[13px] font-semibold text-fg leading-tight">
                 Quick Links
               </span>
@@ -403,13 +403,25 @@ export default function Nav() {
                   <span className="text-fg-dim select-none mr-1.5">,</span>
                 </span>
 
-                {/* 5. Insights */}
+                {/* 6. Process */}
+                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                  <RollingNavLink href="/process" label="Process" />
+                  <span className="text-fg-dim select-none mr-1.5">,</span>
+                </span>
+
+                {/* 7. About */}
+                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                  <RollingNavLink href="/about" label="About" />
+                  <span className="text-fg-dim select-none mr-1.5">,</span>
+                </span>
+
+                {/* 8. Insights */}
                 <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
                   <RollingNavLink href="/insights" label="Insights" />
                   <span className="text-fg-dim select-none mr-1.5">,</span>
                 </span>
 
-                {/* 6. Contact */}
+                {/* 9. Contact */}
                 <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
                   <RollingNavLink href="/contact" label="Contact" />
                 </span>
@@ -509,6 +521,24 @@ export default function Nav() {
             <RollingNavLink
               href="/services"
               label="Services"
+              isMobile
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
+            />
+
+            {/* Process */}
+            <RollingNavLink
+              href="/process"
+              label="Process"
+              isMobile
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
+            />
+
+            {/* About */}
+            <RollingNavLink
+              href="/about"
+              label="About"
               isMobile
               onClick={() => setMobileMenuOpen(false)}
               className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
