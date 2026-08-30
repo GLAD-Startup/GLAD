@@ -11,8 +11,10 @@ import Footer from '@/components/layout/Footer';
 
 export default function ProcessPageClient() {
   const containerRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const stageContainerRef = useRef<HTMLDivElement>(null);
+  const cardElementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -47,26 +49,99 @@ export default function ProcessPageClient() {
         }
       }
 
-      // 2. Sequential cards entrance animation
-      if (cardsRef.current) {
-        const cards = cardsRef.current.querySelectorAll('.process-step-card');
-        gsap.fromTo(
-          cards,
-          { y: 35, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            stagger: 0.08,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: cardsRef.current,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          }
-        );
-      }
+      // 2. Scroll-Pinned Rotary Semi-Circular Arc (Desktop >= 1024px)
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 1024px)', () => {
+        const totalSteps = processRows.length;
+        const stepSpread = 42; // Calibrated step distance so 3.5 cards fit gracefully
+
+        // Update card positions along the trajectory (Bottom-Left -> Center -> Top-Right)
+        const updateRotaryArc = (progress: number) => {
+          // progress goes 0 -> 1
+          const currentVirtualIndex = progress * (totalSteps - 1);
+
+          cardElementsRef.current.forEach((el, i) => {
+            if (!el) return;
+
+            // Normalized distance: t = 0 at center, t < 0 when exiting top-right, t > 0 when entering bottom-left
+            const angleDeg = (i - currentVirtualIndex) * stepSpread;
+            const t = angleDeg / stepSpread;
+            const absT = Math.abs(t);
+
+            // Trajectory:
+            // t < 0 (past card): exits toward Top-Right (+X, -Y)
+            // t = 0 (active card): centered focal spot (0, 0)
+            // t > 0 (next card): enters from Bottom-Left (-X, +Y)
+            const x = -t * 78;
+            const y = t * 180;
+            const rotZ = -t * 4.2;
+
+            // Opacity & scale configured so 3.5 cards are visible at once:
+            // 1 active center card (absT <= 0.4)
+            // 2 full adjacent cards (absT ~ 1.0)
+            // 0.5 peeking cards at extremities (absT ~ 1.6 - 1.9)
+            let opacity = 0;
+            let scale = 0.85;
+            let zIndex = 10;
+
+            if (absT <= 0.4) {
+              opacity = 1;
+              scale = 1;
+              zIndex = 50;
+            } else if (absT <= 1.2) {
+              // Smooth transition to full visibility for adjacent cards
+              const ratio = (absT - 0.4) / 0.8;
+              opacity = 1 - ratio * 0.18; // 1.0 -> 0.82
+              scale = 1 - ratio * 0.06;   // 1.0 -> 0.94
+              zIndex = 35;
+            } else if (absT <= 1.9) {
+              // The 0.5 peeking cards at the top-right and bottom-left bounds
+              const ratio = (absT - 1.2) / 0.7;
+              opacity = 0.82 - ratio * 0.52; // 0.82 -> 0.30 (half-visible peeking card)
+              scale = 0.94 - ratio * 0.08;   // 0.94 -> 0.86
+              zIndex = 20;
+            } else if (absT <= 2.3) {
+              const ratio = (absT - 1.9) / 0.4;
+              opacity = 0.30 - ratio * 0.30; // 0.30 -> 0
+              scale = 0.86 - ratio * 0.08;   // 0.86 -> 0.78
+              zIndex = 10;
+            } else {
+              opacity = 0;
+              scale = 0.75;
+              zIndex = 0;
+            }
+
+            // Apply transforms via GSAP for silky smooth 60fps rendering
+            gsap.set(el, {
+              x: x,
+              y: y,
+              rotation: rotZ,
+              scale: scale,
+              opacity: opacity,
+              zIndex: zIndex,
+              pointerEvents: opacity > 0.5 ? 'auto' : 'none',
+              transformOrigin: '50% 50%',
+            });
+          });
+        };
+
+        // Initialize positions at progress = 0
+        updateRotaryArc(0);
+
+        // Pin the section and scrub the rotary arc
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top top+=84',
+          end: '+=2400',
+          pin: true,
+          scrub: 0.6,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            updateRotaryArc(self.progress);
+          },
+        });
+      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -74,13 +149,17 @@ export default function ProcessPageClient() {
 
   return (
     <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[84px]">
-      {/* 1. Sticky Two-Column Editorial Process Section with Vertical Divider (Matches Work Page) */}
-      <div className="w-full border-b border-line">
-        <div className="px-[20px] md:px-[28px] xl:px-[40px]">
-          <div className="grid grid-cols-1 lg:grid-cols-[42%_58%] xl:grid-cols-[40%_60%]">
-            {/* Left Column: Stationary / Sticky Header Vertically Centered */}
-            <div className="py-[36px] md:py-[54px] xl:py-[72px] lg:pr-[36px] xl:pr-[48px]">
-              <div className="lg:sticky lg:top-[calc(50vh-130px)] xl:top-[calc(50vh-140px)] self-start space-y-5">
+      {/* 1. Scroll-Pinned Rotary Process Section */}
+      <div
+        ref={sectionRef}
+        className="w-full border-b border-line overflow-hidden relative min-h-[calc(100vh-84px)] flex flex-col justify-center"
+      >
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] xl:grid-cols-[38%_62%] items-center min-h-[calc(100vh-140px)]">
+            
+            {/* Left Column: Stationary Header */}
+            <div className="py-[36px] md:py-[48px] xl:py-[60px] lg:pr-[36px] xl:pr-[48px] flex flex-col justify-center self-center">
+              <div className="space-y-6">
                 <h1
                   ref={headlineRef}
                   className="text-fg font-normal leading-[0.88] tracking-[-0.04em] select-none"
@@ -113,26 +192,75 @@ export default function ProcessPageClient() {
                     </span>
                   </span>
                 </h1>
+
                 <p className="t-body text-fg-muted max-w-[360px] leading-relaxed">
                   Eight steps from first call to a live, supported product. No mystery, no scope creep, no rebuilds.
                 </p>
               </div>
             </div>
 
-            {/* Right Column: Vertically Stacked Process Step Cards with Vertical Divider Line */}
-            <div
-              ref={cardsRef}
-              className="lg:border-l lg:border-line pt-[36px] md:pt-[54px] xl:pt-[72px] pb-[60px] md:pb-[80px] xl:pb-[110px] lg:pl-[36px] xl:pl-[48px] flex flex-col gap-[36px] sm:gap-[48px] xl:gap-[56px] w-full"
-            >
-              {processRows.map((step, idx) => (
-                <ProcessCard key={step.step} step={step} index={idx} />
-              ))}
+            {/* Right Column: Arc Stage (Desktop >= 1024px) & Vertical Fallback (<1024px) */}
+            <div className="relative w-full lg:border-l lg:border-line flex items-center justify-center min-h-[460px] lg:min-h-[640px] xl:min-h-[700px] overflow-visible">
+              
+              {/* Desktop Orbital Stage (>=1024px) */}
+              <div
+                ref={stageContainerRef}
+                className="hidden lg:flex relative w-full h-[640px] xl:h-[700px] items-center justify-center overflow-visible"
+              >
+                {/* Dotted Arc Guide Rail SVG (from Bottom-Left through Center to Top-Right) */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
+                  viewBox="-380 -350 760 700"
+                  fill="none"
+                >
+                  <path
+                    d="M 120 -280 Q 40 -90 0 0 Q -40 90 -120 280"
+                    stroke="rgba(10,10,11,0.12)"
+                    strokeWidth="1.5"
+                    strokeDasharray="6 6"
+                    className="opacity-75"
+                  />
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="4"
+                    fill="var(--accent)"
+                    className="opacity-40"
+                  />
+                </svg>
+
+                {/* 8 Arc Cards */}
+                {processRows.map((step, idx) => (
+                  <div
+                    key={step.step}
+                    ref={(el) => {
+                      cardElementsRef.current[idx] = el;
+                    }}
+                    className="absolute w-[360px] sm:w-[380px] xl:w-[410px] will-change-transform"
+                    style={{
+                      left: 'calc(50% - 190px)',
+                      top: 'calc(50% - 130px)',
+                    }}
+                  >
+                    <ProcessCard step={step} index={idx} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Mobile Vertical Stack (<1024px) */}
+              <div className="flex lg:hidden flex-col gap-6 w-full py-8">
+                {processRows.map((step, idx) => (
+                  <ProcessCard key={step.step} step={step} index={idx} />
+                ))}
+              </div>
+
             </div>
+
           </div>
         </div>
       </div>
 
-      {/* 2. Section Eyebrow preceding FAQ pushed lower */}
+      {/* 2. Section Eyebrow preceding FAQ */}
       <div className="mt-[70px] md:mt-[100px] xl:mt-[140px]">
         <SectionEyebrow
           left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
