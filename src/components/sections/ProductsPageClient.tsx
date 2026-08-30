@@ -85,15 +85,15 @@ export default function ProductsPageClient() {
           if (innerImage) {
             gsap.fromTo(
               innerImage,
-              { yPercent: 20 },
+              { yPercent: 38 },
               {
-                yPercent: -20,
+                yPercent: -38,
                 ease: 'none',
                 scrollTrigger: {
                   trigger: card,
                   start: 'top bottom',
                   end: 'bottom top',
-                  scrub: 0.6,
+                  scrub: 0.5,
                 },
               }
             );
@@ -241,7 +241,7 @@ export default function ProductsPageClient() {
 
             {/* Right Visual Column (Parallax Frame & Parallax Image) */}
             <div className="product-frame relative aspect-[4/3] rounded-[12px] overflow-hidden bg-bg border border-line-solid flex items-center justify-center p-4 shadow-inner will-change-transform">
-              <div className="product-image-inner relative w-full h-[130%] flex items-center justify-center will-change-transform">
+              <div className="product-image-inner relative w-full h-[155%] flex items-center justify-center will-change-transform">
                 <Image
                   src={product.overviewGraphic}
                   alt={`${product.name} visual preview`}

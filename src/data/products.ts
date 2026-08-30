@@ -774,6 +774,46 @@ export const settledeskProduct: ProductItem = {
         'Full operational suite on mobile — capture client signatures, view real-time commission splits, and submit deals directly from the field.',
       image: '/products/hero-3d.png',
     },
+    {
+      id: 'properties',
+      number: '// 09',
+      tag: 'PROPERTIES',
+      title: 'Spatial Unit Inventory',
+      subtitle: 'Interactive 3D Floorplans',
+      description:
+        'Interactive architectural views with real-time unit availability, holding deposit reservations, and multi-currency pricing calculators.',
+      image: '/products/properties-3d.png',
+    },
+    {
+      id: 'appsuite',
+      number: '// 10',
+      tag: 'APP SUITE',
+      title: 'Cross-Platform Broker Hub',
+      subtitle: 'Native Mobile Sync',
+      description:
+        'Instant push alerts when offers are placed, real-time client chat history, and biometric auth for contract signing.',
+      image: '/products/phone-3d.png',
+    },
+    {
+      id: 'intelligence',
+      number: '// 11',
+      tag: 'COLLAB',
+      title: 'Brokerage Collaboration Suite',
+      subtitle: 'Internal Deal Channels',
+      description:
+        'Threaded deal discussions, shared client notes between co-listing agents, and administrative broadcast announcements.',
+      image: '/products/broker-office.png',
+    },
+    {
+      id: 'compliance',
+      number: '// 12',
+      tag: 'ESCROW',
+      title: 'Automated Earnest Money Ledger',
+      subtitle: 'Bank-Grade Reconciliation',
+      description:
+        'Integrated trust accounting, automated receipt generation, and real-time bank ledger matching for earnest deposit compliance.',
+      image: '/products/real-estate-app.png',
+    },
   ],
   crossSell: {
     badge: 'Hospitality SaaS',

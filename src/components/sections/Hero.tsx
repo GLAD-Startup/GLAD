@@ -38,27 +38,27 @@ export default function Hero() {
     <>
       <section
         ref={containerRef}
-        className="relative w-full h-auto xl:h-[460px] pt-[40px] md:pt-[54px] px-[20px] md:px-[28px] xl:px-[40px] pb-8 xl:pb-0 bg-bg select-none flex flex-col justify-between"
+        className="relative w-full h-auto xl:h-[460px] pt-[24px] md:pt-[32px] xl:pt-[36px] px-[20px] md:px-[28px] xl:px-[40px] pb-8 xl:pb-0 bg-bg select-none flex flex-col justify-between"
       >
         {/* Headline — hard 4 lines on desktop/tablet, natural wrapping on mobile with line masks */}
         <h1 className="t-heading max-w-[520px] text-fg relative z-10">
           <span className="block overflow-hidden">
-            <span data-intro="headline-line" className="block will-change-transform">
+            <span data-intro="headline-line" className="block will-change-transform pb-1">
               Building Web, Mobile
             </span>
           </span>
           <span className="block overflow-hidden">
-            <span data-intro="headline-line" className="block will-change-transform">
+            <span data-intro="headline-line" className="block will-change-transform pb-1">
               and AI Products that
             </span>
           </span>
           <span className="block overflow-hidden">
-            <span data-intro="headline-line" className="block will-change-transform">
+            <span data-intro="headline-line" className="block will-change-transform pb-1">
               Ship Fast and Scale
             </span>
           </span>
           <span className="block overflow-hidden">
-            <span data-intro="headline-line" className="block will-change-transform pb-3.5">
+            <span data-intro="headline-line" className="block will-change-transform pb-1">
               With <CyclingWord />.
             </span>
           </span>

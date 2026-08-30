@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, X, Sparkles, MoveHorizontal } from 'lucide-react';
-import SectionEyebrow from '@/components/ui/SectionEyebrow';
+import gsap from 'gsap';
+import { X, Sparkles } from 'lucide-react';
 import type { ProductGalleryCard } from '@/data/products';
 
 export interface ProductGallery3DProps {
@@ -18,14 +18,20 @@ export default function ProductGallery3D({
   subtitle = 'Rotate through the unified architecture powering modern brokerage operations.',
 }: ProductGallery3DProps) {
   const [rotationY, setRotationY] = useState(0);
+  const [wobbleY, setWobbleY] = useState(0);
+  const [wobbleRotateX, setWobbleRotateX] = useState(12);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
   const [startRotation, setStartRotation] = useState(0);
   const [selectedItem, setSelectedItem] = useState<ProductGalleryCard | null>(null);
-  const [radius, setRadius] = useState(460);
+  const [radius, setRadius] = useState(580);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
+  const isTransitioningRef = useRef(false);
+  const isHoveredRef = useRef(false);
+  const rotationYRef = useRef(0);
+  const rotationTrackerRef = useRef({ angle: 0 });
 
   useEffect(() => {
     isDraggingRef.current = isDragging;
@@ -36,11 +42,13 @@ export default function ProductGallery3D({
       if (typeof window !== 'undefined') {
         const w = window.innerWidth;
         if (w < 480) {
-          setRadius(260);
+          setRadius(390);
         } else if (w < 768) {
-          setRadius(340);
+          setRadius(490);
+        } else if (w < 1280) {
+          setRadius(580);
         } else {
-          setRadius(460);
+          setRadius(620);
         }
       }
     };
@@ -49,31 +57,65 @@ export default function ProductGallery3D({
     return () => window.removeEventListener('resize', updateRadius);
   }, []);
 
-  // Smooth continuous auto-rotation loop
+  // Silky smooth continuous animation loop (auto-rotation + calm vertical breathing)
   useEffect(() => {
     let animationFrameId: number;
     let lastTime = performance.now();
 
     const animate = (time: number) => {
-      const delta = time - lastTime;
+      const delta = Math.min(time - lastTime, 32);
       lastTime = time;
 
-      if (!isDraggingRef.current) {
-        const frameSpeed = 0.12 * (delta / 16.6);
-        setRotationY((prev) => prev - frameSpeed);
+      // 1. Continuous smooth rotation around Y axis
+      if (!isDraggingRef.current && !isTransitioningRef.current && !selectedItem) {
+        const frameSpeed = (isHoveredRef.current ? 0.04 : 0.1) * (delta / 16.6);
+        const nextAngle = rotationYRef.current - frameSpeed;
+        rotationYRef.current = nextAngle;
+        rotationTrackerRef.current.angle = nextAngle;
+        setRotationY(nextAngle);
       }
+
+      // 2. Calm, smooth vertical floating wobble (no abrupt shaking)
+      const wy = Math.sin(time * 0.001) * 7;
+      const rx = 12 + Math.sin(time * 0.0008) * 1.5;
+
+      setWobbleY(wy);
+      setWobbleRotateX(rx);
 
       animationFrameId = requestAnimationFrame(animate);
     };
 
     animationFrameId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+  }, [selectedItem]);
+
+  // Smooth slide animation to a target angle using GSAP
+  const animateToAngle = (targetAngle: number) => {
+    isTransitioningRef.current = true;
+    gsap.killTweensOf(rotationTrackerRef.current);
+
+    gsap.to(rotationTrackerRef.current, {
+      angle: targetAngle,
+      duration: 0.7,
+      ease: 'power3.out',
+      onUpdate: () => {
+        rotationYRef.current = rotationTrackerRef.current.angle;
+        setRotationY(rotationTrackerRef.current.angle);
+      },
+      onComplete: () => {
+        rotationYRef.current = targetAngle;
+        setRotationY(targetAngle);
+        isTransitioningRef.current = false;
+      },
+    });
+  };
 
   const handlePointerDown = (e: React.PointerEvent) => {
     setIsDragging(true);
+    isTransitioningRef.current = false;
+    gsap.killTweensOf(rotationTrackerRef.current);
     setDragStartX(e.clientX);
-    setStartRotation(rotationY);
+    setStartRotation(rotationTrackerRef.current.angle);
     if (containerRef.current) {
       containerRef.current.setPointerCapture(e.pointerId);
     }
@@ -82,7 +124,10 @@ export default function ProductGallery3D({
   const handlePointerMove = (e: React.PointerEvent) => {
     if (!isDragging) return;
     const deltaX = e.clientX - dragStartX;
-    setRotationY(startRotation + deltaX * 0.35);
+    const newAngle = startRotation + deltaX * 0.32;
+    rotationYRef.current = newAngle;
+    rotationTrackerRef.current.angle = newAngle;
+    setRotationY(newAngle);
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
@@ -97,34 +142,18 @@ export default function ProductGallery3D({
     }
   };
 
-  const spinPrev = () => {
-    const step = 360 / items.length;
-    setRotationY((prev) => Math.round(prev / step) * step + step);
-  };
-
-  const spinNext = () => {
-    const step = 360 / items.length;
-    setRotationY((prev) => Math.round(prev / step) * step - step);
-  };
-
   const totalItems = items.length;
   const angleStep = 360 / totalItems;
 
   return (
     <section
       id="gallery"
-      className="py-16 sm:py-24 relative overflow-hidden isolate border-t border-line bg-bg text-fg select-none"
+      className="py-16 sm:py-20 xl:py-24 relative overflow-hidden isolate border-t border-line bg-bg text-fg select-none"
     >
       {/* Section Header */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionEyebrow
-          left={<>VISUAL PLATFORM <span lang="hi">दृष्टि</span></>}
-          index="(GLD® — 08)"
-          right="INTERACTIVE 3D PREVIEW"
-        />
-
-        <div className="mt-8 text-center">
-          <h2 className="t-heading sm:text-[44px] text-fg font-medium mb-3">
+      <div className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <h2 className="t-heading sm:text-[44px] text-fg font-medium tracking-tight">
             {title}
           </h2>
           <p className="t-body-sm text-fg-muted max-w-2xl mx-auto leading-relaxed">
@@ -140,18 +169,24 @@ export default function ProductGallery3D({
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="mt-8 sm:mt-12 md:mt-16 relative w-full h-[400px] sm:h-[480px] md:h-[540px] flex items-center justify-center cursor-grab active:cursor-grabbing touch-none overflow-visible"
+        onMouseEnter={() => {
+          isHoveredRef.current = true;
+        }}
+        onMouseLeave={() => {
+          isHoveredRef.current = false;
+        }}
+        className="mt-16 sm:mt-20 md:mt-24 xl:mt-28 relative w-full h-[400px] sm:h-[460px] md:h-[500px] flex items-center justify-center cursor-grab active:cursor-grabbing touch-none overflow-visible"
         style={{
-          perspective: '1300px',
-          perspectiveOrigin: '50% 45%',
+          perspective: '1550px',
+          perspectiveOrigin: '50% 26%',
         }}
       >
-        {/* 3D Rotating Ring */}
+        {/* 3D Rotating Ring - NO CSS transition to eliminate frame fighting/jitter */}
         <div
-          className="relative w-[240px] xs:w-[280px] sm:w-[320px] md:w-[360px] h-[170px] xs:h-[200px] sm:h-[220px] md:h-[240px] transition-transform duration-75 ease-out"
+          className="relative w-[200px] xs:w-[225px] sm:w-[255px] md:w-[275px] h-[140px] xs:h-[155px] sm:h-[175px] md:h-[190px] will-change-transform"
           style={{
             transformStyle: 'preserve-3d',
-            transform: `rotateX(12deg) rotateY(${rotationY}deg)`,
+            transform: `translate3d(0, ${wobbleY}px, 0) rotateX(${wobbleRotateX}deg) rotateY(${rotationY}deg)`,
           }}
         >
           {items.map((item, index) => {
@@ -160,26 +195,26 @@ export default function ProductGallery3D({
             const cosVal = Math.cos((normalizedAngle * Math.PI) / 180);
 
             const isFront = cosVal > 0.1;
-            const opacity = isFront ? 0.95 + cosVal * 0.05 : Math.max(0.35, 0.65 + cosVal * 0.35);
-            const blurAmount = isFront ? 0 : Math.min(4, Math.abs(cosVal) * 3);
+            const opacity = isFront ? 0.96 + cosVal * 0.04 : Math.max(0.28, 0.58 + cosVal * 0.42);
+            const blurAmount = isFront ? 0 : Math.min(3, Math.abs(cosVal) * 2);
 
             return (
               <div
                 key={item.id}
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (Math.abs(normalizedAngle) < 35) {
+                  if (Math.abs(normalizedAngle) < 18) {
                     setSelectedItem(item);
                   } else {
-                    setRotationY((prev) => prev - normalizedAngle);
+                    animateToAngle(rotationTrackerRef.current.angle - normalizedAngle);
                   }
                 }}
-                className="absolute inset-0 rounded-[14px] bg-[#0A0A0B] border border-white/15 shadow-2xl transition-all duration-300 group hover:border-accent hover:shadow-accent/20 cursor-pointer overflow-hidden flex flex-col justify-between p-2.5 sm:p-3"
+                className="absolute inset-0 rounded-[14px] bg-[#0A0A0B] border border-white/15 shadow-2xl transition-[border-color,box-shadow] duration-200 group hover:border-accent hover:shadow-accent/20 cursor-pointer overflow-hidden flex flex-col justify-between p-2.5 sm:p-3"
                 style={{
                   transformStyle: 'preserve-3d',
                   transform: `rotateY(${index * angleStep}deg) translateZ(${radius}px)`,
                   opacity: opacity,
-                  filter: `blur(${blurAmount}px)`,
+                  filter: blurAmount > 0.1 ? `blur(${blurAmount}px)` : 'none',
                   backfaceVisibility: 'visible',
                 }}
               >
@@ -236,38 +271,6 @@ export default function ProductGallery3D({
               </div>
             );
           })}
-        </div>
-
-        {/* Center Bottom Control Pill */}
-        <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 sm:gap-4 max-w-[calc(100vw-32px)]">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              spinPrev();
-            }}
-            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-line-solid bg-surface/90 backdrop-blur-md flex items-center justify-center text-fg hover:bg-fg hover:text-bg transition-all shadow-md active:scale-95 shrink-0 cursor-pointer"
-            aria-label="Spin Left"
-          >
-            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-          </button>
-
-          <div className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-line-solid bg-surface/90 backdrop-blur-md shadow-md flex items-center gap-1.5 sm:gap-2 text-[9.5px] sm:text-[11px] font-mono font-medium tracking-wider text-fg-muted uppercase shrink-0 truncate">
-            <MoveHorizontal className="w-3.5 h-3.5 text-accent animate-pulse shrink-0" />
-            <span>DRAG TO SPIN · CLICK TO INSPECT</span>
-          </div>
-
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              spinNext();
-            }}
-            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-line-solid bg-surface/90 backdrop-blur-md flex items-center justify-center text-fg hover:bg-fg hover:text-bg transition-all shadow-md active:scale-95 shrink-0 cursor-pointer"
-            aria-label="Spin Right"
-          >
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-          </button>
         </div>
       </div>
 
