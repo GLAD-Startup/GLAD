@@ -740,7 +740,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
       {/* 13. CLOSING CTA (WITH FULL-BLEED BACKGROUND VIDEO & EDGE FADES) */}
       <section className="relative overflow-hidden mt-[90px] xl:mt-[130px] border-y border-line py-[100px] xl:py-[140px] px-[20px] md:px-[28px] xl:px-[40px] text-center bg-surface/30">
         {/* Full-Cover Background Video with Radial Edge Mask */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none [mask-image:radial-gradient(ellipse_76%_86%_at_50%_50%,black_30%,transparent_96%)] [-webkit-mask-image:radial-gradient(ellipse_76%_86%_at_50%_50%,black_30%,transparent_96%)]">
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none [mask-image:radial-gradient(ellipse_64%_86%_at_50%_50%,black_24%,transparent_92%)] [-webkit-mask-image:radial-gradient(ellipse_64%_86%_at_50%_50%,black_24%,transparent_92%)]">
           <video
             key={isHms ? 'hms-video' : 'settledesk-video'}
             autoPlay
@@ -765,8 +765,8 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         {/* 4-Sided Perimeter Edge Feathering Gradients (Wide Lateral Fades) */}
         <div className="absolute inset-x-0 top-0 h-16 sm:h-24 bg-gradient-to-b from-bg to-transparent pointer-events-none z-0" />
         <div className="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-bg to-transparent pointer-events-none z-0" />
-        <div className="absolute inset-y-0 left-0 w-32 sm:w-48 md:w-64 xl:w-80 bg-gradient-to-r from-bg via-bg/75 to-transparent pointer-events-none z-0" />
-        <div className="absolute inset-y-0 right-0 w-32 sm:w-48 md:w-64 xl:w-80 bg-gradient-to-l from-bg via-bg/75 to-transparent pointer-events-none z-0" />
+        <div className="absolute inset-y-0 left-0 w-44 sm:w-60 md:w-80 xl:w-96 bg-gradient-to-r from-bg via-bg/85 to-transparent pointer-events-none z-0" />
+        <div className="absolute inset-y-0 right-0 w-44 sm:w-60 md:w-80 xl:w-96 bg-gradient-to-l from-bg via-bg/85 to-transparent pointer-events-none z-0" />
 
         <div className="relative z-10 max-w-3xl mx-auto space-y-6">
           <h2 className="t-heading text-fg font-normal">
