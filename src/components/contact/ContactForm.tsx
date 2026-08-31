@@ -72,10 +72,10 @@ export default function ContactForm() {
       if (res.ok && data.success) {
         setIsSuccess(true);
       } else {
-        setServerError(data.error || 'Failed to submit enquiry. Please email us directly at hello@gladstudio.net');
+        setServerError(data.error || 'Failed to submit enquiry. Please email us directly at contact@gladstudio.net');
       }
     } catch {
-      setServerError('Network error. Please try again or email us directly at hello@gladstudio.net');
+      setServerError('Network error. Please try again or email us directly at contact@gladstudio.net');
     } finally {
       setIsSubmitting(false);
     }

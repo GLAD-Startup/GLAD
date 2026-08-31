@@ -37,7 +37,7 @@ export const siteConfig = {
     coordinates: '27.5806° N, 77.7006° E',
   },
   contact: {
-    email: 'hello@gladstudio.net',
+    email: 'contact@gladstudio.net',
     inquiryEmail: 'sayhi@gladstudio.net',
     phone: '+91 94572 45650',
     phoneDisplay: '+91 (0) Vrindavan Studio',
@@ -72,8 +72,8 @@ export const siteConfig = {
       external: true,
     },
     {
-      label: 'hello@gladstudio.net',
-      href: 'mailto:hello@gladstudio.net',
+      label: 'contact@gladstudio.net',
+      href: 'mailto:contact@gladstudio.net',
       external: false,
     },
   ] as ContactChannel[],

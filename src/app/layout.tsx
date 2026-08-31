@@ -3,7 +3,7 @@ import './globals.css';
 import SmoothScroll from '@/components/providers/SmoothScroll';
 import Cursor from '@/components/ui/Cursor';
 import Nav from '@/components/layout/Nav';
-import BackToTop from '@/components/ui/BackToTop';
+import FloatingFooter from '@/components/layout/FloatingFooter';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gladstudio.net'),
@@ -65,7 +65,7 @@ const organizationJsonLd = {
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    email: 'hello@gladstudio.net',
+    email: 'contact@gladstudio.net',
     contactType: 'customer support',
   },
 };
@@ -111,7 +111,7 @@ export default function RootLayout({
               {children}
             </div>
           </div>
-          <BackToTop />
+          <FloatingFooter />
         </SmoothScroll>
       </body>
     </html>

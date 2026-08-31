@@ -35,8 +35,8 @@ const contactChannels = [
     external: true,
   },
   {
-    label: 'hello@gladstudio.net',
-    href: 'mailto:hello@gladstudio.net',
+    label: 'contact@gladstudio.net',
+    href: 'mailto:contact@gladstudio.net',
     external: false,
   },
 ];
