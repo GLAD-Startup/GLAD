@@ -19,16 +19,16 @@ interface ServiceDetailClientProps {
 
 const serviceVisuals: Record<string, { outer: string; inner: string; caseStudySlug: string; caseStudyTitle: string }> = {
   'mvp-development': {
-    outer: '/work/fluxor/corporate-server.png',
-    inner: '/work/fluxor/real-estate-contract.png',
-    caseStudySlug: 'fluxor',
-    caseStudyTitle: 'Fluxor Enterprise CRM',
+    outer: '/work/stock-management/properties-3d.png',
+    inner: '/work/stock-management/commission-3d.png',
+    caseStudySlug: 'stock-management',
+    caseStudyTitle: 'Stock Management Platform',
   },
   'web-application-development': {
     outer: '/work/lead-enrichment/modern-office-facade.png',
     inner: '/work/lead-enrichment/skyscraper-sunset.png',
-    caseStudySlug: 'stock-management',
-    caseStudyTitle: 'Stock Management Platform',
+    caseStudySlug: 'lead-enrichment',
+    caseStudyTitle: 'Lead Enrichment Pipeline',
   },
   'mobile-app-development': {
     outer: '/work/prayas-app/phone-3d.png',
@@ -39,7 +39,7 @@ const serviceVisuals: Record<string, { outer: string; inner: string; caseStudySl
   'ai-solutions': {
     outer: '/work/ai-mock-interview/hero-3d.png',
     inner: '/work/ai-mock-interview/broker-deal.png',
-    caseStudySlug: 'fluxor',
+    caseStudySlug: 'ai-mock-interview',
     caseStudyTitle: 'AI Mock Interview Simulator',
   },
   'cloud-devops': {
@@ -57,10 +57,10 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
   const innerMediaRef = useRef<HTMLDivElement>(null);
 
   const visuals = serviceVisuals[service.slug] || {
-    outer: '/work/fluxor/corporate-server.png',
-    inner: '/work/fluxor/real-estate-contract.png',
-    caseStudySlug: 'fluxor',
-    caseStudyTitle: 'Fluxor Enterprise CRM',
+    outer: '/work/lead-enrichment/modern-office-facade.png',
+    inner: '/work/lead-enrichment/skyscraper-sunset.png',
+    caseStudySlug: 'lead-enrichment',
+    caseStudyTitle: 'Lead Enrichment Platform',
   };
 
   useEffect(() => {

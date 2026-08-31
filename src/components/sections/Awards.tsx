@@ -21,10 +21,10 @@ const whyUsRows = [
     value: 'Fast Development',
     desc: 'Weeks, not quarters. Senior team, focused scope, no agency overhead.',
     thumbnails: [
-      '/work/fluxor/corporate-server.png',
       '/work/prayas-app/phone-3d.png',
       '/work/stock-management/properties-3d.png',
       '/work/ai-mock-interview/hero-3d.png',
+      '/work/lead-enrichment/modern-office-facade.png',
     ],
   },
   {
@@ -34,9 +34,9 @@ const whyUsRows = [
     desc: 'Async updates, weekly demos, and a Slack channel you actually use.',
     thumbnails: [
       '/work/lead-enrichment/modern-office-facade.png',
-      '/work/q-safe/building.png',
+      '/work/stock-management/commission-3d.png',
       '/work/prayas-app/real-estate-app.png',
-      '/work/fluxor/real-estate-contract.png',
+      '/work/ai-mock-interview/broker-deal.png',
     ],
   },
   {
@@ -48,7 +48,7 @@ const whyUsRows = [
       '/work/stock-management/commission-3d.png',
       '/work/ai-mock-interview/broker-deal.png',
       '/work/lead-enrichment/skyscraper-sunset.png',
-      '/work/q-safe/broker-office.png',
+      '/work/prayas-app/phone-3d.png',
     ],
   },
   {
@@ -59,7 +59,7 @@ const whyUsRows = [
     thumbnails: [
       '/products/hotel-building.png',
       '/products/building.png',
-      '/work/fluxor/corporate-server.png',
+      '/work/lead-enrichment/modern-office-facade.png',
       '/work/stock-management/properties-3d.png',
     ],
   },

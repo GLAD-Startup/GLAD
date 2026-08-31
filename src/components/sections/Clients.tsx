@@ -147,42 +147,42 @@ const productCards = [
   {
     id: 3,
     num: '03',
-    label: 'Fluxor',
-    tagline: 'High-Throughput Financial Data Pipeline',
-    desc: 'Event-driven market data ingestion system processing 100k+ events/sec with sub-millisecond latency.',
-    stats: '100K+ EPS · < 2MS LATENCY · DISTRIBUTED ARCH',
-    href: '/work/fluxor',
-    src: '/work/fluxor/corporate-server.png',
-  },
-  {
-    id: 4,
-    num: '04',
     label: 'Prayas App',
-    tagline: 'Mobile Real Estate & Asset Platform',
-    desc: 'Cross-platform mobile application featuring interactive 3D spatial tours, mortgage calculators, and lead management.',
-    stats: 'FLUTTER · 50K+ DOWNLOADS · OFFLINE-FIRST',
+    tagline: 'Mobile Health Logistics & Donor Platform',
+    desc: 'Cross-platform mobile application for real-time equipment lending workflows, donor-recipient matching, and blood drives.',
+    stats: 'REACT NATIVE · 10,000+ REACH · REAL-TIME SYNC',
     href: '/work/prayas-app',
     src: '/work/prayas-app/phone-3d.png',
   },
   {
-    id: 5,
-    num: '05',
+    id: 4,
+    num: '04',
     label: 'Stock Manager',
     tagline: 'Automated Commission & Inventory Engine',
-    desc: 'Real-time multi-warehouse inventory tracker with automated ledger reconciliation and broker payout calculation.',
+    desc: 'Real-time multi-warehouse inventory tracker with automated ledger reconciliation and multi-division management.',
     stats: 'REAL-TIME LEDGER · MULTI-TENANT · AUDIT READY',
     href: '/work/stock-management',
     src: '/work/stock-management/properties-3d.png',
   },
   {
-    id: 6,
-    num: '06',
+    id: 5,
+    num: '05',
     label: 'AI Interviewer',
     tagline: 'GenAI Voice & Simulation Assessment',
     desc: 'Autonomous multimodal interviewer simulating realistic technical and executive assessments with instant rubric scoring.',
     stats: 'LLM VOICE PIPELINE · ADAPTIVE RUBRICS · REAL-TIME STT',
     href: '/work/ai-mock-interview',
     src: '/work/ai-mock-interview/hero-3d.png',
+  },
+  {
+    id: 6,
+    num: '06',
+    label: 'Lead Intelligence',
+    tagline: 'High-Throughput Lead Discovery Pipeline',
+    desc: 'Automated lead sourcing platform validating decision-makers, verifying websites, and generating personalized AI outreach.',
+    stats: '1,000s LEADS/DAY · AI ENRICHMENT · ASYNC PIPELINES',
+    href: '/work/lead-enrichment',
+    src: '/work/lead-enrichment/modern-office-facade.png',
   },
 ];
 
@@ -200,8 +200,8 @@ function PerspectiveCardContent({
   w: number;
 }) {
   return (
-    <div className="w-full h-full relative group bg-bg select-none">
-      {/* Media */}
+    <div className="w-full h-full relative group bg-surface overflow-hidden select-none">
+      {/* Media with smooth scale and dimming matching Section 2 */}
       {video ? (
         <video
           src={src}
@@ -210,7 +210,7 @@ function PerspectiveCardContent({
           loop
           playsInline
           preload="none"
-          className="w-full h-full object-cover block transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover block transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.02] group-hover:opacity-75"
         />
       ) : (
         <Image
@@ -218,15 +218,15 @@ function PerspectiveCardContent({
           alt={`${label} platform visual`}
           fill
           unoptimized
-          className="object-cover block transition-transform duration-500 group-hover:scale-105"
+          className="object-cover block transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.02] group-hover:opacity-75"
         />
       )}
 
       {/* Scrim Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/15 group-hover:via-black/35 transition-colors duration-300 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/15 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none" />
 
-      {/* Product Wordmark Overlay on Center */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center select-none p-4 text-center pointer-events-none">
+      {/* Product Wordmark Overlay on Center (fades on hover as ribbon expands) */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center select-none p-4 text-center pointer-events-none transition-opacity duration-300 group-hover:opacity-0">
         <span
           className="text-white font-semibold leading-tight select-none drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)] tracking-[-0.02em]"
           style={{
@@ -235,13 +235,15 @@ function PerspectiveCardContent({
         >
           {label}
         </span>
+      </div>
 
-        {/* Subtitle */}
-        {subtitle && (
-          <span className="mt-2.5 text-[12px] md:text-[13px] text-white/90 font-normal px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 max-w-[90%] leading-snug">
-            {subtitle}
+      {/* White Ribbon Opening & Expanding Vertically on Hover (Exact Match to Section 2 Selected Works) */}
+      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-20 pointer-events-none flex items-center justify-center">
+        <div className="w-full h-[32px] md:h-[36px] bg-[#FBFBF9] border-y border-line-solid flex items-center justify-center px-4 origin-center scale-y-0 opacity-0 group-hover:scale-y-100 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] shadow-sm">
+          <span className="text-[12px] md:text-[13px] font-medium tracking-[-0.01em] text-fg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+            {subtitle || label}
           </span>
-        )}
+        </div>
       </div>
     </div>
   );
@@ -367,7 +369,7 @@ export default function Clients() {
               trigger: section,
               start: 'top top',
               end: 'bottom bottom',
-              scrub: 0.65,
+              scrub: 1.2,
               invalidateOnRefresh: true,
               onUpdate: (self) => {
                 renderField(self.progress);
@@ -407,7 +409,7 @@ export default function Clients() {
       <section
         ref={sectionRef}
         id="products"
-        className="relative w-full h-auto min-[1024px]:h-[480vh] bg-bg select-none"
+        className="relative w-full h-auto min-[1024px]:h-[800vh] bg-bg select-none"
       >
         {/* Sticky Stage on Desktop */}
         <div className="stage min-[1024px]:sticky min-[1024px]:top-0 min-[1024px]:h-screen w-full overflow-hidden min-[1024px]:[perspective:1400px] min-[1024px]:[perspective-origin:50%_50%] [isolation:isolate] flex flex-col justify-center relative">

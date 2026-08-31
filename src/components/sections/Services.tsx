@@ -13,7 +13,7 @@ import { servicesData } from '@/data/services';
 const servicesWithImages = [
   {
     ...servicesData[0],
-    image: '/work/fluxor/corporate-server.png',
+    image: '/work/stock-management/properties-3d.png',
   },
   {
     ...servicesData[1],
@@ -29,7 +29,7 @@ const servicesWithImages = [
   },
   {
     ...servicesData[4],
-    image: '/work/stock-management/properties-3d.png',
+    image: '/work/stock-management/commission-3d.png',
   },
 ];
 

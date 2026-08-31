@@ -27,7 +27,6 @@ import PillButton from '@/components/ui/PillButton';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
 import MockUiPanel from '@/components/products/MockUiPanel';
-import ProductGallery3D from '@/components/products/ProductGallery3D';
 import type { ProductItem } from '@/data/products';
 
 export interface ProductDetailClientProps {
@@ -381,14 +380,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         </div>
       </section>
 
-      {/* 5. SETTLEDESK 3D GALLERY (If SettleDesk) */}
-      {!isHms && product.galleryItems && (
-        <div className="mt-[80px] xl:mt-[110px]">
-          <ProductGallery3D items={product.galleryItems} />
-        </div>
-      )}
-
-      {/* 7. FEATURE DEEP-DIVES (4 Alternating Blocks) */}
+      {/* 6. FEATURE DEEP-DIVES (4 Alternating Blocks) */}
       <section className="mt-[70px] xl:mt-[110px] px-[20px] md:px-[28px] xl:px-[40px] space-y-16 xl:space-y-24">
         {product.features.map((feature, idx) => {
           const isEven = idx % 2 === 1;
