@@ -69,46 +69,38 @@ export default function ProcessPageClient() {
             const t = angleDeg / stepSpread;
             const absT = Math.abs(t);
 
-            // Trajectory:
-            // t < 0 (past card): exits toward Top-Right (+X, -Y)
+            // Smooth C-Curve Trajectory with generous separation:
+            // t > 0 (incoming card): enters from Bottom-Right (+X, +Y)
             // t = 0 (active card): centered focal spot (0, 0)
-            // t > 0 (next card): enters from Bottom-Left (-X, +Y)
-            const x = -t * 78;
-            const y = t * 180;
-            const rotZ = -t * 4.2;
+            // t < 0 (past card): exits toward Top-Right (+X, -Y)
+            const y = t * 340;
+            const x = (t * t) * 95 + (t > 0 ? t * 65 : -t * 60);
+            const rotZ = t * 4.8;
 
-            // Opacity & scale configured so 3.5 cards are visible at once:
-            // 1 active center card (absT <= 0.4)
-            // 2 full adjacent cards (absT ~ 1.0)
-            // 0.5 peeking cards at extremities (absT ~ 1.6 - 1.9)
+            // Opacity & scale: 1 active card + 1 clear adjacent card above & below
             let opacity = 0;
             let scale = 0.85;
             let zIndex = 10;
 
-            if (absT <= 0.4) {
+            if (absT <= 0.35) {
               opacity = 1;
               scale = 1;
               zIndex = 50;
-            } else if (absT <= 1.2) {
-              // Smooth transition to full visibility for adjacent cards
-              const ratio = (absT - 0.4) / 0.8;
-              opacity = 1 - ratio * 0.18; // 1.0 -> 0.82
-              scale = 1 - ratio * 0.06;   // 1.0 -> 0.94
+            } else if (absT <= 1.0) {
+              // Smooth transition for immediate adjacent cards
+              const ratio = (absT - 0.35) / 0.65;
+              opacity = 1 - ratio * 0.28; // 1.0 -> 0.72
+              scale = 1 - ratio * 0.07;   // 1.0 -> 0.93
               zIndex = 35;
-            } else if (absT <= 1.9) {
-              // The 0.5 peeking cards at the top-right and bottom-left bounds
-              const ratio = (absT - 1.2) / 0.7;
-              opacity = 0.82 - ratio * 0.52; // 0.82 -> 0.30 (half-visible peeking card)
-              scale = 0.94 - ratio * 0.08;   // 0.94 -> 0.86
+            } else if (absT <= 1.5) {
+              // Gracefully fade out distant cards before they can overlap
+              const ratio = (absT - 1.0) / 0.5;
+              opacity = 0.72 - ratio * 0.72; // 0.72 -> 0.0
+              scale = 0.93 - ratio * 0.08;   // 0.93 -> 0.85
               zIndex = 20;
-            } else if (absT <= 2.3) {
-              const ratio = (absT - 1.9) / 0.4;
-              opacity = 0.30 - ratio * 0.30; // 0.30 -> 0
-              scale = 0.86 - ratio * 0.08;   // 0.86 -> 0.78
-              zIndex = 10;
             } else {
               opacity = 0;
-              scale = 0.75;
+              scale = 0.80;
               zIndex = 0;
             }
 
@@ -133,7 +125,7 @@ export default function ProcessPageClient() {
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top top+=84',
-          end: '+=2400',
+          end: '+=3200',
           pin: true,
           scrub: 0.6,
           anticipatePin: 1,
@@ -200,21 +192,21 @@ export default function ProcessPageClient() {
             </div>
 
             {/* Right Column: Arc Stage (Desktop >= 1024px) & Vertical Fallback (<1024px) */}
-            <div className="relative w-full lg:border-l lg:border-line flex items-center justify-center min-h-[460px] lg:min-h-[640px] xl:min-h-[700px] overflow-visible">
+            <div className="relative w-full lg:border-l lg:border-line flex items-center justify-center min-h-[460px] lg:min-h-[700px] xl:min-h-[760px] overflow-visible">
               
               {/* Desktop Orbital Stage (>=1024px) */}
               <div
                 ref={stageContainerRef}
-                className="hidden lg:flex relative w-full h-[640px] xl:h-[700px] items-center justify-center overflow-visible"
+                className="hidden lg:flex relative w-full h-[700px] xl:h-[760px] items-center justify-center overflow-visible"
               >
-                {/* Dotted Arc Guide Rail SVG (from Bottom-Left through Center to Top-Right) */}
+                {/* Dotted Arc Guide Rail SVG (Smooth C-Curve from Bottom-Right to Center to Top-Right) */}
                 <svg
                   className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
-                  viewBox="-380 -350 760 700"
+                  viewBox="-400 -500 800 1000"
                   fill="none"
                 >
                   <path
-                    d="M 120 -280 Q 40 -90 0 0 Q -40 90 -120 280"
+                    d="M 340 460 C 100 280 0 140 0 0 C 0 -140 100 -280 340 -460"
                     stroke="rgba(10,10,11,0.12)"
                     strokeWidth="1.5"
                     strokeDasharray="6 6"
@@ -248,7 +240,7 @@ export default function ProcessPageClient() {
               </div>
 
               {/* Mobile Vertical Stack (<1024px) */}
-              <div className="flex lg:hidden flex-col gap-6 w-full py-8">
+              <div className="flex lg:hidden flex-col gap-8 sm:gap-10 w-full py-8">
                 {processRows.map((step, idx) => (
                   <ProcessCard key={step.step} step={step} index={idx} />
                 ))}
