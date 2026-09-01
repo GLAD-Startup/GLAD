@@ -75,7 +75,6 @@ export default function ProcessPageClient() {
             // t < 0 (past card): exits toward Top-Right (+X, -Y)
             const y = t * 340;
             const x = (t * t) * 95 + (t > 0 ? t * 65 : -t * 60);
-            const rotZ = t * 4.8;
 
             // Opacity & scale: 1 active card + 1 clear adjacent card above & below
             let opacity = 0;
@@ -104,11 +103,11 @@ export default function ProcessPageClient() {
               zIndex = 0;
             }
 
-            // Apply transforms via GSAP for silky smooth 60fps rendering
+            // Apply transforms via GSAP for silky smooth 60fps rendering (kept perfectly straight)
             gsap.set(el, {
               x: x,
               y: y,
-              rotation: rotZ,
+              rotation: 0,
               scale: scale,
               opacity: opacity,
               zIndex: zIndex,
