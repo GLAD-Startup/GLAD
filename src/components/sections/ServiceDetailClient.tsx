@@ -370,7 +370,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <PillButton href="/contact">Book a Discovery Call</PillButton>
+            <PillButton href="/contact" variant="inverted">Book a Discovery Call</PillButton>
             <Link
               href="/work"
               data-cursor="pointer"
