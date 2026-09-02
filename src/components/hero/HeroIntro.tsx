@@ -40,6 +40,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
       if (video) {
         video.play().catch(() => {});
       }
+      const navEl = document.querySelector('[data-intro="nav"]');
+      if (navEl) {
+        gsap.set(navEl, { clearProps: 'opacity,transform' });
+      }
       return;
     }
 
@@ -56,6 +60,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
 
       ctx = gsap.context(() => {
         // Query elements by data-intro attributes
+        const nav = document.querySelector('[data-intro="nav"]');
         const wordmark = document.querySelector('[data-intro="wordmark"]');
         const studioGradient = document.querySelector(
           '[data-intro="studio-gradient"], [data-intro="glad-gradient"]'
@@ -85,6 +90,13 @@ export default function HeroIntro({ children }: HeroIntroProps) {
         }
 
         // Set initial GSAP values matching the from states
+        if (nav) {
+          gsap.set(nav, {
+            opacity: 0,
+            y: -24,
+          });
+        }
+
         gsap.set(wordmark, {
           y: -500,
           opacity: 0,
@@ -137,9 +149,12 @@ export default function HeroIntro({ children }: HeroIntroProps) {
               activeLenis.start();
             }
 
-            // Clear residual GSAP inline styles on studioGradient
+            // Clear residual GSAP inline styles on studioGradient and nav
             if (studioGradient) {
               gsap.set(studioGradient, { clearProps: 'clipPath' });
+            }
+            if (nav) {
+              gsap.set(nav, { clearProps: 'opacity,transform' });
             }
 
             // Mark session as played
@@ -253,6 +268,21 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           },
           3.95
         );
+
+        // 4.05s: Header Nav — slide and fade down smoothly into place after hero animation
+        if (nav) {
+          tl.to(
+            nav,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.65,
+              ease: 'power3.out',
+              clearProps: 'opacity,transform',
+            },
+            4.05
+          );
+        }
       });
     };
 
@@ -263,6 +293,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
       if (ctx) ctx.revert();
       document.body.style.overflow = '';
       document.documentElement.classList.remove('intro-armed');
+      const navEl = document.querySelector('[data-intro="nav"]');
+      if (navEl) {
+        gsap.set(navEl, { clearProps: 'opacity,transform' });
+      }
     };
   }, []);
 

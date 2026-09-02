@@ -295,7 +295,7 @@ export default function Nav() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none flex justify-center w-full select-none">
+      <div data-intro="nav" className="fixed top-0 left-0 right-0 z-50 pointer-events-none flex justify-center w-full select-none">
         <nav
           className={clsx(
             'w-full h-[82px] bg-bg pointer-events-auto relative will-change-transform transition-transform duration-[600ms] ease-[cubic-bezier(0.25,1,0.5,1)]',

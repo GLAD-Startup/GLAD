@@ -70,7 +70,7 @@ export default function Intro() {
         </div>
 
         {/* Statement — Senior team of four statement */}
-        <div className="xl:absolute xl:left-[calc(min(440px,28vw)+48px)] xl:right-[40px] xl:top-[64px] z-10 max-w-[860px] w-auto">
+        <div className="xl:absolute xl:left-[calc(40px+min(440px,28vw)+48px)] xl:right-[40px] xl:top-[64px] z-10 max-w-[860px] w-auto">
           <p className="t-heading-sm text-fg">
             A senior team of four
             <sup
@@ -84,7 +84,7 @@ export default function Intro() {
         </div>
 
         {/* Contact PillButton */}
-        <div className="xl:absolute xl:left-[calc(min(440px,28vw)+48px)] xl:top-[250px] z-10">
+        <div className="xl:absolute xl:left-[calc(40px+min(440px,28vw)+48px)] xl:top-[250px] z-10">
           <PillButton calLink="arjun-rajput-2mdsis">Book a Call</PillButton>
         </div>
 
@@ -97,7 +97,7 @@ export default function Intro() {
         </div>
 
         {/* Core Tech Stack & Client Partners Container — Strictly bounded between left & right: 40px */}
-        <div className="w-full xl:w-auto xl:absolute xl:left-[calc(min(440px,28vw)+48px)] xl:right-[40px] xl:top-[490px] z-10">
+        <div className="w-full xl:w-auto xl:absolute xl:left-[calc(40px+min(440px,28vw)+48px)] xl:right-[40px] xl:top-[490px] z-10">
           <span className="text-[11px] font-semibold text-accent uppercase tracking-wider block mb-3">
             Core Production Stack
           </span>

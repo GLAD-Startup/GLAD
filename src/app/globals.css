@@ -306,6 +306,12 @@ html.intro-armed {
   /* Scroll allowed during intro */
 }
 
+html.intro-armed [data-intro="nav"] {
+  opacity: 0 !important;
+  transform: translate3d(0, -24px, 0) !important;
+  pointer-events: none !important;
+}
+
 html.intro-armed [data-intro="wordmark"] {
   opacity: 0 !important;
   transform: translate3d(0, -500px, 0) scale(0.72) !important;
