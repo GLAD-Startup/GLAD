@@ -149,7 +149,7 @@ export default function Profile() {
       <section
         ref={sectionRef}
         id="profile"
-        className="relative w-full h-auto xl:h-[1360px] bg-bg select-none py-8 xl:py-0 px-[20px] md:px-[28px] xl:px-0 flex flex-col xl:block gap-10 xl:gap-0"
+        className="relative w-full max-w-[1512px] mx-auto h-auto xl:h-[1360px] bg-bg select-none py-8 xl:py-0 px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-10 xl:gap-0"
       >
         <h2 className="sr-only">Studio Profile</h2>
 
@@ -159,7 +159,7 @@ export default function Profile() {
           data-cursor="view"
           data-cursor-text="Arjun Singh Rajput"
           data-cursor-subtext="CEO & Head of Strategy"
-          className="w-full max-w-[380px] h-[440px] mx-auto xl:mx-0 xl:w-[326px] xl:h-[480px] xl:absolute xl:left-[105px] xl:top-[155px] z-[2] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-2xl relative shrink-0 will-change-transform"
+          className="w-full max-w-[340px] sm:max-w-[380px] h-[380px] sm:h-[440px] mx-auto xl:mx-0 xl:w-[326px] xl:h-[480px] xl:absolute xl:left-[40px] xl:top-[155px] z-[2] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-2xl relative shrink-0 will-change-transform"
         >
           <div
             ref={photoAInnerRef}
@@ -178,7 +178,7 @@ export default function Profile() {
         {/* Statement Text with progressive letter-fill and mix-blend-mode: difference */}
         <div
           ref={statementRef}
-          className="-mt-[160px] xl:mt-0 xl:absolute xl:left-[232px] xl:top-[400px] w-full max-w-[950px] z-10 pointer-events-none relative px-2 xl:px-0"
+          className="-mt-[80px] sm:-mt-[120px] xl:mt-0 xl:absolute xl:left-[210px] xl:top-[400px] w-full max-w-[950px] z-10 pointer-events-none relative px-2 xl:px-0"
           style={{ mixBlendMode: 'difference' }}
         >
           <p className="t-statement text-white leading-[1.18]">
@@ -206,7 +206,7 @@ export default function Profile() {
           data-cursor="view"
           data-cursor-text="Jatin Khetan"
           data-cursor-subtext="CFO & Head of Product & Design"
-          className="w-full max-w-[440px] h-[520px] mx-auto xl:mx-0 xl:w-[452px] xl:h-[660px] xl:absolute xl:right-[68px] xl:top-[380px] z-[2] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-2xl relative shrink-0 will-change-transform"
+          className="w-full max-w-[340px] sm:max-w-[440px] h-[420px] sm:h-[520px] mx-auto xl:mx-0 xl:w-[452px] xl:h-[660px] xl:absolute xl:right-[40px] xl:top-[380px] z-[2] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-2xl relative shrink-0 will-change-transform"
         >
           <div
             ref={photoBInnerRef}
@@ -228,7 +228,7 @@ export default function Profile() {
           data-cursor="view"
           data-cursor-text="Somesh Rajput"
           data-cursor-subtext="CTO & Head of Engineering"
-          className="w-full max-w-[380px] h-[440px] mx-auto xl:mx-0 xl:w-[326px] xl:h-[480px] xl:absolute xl:left-[40px] xl:top-[842px] z-[2] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-2xl relative shrink-0 will-change-transform"
+          className="w-full max-w-[340px] sm:max-w-[380px] h-[380px] sm:h-[440px] mx-auto xl:mx-0 xl:w-[326px] xl:h-[480px] xl:absolute xl:left-[40px] xl:top-[842px] z-[2] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-2xl relative shrink-0 will-change-transform"
         >
           <div
             ref={photoCInnerRef}
@@ -250,7 +250,7 @@ export default function Profile() {
           data-cursor="view"
           data-cursor-text="Parth Garg"
           data-cursor-subtext="COO & Head of Operations"
-          className="w-full max-w-[380px] h-[440px] mx-auto xl:mx-0 xl:w-[326px] xl:h-[480px] xl:absolute xl:left-[540px] xl:top-[940px] z-[2] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-2xl relative shrink-0 will-change-transform"
+          className="w-full max-w-[340px] sm:max-w-[380px] h-[380px] sm:h-[440px] mx-auto xl:mx-0 xl:w-[326px] xl:h-[480px] xl:absolute xl:left-[480px] xl:top-[940px] z-[2] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-2xl relative shrink-0 will-change-transform"
         >
           <div
             ref={photoDInnerRef}
@@ -267,7 +267,7 @@ export default function Profile() {
         </div>
 
         {/* Closing Block — Positioned on right side below Jatin's photo */}
-        <div className="w-full max-w-[452px] mx-auto xl:mx-0 xl:absolute xl:right-[68px] xl:top-[1060px] z-10">
+        <div className="w-full max-w-[452px] mx-auto xl:mx-0 xl:absolute xl:right-[40px] xl:top-[1060px] z-10">
           <p className="t-body text-fg-muted">
             We started GLAD studio because founders kept losing months to agencies that overpromised and left them with code they couldn&apos;t maintain. So we built something different —{' '}
             <strong className="text-fg font-semibold">

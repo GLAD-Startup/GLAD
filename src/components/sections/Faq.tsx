@@ -83,7 +83,7 @@ export default function Faq() {
       <section
         ref={sectionRef}
         id="faq"
-        className="relative w-full bg-bg select-none pt-[70px] xl:pt-[90px]"
+        className="relative w-full max-w-[1512px] mx-auto bg-bg select-none pt-[70px] xl:pt-[90px]"
       >
         <div className="px-[20px] md:px-[28px] xl:px-[40px] grid grid-cols-1 xl:grid-cols-[500px_1fr] gap-[48px] xl:gap-[72px] items-start">
           {/* Left Column: FAQ Display, Rotating Leadership Photo, and Statement overlapping underneath */}
@@ -207,11 +207,11 @@ export default function Faq() {
                       aria-labelledby={buttonId}
                       className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                         isOpen
-                          ? 'max-h-[260px] opacity-100'
+                          ? 'max-h-[600px] opacity-100'
                           : 'max-h-0 opacity-0'
                       }`}
                     >
-                      <div className="pt-[14px] xl:pt-[16px] pl-[45px] xl:pl-[70px]">
+                      <div className="pt-[14px] xl:pt-[16px] pl-[32px] sm:pl-[45px] xl:pl-[70px]">
                         <p className="t-body-sm text-fg-muted max-w-[620px] leading-[1.55]">
                           {item.answer}
                         </p>

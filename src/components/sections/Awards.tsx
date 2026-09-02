@@ -100,7 +100,7 @@ export default function Awards() {
       <section
         ref={sectionRef}
         id="why-us"
-        className="relative w-full bg-bg select-none"
+        className="relative w-full max-w-[1512px] mx-auto bg-bg select-none"
       >
         {/* 1. Headline */}
         <div className="w-full flex justify-center pt-[70px] xl:pt-[100px] pb-[32px] -mb-[32px] px-[20px] md:px-[28px] xl:px-0 overflow-hidden">
@@ -200,7 +200,7 @@ export default function Awards() {
                     <span className="text-[15px] text-accent font-semibold">{row.metric}</span>
                   </div>
                   <p className="t-body-sm text-fg-muted">{row.desc}</p>
-                  <div className="flex items-center gap-[8px] overflow-x-auto py-2">
+                  <div className="flex items-center gap-[8px] overflow-x-auto no-scrollbar py-2">
                     {row.thumbnails.map((src, sIdx) => (
                       <div
                         key={sIdx}

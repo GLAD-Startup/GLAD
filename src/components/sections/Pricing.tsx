@@ -112,7 +112,7 @@ export default function Pricing() {
       <section
         ref={containerRef}
         id="pricing"
-        className="relative w-full bg-bg select-none"
+        className="relative w-full max-w-[1512px] mx-auto bg-bg select-none"
       >
         {/* Headline with Staggered Letter Replacement */}
         <div className="pt-[70px] xl:pt-[96px] px-[20px] md:px-[28px] xl:px-[40px]">
@@ -151,31 +151,43 @@ export default function Pricing() {
         </div>
 
         {/* Pricing Grid (3 cols on desktop, 1 col on tablet/mobile) */}
-        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[90px] grid grid-cols-1 xl:grid-cols-3 gap-[28px] max-w-[480px] xl:max-w-none mx-auto">
-          {budgetBands.map((plan) => (
-            <div
-              key={plan.id}
-              data-cursor="link"
-              className="bg-surface border border-line-solid rounded-[14px] pt-[26px] px-[24px] pb-[30px] flex flex-col justify-between transition-colors duration-200 hover:bg-surface-2"
-            >
-              <div>
-                {/* Budget Band & Timeline Row */}
-                <div className="flex items-baseline gap-2">
-                  <span
-                    className="text-fg font-medium tracking-tight"
-                    style={{ fontSize: 'clamp(28px, 3.2vw, 46px)', lineHeight: 1.0 }}
-                  >
-                    {plan.budget}
-                  </span>
-                  <span className="text-[14px] xl:text-[15px] text-fg-muted font-normal">
-                    · {plan.timeline}
-                  </span>
-                </div>
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[90px] grid grid-cols-1 xl:grid-cols-3 gap-[24px] xl:gap-[28px] max-w-[500px] xl:max-w-none mx-auto">
+          {budgetBands.map((plan) => {
+            const isFeatured = plan.id === '02';
 
-                {/* Plan Name */}
-                <h3 className="mt-[32px] text-[18px] font-medium text-fg">
-                  {plan.name}
-                </h3>
+            return (
+              <div
+                key={plan.id}
+                data-cursor="link"
+                className={`border rounded-[14px] pt-[26px] px-[20px] sm:px-[24px] pb-[30px] flex flex-col justify-between transition-colors duration-200 relative ${
+                  isFeatured
+                    ? 'bg-surface-2 border-line-solid shadow-md'
+                    : 'bg-surface border-line-solid hover:bg-surface-2'
+                }`}
+              >
+                {isFeatured && (
+                  <div className="absolute -top-3 right-6 bg-accent text-white text-[10.5px] font-semibold uppercase tracking-wider px-3 py-0.5 rounded-full shadow-sm">
+                    Most Popular
+                  </div>
+                )}
+                <div>
+                  {/* Budget Band & Timeline Row */}
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span
+                      className="text-fg font-medium tracking-tight"
+                      style={{ fontSize: 'clamp(26px, 3.2vw, 46px)', lineHeight: 1.0 }}
+                    >
+                      {plan.budget}
+                    </span>
+                    <span className="text-[13.5px] xl:text-[15px] text-fg-muted font-normal">
+                      · {plan.timeline}
+                    </span>
+                  </div>
+
+                  {/* Plan Name */}
+                  <h3 className="mt-[28px] xl:mt-[32px] text-[18px] font-medium text-fg">
+                    {plan.name}
+                  </h3>
 
                 {/* Description */}
                 <p className="mt-[10px] t-body text-fg-muted min-h-[48px] leading-relaxed">
@@ -221,7 +233,8 @@ export default function Pricing() {
                 <PillButton href="/contact">Start a Conversation</PillButton>
               </div>
             </div>
-          ))}
+          );
+        })}
         </div>
 
         {/* Indicative Disclaimer Note */}

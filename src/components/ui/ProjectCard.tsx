@@ -77,7 +77,7 @@ export default function ProjectCard({
     <div
       ref={cardRef}
       className={clsx(
-        'group select-none relative w-full max-w-[720px] mx-auto h-[380px] sm:h-[432px] xl:absolute xl:mx-0 xl:[left:var(--card-x)] xl:[top:var(--card-y)] xl:[width:var(--card-w)] xl:[height:var(--card-h)]',
+        'group select-none relative w-full max-w-[720px] mx-auto h-[320px] sm:h-[380px] md:h-[432px] pb-[34px] xl:pb-0 xl:absolute xl:mx-0 xl:[left:min(var(--card-x),calc(100%-var(--card-w)))] xl:[top:var(--card-y)] xl:[width:var(--card-w)] xl:[height:var(--card-h)] xl:max-w-none',
         className
       )}
       style={
@@ -121,7 +121,7 @@ export default function ProjectCard({
         {/* Inner Overlay Image with Parallax & Responsive Overlap */}
         <div
           ref={innerRef}
-          className="absolute rounded-[10px] sm:rounded-[12px] overflow-hidden z-10 shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-line-solid bg-surface will-change-transform right-4 bottom-4 w-[52%] h-[56%] xl:right-auto xl:bottom-auto xl:[left:var(--inner-x)] xl:[top:var(--inner-y)] xl:[width:var(--inner-w)] xl:[height:var(--inner-h)] pointer-events-none"
+          className="absolute rounded-[10px] sm:rounded-[12px] overflow-hidden z-10 shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-line-solid bg-surface will-change-transform right-3 bottom-10 sm:right-4 sm:bottom-11 w-[50%] h-[52%] max-w-[320px] xl:max-w-none xl:right-auto xl:bottom-auto xl:[left:var(--inner-x)] xl:[top:var(--inner-y)] xl:[width:var(--inner-w)] xl:[height:var(--inner-h)] pointer-events-none"
           style={
             {
               '--inner-x': `${innerX}px`,
@@ -143,7 +143,7 @@ export default function ProjectCard({
         </div>
 
         {/* Caption Row beneath box (Bold with Rolling Text Slide-Up Animation) */}
-        <div className="absolute top-full mt-[16px] left-0 w-full flex justify-between items-center text-[15px] xl:text-[16px] text-fg font-semibold px-0.5">
+        <div className="absolute top-full mt-[12px] xl:mt-[16px] left-0 w-full flex justify-between items-center text-[14.5px] sm:text-[15px] xl:text-[16px] text-fg font-semibold px-0.5">
           {/* Project Title: Rolling text slide-up on card hover (all at once) */}
           <span className="relative inline-flex overflow-hidden font-semibold text-fg select-none">
             {/* Primary line: slides up to -100% on hover */}

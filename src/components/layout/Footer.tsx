@@ -135,7 +135,7 @@ export default function Footer({
     <footer
       ref={footerRef}
       id="footer"
-      className="relative w-full bg-bg select-none pt-8 xl:pt-12 overflow-hidden"
+      className="relative w-full max-w-[1512px] mx-auto bg-bg select-none pt-8 xl:pt-12 overflow-hidden"
     >
       {/* 1. Full-Bleed Ragged Filmstrip with Automatic Continuous Flow */}
       <div className="w-full overflow-hidden mb-[48px] xl:mb-[70px] select-none pointer-events-none">
@@ -183,7 +183,7 @@ export default function Footer({
       </div>
 
       {/* 5. Link Bar with 5 Groups */}
-      <div className="mt-[56px] xl:mt-[80px] px-[20px] md:px-[28px] xl:px-[40px] pt-[36px] pb-[48px] border-t border-line grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-[13px]">
+      <div className="mt-[48px] md:mt-[56px] xl:mt-[80px] px-[20px] md:px-[28px] xl:px-[40px] pt-[32px] md:pt-[36px] pb-[40px] md:pb-[48px] border-t border-line grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-8 text-[13px]">
         {/* Group 1: Back To Top */}
         <div className="flex flex-col">
           <span className="font-semibold text-fg uppercase tracking-wider">
@@ -271,7 +271,7 @@ export default function Footer({
         </div>
 
         {/* Group 5: Legal & Copyright */}
-        <div className="flex flex-col">
+        <div className="flex flex-col col-span-2 sm:col-span-1">
           <span className="font-semibold text-fg uppercase tracking-wider">
             {siteConfig.footer.copyright}
           </span>
@@ -303,7 +303,7 @@ export default function Footer({
           ref={watermarkRef}
           className="text-fg/[0.15] font-normal leading-[0.80] tracking-[-0.045em] whitespace-nowrap select-none will-change-transform text-center mx-auto"
           style={{
-            fontSize: 'clamp(72px, 20vw, 320px)',
+            fontSize: 'clamp(54px, 18vw, 320px)',
             fontFeatureSettings: '"zero" 1',
           }}
           aria-hidden="true"

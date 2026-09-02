@@ -84,8 +84,8 @@ export default function FeaturedWorks() {
         </div>
       </div>
 
-      {/* 3. Project Cards Container (3000px on >=1200px) */}
-      <div className="relative w-full h-auto xl:h-[3000px] mt-[60px] px-[20px] md:px-[28px] xl:px-0 flex flex-col xl:block gap-[72px] xl:gap-0 pb-16 xl:pb-0">
+      {/* 3. Project Cards Container (3050px on >=1200px) */}
+      <div className="relative w-full max-w-[1512px] mx-auto h-auto xl:h-[3050px] mt-[48px] xl:mt-[60px] px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-14 sm:gap-18 md:gap-20 xl:gap-0 pb-16 xl:pb-0">
         {projectsData.map((proj) => (
           <ProjectCard
             key={proj.id}

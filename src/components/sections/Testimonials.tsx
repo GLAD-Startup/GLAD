@@ -299,29 +299,29 @@ export default function Testimonials() {
 
           {/* 2. Testimonial Cards Layer [z-index: 30] */}
           <div className="absolute inset-0 z-30 pointer-events-none">
-            {/* Card 1: Prayas NGO Team */}
+            {/* Card 1: Prayas NGO Team (Left-anchored with 40px+ margin) */}
             <div
               ref={card1Ref}
-              style={{ left: `${cardConfigs[0].x}px` }}
-              className="absolute top-0 w-[460px] xl:w-[500px] pointer-events-auto"
+              style={{ left: 'clamp(40px, 6vw, 120px)' }}
+              className="absolute top-0 w-[440px] xl:w-[480px] pointer-events-auto"
             >
               <TestimonialCardBody item={cardConfigs[0].item} />
             </div>
 
-            {/* Card 2: Rakesh Khetan — GLA Canteen */}
+            {/* Card 2: Rakesh Khetan — GLA Canteen (Right-anchored with 40px+ margin) */}
             <div
               ref={card2Ref}
-              style={{ left: `${cardConfigs[1].x}px` }}
-              className="absolute top-0 w-[460px] xl:w-[500px] pointer-events-auto"
+              style={{ left: 'calc(100% - clamp(460px, 34vw, 520px))' }}
+              className="absolute top-0 w-[440px] xl:w-[480px] pointer-events-auto"
             >
               <TestimonialCardBody item={cardConfigs[1].item} />
             </div>
 
-            {/* Card 3: Nitesh Khandelwal — Earth Travels */}
+            {/* Card 3: Nitesh Khandelwal — Earth Travels (Center-anchored) */}
             <div
               ref={card3Ref}
-              style={{ left: `${cardConfigs[2].x}px` }}
-              className="absolute top-0 w-[460px] xl:w-[500px] pointer-events-auto"
+              style={{ left: 'calc(50% - clamp(220px, 16vw, 240px))' }}
+              className="absolute top-0 w-[440px] xl:w-[480px] pointer-events-auto"
             >
               <TestimonialCardBody item={cardConfigs[2].item} />
             </div>
@@ -331,13 +331,13 @@ export default function Testimonials() {
         {/* -----------------------------------------------------------
             MOBILE & TABLET NON-PINNED FLOW (< 1024px)
             ----------------------------------------------------------- */}
-        <div className="min-[1024px]:hidden w-full relative py-12 px-[20px] md:px-[28px] flex flex-col gap-[72px]">
+        <div className="min-[1024px]:hidden w-full relative py-12 px-[20px] md:px-[28px] flex flex-col gap-10 md:gap-14">
           {/* Background Marquee */}
-          <div className="w-full overflow-hidden opacity-20 select-none pointer-events-none -my-6">
+          <div className="w-full overflow-hidden opacity-20 select-none pointer-events-none -my-4">
             <div className="flex flex-row w-max animate-marquee">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="flex items-center shrink-0 pr-[40px]">
-                  <span className="text-[72px] md:text-[110px] font-normal leading-[0.9] tracking-tight text-fg">
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center shrink-0 pr-[40px] md:pr-[60px]">
+                  <span className="text-[54px] sm:text-[72px] md:text-[100px] font-normal leading-[0.9] tracking-tight text-fg">
                     Client Work© - Reviews
                   </span>
                 </div>
@@ -345,8 +345,8 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Stacked Cards with 72px gaps */}
-          <div className="flex flex-col gap-[72px] w-full max-w-[540px] mx-auto">
+          {/* Stacked Cards with responsive gap */}
+          <div className="flex flex-col gap-8 sm:gap-10 md:gap-12 w-full max-w-[540px] mx-auto">
             {testimonialsData.slice(0, 3).map((item) => (
               <TestimonialCardBody key={item.id} item={item} />
             ))}

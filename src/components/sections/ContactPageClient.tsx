@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Marquee from '@/components/ui/Marquee';
-import Divider from '@/components/ui/Divider';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';

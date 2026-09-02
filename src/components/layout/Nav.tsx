@@ -273,7 +273,7 @@ export default function Nav() {
             navVisible || mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
           )}
         >
-          <div className="w-full h-full px-[20px] md:px-[28px] xl:px-[24px] relative flex items-center justify-between">
+          <div className="w-full h-full px-[20px] md:px-[28px] xl:px-[40px] relative flex items-center justify-between">
             {/* Left Column: GLAD Studio Logo */}
             <div className="flex items-center">
               <Link
