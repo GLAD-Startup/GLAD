@@ -26,17 +26,17 @@ function RollingNavLink({
       href={href}
       onClick={onClick}
       data-cursor="link"
-      className={`group relative inline-flex items-center select-none overflow-hidden ${className}`}
+      className={`group relative inline-flex items-center select-none py-[2px] overflow-hidden ${className}`}
     >
-      <span className="relative inline-flex overflow-hidden">
+      <span className="relative inline-flex overflow-hidden py-[2px]">
         {label.split('').map((char, index) => (
           <span
             key={index}
-            className="relative inline-block overflow-hidden"
+            className="relative inline-block overflow-hidden pb-[4px] -mb-[4px]"
           >
             {/* Primary letter: in-flow block, translates from 0% to -100% on hover */}
             <span
-              className={`block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full group-focus-visible:-translate-y-full will-change-transform ${
+              className={`block pb-[4px] transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full group-focus-visible:-translate-y-full will-change-transform leading-normal ${
                 isMobile ? 'text-fg font-normal' : 'text-fg font-medium'
               }`}
               style={{
@@ -49,7 +49,7 @@ function RollingNavLink({
             {/* Duplicate letter: absolute inset-0 starts at +100% and lands at exact 0% on hover */}
             <span
               aria-hidden="true"
-              className={`absolute inset-0 block translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0 will-change-transform ${
+              className={`absolute inset-0 block pb-[4px] translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0 will-change-transform leading-normal ${
                 isMobile ? 'text-fg font-normal' : 'text-fg font-medium'
               }`}
               style={{
@@ -73,11 +73,11 @@ function RollingText({
   className?: string;
 }) {
   return (
-    <span className={`relative inline-flex overflow-hidden ${className}`}>
+    <span className={`relative inline-flex overflow-hidden py-[2px] ${className}`}>
       {text.split('').map((char, index) => (
-        <span key={index} className="relative inline-block overflow-hidden">
+        <span key={index} className="relative inline-block overflow-hidden pb-[4px] -mb-[4px]">
           <span
-            className="block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full group-focus-visible:-translate-y-full will-change-transform text-fg font-medium"
+            className="block pb-[4px] transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full group-focus-visible:-translate-y-full will-change-transform text-fg font-medium leading-normal"
             style={{
               transitionDelay: `${index * 20}ms`,
             }}
@@ -86,7 +86,7 @@ function RollingText({
           </span>
           <span
             aria-hidden="true"
-            className="absolute inset-0 block translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0 will-change-transform text-fg font-medium"
+            className="absolute inset-0 block pb-[4px] translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 group-focus-visible:translate-y-0 will-change-transform text-fg font-medium leading-normal"
             style={{
               transitionDelay: `${index * 20}ms`,
             }}
@@ -308,7 +308,7 @@ export default function Nav() {
               <span className="text-[13px] font-semibold text-fg leading-tight">
                 Quick Links
               </span>
-              <div className="group/links text-[13.5px] font-medium text-fg leading-tight flex items-center flex-wrap">
+              <div className="group/links text-[13.5px] font-medium text-fg leading-normal flex items-center flex-wrap">
                 {/* 1. Home */}
                 <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
                   <RollingNavLink href="/" label="Home" />
