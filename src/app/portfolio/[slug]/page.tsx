@@ -197,15 +197,17 @@ export default async function PortfolioDetailPage({
             <div key={idx} className="flex flex-col gap-3">
               <div
                 data-cursor="view"
-                className="w-full aspect-[16/10] xl:aspect-[16/9] rounded-[12px] overflow-hidden relative bg-surface border border-line-solid shadow-xl"
+                className="w-full aspect-[16/10] xl:aspect-[16/9] rounded-[12px] overflow-hidden relative bg-surface border border-line-solid shadow-xl flex items-center justify-center p-3 md:p-5"
               >
-                <Image
-                  src={shot.src}
-                  alt={`${project.title} — ${shot.caption}`}
-                  fill
-                  unoptimized
-                  className="object-cover block"
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src={shot.src}
+                    alt={`${project.title} — ${shot.caption}`}
+                    fill
+                    unoptimized
+                    className="object-contain block"
+                  />
+                </div>
               </div>
               <div className="flex justify-between items-center text-[13px] text-fg-muted px-1">
                 <span>{shot.caption}</span>

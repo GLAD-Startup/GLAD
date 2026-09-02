@@ -19,10 +19,10 @@ interface ServiceDetailClientProps {
 
 const serviceVisuals: Record<string, { outer: string; inner: string; caseStudySlug: string; caseStudyTitle: string }> = {
   'mvp-development': {
-    outer: '/work/stock-management/properties-3d.png',
-    inner: '/work/stock-management/commission-3d.png',
+    outer: '/work/stock-management/canteen-app-1.png',
+    inner: '/work/stock-management/canteen-app-2.png',
     caseStudySlug: 'stock-management',
-    caseStudyTitle: 'Stock Management Platform',
+    caseStudyTitle: 'Canteen Inventory Management',
   },
   'web-application-development': {
     outer: '/work/lead-enrichment/modern-office-facade.png',

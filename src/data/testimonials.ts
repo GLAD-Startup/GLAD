@@ -30,7 +30,7 @@ export const testimonialsData: TestimonialItem[] = [
     company: 'GLA Canteen',
     clientName: 'GLA Canteen',
     quote:
-      'GLA Canteen Stock Management transformed our daily inventory tracking and order workflow, giving us clear visibility into stock levels and sales.',
+      'GLAD Studio’s Canteen Inventory Management product transformed our daily stock tracking and kitchen procurement, giving us live visibility across every counter and eliminating wastage.',
     outcome: 'Zero Stock Discrepancies',
     avatarSrc: '/clients/gla-canteen.png',
     verified: true,

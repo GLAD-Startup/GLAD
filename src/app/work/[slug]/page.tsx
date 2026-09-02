@@ -145,15 +145,17 @@ export default async function WorkDetailPage({
           <div
             key={idx}
             data-cursor="view"
-            className="w-full aspect-[4/3] sm:aspect-[16/10] xl:aspect-auto xl:h-[720px] rounded-[12px] overflow-hidden relative bg-surface border border-line-solid shadow-2xl"
+            className="w-full min-h-[380px] md:min-h-[560px] xl:min-h-[720px] rounded-[14px] overflow-hidden relative bg-surface border border-line-solid shadow-xl flex items-center justify-center p-3 md:p-6"
           >
-            <Image
-              src={imgSrc}
-              alt={`${project.title} gallery slide ${idx + 1}`}
-              fill
-              unoptimized
-              className="object-cover block"
-            />
+            <div className="relative w-full h-full min-h-[360px] md:min-h-[520px] xl:min-h-[670px]">
+              <Image
+                src={imgSrc}
+                alt={`${project.title} gallery slide ${idx + 1}`}
+                fill
+                unoptimized
+                className="object-contain block"
+              />
+            </div>
           </div>
         ))}
       </div>
