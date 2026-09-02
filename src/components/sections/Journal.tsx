@@ -163,10 +163,10 @@ export default function Journal() {
           </Marquee>
         </div>
 
-        {/* 2. 5 Scattered Overlapping Article Cards anchored to 1512 container (placed below carousel) */}
+        {/* 2. 5 Scattered Overlapping Article Cards */}
         <div
           ref={cardsContainerRef}
-          className="relative w-full max-w-[1512px] mx-auto h-auto xl:h-[3620px] py-10 md:py-16 xl:py-0 px-[20px] md:px-[28px] xl:px-0 flex flex-col xl:block gap-8 sm:gap-12 md:gap-16 xl:gap-0"
+          className="relative w-full h-auto xl:h-[3620px] py-10 md:py-16 xl:py-0 px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-8 sm:gap-12 md:gap-16 xl:gap-0"
         >
           {articlesData.slice(0, 5).map((article, idx) => {
             const config = articleConfigs[idx];

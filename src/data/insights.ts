@@ -85,7 +85,7 @@ export const articlesData: ArticleItem[] = [
       'A deep dive into AI agent development for engineering leaders and founders. Explore agent loops, tool calling, memory management, orchestration frameworks, and production guardrails.',
     quote:
       'An AI agent is not a chatbot that answers questions — it is a software runtime that uses a language model as a reasoning engine to execute multi-step work across external APIs.',
-    coverSrc: 'https://picsum.photos/seed/glad-insight-agent/1432/720',
+    coverSrc: '/articles/ai-agent-1.jpg',
     portraitSrc: '/team/somesh.jpeg',
     paragraphs: [
       'AI agent development is the software engineering discipline of building systems where a large language model serves as a central reasoning and decision-making engine. Given a high-level business goal, an AI agent autonomously plans sub-tasks, selects and invokes external tools (APIs, databases, search engines), inspects the tool output, and iterates through a stateful execution loop until the goal is completed.',
@@ -129,20 +129,20 @@ export const articlesData: ArticleItem[] = [
             },
             {
               step: '02',
-              title: 'Task Decomposition (Planning)',
+              title: 'Task Decomposition',
               description:
-                'Agent plans: Step 1 (Query database) -> Step 2 (Calculate GST slabs) -> Step 3 (Send Slack alert).',
-              tag: 'PLANNING',
+                'Foundation model breaks goal into sequential query and reconciliation operations.',
+              tag: 'REASONING',
               output: {
-                status: 'PLANNED',
-                latency: '140ms',
+                status: 'PLAN_GENERATED',
+                latency: '185ms',
                 data: {
-                  plan_id: 'plan_948a',
-                  dag_steps: [
-                    '1. query_folios_sql(unbilled=true)',
-                    '2. calculate_gst_tax(tax_slab=0.18)',
-                    '3. send_slack_alert(channel="#hotel-finance")',
+                  sub_tasks: [
+                    'query_unbilled_folios_sql',
+                    'reconcile_room_tax_ledgers',
+                    'send_slack_alert',
                   ],
+                  confidence_score: 0.98,
                 },
               },
             },
@@ -150,53 +150,56 @@ export const articlesData: ArticleItem[] = [
               step: '03',
               title: 'Tool Selection',
               description:
-                'Agent evaluates available tool catalogue and selects: query_folios_sql().',
-              tag: 'TOOL SELECT',
+                'Agent invokes query_unbilled_folios() tool with parameterized SQL arguments.',
+              tag: 'TOOL CALL',
               output: {
-                status: 'SELECTED',
-                latency: '15ms',
+                status: 'INVOKED',
+                latency: '14ms',
                 data: {
-                  tool_name: 'query_folios_sql',
-                  catalog_match_confidence: 0.99,
-                  auth_scope: 'READ_ONLY_FINANCE_DB',
+                  selected_tool: 'query_unbilled_folios',
+                  query_hash: 'sha256_e847c0b',
+                  permission_level: 'READ_ONLY',
                 },
               },
             },
             {
               step: '04',
-              title: 'Tool Execution & Observation',
+              title: 'Tool Execution',
               description:
-                'Backend executes SQL query and returns structured JSON dataset of unbilled stays.',
-              tag: 'EXECUTION',
+                'Database executes query: SELECT folio_id, room_number, total_amount FROM folios WHERE status = \'UNBILLED\'.',
+              tag: 'DATABASE',
               output: {
-                status: 'QUERY_OK',
-                latency: '45ms',
+                status: 'EXEC_SUCCESS',
+                latency: '84ms',
                 data: {
-                  sql: 'SELECT * FROM folios WHERE status = "UNBILLED" AND checkout_date < NOW() - INTERVAL "24h"',
-                  records_found: 3,
-                  total_outstanding_inr: 48500,
+                  rows_returned: 3,
+                  folios: [
+                    { folio_id: 'FOL_104', room: '302', total_amount: 18450 },
+                    { folio_id: 'FOL_109', room: '415', total_amount: 22100 },
+                    { folio_id: 'FOL_112', room: '108', total_amount: 16680 },
+                  ],
                 },
               },
             },
             {
               step: '05',
-              title: 'Reasoning on Observation',
+              title: 'Observation & Reasoning',
               description:
-                'Agent evaluates returned records against threshold criteria and tax policies.',
-              tag: 'LLM REASON',
+                'Agent evaluates tool output against validation threshold (₹5,000) and formats notification alert.',
+              tag: 'EVALUATION',
               output: {
-                status: 'EVALUATED',
-                latency: '210ms',
+                status: 'EVAL_PASSED',
+                latency: '42ms',
                 data: {
-                  findings:
-                    '3 folios overdue > 24 hours. Total risk exposure: ₹48,500 + 18% GST.',
-                  decision: 'TRIGGER_IMMEDIATE_ESCALATION',
+                  findings: '3 unbilled folios exceed ₹5,000 threshold (Total ₹57,230)',
+                  requires_escalation: true,
+                  escalation_channel: '#hotel-finance',
                 },
               },
             },
             {
               step: '06',
-              title: 'Subsequent Tool Execution',
+              title: 'Subsequent Execution',
               description:
                 'Agent selects and triggers next tool: send_slack_alert().',
               tag: 'DISPATCH',
@@ -341,8 +344,8 @@ export const articlesData: ArticleItem[] = [
     order: 2,
     slug: 'how-to-build-ai-agent-for-business',
     title: 'How to Build an AI Agent for Your Business in 2026',
-    author: 'Somesh Rajput',
-    authorRole: 'CTO & Head of Engineering',
+    author: 'Arjun Singh Rajput',
+    authorRole: 'CEO & Head of Strategy',
     category: 'Autonomous Agents',
     date: 'Wednesday, May 22, 2024',
     readTime: '9 min read',
@@ -350,8 +353,8 @@ export const articlesData: ArticleItem[] = [
       'Step-by-step engineering guide to building a production AI agent. Learn workflow selection, tool definition, memory state management, deterministic guardrails, and evaluation frameworks.',
     quote:
       'Deterministic software rules should govern your agent boundaries. Use LLMs for flexible semantic reasoning, but let strict SQL and Pydantic schemas enforce the rules.',
-    coverSrc: 'https://picsum.photos/seed/glad-insight-build/1432/720',
-    portraitSrc: '/team/somesh.jpeg',
+    coverSrc: '/articles/ai-agent-2.jpg',
+    portraitSrc: '/team/arjun.jpg',
     paragraphs: [
       'Before writing a single line of agentic code, engineering teams must evaluate whether a business process actually qualifies for an autonomous agent. Workflows that thrive under agent orchestration involve semi-structured inputs, dynamic tool sequencing, and reversible operational actions with human-in-the-loop checkpoints.',
       'The production lifecycle follows nine rigorous steps: selecting a high-impact bottleneck, establishing objective quantitative evaluation metrics, routing between foundation models, defining strict JSON tool schemas, connecting domain knowledge via RAG vector search, wrapping execution in deterministic guardrails, structuring state machines with LangGraph, running synthetic benchmark evaluations, and deploying continuous tracing telemetry.',
@@ -562,7 +565,7 @@ export const articlesData: ArticleItem[] = [
       'Understand the difference between AI agents and conversational chatbots. Learn how tool-calling, multi-step workflows, and decision engines determine the right architecture for your business.',
     quote:
       'If you need text returned to a screen, build a chatbot. If you need a database updated, an invoice audited, and a team alerted, build an agent.',
-    coverSrc: 'https://picsum.photos/seed/glad-insight-chatbot/1432/720',
+    coverSrc: '/articles/ai-agent-3.jpg',
     portraitSrc: '/team/somesh.jpeg',
     paragraphs: [
       'The fundamental distinction between chatbots and AI agents comes down to actions versus words. A chatbot is built to converse, summarize text, and answer questions. An AI agent is built to plan, take autonomous actions, call APIs, mutate database records, and self-correct when unexpected errors occur during execution.',
@@ -736,8 +739,8 @@ export const articlesData: ArticleItem[] = [
     order: 4,
     slug: 'rag-vs-fine-tuning',
     title: 'RAG vs Fine-Tuning: Which Approach Is Right for Your AI Application?',
-    author: 'Somesh Rajput',
-    authorRole: 'CTO & Head of Engineering',
+    author: 'Jatin Khetan',
+    authorRole: 'CFO & Head of Product & Design',
     category: 'RAG Systems',
     date: 'Wednesday, June 5, 2024',
     readTime: '12 min read',
@@ -745,8 +748,8 @@ export const articlesData: ArticleItem[] = [
       'Compare Retrieval-Augmented Generation (RAG) with LLM fine-tuning. Discover when to ground models on dynamic data versus adapting model behavior, tone, and domain syntax.',
     quote:
       'RAG provides the open-book context; fine-tuning provides the specialized habit. Know whether you are teaching a model new facts or training a model in a specific discipline.',
-    coverSrc: 'https://picsum.photos/seed/glad-insight-rag/1432/720',
-    portraitSrc: '/team/somesh.jpeg',
+    coverSrc: '/articles/ai-agent-4.jpg',
+    portraitSrc: '/team/jatin.jpg',
     paragraphs: [
       'A common architectural dilemma when building production AI systems is deciding between Retrieval-Augmented Generation (RAG) and model fine-tuning. RAG injects verified external factual context into the model prompt at runtime, while fine-tuning permanently modifies model weights to adapt syntax, tone, or formatting.',
       'RAG is vastly superior for dynamic business data, strict source attribution, and role-based document access controls, requiring zero model retraining when company documentation updates. Fine-tuning excels at enforcing strict JSON output schemas, replicating unique organizational brand voices, and minimizing prompt token overhead on repetitive tasks.',
@@ -762,138 +765,81 @@ export const articlesData: ArticleItem[] = [
         text: 'What Is RAG (Retrieval-Augmented Generation)?',
       },
       {
-        type: 'pipeline',
-        pipelineData: {
-          title: 'The Production RAG Sequence',
-          badge: 'RAG PIPELINE TRACE',
-          steps: [
+        type: 'paragraph',
+        text: 'RAG is an architectural pattern that retrieves relevant information from external knowledge bases and injects it into the LLM context window at query time. The four-phase pipeline operates as follows:',
+      },
+      {
+        type: 'orderedList',
+        items: [
+          'Document Ingestion & Chunking: Proprietary documents (PDFs, Notion pages, API docs) are parsed into semantic chunks of 512–1,024 tokens with 10% overlap.',
+          'Vector Embedding Generation: Text chunks are converted into multi-dimensional mathematical vectors using embedding models like text-embedding-3-small and stored in a vector index (e.g. pgvector in PostgreSQL).',
+          'Semantic Search & Hybrid Reranking: When a user query arrives, the system retrieves the top-K nearest document chunks using cosine similarity combined with full-text keyword search (BM25) and a Cross-Encoder reranker.',
+          'Grounded Generation: The LLM receives the user query alongside the retrieved text chunks as reference context, generating an accurate response with specific source citations.',
+        ],
+      },
+      {
+        type: 'heading',
+        text: 'What Is Fine-Tuning?',
+      },
+      {
+        type: 'paragraph',
+        text: 'Fine-tuning is the process of taking a pre-trained base foundation model and further training it on a curated dataset of hundreds or thousands of domain-specific input/output pairs using parameter-efficient fine-tuning techniques (LoRA / QLoRA).',
+      },
+      {
+        type: 'heading',
+        text: 'RAG vs Fine-Tuning: Architectural Comparison',
+      },
+      {
+        type: 'table',
+        tableData: {
+          col1Header: 'Criterion',
+          col2Header: 'RAG (Retrieval-Augmented)',
+          col3Header: 'Fine-Tuning',
+          rows: [
             {
-              step: '01',
-              title: 'User Question Ingestion',
-              description:
-                '"What is our corporate policy on remote expense stipends?"',
-              tag: 'INPUT QUERY',
-              output: {
-                status: 'INGESTED',
-                latency: '4ms',
-                data: {
-                  query_text:
-                    'What is our corporate policy on remote expense stipends?',
-                  language: 'en-US',
-                  extracted_intent: 'EXPENSE_POLICY_INQUIRY',
-                },
-              },
+              col1: 'Primary Objective',
+              col2: 'Supply factual context & real-time knowledge',
+              col3: 'Adapt style, syntax, and task habits',
             },
             {
-              step: '02',
-              title: 'Embedding & Vector Retrieval',
-              description:
-                'Query converted to dense vector -> pgvector performs hybrid search across policy chunks in PostgreSQL.',
-              tag: 'PGVECTOR',
-              output: {
-                status: 'RETRIEVED',
-                latency: '38ms',
-                data: {
-                  embedding_model: 'text-embedding-3-small (1536d)',
-                  pgvector_index: 'policy_chunks_hnsw_cosine',
-                  chunks_retrieved: 8,
-                  top_cosine_sim: 0.938,
-                },
-              },
+              col1: 'Data Dynamic Updates',
+              col2: 'Instant — update vector index in seconds',
+              col3: 'Slow — requires retraining pipeline',
             },
             {
-              step: '03',
-              title: 'Context Construction & Reranking',
-              description:
-                'Top-k reciprocal rank reranked policy excerpts are compressed and appended to prompt context window.',
-              tag: 'RERANK',
-              output: {
-                status: 'RERANKED',
-                latency: '52ms',
-                data: {
-                  reranker: 'cohere-rerank-v3',
-                  top_k: 2,
-                  selected_sources: [
-                    'Employee_Handbook_2026.pdf (Section 4.2: Remote Stipends)',
-                    'Finance_Reimbursement_Addendum.md (Clause 1.4)',
-                  ],
-                  token_reduction: '64% context compression',
-                },
-              },
+              col1: 'Hallucination Mitigation',
+              col2: 'High — model cites explicit retrieved passages',
+              col3: 'Moderate — model can still hallucinate facts',
             },
             {
-              step: '04',
-              title: 'Grounded LLM Response Generation',
-              description:
-                'LLM generates verifiable answer citing Section 4.2 of the Employee Handbook with zero hallucination.',
-              tag: 'GROUNDED',
-              output: {
-                status: 'GENERATED',
-                latency: '410ms',
-                data: {
-                  answer:
-                    'Remote full-time employees are eligible for a monthly home office stipend of $150 (Section 4.2). Expense claims must be submitted by the 25th of each month.',
-                  source_citations: ['Section 4.2, p. 19'],
-                  hallucination_score: 0.0,
-                },
-              },
+              col1: 'Source Attribution',
+              col2: 'Full citations with document page references',
+              col3: 'None — knowledge is baked into neural weights',
+            },
+            {
+              col1: 'Upfront Engineering Cost',
+              col2: 'Moderate (vector DB, chunking pipeline)',
+              col3: 'High (data preparation, GPU compute)',
+            },
+            {
+              col1: 'Token Overhead per Query',
+              col2: 'Higher (injected document passages)',
+              col3: 'Minimal (knowledge baked into weights)',
             },
           ],
         },
       },
       {
         type: 'heading',
-        text: 'RAG vs Fine-Tuning: Detailed Comparison',
+        text: 'Decision Matrix: When to Choose Which Architecture',
       },
       {
-        type: 'table',
-        tableData: {
-          col1Header: 'Evaluation Criterion',
-          col2Header: 'RAG (Retrieval)',
-          col3Header: 'Fine-Tuning (Weights)',
-          rows: [
-            {
-              col1: 'Primary Purpose',
-              col2: 'Inject factual knowledge at query time',
-              col3: 'Adapt style, tone, format, and behavior',
-            },
-            {
-              col1: 'Knowledge Freshness',
-              col2: 'Instant (update database records immediately)',
-              col3: 'Static (requires re-training on new data)',
-            },
-            {
-              col1: 'Source Attribution',
-              col2: 'Direct citation of exact retrieved passages',
-              col3: 'Black-box weights with no verifiable source',
-            },
-            {
-              col1: 'Hallucination Risk',
-              col2: 'Low (when constrained by prompt context)',
-              col3: 'Moderate to High on unfamiliar queries',
-            },
-            {
-              col1: 'Training Data Needed',
-              col2: 'Unstructured documents / raw text',
-              col3: 'Hundreds to thousands of curated demonstration pairs',
-            },
-            {
-              col1: 'Upfront Compute Cost',
-              col2: 'Low (vector embedding generation)',
-              col3: 'Moderate to High (GPU training runs)',
-            },
-            {
-              col1: 'Per-Query Token Cost',
-              col2: 'Higher (injected context increases prompt size)',
-              col3: 'Lower (shorter prompts with baked-in instructions)',
-            },
-            {
-              col1: 'Best Use Cases',
-              col2: 'Enterprise search, customer support, contract Q&A',
-              col3: 'Code generation, custom JSON formatting, domain jargon',
-            },
-          ],
-        },
+        type: 'list',
+        items: [
+          'Choose RAG if: Your documents update daily or weekly; you need exact page/section citations; you must enforce strict RBAC permissions on document visibility; or your budget focuses on low upfront capital expense.',
+          'Choose Fine-Tuning if: You need to enforce a rigid, non-standard JSON schema output; your task requires specialized proprietary domain terminology (e.g. medical pathology or legal contract notation); or you want to minimize token latency using a small 8B model.',
+          'Choose Hybrid (RAG + Fine-Tuning) if: You are building enterprise copilot systems that require both a specialized brand personality and live access to multi-terabyte internal knowledge lakes.',
+        ],
       },
     ],
     faqs: [
@@ -937,8 +883,8 @@ export const articlesData: ArticleItem[] = [
     order: 5,
     slug: 'ai-development-cost-india',
     title: 'AI Development Cost in India: What Businesses Should Budget in 2026',
-    author: 'Somesh Rajput',
-    authorRole: 'CTO & Head of Engineering',
+    author: 'Parth Garg',
+    authorRole: 'COO & Head of Operations',
     category: 'Cost Optimization',
     date: 'Wednesday, June 12, 2024',
     readTime: '13 min read',
@@ -946,8 +892,8 @@ export const articlesData: ArticleItem[] = [
       'A comprehensive guide to AI development costs in India. Learn the key cost drivers, architectural complexity tiers, infrastructure expenses, and how to budget for production AI systems.',
     quote:
       'The true cost of an AI system is never just the API tokens — it is the engineering discipline behind schema validation, evaluation harnesses, and deterministic guardrails.',
-    coverSrc: 'https://picsum.photos/seed/glad-insight-cost/1432/720',
-    portraitSrc: '/team/somesh.jpeg',
+    coverSrc: '/articles/ai-agent-1.jpg',
+    portraitSrc: '/team/parth.jpeg',
     paragraphs: [
       'Budgeting for AI software engineering in 2026 requires understanding the six distinct complexity tiers: basic AI-powered feature integrations, conversational assistants with session memory, production RAG search engines with vector databases, autonomous multi-tool agents, AI-enabled multi-tenant SaaS platforms, and private VPC enterprise models.',
       'Primary cost drivers are not foundation model API token fees, but rather workflow complexity, data cleanliness, OCR parsing overhead, and evaluation test harness coverage. Without automated evaluation suites, AI applications suffer from silent quality degradation over time.',

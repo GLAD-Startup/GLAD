@@ -297,7 +297,6 @@ export default function Nav() {
     <>
       <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none flex justify-center w-full select-none">
         <nav
-          data-intro={pathname === '/' ? 'nav' : undefined}
           className={clsx(
             'w-full h-[82px] bg-bg pointer-events-auto relative will-change-transform transition-transform duration-[600ms] ease-[cubic-bezier(0.25,1,0.5,1)]',
             navVisible || mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
@@ -493,10 +492,9 @@ export default function Nav() {
             </button>
           </div>
 
-          {/* Nav Hairline (animated on intro) */}
+          {/* Nav Hairline */}
           <div
-            data-intro="nav-hairline"
-            className="absolute bottom-0 left-0 right-0 h-[1px] bg-line origin-left will-change-transform"
+            className="absolute bottom-0 left-0 right-0 h-[1px] bg-line origin-left"
           />
         </nav>
       </div>

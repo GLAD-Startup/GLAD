@@ -121,48 +121,73 @@ export default function Services() {
         />
       </div>
 
-      {/* 3. List Block with Right Alignment & Hover Image Follower */}
-      <div className="mx-[20px] md:mx-[28px] xl:mx-[40px] mt-[48px] xl:mt-[72px]">
+      {/* 3. Services Content: Left Video Card & Right Interactive Services List */}
+      <div className="mx-[20px] md:mx-[28px] xl:mx-[40px] mt-[48px] xl:mt-[72px] flex flex-col xl:flex-row xl:items-start gap-10 xl:gap-14">
+        {/* Left Column: Ambient Studio Loop Video (Sticky on desktop) */}
+        <div className="w-full xl:w-[32%] xl:sticky xl:top-[120px] shrink-0">
+          <div className="w-full aspect-[4/5] max-h-[560px] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-xl relative select-none">
+            <video
+              src="/videos/services-loop.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover block rounded-[12px]"
+            />
+            {/* Subtle bottom badge caption */}
+            <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-center justify-between pointer-events-none">
+              <span className="text-[12px] font-semibold text-white tracking-wider uppercase">
+                Studio Capabilities
+              </span>
+              <span className="text-[11px] text-white/80 font-mono">
+                01 – 05
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Interactive Services Rows */}
         <div
           onMouseLeave={() => setIsHovering(false)}
-          className="xl:ml-[35%] xl:w-[65%] border-t border-line"
+          className="w-full xl:w-[68%] border-t border-line"
         >
           {servicesWithImages.map((service, idx) => (
             <Link
-                key={service.id}
-                href={`/services/${service.slug}`}
-                data-cursor="link"
-                onMouseEnter={() => {
-                  setActiveServiceIndex(idx);
-                  setIsHovering(true);
-                }}
-                className="group block py-[28px] md:py-[36px] xl:py-[42px] px-2 xl:px-4 border-b border-line transition-colors duration-300 hover:bg-surface"
-              >
-                {/* Desktop 3-Column Grid (>=1200px): [80px 260px 1fr] */}
-                <div className="hidden xl:grid grid-cols-[80px_260px_1fr] items-start gap-8">
-                  <div className="t-label text-fg pt-0.5 flex items-center">
-                    <span>{service.index}</span>
-                  </div>
-                  <h3 className="t-title-lg text-fg font-medium transition-transform duration-300 ease-out group-hover:translate-x-[6px]">
-                    {service.title}
-                  </h3>
-                  <p className="t-body-sm text-fg-muted leading-relaxed max-w-[480px]">
-                    {service.description}
-                  </p>
+              key={service.id}
+              href={`/services/${service.slug}`}
+              data-cursor="link"
+              onMouseEnter={() => {
+                setActiveServiceIndex(idx);
+                setIsHovering(true);
+              }}
+              className="group block py-[28px] md:py-[36px] xl:py-[42px] px-2 xl:px-4 border-b border-line transition-colors duration-300 hover:bg-surface"
+            >
+              {/* Desktop 3-Column Grid (>=1200px): [80px 240px 1fr] */}
+              <div className="hidden xl:grid grid-cols-[60px_240px_1fr] items-start gap-6 2xl:gap-8">
+                <div className="t-label text-fg pt-0.5 flex items-center">
+                  <span>{service.index}</span>
                 </div>
+                <h3 className="t-title-lg text-fg font-medium transition-transform duration-300 ease-out group-hover:translate-x-[6px]">
+                  {service.title}
+                </h3>
+                <p className="t-body-sm text-fg-muted leading-relaxed max-w-[500px]">
+                  {service.description}
+                </p>
+              </div>
 
-                {/* Tablet / Mobile Grid (<1200px) */}
-                <div className="grid xl:hidden grid-cols-[50px_1fr] md:grid-cols-[60px_200px_1fr] gap-3 md:gap-6 items-start">
-                  <div className="t-label text-fg-muted flex items-center">
-                    <span>{service.index}</span>
-                  </div>
-                  <div>
-                    <h3 className="t-title-lg text-fg font-medium">{service.title}</h3>
-                    <p className="t-body-sm text-fg-muted mt-2 md:hidden">{service.description}</p>
-                  </div>
-                  <p className="t-body-sm text-fg-muted hidden md:block">{service.description}</p>
+              {/* Tablet / Mobile Grid (<1200px) */}
+              <div className="grid xl:hidden grid-cols-[50px_1fr] md:grid-cols-[60px_200px_1fr] gap-3 md:gap-6 items-start">
+                <div className="t-label text-fg-muted flex items-center">
+                  <span>{service.index}</span>
                 </div>
-              </Link>
+                <div>
+                  <h3 className="t-title-lg text-fg font-medium">{service.title}</h3>
+                  <p className="t-body-sm text-fg-muted mt-2 md:hidden">{service.description}</p>
+                </div>
+                <p className="t-body-sm text-fg-muted hidden md:block">{service.description}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

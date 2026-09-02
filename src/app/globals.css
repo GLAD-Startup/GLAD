@@ -336,20 +336,6 @@ html.intro-armed [data-intro="headline-line"] {
   transform: translate3d(0, 100%, 0) !important;
 }
 
-html.intro-armed [data-intro="cycling-underline"] {
-  opacity: 0 !important;
-}
-
-html.intro-armed [data-intro="nav"] {
-  opacity: 0 !important;
-  transform: translate3d(0, -14px, 0) !important;
-}
-
-html.intro-armed [data-intro="nav-hairline"] {
-  transform: scaleX(0) !important;
-  transform-origin: left center !important;
-}
-
 html.intro-armed [data-intro="eyebrow"] {
   opacity: 0 !important;
 }

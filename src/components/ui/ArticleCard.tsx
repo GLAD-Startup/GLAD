@@ -145,7 +145,7 @@ export default function ArticleCard({
       )}
       style={
         {
-          '--card-x': `${x}px`,
+          '--card-x': `clamp(24px, calc(${x} / 1512 * 100vw), ${x + 20}px)`,
           '--card-y': `${y}px`,
           '--dim-factor': isDimmed ? 0.35 : 1,
           opacity: 'calc(var(--scroll-opacity, 1) * var(--dim-factor, 1))',

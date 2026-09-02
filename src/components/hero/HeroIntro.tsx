@@ -71,10 +71,6 @@ export default function HeroIntro({ children }: HeroIntroProps) {
         const headlineLines = document.querySelectorAll(
           '[data-intro="headline-line"]'
         );
-        const nav = document.querySelector('[data-intro="nav"]');
-        const navHairline = document.querySelector(
-          '[data-intro="nav-hairline"]'
-        );
         const eyebrow = document.querySelector('[data-intro="eyebrow"]');
 
         // Add will-change for the duration only (removed in onComplete)
@@ -122,16 +118,6 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           yPercent: 100,
         });
 
-        gsap.set(nav, {
-          y: -14,
-          opacity: 0,
-        });
-
-        gsap.set(navHairline, {
-          scaleX: 0,
-          transformOrigin: 'left center',
-        });
-
         gsap.set(eyebrow, {
           opacity: 0,
         });
@@ -151,9 +137,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
               activeLenis.start();
             }
 
-            // Remove will-change compositor layer from wordmark
-            // Clear residual GSAP inline styles on nav and studioGradient
-            gsap.set(nav, { clearProps: 'transform,opacity' });
+            // Clear residual GSAP inline styles on studioGradient
             if (studioGradient) {
               gsap.set(studioGradient, { clearProps: 'clipPath' });
             }
@@ -259,33 +243,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           3.73
         );
 
-        // 3.87s: Nav: y: -14px, opacity: 0 -> y: 0, opacity: 1
-        tl.to(
-          nav,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.50,
-            ease: 'power2.out',
-            onComplete: () => {
-              gsap.set(nav, { clearProps: 'transform,opacity' });
-            },
-          },
-          3.87
-        );
-
-        // 4.03s: Nav hairline: scaleX: 0 -> 1 from left
-        tl.to(
-          navHairline,
-          {
-            scaleX: 1,
-            duration: 0.50,
-            ease: 'power2.out',
-          },
-          4.03
-        );
-
-        // 4.17s: Eyebrow row: opacity: 0 -> 1
+        // 3.95s: Eyebrow row: opacity: 0 -> 1
         tl.to(
           eyebrow,
           {
@@ -293,7 +251,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.40,
             ease: 'power1.out',
           },
-          4.17
+          3.95
         );
       });
     };
