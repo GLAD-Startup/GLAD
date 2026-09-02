@@ -46,11 +46,11 @@ export default function Intro() {
         right="PRODUCT ENGINEERING"
       />
 
-      <section className="relative w-full max-w-[1512px] mx-auto h-auto xl:h-[1240px] bg-bg select-none px-[20px] md:px-[28px] xl:px-[40px] py-8 xl:py-0 flex flex-col xl:block gap-8 xl:gap-0">
+      <section className="relative w-full h-auto xl:h-[1240px] bg-bg select-none px-[20px] md:px-[28px] xl:px-[40px] py-8 xl:py-0 flex flex-col xl:block gap-8 xl:gap-0">
         {/* Video Card — Positioned directly below GLD 1 eyebrow with inner scroll parallax */}
         <div
           ref={videoWrapperRef}
-          className="w-full max-w-[500px] h-[500px] md:h-[640px] mx-auto xl:mx-0 xl:w-[476px] xl:h-[806px] xl:absolute xl:left-[40px] xl:top-[48px] rounded-[12px] overflow-hidden z-20 bg-surface border border-line-solid shadow-2xl relative shrink-0"
+          className="w-full max-w-[500px] h-[500px] md:h-[640px] mx-auto xl:mx-0 xl:w-[min(476px,30vw)] xl:h-[806px] xl:absolute xl:left-[40px] xl:top-[48px] rounded-[12px] overflow-hidden z-20 bg-surface border border-line-solid shadow-2xl relative shrink-0"
           data-cursor="view"
         >
           <div
@@ -70,7 +70,7 @@ export default function Intro() {
         </div>
 
         {/* Statement — Senior team of four statement */}
-        <div className="xl:absolute xl:left-[556px] xl:top-[88px] w-full max-w-[880px] z-10">
+        <div className="xl:absolute xl:left-[calc(min(476px,30vw)+72px)] xl:right-[40px] xl:top-[88px] z-10 max-w-[900px]">
           <p className="t-heading-sm text-fg">
             A senior team of four
             <sup
@@ -84,7 +84,7 @@ export default function Intro() {
         </div>
 
         {/* Contact PillButton */}
-        <div className="xl:absolute xl:left-[556px] xl:top-[285px] z-10">
+        <div className="xl:absolute xl:left-[calc(min(476px,30vw)+72px)] xl:top-[285px] z-10">
           <PillButton href="/contact">Book a Call</PillButton>
         </div>
 
@@ -97,7 +97,7 @@ export default function Intro() {
         </div>
 
         {/* Core Tech Stack Logo Grid — 5 cols × 2 rows on >=1200px, 2-column on <1200px */}
-        <div className="w-full max-w-[500px] xl:max-w-none xl:absolute xl:left-[556px] xl:top-[550px] z-10">
+        <div className="w-full xl:absolute xl:left-[calc(min(476px,30vw)+72px)] xl:right-[40px] xl:top-[540px] z-10">
           <span className="text-[11px] font-semibold text-accent uppercase tracking-wider block mb-3">
             Core Production Stack
           </span>
@@ -176,7 +176,7 @@ export default function Intro() {
           </div>
 
           {/* Desktop Responsive 5×2 Checkerboard Grid (>=1200px) */}
-          <div className="hidden xl:grid grid-cols-5 gap-3 w-full max-w-[880px]">
+          <div className="hidden xl:grid grid-cols-5 gap-3 w-full">
             {/* Row 1, Col 1: Supabase */}
             <a
               href="https://supabase.com"
@@ -258,7 +258,7 @@ export default function Intro() {
           </div>
 
           {/* Second Grid: Client Partners (Static Non-Clickable Display) */}
-          <div className="mt-8 xl:mt-10">
+          <div className="mt-8 xl:mt-10 w-full">
             <span className="text-[11px] font-semibold text-accent uppercase tracking-wider block mb-3">
               Verified Client Partners
             </span>
@@ -279,52 +279,39 @@ export default function Intro() {
               </div>
             </div>
 
-            {/* Desktop 5×2 Client Checkerboard Grid (>=1200px) */}
-            <div
-              className="hidden xl:grid w-[925px]"
-              style={{
-                gridTemplateColumns: 'repeat(5, 185px)',
-                gridTemplateRows: '130px 140px',
-              }}
-            >
-              {/* Row 1, Col 1: Prayas NGO */}
+            {/* Desktop 3-Column Client Grid (>=1200px) spanning full available width */}
+            <div className="hidden xl:grid grid-cols-3 gap-3.5 w-full">
+              {/* Col 1: Prayas NGO */}
               <div
-                className="col-start-1 row-start-1 bg-surface border border-line-solid rounded-[12px] flex flex-col items-center justify-center gap-2.5 p-3 select-none cursor-default"
+                className="bg-surface border border-line-solid rounded-[12px] flex items-center gap-3.5 p-4 h-[84px] select-none cursor-default"
               >
-                <img src="/clients/prayas.jpg" alt="Prayas NGO" className="w-[58px] h-[58px] rounded-full object-cover shadow-sm border border-line-solid" />
-                <span className="text-[15px] font-semibold text-fg text-center leading-tight">Prayas NGO</span>
+                <img src="/clients/prayas.jpg" alt="Prayas NGO" className="w-[50px] h-[50px] rounded-full object-cover shadow-sm border border-line-solid shrink-0" />
+                <div>
+                  <span className="text-[15px] font-semibold text-fg block leading-tight">Prayas NGO</span>
+                  <span className="text-[12px] text-accent font-medium mt-0.5 block">10,000+ Reach</span>
+                </div>
               </div>
 
-              {/* Row 1, Col 3: GLA Canteen */}
+              {/* Col 2: GLA Canteen */}
               <div
-                className="col-start-3 row-start-1 bg-surface border border-line-solid rounded-[12px] flex flex-col items-center justify-center gap-2.5 p-3 select-none cursor-default"
+                className="bg-surface border border-line-solid rounded-[12px] flex items-center gap-3.5 p-4 h-[84px] select-none cursor-default"
               >
-                <img src="/clients/gla-canteen.png" alt="GLA Canteen" className="w-[58px] h-[58px] rounded-full object-contain p-1.5 bg-white shadow-sm border border-line-solid" />
-                <span className="text-[15px] font-semibold text-fg text-center leading-tight">GLA Canteen</span>
+                <img src="/clients/gla-canteen.png" alt="GLA Canteen" className="w-[50px] h-[50px] rounded-full object-contain p-1 bg-white shadow-sm border border-line-solid shrink-0" />
+                <div>
+                  <span className="text-[15px] font-semibold text-fg block leading-tight">GLA Canteen</span>
+                  <span className="text-[12px] text-accent font-medium mt-0.5 block">Zero Discrepancies</span>
+                </div>
               </div>
 
-              {/* Row 1, Col 5: Earth Travels India */}
+              {/* Col 3: Earth Travels India */}
               <div
-                className="col-start-5 row-start-1 bg-surface border border-line-solid rounded-[12px] flex flex-col items-center justify-center gap-2.5 p-3 select-none cursor-default"
+                className="bg-surface border border-line-solid rounded-[12px] flex items-center gap-3.5 p-4 h-[84px] select-none cursor-default"
               >
-                <img src="/clients/earth-travels.png" alt="Earth Travels India" className="w-[58px] h-[58px] rounded-full object-contain p-1.5 bg-white shadow-sm border border-line-solid" />
-                <span className="text-[14.5px] font-semibold text-fg text-center leading-tight">Earth Travels</span>
-              </div>
-
-              {/* Row 2, Col 2: 10,000+ Reach */}
-              <div
-                className="col-start-2 row-start-2 bg-surface border border-line-solid rounded-[12px] flex flex-col items-center justify-center p-3 select-none cursor-default text-center"
-              >
-                <span className="text-[18px] font-bold text-accent">10,000+</span>
-                <span className="text-[12px] text-fg-muted font-medium">Community Reach</span>
-              </div>
-
-              {/* Row 2, Col 4: Zero Discrepancies */}
-              <div
-                className="col-start-4 row-start-2 bg-surface border border-line-solid rounded-[12px] flex flex-col items-center justify-center p-3 select-none cursor-default text-center"
-              >
-                <span className="text-[18px] font-bold text-accent">Zero</span>
-                <span className="text-[12px] text-fg-muted font-medium">Stock Discrepancies</span>
+                <img src="/clients/earth-travels.png" alt="Earth Travels India" className="w-[50px] h-[50px] rounded-full object-contain p-1 bg-white shadow-sm border border-line-solid shrink-0" />
+                <div>
+                  <span className="text-[15px] font-semibold text-fg block leading-tight">Earth Travels</span>
+                  <span className="text-[12px] text-accent font-medium mt-0.5 block">Real-time Booking</span>
+                </div>
               </div>
             </div>
           </div>

@@ -269,7 +269,7 @@ export default function Nav() {
         <nav
           data-intro="nav"
           className={clsx(
-            'w-full max-w-[1600px] h-[82px] bg-bg pointer-events-auto relative will-change-transform transition-transform duration-[1100ms] ease-[cubic-bezier(0.25,1,0.5,1)]',
+            'w-full h-[82px] bg-bg pointer-events-auto relative will-change-transform transition-transform duration-[1100ms] ease-[cubic-bezier(0.25,1,0.5,1)]',
             navVisible || mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
           )}
         >

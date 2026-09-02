@@ -112,7 +112,7 @@ export default function Pricing() {
       <section
         ref={containerRef}
         id="pricing"
-        className="relative w-full max-w-[1512px] mx-auto bg-bg select-none"
+        className="relative w-full bg-bg select-none"
       >
         {/* Headline with Staggered Letter Replacement */}
         <div className="pt-[70px] xl:pt-[96px] px-[20px] md:px-[28px] xl:px-[40px]">

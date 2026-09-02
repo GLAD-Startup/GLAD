@@ -144,7 +144,7 @@ export default function Tenure() {
       <section
         ref={containerRef}
         id="process"
-        className="relative w-full max-w-[1512px] mx-auto bg-bg select-none"
+        className="relative w-full bg-bg select-none"
       >
         {/* Top Area with Decoupled Headline & Corner Image */}
         <div className="relative pt-[16px] md:pt-[20px] xl:pt-[24px] px-[20px] md:px-[28px] xl:px-[40px] min-h-[160px] md:min-h-[220px] xl:min-h-[265px]">

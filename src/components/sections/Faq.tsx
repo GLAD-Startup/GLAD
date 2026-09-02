@@ -83,7 +83,7 @@ export default function Faq() {
       <section
         ref={sectionRef}
         id="faq"
-        className="relative w-full max-w-[1512px] mx-auto bg-bg select-none pt-[70px] xl:pt-[90px]"
+        className="relative w-full bg-bg select-none pt-[70px] xl:pt-[90px]"
       >
         <div className="px-[20px] md:px-[28px] xl:px-[40px] grid grid-cols-1 xl:grid-cols-[500px_1fr] gap-[48px] xl:gap-[72px] items-start">
           {/* Left Column: FAQ Display, Rotating Leadership Photo, and Statement overlapping underneath */}

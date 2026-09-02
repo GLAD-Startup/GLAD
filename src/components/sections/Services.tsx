@@ -86,7 +86,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" className="relative w-full max-w-[1512px] mx-auto bg-bg select-none">
+    <section ref={sectionRef} id="services" className="relative w-full bg-bg select-none">
       {/* 1. Headline */}
       <div className="pt-[24px] md:pt-[30px] xl:pt-[36px] px-[20px] md:px-[28px] xl:px-[40px] overflow-hidden">
         <div ref={titleContentRef} className="will-change-transform">

@@ -38,10 +38,10 @@ export default function Hero() {
     <>
       <section
         ref={containerRef}
-        className="relative w-full max-w-[1512px] mx-auto h-auto xl:h-[460px] pt-[24px] md:pt-[32px] xl:pt-[36px] px-[20px] md:px-[28px] xl:px-[40px] pb-8 xl:pb-0 bg-bg select-none flex flex-col justify-between"
+        className="relative w-full h-auto xl:h-[460px] pt-[24px] md:pt-[32px] xl:pt-[36px] px-[20px] md:px-[28px] xl:px-[40px] pb-8 xl:pb-0 bg-bg select-none flex flex-col justify-between"
       >
         {/* Headline — hard 4 lines on desktop/tablet, natural wrapping on mobile with line masks */}
-        <h1 className="t-heading max-w-[520px] text-fg relative z-10">
+        <h1 className="t-heading max-w-[580px] text-fg relative z-10">
           <span className="block overflow-hidden">
             <span data-intro="headline-line" className="block will-change-transform pb-1">
               Building Web, Mobile
@@ -71,7 +71,7 @@ export default function Hero() {
           data-cursor="view"
           data-cursor-text="GLAD Studio"
           data-cursor-pill="white"
-          className="mt-8 xl:mt-0 w-full aspect-[16/9] max-w-[640px] xl:w-[520px] 2xl:w-[620px] xl:h-[295px] 2xl:h-[352px] xl:aspect-auto xl:absolute xl:top-[24px] xl:right-[40px] rounded-[14px] overflow-hidden z-20 will-change-transform bg-surface border border-line-solid shadow-2xl"
+          className="mt-8 xl:mt-0 w-full aspect-[16/9] max-w-[640px] xl:w-[min(620px,40vw)] xl:h-[352px] xl:aspect-auto xl:absolute xl:top-[24px] xl:right-[40px] rounded-[14px] overflow-hidden z-20 will-change-transform bg-surface border border-line-solid shadow-2xl"
         >
           <video
             src="/videos/hacker%20mod.mp4"
@@ -91,7 +91,7 @@ export default function Hero() {
         >
           <WordRail
             items={['MVP Development', 'Web Apps', 'Mobile Apps', 'AI Solutions']}
-            contentClassName="xl:w-[calc(100%-580px)] 2xl:w-[calc(100%-690px)] xl:justify-between px-[20px] md:px-[28px] xl:px-[40px]"
+            contentClassName="xl:w-[calc(100%-min(620px,40vw)-60px)] xl:justify-between px-[20px] md:px-[28px] xl:px-[40px]"
           />
         </div>
       </section>

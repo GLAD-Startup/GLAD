@@ -149,7 +149,7 @@ export default function Profile() {
       <section
         ref={sectionRef}
         id="profile"
-        className="relative w-full max-w-[1512px] mx-auto h-auto xl:h-[1360px] bg-bg select-none py-8 xl:py-0 px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-10 xl:gap-0"
+        className="relative w-full h-auto xl:h-[1360px] bg-bg select-none py-8 xl:py-0 px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-10 xl:gap-0"
       >
         <h2 className="sr-only">Studio Profile</h2>
 

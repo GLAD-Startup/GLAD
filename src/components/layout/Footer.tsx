@@ -135,7 +135,7 @@ export default function Footer({
     <footer
       ref={footerRef}
       id="footer"
-      className="relative w-full max-w-[1512px] mx-auto bg-bg select-none pt-8 xl:pt-12 overflow-hidden"
+      className="relative w-full bg-bg select-none pt-8 xl:pt-12 overflow-hidden"
     >
       {/* 1. Full-Bleed Ragged Filmstrip with Automatic Continuous Flow */}
       <div className="w-full overflow-hidden mb-[48px] xl:mb-[70px] select-none pointer-events-none">
