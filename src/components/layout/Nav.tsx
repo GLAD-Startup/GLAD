@@ -129,10 +129,22 @@ export default function Nav() {
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Close dropdown and mobile menu on route change
+  // Reset visibility, close dropdown, and clear any animation styles on route change
   useEffect(() => {
     setIsProductsOpen(false);
     setMobileMenuOpen(false);
+    setNavVisible(true);
+    lastScrollY.current = 0;
+
+    // Ensure intro-armed class is cleaned up on navigation
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.remove('intro-armed');
+      const navEl = document.querySelector('[data-intro="nav"]') as HTMLElement | null;
+      if (navEl && pathname !== '/') {
+        navEl.style.opacity = '1';
+        navEl.style.transform = '';
+      }
+    }
   }, [pathname]);
 
   // Close dropdown on outside click

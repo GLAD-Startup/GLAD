@@ -91,6 +91,8 @@ export default function RootLayout({
                   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                   if (isHome && !reduced) {
                     document.documentElement.classList.add('intro-armed');
+                  } else {
+                    document.documentElement.classList.remove('intro-armed');
                   }
                 } catch(e) {}
               })();
@@ -107,7 +109,7 @@ export default function RootLayout({
           <Cursor />
           <Nav />
           <div id="top" className="w-full flex justify-center bg-bg min-h-screen">
-            <div className="w-full max-w-[1512px] relative bg-bg">
+            <div className="w-full relative bg-bg">
               {children}
             </div>
           </div>
