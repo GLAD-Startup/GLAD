@@ -521,7 +521,7 @@ export default function AboutPageClient() {
             Tell us about your product roadmap. We will review your requirements and respond within 24 hours with architectural feedback and availability.
           </p>
           <div className="mt-8 flex justify-center">
-            <PillButton href="/contact">Book a Discovery Call</PillButton>
+            <PillButton calLink="arjun-rajput-2mdsis">Book a Discovery Call</PillButton>
           </div>
         </div>
       </section>

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Briefcase, LayoutGrid, Mail, Phone, ArrowUp } from 'lucide-react';
 import clsx from 'clsx';
+import { openCalModal } from '@/components/providers/CalProvider';
 
 export default function FloatingFooter() {
   const [isVisible, setIsVisible] = useState(false);
@@ -135,14 +136,17 @@ export default function FloatingFooter() {
         </Link>
 
         {/* Book a Call Action Pill */}
-        <Link
-          href="/contact"
+        <button
+          type="button"
+          data-cal-link="arjun-rajput-2mdsis"
+          data-cal-config='{"layout":"month_view"}'
+          onClick={() => openCalModal('arjun-rajput-2mdsis')}
           data-cursor="pointer"
-          className="flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#16A34A] hover:bg-[#15803D] text-white text-[12.5px] sm:text-[13px] font-medium shadow-[0_2px_10px_rgba(22,163,74,0.3)] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+          className="flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#16A34A] hover:bg-[#15803D] text-white text-[12.5px] sm:text-[13px] font-medium shadow-[0_2px_10px_rgba(22,163,74,0.3)] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
         >
           <Phone className="w-3.5 h-3.5 fill-current" />
           <span className="whitespace-nowrap">Book a Call</span>
-        </Link>
+        </button>
 
         {/* Scroll To Top Button */}
         <button

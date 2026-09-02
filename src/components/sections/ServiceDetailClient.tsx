@@ -190,7 +190,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
 
           {/* Action CTAs */}
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <PillButton href="/contact">Book a Discovery Call</PillButton>
+            <PillButton calLink="arjun-rajput-2mdsis">Book a Discovery Call</PillButton>
             <Link
               href={`/work/${visuals.caseStudySlug}`}
               data-cursor="pointer"
@@ -370,7 +370,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <PillButton href="/contact" variant="inverted">Book a Discovery Call</PillButton>
+            <PillButton calLink="arjun-rajput-2mdsis" variant="inverted">Book a Discovery Call</PillButton>
             <Link
               href="/work"
               data-cursor="pointer"

@@ -11,8 +11,15 @@ import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
 import ContactForm from '@/components/contact/ContactForm';
 import { siteConfig } from '@/data/site';
+import { openCalModal } from '@/components/providers/CalProvider';
 
 const contactChannels = [
+  {
+    label: 'Schedule a Discovery Call',
+    href: siteConfig.contact.calUrl,
+    calLink: siteConfig.contact.calLink,
+    external: false,
+  },
   {
     label: 'Office: Vrindavan, India.',
     href: 'https://maps.google.com/?q=Vrindavan,Uttar+Pradesh,India',
@@ -159,8 +166,16 @@ export default function ContactPageClient() {
               href={item.href}
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noopener noreferrer' : undefined}
+              data-cal-link={'calLink' in item ? (item as { calLink?: string }).calLink : undefined}
+              data-cal-config={'calLink' in item ? '{"layout":"month_view"}' : undefined}
+              onClick={(e) => {
+                if ('calLink' in item && (item as { calLink?: string }).calLink) {
+                  e.preventDefault();
+                  openCalModal((item as { calLink?: string }).calLink);
+                }
+              }}
               data-cursor="pointer"
-              className="contact-row group relative flex items-center justify-between py-[12px] md:py-[14px] xl:py-[15px] border-b border-line text-fg transition-colors duration-200 select-none overflow-hidden"
+              className="contact-row group relative flex items-center justify-between py-[12px] md:py-[14px] xl:py-[15px] border-b border-line text-fg transition-colors duration-200 select-none overflow-hidden cursor-pointer"
             >
               {/* Channel Label with Smooth Slide-Up Replace Animation (Full Descender Clearance) */}
               <span className="relative inline-block overflow-hidden h-[1.55em] pt-[0.05em] pb-[0.20em] text-[14px] md:text-[15.5px] xl:text-[16.5px] font-medium text-fg leading-[1.3]">

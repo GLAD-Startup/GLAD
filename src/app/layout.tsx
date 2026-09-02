@@ -4,6 +4,7 @@ import SmoothScroll from '@/components/providers/SmoothScroll';
 import Cursor from '@/components/ui/Cursor';
 import Nav from '@/components/layout/Nav';
 import FloatingFooter from '@/components/layout/FloatingFooter';
+import CalProvider from '@/components/providers/CalProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gladstudio.net'),
@@ -106,6 +107,7 @@ export default function RootLayout({
       </head>
       <body className="bg-bg text-fg antialiased overflow-x-clip cursor-none min-h-screen">
         <SmoothScroll>
+          <CalProvider />
           <Cursor />
           <Nav />
           <div id="top" className="w-full flex justify-center bg-bg min-h-screen">

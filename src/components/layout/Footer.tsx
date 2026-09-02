@@ -179,7 +179,7 @@ export default function Footer({
         <h3 className="t-heading-sm text-fg leading-tight">
           Let&apos;s build something great together.
         </h3>
-        <PillButton href="/contact">Book a Discovery Call</PillButton>
+        <PillButton calLink="arjun-rajput-2mdsis">Book a Discovery Call</PillButton>
       </div>
 
       {/* 5. Link Bar with 5 Groups */}

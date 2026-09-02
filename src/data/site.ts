@@ -41,6 +41,8 @@ export const siteConfig = {
     inquiryEmail: 'sayhi@gladstudio.net',
     phone: '+91 94572 45650',
     phoneDisplay: '+91 (0) Vrindavan Studio',
+    calLink: 'arjun-rajput-2mdsis',
+    calUrl: 'https://cal.com/arjun-rajput-2mdsis',
   },
   socials: {
     x: 'https://x.com/_GLAD_Studio',

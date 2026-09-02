@@ -85,7 +85,7 @@ export default function Intro() {
 
         {/* Contact PillButton */}
         <div className="xl:absolute xl:left-[calc(min(476px,30vw)+72px)] xl:top-[285px] z-10">
-          <PillButton href="/contact">Book a Call</PillButton>
+          <PillButton calLink="arjun-rajput-2mdsis">Book a Call</PillButton>
         </div>
 
         {/* Word Rail positioned at top: 430px on desktop, or normal flow in mobile/tablet */}

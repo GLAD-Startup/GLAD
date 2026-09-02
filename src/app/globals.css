@@ -353,3 +353,46 @@ html.intro-armed [data-intro="nav-hairline"] {
 html.intro-armed [data-intro="eyebrow"] {
   opacity: 0 !important;
 }
+
+/* ── Cal.com Modal Integration ───────────────────────── */
+cal-modal-box,
+cal-modal {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+cal-modal-box,
+cal-modal,
+cal-modal-box *,
+cal-modal *,
+cal-modal-box iframe,
+cal-modal iframe,
+[data-cal-modal],
+.cal-modal {
+  cursor: auto !important;
+}
+
+cal-modal-box::part(overlay),
+cal-modal::part(overlay) {
+  background-color: rgba(10, 10, 11, 0.20) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+cal-modal-box::part(dialog),
+cal-modal::part(dialog) {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
+cal-modal-box iframe,
+cal-modal iframe {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+}

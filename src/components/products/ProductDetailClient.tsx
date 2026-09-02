@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import WordRail from '@/components/ui/WordRail';
+import { openCalModal } from '@/components/providers/CalProvider';
 import PillButton from '@/components/ui/PillButton';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
@@ -176,14 +177,17 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               <PillButton href="/contact">
                 {product.closingCta.primaryButtonText || 'Start Free Trial'}
               </PillButton>
-              <Link
-                href="/contact"
-                data-cursor="link"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-line-solid text-[13px] font-medium text-fg hover:bg-surface transition-colors"
+              <button
+                type="button"
+                data-cal-link="arjun-rajput-2mdsis"
+                data-cal-config='{"layout":"month_view"}'
+                onClick={() => openCalModal('arjun-rajput-2mdsis')}
+                data-cursor="pointer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-line-solid text-[13px] font-medium text-fg hover:bg-surface transition-colors cursor-pointer"
               >
                 <Phone className="w-3.5 h-3.5 text-accent" />
                 <span>Book a Discovery Call</span>
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -771,14 +775,17 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             <PillButton href="/contact">
               {product.closingCta.primaryButtonText}
             </PillButton>
-            <Link
-              href="/contact"
-              data-cursor="link"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-line-solid bg-bg/90 backdrop-blur-md text-[13px] font-medium text-fg hover:bg-surface transition-colors shadow-sm"
+            <button
+              type="button"
+              data-cal-link="arjun-rajput-2mdsis"
+              data-cal-config='{"layout":"month_view"}'
+              onClick={() => openCalModal('arjun-rajput-2mdsis')}
+              data-cursor="pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-line-solid bg-bg/90 backdrop-blur-md text-[13px] font-medium text-fg hover:bg-surface transition-colors shadow-sm cursor-pointer"
             >
               <Phone className="w-3.5 h-3.5 text-accent" />
               <span>{product.closingCta.secondaryButtonText}</span>
-            </Link>
+            </button>
           </div>
         </div>
       </section>

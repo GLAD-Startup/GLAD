@@ -1,15 +1,21 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
+import { openCalModal } from '@/components/providers/CalProvider';
 
 export interface PillButtonProps {
-  href: string;
+  href?: string;
   children: React.ReactNode;
   className?: string;
   target?: string;
   rel?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
   variant?: 'default' | 'inverted';
+  calLink?: string;
+  calNamespace?: string;
+  calConfig?: string;
 }
 
 const getChildrenText = (node: React.ReactNode): string | null => {
@@ -35,9 +41,23 @@ export default function PillButton({
   rel,
   onClick,
   variant = 'default',
+  calLink,
+  calNamespace,
+  calConfig,
 }: PillButtonProps) {
-  const isExternal = href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:');
+  const effectiveHref = href || (calLink ? `https://cal.com/${calLink}` : undefined);
+  const isExternal = !!effectiveHref && (effectiveHref.startsWith('http') || effectiveHref.startsWith('mailto:') || effectiveHref.startsWith('tel:'));
   const isInverted = variant === 'inverted';
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+    if (calLink) {
+      e.preventDefault();
+      openCalModal(calLink);
+    }
+    if (onClick) {
+      onClick(e);
+    }
+  };
 
   const commonClasses = clsx(
     'group relative inline-flex items-center justify-center',
@@ -114,15 +134,39 @@ export default function PillButton({
     />
   );
 
+  const calProps = calLink
+    ? {
+        'data-cal-link': calLink,
+        'data-cal-namespace': calNamespace,
+        'data-cal-config': calConfig || '{"layout":"month_view"}',
+      }
+    : {};
+
+  if (!effectiveHref) {
+    return (
+      <button
+        type="button"
+        data-cursor="pointer-white"
+        className={commonClasses}
+        onClick={handleClick}
+        {...calProps}
+      >
+        {filler}
+        {renderContent()}
+      </button>
+    );
+  }
+
   if (isExternal) {
     return (
       <a
-        href={href}
+        href={effectiveHref}
         data-cursor="pointer-white"
         className={commonClasses}
-        target={target || (href.startsWith('http') ? '_blank' : undefined)}
-        rel={rel || (href.startsWith('http') ? 'noopener noreferrer' : undefined)}
-        onClick={onClick}
+        target={target || (effectiveHref.startsWith('http') ? '_blank' : undefined)}
+        rel={rel || (effectiveHref.startsWith('http') ? 'noopener noreferrer' : undefined)}
+        onClick={handleClick}
+        {...calProps}
       >
         {filler}
         {renderContent()}
@@ -131,7 +175,13 @@ export default function PillButton({
   }
 
   return (
-    <Link href={href} data-cursor="pointer-white" className={commonClasses} onClick={onClick}>
+    <Link
+      href={effectiveHref}
+      data-cursor="pointer-white"
+      className={commonClasses}
+      onClick={handleClick}
+      {...calProps}
+    >
       {filler}
       {renderContent()}
     </Link>
