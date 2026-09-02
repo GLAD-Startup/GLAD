@@ -43,7 +43,7 @@ export default function Wordmark() {
         data-intro="wordmark"
         className="t-wordmark font-normal text-fg text-center whitespace-nowrap"
         style={{
-          fontSize: 'clamp(0px, 13.5vw, 250px)',
+          fontSize: 'clamp(48px, 15.2vw, 320px)',
           lineHeight: 0.80,
           letterSpacing: '-0.045em',
           transformOrigin: 'center center',

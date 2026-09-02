@@ -73,15 +73,19 @@ export default function ProjectCard({
 
   const hoverCategoryText = category || subtitle || 'Selected Work';
 
+  // Calculate proportional horizontal scatter ratio (0 = left gutter, 1 = right gutter)
+  const ratio = Math.max(0, Math.min(1, (x - 42) / (1512 - w - 42)));
+
   return (
     <div
       ref={cardRef}
       className={clsx(
-        'group select-none relative w-full max-w-[720px] mx-auto h-[320px] sm:h-[380px] md:h-[432px] pb-[34px] xl:pb-0 xl:absolute xl:mx-0 xl:[left:min(var(--card-x),calc(100%-var(--card-w)))] xl:[top:var(--card-y)] xl:[width:var(--card-w)] xl:[height:var(--card-h)] xl:max-w-none',
+        'group select-none relative w-full max-w-[720px] mx-auto h-[320px] sm:h-[380px] md:h-[432px] pb-[34px] xl:pb-0 xl:absolute xl:mx-0 xl:[left:var(--card-left)] xl:[top:var(--card-y)] xl:[width:var(--card-w)] xl:[height:var(--card-h)] xl:max-w-none',
         className
       )}
       style={
         {
+          '--card-left': `calc(40px + ${ratio} * (100% - ${w}px - 80px))`,
           '--card-x': `${x}px`,
           '--card-y': `${y}px`,
           '--card-w': `${w}px`,
