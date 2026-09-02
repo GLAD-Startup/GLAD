@@ -129,14 +129,14 @@ export default function Nav() {
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Reset visibility, close dropdown, and clear any animation styles on route change
+  // Reset visibility, close dropdown, and ensure Nav is visible on route change
   useEffect(() => {
     setIsProductsOpen(false);
     setMobileMenuOpen(false);
     setNavVisible(true);
     lastScrollY.current = 0;
 
-    // Ensure intro-armed class is cleaned up on navigation
+    // Ensure intro-armed is cleaned up on navigation to other pages
     if (typeof document !== 'undefined') {
       document.documentElement.classList.remove('intro-armed');
       const navEl = document.querySelector('[data-intro="nav"]') as HTMLElement | null;
@@ -144,6 +144,24 @@ export default function Nav() {
         navEl.style.opacity = '1';
         navEl.style.transform = '';
       }
+    }
+
+    // Scroll window/Lenis to top on route change
+    const lenis = (
+      window as unknown as {
+        lenis?: {
+          scrollTo: (
+            target: number | string | HTMLElement,
+            opts?: { immediate?: boolean }
+          ) => void;
+        };
+      }
+    ).lenis;
+
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
     }
   }, [pathname]);
 
@@ -279,9 +297,9 @@ export default function Nav() {
     <>
       <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none flex justify-center w-full select-none">
         <nav
-          data-intro="nav"
+          data-intro={pathname === '/' ? 'nav' : undefined}
           className={clsx(
-            'w-full h-[82px] bg-bg pointer-events-auto relative will-change-transform transition-transform duration-[1100ms] ease-[cubic-bezier(0.25,1,0.5,1)]',
+            'w-full h-[82px] bg-bg pointer-events-auto relative will-change-transform transition-transform duration-[600ms] ease-[cubic-bezier(0.25,1,0.5,1)]',
             navVisible || mobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
           )}
         >
