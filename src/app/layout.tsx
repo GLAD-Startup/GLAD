@@ -5,6 +5,7 @@ import Cursor from '@/components/ui/Cursor';
 import Nav from '@/components/layout/Nav';
 import FloatingFooter from '@/components/layout/FloatingFooter';
 import CalProvider from '@/components/providers/CalProvider';
+import PageTransition from '@/components/providers/PageTransition';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gladstudio.net'),
@@ -111,9 +112,9 @@ export default function RootLayout({
           <Cursor />
           <Nav />
           <div id="top" className="w-full flex justify-center bg-bg min-h-screen">
-            <div className="w-full relative bg-bg">
+            <PageTransition>
               {children}
-            </div>
+            </PageTransition>
           </div>
           <FloatingFooter />
         </SmoothScroll>
