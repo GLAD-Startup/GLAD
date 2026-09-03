@@ -34,12 +34,12 @@ export default function HeroIntro({ children }: HeroIntroProps) {
     // If reduced motion or already played, skip timeline, remove armed class, and leave scroll unlocked
     if (prefersReducedMotion || hasPlayed) {
       document.documentElement.classList.remove('intro-armed');
-      const video = document.querySelector<HTMLVideoElement>(
+      const videos = document.querySelectorAll<HTMLVideoElement>(
         '[data-intro="video-card"] video'
       );
-      if (video) {
+      videos.forEach((video) => {
         video.play().catch(() => {});
-      }
+      });
       const navEl = document.querySelector('[data-intro="nav"]');
       if (navEl) {
         gsap.set(navEl, { clearProps: 'opacity,transform' });
@@ -69,7 +69,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           '[data-intro="wordmark-divider"]'
         );
         const videoCard = document.querySelector('[data-intro="video-card"]');
-        const video = document.querySelector<HTMLVideoElement>(
+        const videos = document.querySelectorAll<HTMLVideoElement>(
           '[data-intro="video-card"] video'
         );
         const wordRail = document.querySelector('[data-intro="word-rail"]');
@@ -84,10 +84,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           wordmark.style.transformOrigin = 'center center';
         }
 
-        // Ensure video is playing
-        if (video) {
+        // Ensure all videos are playing
+        videos.forEach((video) => {
           video.play().catch(() => {});
-        }
+        });
 
         // Set initial GSAP values matching the from states
         if (nav) {
@@ -227,9 +227,9 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.60,
             ease: 'power3.out',
             onStart: () => {
-              if (video) {
+              videos.forEach((video) => {
                 video.play().catch(() => {});
-              }
+              });
             },
           },
           3.45

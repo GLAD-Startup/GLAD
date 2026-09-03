@@ -30,12 +30,18 @@ export default function WorkDetailClient({
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
 
+  // Categorize screenshots into desktop vs mobile
+  const isMobileImage = (src: string) =>
+    src.includes('app-') || src.includes('mobile') || project.slug === 'stock-management';
+  const desktopScreens = project.galleryImages.filter((src) => !isMobileImage(src));
+  const mobileScreens = project.galleryImages.filter((src) => isMobileImage(src));
+
   // Zoom modal state for centered mobile screenshot animation
-  const [activeZoomImage, setActiveZoomImage] = useState<string | null>(null);
+  const [zoomIndex, setZoomIndex] = useState<number | null>(null);
   const [isZoomVisible, setIsZoomVisible] = useState(false);
 
-  const openZoom = (src: string) => {
-    setActiveZoomImage(src);
+  const openZoom = (idx: number) => {
+    setZoomIndex(idx);
     setTimeout(() => {
       setIsZoomVisible(true);
     }, 20);
@@ -44,16 +50,32 @@ export default function WorkDetailClient({
   const closeZoom = () => {
     setIsZoomVisible(false);
     setTimeout(() => {
-      setActiveZoomImage(null);
+      setZoomIndex(null);
     }, 450);
   };
 
+  const prevZoom = () => {
+    setZoomIndex((prev) =>
+      prev !== null ? (prev > 0 ? prev - 1 : mobileScreens.length - 1) : 0
+    );
+  };
+
+  const nextZoom = () => {
+    setZoomIndex((prev) =>
+      prev !== null ? (prev < mobileScreens.length - 1 ? prev + 1 : 0) : 0
+    );
+  };
+
   useEffect(() => {
-    if (activeZoomImage) {
+    if (zoomIndex !== null) {
       document.body.style.overflow = 'hidden';
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           closeZoom();
+        } else if (e.key === 'ArrowLeft') {
+          prevZoom();
+        } else if (e.key === 'ArrowRight') {
+          nextZoom();
         }
       };
       window.addEventListener('keydown', handleKeyDown);
@@ -62,13 +84,21 @@ export default function WorkDetailClient({
         window.removeEventListener('keydown', handleKeyDown);
       };
     }
-  }, [activeZoomImage]);
+  }, [zoomIndex, mobileScreens.length]);
 
-  // Categorize screenshots into desktop vs mobile
-  const isMobileImage = (src: string) =>
-    src.includes('app-') || src.includes('mobile') || project.slug === 'stock-management';
-  const desktopScreens = project.galleryImages.filter((src) => !isMobileImage(src));
-  const mobileScreens = project.galleryImages.filter((src) => isMobileImage(src));
+  // Interactive carousel indices
+  const [desktopIndex, setDesktopIndex] = useState(0);
+  const [mobileIndex, setMobileIndex] = useState(0);
+
+  const prevDesktop = () =>
+    setDesktopIndex((prev) => (prev > 0 ? prev - 1 : desktopScreens.length - 1));
+  const nextDesktop = () =>
+    setDesktopIndex((prev) => (prev < desktopScreens.length - 1 ? prev + 1 : 0));
+
+  const prevMobile = () =>
+    setMobileIndex((prev) => (prev > 0 ? prev - 1 : mobileScreens.length - 1));
+  const nextMobile = () =>
+    setMobileIndex((prev) => (prev < mobileScreens.length - 1 ? prev + 1 : 0));
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -296,16 +326,16 @@ export default function WorkDetailClient({
         ) : (
           <div
             ref={mediaRef}
-            className="relative w-full aspect-[1346/1080] max-w-[620px] lg:max-w-none mx-auto drop-shadow-2xl will-change-transform group select-none"
+            className="relative w-full aspect-[1920/1080] max-w-[680px] lg:max-w-none mx-auto drop-shadow-2xl will-change-transform group select-none"
           >
             {/* Screenshot Image Screen inside Monitor Frame */}
             <div
-              className="absolute overflow-hidden bg-[#FBFBF9] rounded-[4px] md:rounded-[6px]"
+              className="absolute overflow-hidden bg-white rounded-[3px] sm:rounded-[6px]"
               style={{
-                left: '4.24%',
-                top: '5.93%',
-                width: '91.38%',
-                height: '63.98%',
+                left: '17.92%',
+                top: '5.83%',
+                width: '64.06%',
+                height: '64.07%',
               }}
             >
               <Image
@@ -314,7 +344,7 @@ export default function WorkDetailClient({
                 fill
                 priority
                 unoptimized
-                className="object-cover sm:object-contain block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.015]"
+                className="object-contain block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.015]"
               />
             </div>
 
@@ -455,16 +485,39 @@ export default function WorkDetailClient({
       </div>
 
       {/* 8. Screenshot Showcase inside macOS Window Frames and Native Mobile Mockup Rows */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px] flex flex-col gap-12 xl:gap-18">
-        {/* Desktop Web Screens in Realistic MacBook / Laptop Device Frames */}
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px] flex flex-col gap-16 xl:gap-24">
+        {/* 1. Desktop Web Screens inside a Single Interactive MacBook Frame */}
         {desktopScreens.length > 0 && (
-          <div className="flex flex-col gap-16 xl:gap-24">
-            {desktopScreens.map((imgSrc, idx) => (
-              <div
-                key={idx}
-                className="relative w-full max-w-[1280px] mx-auto aspect-[1920/1080] drop-shadow-2xl select-none"
-              >
-                {/* Screenshot Image Screen inside Mac Laptop Frame */}
+          <div className="flex flex-col items-center gap-6">
+            {mobileScreens.length > 0 && (
+              <div className="w-full flex items-center justify-between pb-3 border-b border-line">
+                <span className="text-[12px] font-semibold text-accent uppercase tracking-widest">
+                  Web & Desktop Platform · macOS & Windows
+                </span>
+                <span className="text-[12px] font-mono text-fg-dim">
+                  0{desktopIndex + 1} / 0{desktopScreens.length} Screens
+                </span>
+              </div>
+            )}
+
+            {/* Laptop Frame with Left & Right Arrow Controls */}
+            <div className="relative w-full max-w-[1240px] mx-auto flex items-center justify-center">
+              {/* Left Arrow */}
+              {desktopScreens.length > 1 && (
+                <button
+                  type="button"
+                  onClick={prevDesktop}
+                  aria-label="Previous screenshot"
+                  data-cursor="pointer"
+                  className="absolute left-2 sm:-left-5 lg:-left-10 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md flex items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
+                >
+                  <span className="text-[18px] sm:text-[20px] transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
+                </button>
+              )}
+
+              {/* MacBook Mockup Frame */}
+              <div className="relative w-full aspect-[1920/1080] drop-shadow-2xl select-none">
+                {/* Stack of Screenshot Images with Smooth & Slow Slide/Fade Transitions */}
                 <div
                   className="absolute overflow-hidden bg-white rounded-[14px] sm:rounded-[18px] md:rounded-[22px]"
                   style={{
@@ -474,13 +527,28 @@ export default function WorkDetailClient({
                     height: '77.04%',
                   }}
                 >
-                  <Image
-                    src={imgSrc}
-                    alt={`${project.title} dashboard screen ${idx + 1}`}
-                    fill
-                    unoptimized
-                    className="object-contain block"
-                  />
+                  {desktopScreens.map((imgSrc, idx) => (
+                    <div
+                      key={idx}
+                      className={clsx(
+                        'absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                        idx === desktopIndex
+                          ? 'opacity-100 scale-100 translate-x-0 pointer-events-auto z-10'
+                          : idx < desktopIndex
+                          ? 'opacity-0 scale-[0.97] -translate-x-6 pointer-events-none z-0'
+                          : 'opacity-0 scale-[0.97] translate-x-6 pointer-events-none z-0'
+                      )}
+                    >
+                      <Image
+                        src={imgSrc}
+                        alt={`${project.title} dashboard screen ${idx + 1}`}
+                        fill
+                        priority={idx === 0}
+                        unoptimized
+                        className="object-contain block"
+                      />
+                    </div>
+                  ))}
                 </div>
 
                 {/* Mac Laptop Frame Overlay */}
@@ -488,74 +556,162 @@ export default function WorkDetailClient({
                   src="/frames/mac-frame.png"
                   alt="MacBook device frame"
                   fill
-                  priority={idx === 0}
+                  priority
                   unoptimized
                   className="object-contain pointer-events-none block z-10"
                 />
               </div>
-            ))}
+
+              {/* Right Arrow */}
+              {desktopScreens.length > 1 && (
+                <button
+                  type="button"
+                  onClick={nextDesktop}
+                  aria-label="Next screenshot"
+                  data-cursor="pointer"
+                  className="absolute right-2 sm:-right-5 lg:-right-10 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md flex items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
+                >
+                  <span className="text-[18px] sm:text-[20px] transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                </button>
+              )}
+            </div>
+
+            {/* Pagination Dots & Navigation Indicators */}
+            {desktopScreens.length > 1 && (
+              <div className="flex items-center gap-2 mt-2">
+                {desktopScreens.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setDesktopIndex(idx)}
+                    aria-label={`Go to screenshot ${idx + 1}`}
+                    className={clsx(
+                      'h-2 rounded-full transition-all duration-500 cursor-pointer',
+                      idx === desktopIndex ? 'w-8 bg-fg' : 'w-2 bg-fg-dim/40 hover:bg-fg-dim'
+                    )}
+                  />
+                ))}
+                <span className="ml-3 text-[12px] font-mono text-fg-muted">
+                  0{desktopIndex + 1} / 0{desktopScreens.length}
+                </span>
+              </div>
+            )}
           </div>
         )}
 
-        {/* Mobile Application Screens Row (4 in row for Prayas, 3 in row for Canteen) */}
+        {/* 2. Mobile Application Screens inside a Single Interactive Phone Frame */}
         {mobileScreens.length > 0 && (
-          <div className="flex flex-col gap-6 pt-2">
+          <div className="flex flex-col items-center gap-6 pt-2">
             {desktopScreens.length > 0 && (
-              <div className="flex items-center justify-between pb-3 border-b border-line">
+              <div className="w-full flex items-center justify-between pb-3 border-b border-line">
                 <span className="text-[12px] font-semibold text-accent uppercase tracking-widest">
                   Mobile Application Interfaces · iOS & Android
                 </span>
                 <span className="text-[12px] font-mono text-fg-dim">
-                  0{mobileScreens.length} Screens
+                  0{mobileIndex + 1} / 0{mobileScreens.length} Screens
                 </span>
               </div>
             )}
 
-            <div
-              className={clsx(
-                'grid gap-6 xl:gap-8 items-center justify-center w-full',
-                mobileScreens.length === 3
-                  ? 'grid-cols-1 sm:grid-cols-3 max-w-5xl mx-auto'
-                  : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto'
-              )}
-            >
-              {mobileScreens.map((imgSrc, idx) => (
-                <div
-                  key={idx}
-                  data-cursor="view"
-                  onClick={() => openZoom(imgSrc)}
-                  className="relative w-full max-w-[290px] sm:max-w-none aspect-[546/1080] group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.03] hover:-translate-y-2 mx-auto cursor-pointer drop-shadow-xl overflow-hidden rounded-[38px] sm:rounded-[42px]"
+            {/* Phone Frame with Left & Right Arrow Controls */}
+            <div className="relative w-full max-w-[480px] mx-auto flex items-center justify-center">
+              {/* Left Arrow */}
+              {mobileScreens.length > 1 && (
+                <button
+                  type="button"
+                  onClick={prevMobile}
+                  aria-label="Previous mobile screen"
+                  data-cursor="pointer"
+                  className="absolute left-0 sm:-left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md flex items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
                 >
-                  {/* Screenshot Image inside Phone Frame */}
-                  <div
-                    className="absolute overflow-hidden bg-white rounded-[32px] sm:rounded-[36px]"
-                    style={{
-                      left: '7.14%',
-                      top: '6.39%',
-                      width: '85.71%',
-                      height: '89.5%',
-                    }}
-                  >
-                    <Image
-                      src={imgSrc}
-                      alt={`${project.title} mobile screen ${idx + 1}`}
-                      fill
-                      unoptimized
-                      className="object-cover object-top block"
-                    />
-                  </div>
+                  <span className="text-[18px] sm:text-[20px] transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
+                </button>
+              )}
 
-                  {/* Mobile Frame Overlay */}
-                  <Image
-                    src="/frames/mobile-frame.png"
-                    alt="Mobile device frame"
-                    fill
-                    unoptimized
-                    className="object-contain pointer-events-none block z-10"
-                  />
+              {/* Phone Mockup Frame with Click-to-Zoom */}
+              <div
+                data-cursor="view"
+                onClick={() => openZoom(mobileIndex)}
+                className="relative w-full max-w-[320px] sm:max-w-[340px] aspect-[546/1080] group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.02] cursor-pointer drop-shadow-2xl overflow-hidden rounded-[38px] sm:rounded-[42px]"
+              >
+                {/* Stack of Screenshot Images with Smooth & Slow Slide/Fade Transitions */}
+                <div
+                  className="absolute overflow-hidden bg-white rounded-[32px] sm:rounded-[36px]"
+                  style={{
+                    left: '7.14%',
+                    top: '6.39%',
+                    width: '85.71%',
+                    height: '89.5%',
+                  }}
+                >
+                  {mobileScreens.map((imgSrc, idx) => (
+                    <div
+                      key={idx}
+                      className={clsx(
+                        'absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                        idx === mobileIndex
+                          ? 'opacity-100 scale-100 translate-x-0 pointer-events-auto z-10'
+                          : idx < mobileIndex
+                          ? 'opacity-0 scale-[0.97] -translate-x-6 pointer-events-none z-0'
+                          : 'opacity-0 scale-[0.97] translate-x-6 pointer-events-none z-0'
+                      )}
+                    >
+                      <Image
+                        src={imgSrc}
+                        alt={`${project.title} mobile screen ${idx + 1}`}
+                        fill
+                        priority={idx === 0}
+                        unoptimized
+                        className="object-cover object-top block"
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
+
+                {/* Mobile Frame Overlay */}
+                <Image
+                  src="/frames/mobile-frame.png"
+                  alt="Mobile device frame"
+                  fill
+                  unoptimized
+                  className="object-contain pointer-events-none block z-10"
+                />
+              </div>
+
+              {/* Right Arrow */}
+              {mobileScreens.length > 1 && (
+                <button
+                  type="button"
+                  onClick={nextMobile}
+                  aria-label="Next mobile screen"
+                  data-cursor="pointer"
+                  className="absolute right-0 sm:-right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md flex items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
+                >
+                  <span className="text-[18px] sm:text-[20px] transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                </button>
+              )}
             </div>
+
+            {/* Pagination Dots & Navigation Indicators */}
+            {mobileScreens.length > 1 && (
+              <div className="flex items-center gap-2 mt-2">
+                {mobileScreens.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setMobileIndex(idx)}
+                    aria-label={`Go to mobile screen ${idx + 1}`}
+                    className={clsx(
+                      'h-2 rounded-full transition-all duration-500 cursor-pointer',
+                      idx === mobileIndex ? 'w-8 bg-fg' : 'w-2 bg-fg-dim/40 hover:bg-fg-dim'
+                    )}
+                  />
+                ))}
+                <span className="ml-3 text-[12px] font-mono text-fg-muted">
+                  0{mobileIndex + 1} / 0{mobileScreens.length}
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -671,7 +827,7 @@ export default function WorkDetailClient({
       <Footer isWorkDetail />
 
       {/* 15. Smooth Centered Zoom Lightbox Modal in Phone Frame */}
-      {activeZoomImage && (
+      {zoomIndex !== null && (
         <div
           role="dialog"
           aria-modal="true"
@@ -687,27 +843,47 @@ export default function WorkDetailClient({
           {/* Close Pill Button (Top-Right) */}
           <button
             type="button"
-            onClick={closeZoom}
+            onClick={(e) => {
+              e.stopPropagation();
+              closeZoom();
+            }}
             data-cursor="pointer"
             aria-label="Close zoom view"
-            className="absolute top-5 right-5 sm:top-8 sm:right-8 z-[110] flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A1E]/90 border border-white/20 text-[#FBFBF9] hover:bg-[#2A2A2E] hover:border-white/40 transition-all text-[12px] font-mono shadow-2xl cursor-pointer"
+            className="absolute top-5 right-5 sm:top-8 sm:right-8 z-[130] flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A1E]/90 border border-white/20 text-[#FBFBF9] hover:bg-[#2A2A2E] hover:border-white/40 transition-all text-[12px] font-mono shadow-2xl cursor-pointer"
           >
             <span>✕</span>
             <span>CLOSE (ESC)</span>
           </button>
 
-          {/* Centered Phone Mockup Frame with Slow Smooth Spring Zoom */}
+          {/* Centered Content: Left Arrow + Phone Frame + Right Arrow */}
           <div
             onClick={(e) => e.stopPropagation()}
             className={clsx(
-              'relative max-h-[88vh] flex items-center justify-center cursor-default transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform',
+              'relative max-h-[90vh] flex items-center justify-center gap-3 sm:gap-6 md:gap-8 cursor-default transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform',
               isZoomVisible
                 ? 'scale-100 opacity-100 translate-y-0'
                 : 'scale-[0.82] opacity-0 translate-y-8'
             )}
           >
-            <div className="relative w-[88vw] max-w-[390px] aspect-[546/1080] drop-shadow-[0_35px_100px_rgba(0,0,0,0.9)] overflow-hidden rounded-[42px] sm:rounded-[46px]">
-              {/* Screenshot inside Phone Screen */}
+            {/* Left Navigation Arrow (Closer to phone) */}
+            {mobileScreens.length > 1 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevZoom();
+                }}
+                data-cursor="pointer"
+                aria-label="Previous mobile screen"
+                className="z-[120] w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 bg-[#1A1A1E]/90 hover:bg-[#2A2A2E] hover:border-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95 shadow-2xl group cursor-pointer shrink-0"
+              >
+                <span className="text-[18px] sm:text-[22px] transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
+              </button>
+            )}
+
+            {/* Centered Phone Mockup Frame */}
+            <div className="relative w-[80vw] max-w-[340px] sm:max-w-[380px] aspect-[546/1080] drop-shadow-[0_35px_100px_rgba(0,0,0,0.9)] overflow-hidden rounded-[42px] sm:rounded-[46px] shrink-0">
+              {/* Stack of Screenshots inside Phone Screen with Smooth Slide Transitions */}
               <div
                 className="absolute overflow-hidden bg-white rounded-[34px] md:rounded-[38px]"
                 style={{
@@ -717,13 +893,28 @@ export default function WorkDetailClient({
                   height: '89.5%',
                 }}
               >
-                <Image
-                  src={activeZoomImage}
-                  alt={`${project.title} zoomed mobile screen`}
-                  fill
-                  unoptimized
-                  className="object-cover object-top block"
-                />
+                {mobileScreens.map((src, idx) => (
+                  <div
+                    key={idx}
+                    className={clsx(
+                      'absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                      idx === zoomIndex
+                        ? 'opacity-100 scale-100 translate-x-0 pointer-events-auto z-10'
+                        : idx < zoomIndex
+                        ? 'opacity-0 scale-[0.97] -translate-x-6 pointer-events-none z-0'
+                        : 'opacity-0 scale-[0.97] translate-x-6 pointer-events-none z-0'
+                    )}
+                  >
+                    <Image
+                      src={src}
+                      alt={`${project.title} zoomed mobile screen ${idx + 1}`}
+                      fill
+                      priority
+                      unoptimized
+                      className="object-cover object-top block"
+                    />
+                  </div>
+                ))}
               </div>
 
               {/* Mobile Frame Overlay */}
@@ -735,7 +926,30 @@ export default function WorkDetailClient({
                 className="object-contain pointer-events-none block z-10"
               />
             </div>
+
+            {/* Right Navigation Arrow (Closer to phone) */}
+            {mobileScreens.length > 1 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextZoom();
+                }}
+                data-cursor="pointer"
+                aria-label="Next mobile screen"
+                className="z-[120] w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 bg-[#1A1A1E]/90 hover:bg-[#2A2A2E] hover:border-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95 shadow-2xl group cursor-pointer shrink-0"
+              >
+                <span className="text-[18px] sm:text-[22px] transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </button>
+            )}
           </div>
+
+          {/* Bottom Counter Pill in Zoom View */}
+          {mobileScreens.length > 1 && (
+            <div className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-[120] flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1A1E]/90 border border-white/20 text-[#FBFBF9] font-mono text-[12px] shadow-2xl">
+              <span>0{(zoomIndex ?? 0) + 1} / 0{mobileScreens.length}</span>
+            </div>
+          )}
         </div>
       )}
     </main>
