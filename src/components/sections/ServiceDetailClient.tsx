@@ -34,7 +34,7 @@ const serviceVisuals: Record<string, { outer: string; inner: string; caseStudySl
     outer: '/work/prayas-app/prayas-admin-1.png',
     inner: '/work/prayas-app/prayas-app-1.png',
     caseStudySlug: 'prayas-app',
-    caseStudyTitle: 'Prayas Healthcare Logistics App',
+    caseStudyTitle: 'Prayas Healthcare App, Website & Admin Portal',
   },
   'ai-solutions': {
     outer: '/work/ai-mock-interview/mock-interview-1.png',
@@ -99,9 +99,9 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
   }, []);
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[84px]">
+    <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[48px]">
       {/* 1. Marquee Header (Spaced comfortably beneath nav with full descender clearance) */}
-      <div className="pt-4 overflow-hidden bg-bg">
+      <div className="overflow-hidden bg-bg">
         <Divider />
         <div className="py-4 md:py-6 overflow-hidden bg-bg">
           <Marquee speed={32}>

@@ -69,8 +69,8 @@ export default function FeaturedWorks() {
       </div>
       <Divider />
 
-      {/* 2. Copy Block */}
-      <div className="px-[20px] md:px-[28px] xl:px-0 xl:ml-[40px] mt-[56px] max-w-[520px] space-y-[34px]">
+      {/* 2. Copy Block (Right-aligned with small margin) */}
+      <div className="px-[20px] md:px-[28px] xl:px-0 ml-auto mr-[20px] md:mr-[28px] xl:mr-[40px] mt-[56px] max-w-[520px] space-y-[34px]">
         <p className="t-body text-fg-muted">
           Every project is a chance to blend design and engineering, turning ambitious ideas into{' '}
           <strong className="text-fg font-semibold">
@@ -84,8 +84,8 @@ export default function FeaturedWorks() {
         </div>
       </div>
 
-      {/* 3. Project Cards Container (3050px on >=1200px) */}
-      <div className="relative w-full h-auto xl:h-[3050px] mt-[48px] xl:mt-[60px] px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-14 sm:gap-18 md:gap-20 xl:gap-0 pb-16 xl:pb-0">
+      {/* 3. Project Cards Container (2890px on >=1200px) */}
+      <div className="relative w-full h-auto xl:h-[2890px] mt-[48px] xl:mt-[60px] px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-20 sm:gap-24 md:gap-28 xl:gap-0 pb-12 sm:pb-16 xl:pb-0">
         {projectsData.map((proj) => (
           <ProjectCard
             key={proj.id}

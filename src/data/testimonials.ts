@@ -18,7 +18,7 @@ export const testimonialsData: TestimonialItem[] = [
     company: 'Prayas NGO',
     clientName: 'Prayas NGO',
     quote:
-      "The Prayas App transformed how we coordinate blood donations and health equipment lending. It's now the backbone of our community outreach.",
+      "The Prayas mobile app, public website, and admin portal transformed how we coordinate blood donations and medical equipment lending. It's now the complete backbone of our operations.",
     outcome: '10,000+ Community Reach',
     avatarSrc: '/clients/prayas.jpg',
     verified: true,

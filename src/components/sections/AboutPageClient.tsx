@@ -510,18 +510,20 @@ export default function AboutPageClient() {
           7. CALL TO ACTION SECTION
          ───────────────────────────────────────────────────────────── */}
       <section className="px-[20px] md:px-[28px] xl:px-[40px] mt-16 md:mt-24 mb-16 md:mb-24">
-        <div className="bg-surface border border-line-solid rounded-[20px] p-8 md:p-14 xl:p-18 text-center max-w-[1100px] mx-auto relative overflow-hidden">
-          <span className="t-eyebrow eyebrow-shimmer-accent mb-4 inline-block">
+        <div className="bg-[#0A0A0B] text-[#FBFBF9] border border-[#222225] rounded-[20px] p-8 md:p-14 xl:p-18 text-center max-w-[1100px] mx-auto relative overflow-hidden shadow-2xl">
+          <span className="text-[11px] font-semibold tracking-[0.045em] text-[#C6F000] uppercase mb-4 inline-block">
             DIRECT FOUNDER ENGAGEMENT
           </span>
-          <h2 className="text-[32px] sm:text-[44px] xl:text-[56px] font-normal text-fg leading-[1.05] tracking-[-0.03em] max-w-[800px] mx-auto">
+          <h2 className="text-[32px] sm:text-[44px] xl:text-[56px] font-normal text-[#FBFBF9] leading-[1.05] tracking-[-0.03em] max-w-[800px] mx-auto">
             Ready to ship your product with a senior team?
           </h2>
-          <p className="t-body text-fg-muted max-w-[620px] mx-auto mt-4 leading-relaxed">
+          <p className="text-[15px] md:text-[16px] text-[#A8A8AD] max-w-[620px] mx-auto mt-4 leading-relaxed">
             Tell us about your product roadmap. We will review your requirements and respond within 24 hours with architectural feedback and availability.
           </p>
           <div className="mt-8 flex justify-center">
-            <PillButton calLink="arjun-rajput-2mdsis">Book a Discovery Call</PillButton>
+            <PillButton calLink="arjun-rajput-2mdsis" variant="inverted">
+              Book a Discovery Call
+            </PillButton>
           </div>
         </div>
       </section>

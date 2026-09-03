@@ -54,18 +54,27 @@ export default function ProjectCard({
     const inner = innerRef.current;
     if (!inner || !card) return;
 
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (prefersReducedMotion) return;
+
     const mm = gsap.matchMedia();
-    mm.add('(min-width: 1200px)', () => {
-      gsap.to(inner, {
-        y: -40,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
+    mm.add('(min-width: 768px)', () => {
+      gsap.fromTo(
+        inner,
+        { y: 45 },
+        {
+          y: -45,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          },
+        }
+      );
     });
 
     return () => mm.revert();
