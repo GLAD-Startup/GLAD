@@ -179,9 +179,12 @@ export default function PageTransition({ children }: PageTransitionProps) {
           opacity: 1,
           duration: 0.46,
           ease: 'power3.out',
-          clearProps: 'transform,opacity',
+          clearProps: 'all',
           onComplete: () => {
             setIsTransitioning(false);
+            if (containerRef.current) {
+              containerRef.current.style.willChange = 'auto';
+            }
             // Refresh all GSAP triggers on the new page
             ScrollTrigger.refresh();
           },
@@ -194,7 +197,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
     <PageTransitionContext.Provider value={{ isTransitioning, navigateTo }}>
       <div
         ref={containerRef}
-        className="w-full relative min-h-screen will-change-transform"
+        className="w-full relative min-h-screen"
       >
         {children}
       </div>

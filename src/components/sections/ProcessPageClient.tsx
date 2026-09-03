@@ -123,30 +123,46 @@ export default function ProcessPageClient() {
         // Pin the section and scrub the rotary arc
         ScrollTrigger.create({
           trigger: sectionRef.current,
-          start: 'top top+=84',
-          end: '+=3200',
+          start: 'top top',
+          end: '+=3000',
           pin: true,
+          pinSpacing: true,
           scrub: 0.6,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
           onUpdate: (self) => {
             updateRotaryArc(self.progress);
           },
         });
       });
+
+      // Refresh ScrollTrigger once fonts and layout are settled
+      if ('fonts' in document) {
+        document.fonts.ready.then(() => {
+          ScrollTrigger.refresh();
+        });
+      }
     }, containerRef);
 
-    return () => ctx.revert();
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
   }, []);
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[84px]">
+    <main ref={containerRef} className="min-h-screen bg-bg select-none">
       {/* 1. Scroll-Pinned Rotary Process Section */}
       <div
         ref={sectionRef}
-        className="w-full border-b border-line overflow-hidden relative min-h-[calc(100vh-84px)] flex flex-col justify-center"
+        className="w-full h-screen border-b border-line overflow-hidden relative flex flex-col justify-center pt-[82px]"
       >
         <div className="px-[20px] md:px-[28px] xl:px-[40px] w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] xl:grid-cols-[38%_62%] items-center min-h-[calc(100vh-140px)]">
+          <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] xl:grid-cols-[38%_62%] items-center h-full">
             
             {/* Left Column: Stationary Header */}
             <div className="py-[36px] md:py-[48px] xl:py-[60px] lg:pr-[36px] xl:pr-[48px] flex flex-col justify-center self-center">
