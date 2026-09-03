@@ -22,7 +22,7 @@ const serviceVisuals: Record<string, { outer: string; inner: string; caseStudySl
     outer: '/work/stock-management/canteen-app-1.png',
     inner: '/work/stock-management/canteen-app-2.png',
     caseStudySlug: 'stock-management',
-    caseStudyTitle: 'Canteen Inventory Management',
+    caseStudyTitle: 'Canteen Inventory & Customer Management',
   },
   'web-application-development': {
     outer: '/work/lead-enrichment/modern-office-facade.png',

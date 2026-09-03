@@ -156,12 +156,12 @@ const productCards = [
   {
     id: 4,
     num: '04',
-    label: 'Stock Manager',
-    tagline: 'Automated Commission & Inventory Engine',
-    desc: 'Real-time multi-warehouse inventory tracker with automated ledger reconciliation and multi-division management.',
-    stats: 'REAL-TIME LEDGER · MULTI-TENANT · AUDIT READY',
+    label: 'Canteen Management',
+    tagline: 'Canteen Inventory & Customer Management App',
+    desc: 'Mobile-first multi-counter dining inventory tracking, rapid barcode check-in, real-time consumption auditing, and customer account ledgers.',
+    stats: 'MULTI-COUNTER SYNC · QR SCANNING · CUSTOMER LEDGERS',
     href: '/work/stock-management',
-    src: '/work/stock-management/properties-3d.png',
+    src: '/work/stock-management/canteen-app-2.png',
   },
   {
     id: 5,

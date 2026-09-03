@@ -135,15 +135,6 @@ export default function Services() {
               preload="auto"
               className="w-full h-full object-cover block rounded-[12px]"
             />
-            {/* Subtle bottom badge caption */}
-            <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-center justify-between pointer-events-none">
-              <span className="text-[12px] font-semibold text-white tracking-wider uppercase">
-                Studio Capabilities
-              </span>
-              <span className="text-[11px] text-white/80 font-mono">
-                01 – 05
-              </span>
-            </div>
           </div>
         </div>
 
