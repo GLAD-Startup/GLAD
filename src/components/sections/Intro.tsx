@@ -58,7 +58,7 @@ export default function Intro() {
             className="w-full h-[124%] -top-[12%] absolute left-0 will-change-transform"
           >
             <video
-              src="/products/video/AQP1fm4kTYB21XtYfeTyI6hJSGmw2X8xl0SZmeqYQuNePq1Fxqdi6F9QRDGYrRYD0iyZ0qpjyda2qjUWJsci5Q5tEQWqOok4%20(1).mp4"
+              src="/videos/mid.mp4"
               autoPlay
               muted
               loop

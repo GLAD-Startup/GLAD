@@ -127,7 +127,7 @@ export default function Services() {
         <div className="w-full xl:w-[32%] xl:sticky xl:top-[120px] shrink-0">
           <div className="w-full aspect-[4/5] max-h-[560px] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-xl relative select-none">
             <video
-              src="/videos/services-loop.mp4"
+              src="/videos/low.mp4"
               autoPlay
               muted
               loop

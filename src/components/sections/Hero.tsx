@@ -74,7 +74,7 @@ export default function Hero() {
           className="mt-8 xl:mt-0 w-full aspect-[16/9] max-w-[640px] xl:w-[min(620px,40vw)] xl:h-[352px] xl:aspect-auto xl:absolute xl:top-[24px] xl:right-[40px] rounded-[14px] overflow-hidden z-20 will-change-transform bg-surface border border-line-solid shadow-2xl"
         >
           <video
-            src="/videos/hacker%20mod.mp4"
+            src="/videos/hero.mp4"
             autoPlay
             muted
             loop
