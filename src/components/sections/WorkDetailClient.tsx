@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import clsx from 'clsx';
 import Marquee from '@/components/ui/Marquee';
 import Divider from '@/components/ui/Divider';
 import PillButton from '@/components/ui/PillButton';
@@ -28,7 +29,46 @@ export default function WorkDetailClient({
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
-  const innerMediaRef = useRef<HTMLDivElement>(null);
+
+  // Zoom modal state for centered mobile screenshot animation
+  const [activeZoomImage, setActiveZoomImage] = useState<string | null>(null);
+  const [isZoomVisible, setIsZoomVisible] = useState(false);
+
+  const openZoom = (src: string) => {
+    setActiveZoomImage(src);
+    setTimeout(() => {
+      setIsZoomVisible(true);
+    }, 20);
+  };
+
+  const closeZoom = () => {
+    setIsZoomVisible(false);
+    setTimeout(() => {
+      setActiveZoomImage(null);
+    }, 450);
+  };
+
+  useEffect(() => {
+    if (activeZoomImage) {
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          closeZoom();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [activeZoomImage]);
+
+  // Categorize screenshots into desktop vs mobile
+  const isMobileImage = (src: string) =>
+    src.includes('app-') || src.includes('mobile') || project.slug === 'stock-management';
+  const desktopScreens = project.galleryImages.filter((src) => !isMobileImage(src));
+  const mobileScreens = project.galleryImages.filter((src) => isMobileImage(src));
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -43,19 +83,19 @@ export default function WorkDetailClient({
         );
       }
 
-      // 2. Parallax on inner floating hero card
-      if (mediaRef.current && innerMediaRef.current) {
+      // 2. Upward scroll parallax on hero monitor frame
+      if (mediaRef.current) {
         gsap.fromTo(
-          innerMediaRef.current,
-          { y: 20 },
+          mediaRef.current,
+          { y: 0 },
           {
-            y: -20,
+            y: -90,
             ease: 'none',
             scrollTrigger: {
               trigger: mediaRef.current,
-              start: 'top bottom',
+              start: 'top 80%',
               end: 'bottom top',
-              scrub: 1,
+              scrub: 1.2,
             },
           }
         );
@@ -217,49 +257,78 @@ export default function WorkDetailClient({
           </div>
         </div>
 
-        {/* Right Column: Signature Parallax Card */}
-        <div
-          ref={mediaRef}
-          className="relative w-full aspect-[16/11] rounded-[16px] overflow-hidden bg-surface border border-line-solid group shadow-sm"
-        >
-          {/* Outer Visual */}
-          <div className="w-full h-full relative transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03] group-hover:opacity-85">
+        {/* Right Column: Hero Device Frame (Phone for Canteen App, Monitor for SaaS/Web) */}
+        {project.slug === 'stock-management' ? (
+          <div
+            ref={mediaRef}
+            className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[546/1080] mx-auto drop-shadow-2xl will-change-transform group select-none overflow-hidden rounded-[38px] sm:rounded-[42px]"
+          >
+            {/* Screenshot Image inside Phone Frame */}
+            <div
+              className="absolute overflow-hidden bg-white rounded-[32px] sm:rounded-[36px]"
+              style={{
+                left: '7.14%',
+                top: '6.39%',
+                width: '85.71%',
+                height: '89.5%',
+              }}
+            >
+              <Image
+                src={project.outerSrc || project.galleryImages[0]}
+                alt={`${project.title} mobile showcase`}
+                fill
+                priority
+                unoptimized
+                className="object-cover object-top block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.02]"
+              />
+            </div>
+
+            {/* Mobile Frame Overlay */}
             <Image
-              src={project.outerSrc}
-              alt={`${project.title} overview visual`}
+              src="/frames/mobile-frame.png"
+              alt="Mobile device frame"
               fill
               priority
               unoptimized
-              className="object-cover block"
+              className="object-contain pointer-events-none block z-10"
             />
           </div>
-
-          {/* Inner Floating Detail Card */}
+        ) : (
           <div
-            ref={innerMediaRef}
-            className="absolute inset-0 m-auto w-[52%] h-[56%] max-w-[360px] rounded-[12px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-line-solid bg-surface z-10 will-change-transform pointer-events-none"
+            ref={mediaRef}
+            className="relative w-full aspect-[1346/1080] max-w-[620px] lg:max-w-none mx-auto drop-shadow-2xl will-change-transform group select-none"
           >
-            <div className="w-full h-full relative transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.10]">
+            {/* Screenshot Image Screen inside Monitor Frame */}
+            <div
+              className="absolute overflow-hidden bg-[#FBFBF9] rounded-[4px] md:rounded-[6px]"
+              style={{
+                left: '4.24%',
+                top: '5.93%',
+                width: '91.38%',
+                height: '63.98%',
+              }}
+            >
               <Image
-                src={project.innerSrc}
-                alt={`${project.title} interface detail`}
+                src={project.outerSrc || project.galleryImages[0]}
+                alt={`${project.title} monitor overview`}
                 fill
+                priority
                 unoptimized
-                className="object-cover block"
+                className="object-cover sm:object-contain block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.015]"
               />
             </div>
-          </div>
 
-          {/* Category Badge */}
-          <div className="absolute top-4 left-4 z-20 bg-bg/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-line-solid text-[12px] font-medium text-fg shadow-sm">
-            {project.category}
+            {/* Studio Monitor Frame Overlay */}
+            <Image
+              src="/frames/monitor-frame.png"
+              alt="Desktop monitor frame"
+              fill
+              priority
+              unoptimized
+              className="object-contain pointer-events-none block z-10"
+            />
           </div>
-
-          {/* Client Badge */}
-          <div className="absolute bottom-4 right-4 z-20 bg-bg/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-line-solid text-[12px] font-medium text-accent shadow-sm">
-            {project.client}
-          </div>
-        </div>
+        )}
       </div>
 
       {/* 4. Meta Specifications Hairline Row */}
@@ -385,51 +454,110 @@ export default function WorkDetailClient({
         />
       </div>
 
-      {/* 8. Screenshot Showcase inside macOS Window Frames with Rich Captions */}
+      {/* 8. Screenshot Showcase inside macOS Window Frames and Native Mobile Mockup Rows */}
       <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px] flex flex-col gap-12 xl:gap-18">
-        {project.galleryImages.map((imgSrc, idx) => (
-          <div
-            key={idx}
-            className="w-full rounded-[18px] overflow-hidden bg-surface border border-line-solid shadow-xl flex flex-col transition-all duration-300 hover:border-line"
-          >
-            {/* macOS Browser Mock Header Bar */}
-            <div className="w-full bg-[#F2F2EE] border-b border-line-solid px-4 py-3 flex items-center justify-between select-none">
-              {/* Traffic light dots */}
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#E5E5E0] border border-line-solid" />
-                <span className="w-3 h-3 rounded-full bg-[#E5E5E0] border border-line-solid" />
-                <span className="w-3 h-3 rounded-full bg-[#E5E5E0] border border-line-solid" />
-              </div>
+        {/* Desktop Web Screens in Realistic MacBook / Laptop Device Frames */}
+        {desktopScreens.length > 0 && (
+          <div className="flex flex-col gap-16 xl:gap-24">
+            {desktopScreens.map((imgSrc, idx) => (
+              <div
+                key={idx}
+                className="relative w-full max-w-[1280px] mx-auto aspect-[1920/1080] drop-shadow-2xl select-none"
+              >
+                {/* Screenshot Image Screen inside Mac Laptop Frame */}
+                <div
+                  className="absolute overflow-hidden bg-white rounded-[14px] sm:rounded-[18px] md:rounded-[22px]"
+                  style={{
+                    left: '14.06%',
+                    top: '6.67%',
+                    width: '72.6%',
+                    height: '77.04%',
+                  }}
+                >
+                  <Image
+                    src={imgSrc}
+                    alt={`${project.title} dashboard screen ${idx + 1}`}
+                    fill
+                    unoptimized
+                    className="object-contain block"
+                  />
+                </div>
 
-              {/* URL Capsule */}
-              <div className="hidden sm:flex items-center gap-1.5 px-4 py-1 rounded-full bg-[#FBFBF9] border border-line-solid text-[11px] font-mono text-fg-muted">
-                <span className="text-accent font-bold">🔒</span>
-                <span>gladstudio.net/work/{project.slug}/view-0{idx + 1}</span>
-              </div>
-
-              {/* Slide Counter */}
-              <div className="text-[11.5px] font-mono font-semibold text-fg-muted">
-                0{idx + 1} / 0{project.galleryImages.length}
-              </div>
-            </div>
-
-            {/* Screen Image Display Area */}
-            <div
-              data-cursor="view"
-              className="relative w-full min-h-[380px] sm:min-h-[500px] md:min-h-[620px] xl:min-h-[760px] bg-[#0A0A0B]/[0.02] flex items-center justify-center p-3 sm:p-6 md:p-8"
-            >
-              <div className="relative w-full h-full min-h-[360px] sm:min-h-[480px] md:min-h-[600px] xl:min-h-[720px] rounded-[10px] overflow-hidden shadow-sm">
+                {/* Mac Laptop Frame Overlay */}
                 <Image
-                  src={imgSrc}
-                  alt={`${project.title} screenshot ${idx + 1}`}
+                  src="/frames/mac-frame.png"
+                  alt="MacBook device frame"
                   fill
+                  priority={idx === 0}
                   unoptimized
-                  className="object-contain block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.01]"
+                  className="object-contain pointer-events-none block z-10"
                 />
               </div>
+            ))}
+          </div>
+        )}
+
+        {/* Mobile Application Screens Row (4 in row for Prayas, 3 in row for Canteen) */}
+        {mobileScreens.length > 0 && (
+          <div className="flex flex-col gap-6 pt-2">
+            {desktopScreens.length > 0 && (
+              <div className="flex items-center justify-between pb-3 border-b border-line">
+                <span className="text-[12px] font-semibold text-accent uppercase tracking-widest">
+                  Mobile Application Interfaces · iOS & Android
+                </span>
+                <span className="text-[12px] font-mono text-fg-dim">
+                  0{mobileScreens.length} Screens
+                </span>
+              </div>
+            )}
+
+            <div
+              className={clsx(
+                'grid gap-6 xl:gap-8 items-center justify-center w-full',
+                mobileScreens.length === 3
+                  ? 'grid-cols-1 sm:grid-cols-3 max-w-5xl mx-auto'
+                  : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto'
+              )}
+            >
+              {mobileScreens.map((imgSrc, idx) => (
+                <div
+                  key={idx}
+                  data-cursor="view"
+                  onClick={() => openZoom(imgSrc)}
+                  className="relative w-full max-w-[290px] sm:max-w-none aspect-[546/1080] group transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.03] hover:-translate-y-2 mx-auto cursor-pointer drop-shadow-xl overflow-hidden rounded-[38px] sm:rounded-[42px]"
+                >
+                  {/* Screenshot Image inside Phone Frame */}
+                  <div
+                    className="absolute overflow-hidden bg-white rounded-[32px] sm:rounded-[36px]"
+                    style={{
+                      left: '7.14%',
+                      top: '6.39%',
+                      width: '85.71%',
+                      height: '89.5%',
+                    }}
+                  >
+                    <Image
+                      src={imgSrc}
+                      alt={`${project.title} mobile screen ${idx + 1}`}
+                      fill
+                      unoptimized
+                      className="object-cover object-top block"
+                    />
+                  </div>
+
+                  {/* Mobile Frame Overlay */}
+                  <Image
+                    src="/frames/mobile-frame.png"
+                    alt="Mobile device frame"
+                    fill
+                    unoptimized
+                    className="object-contain pointer-events-none block z-10"
+                  />
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+        )}
       </div>
 
       {/* 9. Measured Impact & IP Transfer Banner */}
@@ -541,6 +669,75 @@ export default function WorkDetailClient({
 
       {/* 14. Footer */}
       <Footer isWorkDetail />
+
+      {/* 15. Smooth Centered Zoom Lightbox Modal in Phone Frame */}
+      {activeZoomImage && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Zoomed Screenshot View"
+          onClick={closeZoom}
+          className={clsx(
+            'fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-10 select-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-zoom-out',
+            isZoomVisible
+              ? 'bg-[#0A0A0B]/85 backdrop-blur-md opacity-100'
+              : 'bg-[#0A0A0B]/0 backdrop-blur-none opacity-0 pointer-events-none'
+          )}
+        >
+          {/* Close Pill Button (Top-Right) */}
+          <button
+            type="button"
+            onClick={closeZoom}
+            data-cursor="pointer"
+            aria-label="Close zoom view"
+            className="absolute top-5 right-5 sm:top-8 sm:right-8 z-[110] flex items-center gap-2 px-4 py-2 rounded-full bg-[#1A1A1E]/90 border border-white/20 text-[#FBFBF9] hover:bg-[#2A2A2E] hover:border-white/40 transition-all text-[12px] font-mono shadow-2xl cursor-pointer"
+          >
+            <span>✕</span>
+            <span>CLOSE (ESC)</span>
+          </button>
+
+          {/* Centered Phone Mockup Frame with Slow Smooth Spring Zoom */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={clsx(
+              'relative max-h-[88vh] flex items-center justify-center cursor-default transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform',
+              isZoomVisible
+                ? 'scale-100 opacity-100 translate-y-0'
+                : 'scale-[0.82] opacity-0 translate-y-8'
+            )}
+          >
+            <div className="relative w-[88vw] max-w-[390px] aspect-[546/1080] drop-shadow-[0_35px_100px_rgba(0,0,0,0.9)] overflow-hidden rounded-[42px] sm:rounded-[46px]">
+              {/* Screenshot inside Phone Screen */}
+              <div
+                className="absolute overflow-hidden bg-white rounded-[34px] md:rounded-[38px]"
+                style={{
+                  left: '7.14%',
+                  top: '6.39%',
+                  width: '85.71%',
+                  height: '89.5%',
+                }}
+              >
+                <Image
+                  src={activeZoomImage}
+                  alt={`${project.title} zoomed mobile screen`}
+                  fill
+                  unoptimized
+                  className="object-cover object-top block"
+                />
+              </div>
+
+              {/* Mobile Frame Overlay */}
+              <Image
+                src="/frames/mobile-frame.png"
+                alt="Mobile device frame"
+                fill
+                unoptimized
+                className="object-contain pointer-events-none block z-10"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
