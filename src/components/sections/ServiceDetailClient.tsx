@@ -19,34 +19,34 @@ interface ServiceDetailClientProps {
 
 const serviceVisuals: Record<string, { outer: string; inner: string; caseStudySlug: string; caseStudyTitle: string }> = {
   'mvp-development': {
-    outer: '/work/stock-management/canteen-app-1.png',
-    inner: '/work/stock-management/canteen-app-2.png',
-    caseStudySlug: 'stock-management',
-    caseStudyTitle: 'Canteen Inventory & Customer Management',
+    outer: '/products/glad-hms/glad-hms-1.png',
+    inner: '/products/glad-hms/glad-hms-2.png',
+    caseStudySlug: 'glad-hms',
+    caseStudyTitle: 'GLAD HMS Modular Operating System',
   },
   'web-application-development': {
-    outer: '/work/lead-enrichment/modern-office-facade.png',
-    inner: '/work/lead-enrichment/skyscraper-sunset.png',
-    caseStudySlug: 'lead-enrichment',
-    caseStudyTitle: 'Lead Enrichment Pipeline',
+    outer: '/products/settledesk/settledesk-1.png',
+    inner: '/products/settledesk/settledesk-2.png',
+    caseStudySlug: 'settledesk',
+    caseStudyTitle: 'SettleDesk Brokerage Platform',
   },
   'mobile-app-development': {
-    outer: '/work/prayas-app/phone-3d.png',
-    inner: '/work/prayas-app/real-estate-app.png',
+    outer: '/work/prayas-app/prayas-admin-1.png',
+    inner: '/work/prayas-app/prayas-app-1.png',
     caseStudySlug: 'prayas-app',
-    caseStudyTitle: 'Prayas Social Impact Mobile App',
+    caseStudyTitle: 'Prayas Healthcare Logistics App',
   },
   'ai-solutions': {
-    outer: '/work/ai-mock-interview/hero-3d.png',
-    inner: '/work/ai-mock-interview/broker-deal.png',
+    outer: '/work/ai-mock-interview/mock-interview-1.png',
+    inner: '/work/ai-mock-interview/mock-interview-2.png',
     caseStudySlug: 'ai-mock-interview',
-    caseStudyTitle: 'AI Mock Interview Simulator',
+    caseStudyTitle: 'AI Mock Interview Assessment Platform',
   },
   'cloud-devops': {
-    outer: '/work/stock-management/properties-3d.png',
-    inner: '/work/stock-management/commission-3d.png',
-    caseStudySlug: 'stock-management',
-    caseStudyTitle: 'High-Throughput Cloud Backend',
+    outer: '/work/lead-enrichment/lead-enrichment-1.png',
+    inner: '/work/lead-enrichment/lead-enrichment-3.png',
+    caseStudySlug: 'lead-enrichment',
+    caseStudyTitle: 'High-Throughput Lead Enrichment Pipeline',
   },
 };
 

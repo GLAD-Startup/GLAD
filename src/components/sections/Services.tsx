@@ -13,23 +13,23 @@ import { servicesData } from '@/data/services';
 const servicesWithImages = [
   {
     ...servicesData[0],
-    image: '/work/stock-management/properties-3d.png',
+    image: '/products/glad-hms/glad-hms-1.png',
   },
   {
     ...servicesData[1],
-    image: '/work/lead-enrichment/modern-office-facade.png',
+    image: '/products/settledesk/settledesk-1.png',
   },
   {
     ...servicesData[2],
-    image: '/work/prayas-app/phone-3d.png',
+    image: '/work/prayas-app/prayas-app-1.png',
   },
   {
     ...servicesData[3],
-    image: '/work/ai-mock-interview/hero-3d.png',
+    image: '/work/ai-mock-interview/mock-interview-1.png',
   },
   {
     ...servicesData[4],
-    image: '/work/stock-management/commission-3d.png',
+    image: '/work/lead-enrichment/lead-enrichment-1.png',
   },
 ];
 

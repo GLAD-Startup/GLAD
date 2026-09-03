@@ -21,10 +21,10 @@ const whyUsRows = [
     value: 'Fast Development',
     desc: 'Weeks, not quarters. Senior team, focused scope, no agency overhead.',
     thumbnails: [
-      '/work/prayas-app/phone-3d.png',
-      '/work/stock-management/properties-3d.png',
-      '/work/ai-mock-interview/hero-3d.png',
-      '/work/lead-enrichment/modern-office-facade.png',
+      '/products/glad-hms/glad-hms-1.png',
+      '/products/settledesk/settledesk-1.png',
+      '/work/prayas-app/prayas-app-1.png',
+      '/work/lead-enrichment/lead-enrichment-1.png',
     ],
   },
   {
@@ -33,10 +33,10 @@ const whyUsRows = [
     value: 'Transparent Communication',
     desc: 'Async updates, weekly demos, and a Slack channel you actually use.',
     thumbnails: [
-      '/work/lead-enrichment/modern-office-facade.png',
-      '/work/stock-management/commission-3d.png',
-      '/work/prayas-app/real-estate-app.png',
-      '/work/ai-mock-interview/broker-deal.png',
+      '/work/lead-enrichment/lead-enrichment-1.png',
+      '/work/stock-management/canteen-app-1.png',
+      '/work/prayas-app/prayas-admin-1.png',
+      '/work/ai-mock-interview/mock-interview-2.png',
     ],
   },
   {
@@ -45,10 +45,10 @@ const whyUsRows = [
     value: 'Modern Technologies',
     desc: 'TypeScript, React 19, Flutter, Postgres, and AI built into your product, not bolted on.',
     thumbnails: [
-      '/work/stock-management/commission-3d.png',
-      '/work/ai-mock-interview/broker-deal.png',
-      '/work/lead-enrichment/skyscraper-sunset.png',
-      '/work/prayas-app/phone-3d.png',
+      '/work/ai-mock-interview/mock-interview-1.png',
+      '/products/settledesk/settledesk-2.png',
+      '/work/lead-enrichment/lead-enrichment-3.png',
+      '/work/prayas-app/prayas-app-2.png',
     ],
   },
   {
@@ -57,10 +57,10 @@ const whyUsRows = [
     value: 'Scalable Architecture',
     desc: 'Production-ready from day one — type-safe, tested, observable.',
     thumbnails: [
-      '/products/hotel-building.png',
-      '/products/building.png',
-      '/work/lead-enrichment/modern-office-facade.png',
-      '/work/stock-management/properties-3d.png',
+      '/products/glad-hms/glad-hms-1.png',
+      '/products/settledesk/settledesk-1.png',
+      '/work/lead-enrichment/lead-enrichment-1.png',
+      '/work/stock-management/canteen-app-1.png',
     ],
   },
 ];
