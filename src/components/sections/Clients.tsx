@@ -131,7 +131,7 @@ const productCards = [
     desc: 'Full-stack enterprise hospitality OS with real-time room inventory, folio management, and multi-property RBAC.',
     stats: '100% MODULAR · ROW-LEVEL LOCKS · SCOPED RBAC',
     href: '/products/glad-hms',
-    src: '/products/hotel-building.png',
+    src: '/products/glad-hms/glad-hms-1.png',
   },
   {
     id: 2,
@@ -141,7 +141,7 @@ const productCards = [
     desc: 'Unified transaction management platform connecting 500+ commercial brokers with automated settlement pipelines.',
     stats: '500+ BROKERS · 10,000+ UNITS · 99.9% UPTIME',
     href: '/products/settledesk',
-    src: '/products/building.png',
+    src: '/products/settledesk/settledesk-1.png',
   },
   {
     id: 3,
@@ -151,7 +151,7 @@ const productCards = [
     desc: 'Cross-platform mobile application for real-time equipment lending workflows, donor-recipient matching, and blood drives.',
     stats: 'REACT NATIVE · 10,000+ REACH · REAL-TIME SYNC',
     href: '/work/prayas-app',
-    src: '/work/prayas-app/phone-3d.png',
+    src: '/work/prayas-app/prayas-app-1.png',
   },
   {
     id: 4,
@@ -161,7 +161,7 @@ const productCards = [
     desc: 'Real-time multi-warehouse inventory tracker with automated ledger reconciliation and multi-division management.',
     stats: 'REAL-TIME LEDGER · MULTI-TENANT · AUDIT READY',
     href: '/work/stock-management',
-    src: '/work/stock-management/properties-3d.png',
+    src: '/work/stock-management/canteen-app-1.png',
   },
   {
     id: 5,
@@ -171,7 +171,7 @@ const productCards = [
     desc: 'Autonomous multimodal interviewer simulating realistic technical and executive assessments with instant rubric scoring.',
     stats: 'LLM VOICE PIPELINE · ADAPTIVE RUBRICS · REAL-TIME STT',
     href: '/work/ai-mock-interview',
-    src: '/work/ai-mock-interview/hero-3d.png',
+    src: '/work/ai-mock-interview/mock-interview-1.png',
   },
   {
     id: 6,
@@ -181,7 +181,7 @@ const productCards = [
     desc: 'Automated lead sourcing platform validating decision-makers, verifying websites, and generating personalized AI outreach.',
     stats: '1,000s LEADS/DAY · AI ENRICHMENT · ASYNC PIPELINES',
     href: '/work/lead-enrichment',
-    src: '/work/lead-enrichment/modern-office-facade.png',
+    src: '/work/lead-enrichment/lead-enrichment-1.png',
   },
 ];
 

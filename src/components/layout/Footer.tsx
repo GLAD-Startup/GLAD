@@ -15,14 +15,14 @@ export interface FooterProps {
 }
 
 const filmstripImages = [
-  { src: '/work/stock-management/commission-3d.png', w: 176, h: 190, offset: 'translate-y-[12px]' },
-  { src: '/work/prayas-app/phone-3d.png', w: 176, h: 140, offset: '-translate-y-[10px]' },
-  { src: '/work/stock-management/properties-3d.png', w: 176, h: 220, offset: 'translate-y-[8px]' },
-  { src: '/work/ai-mock-interview/hero-3d.png', w: 176, h: 160, offset: '-translate-y-[14px]' },
-  { src: '/products/hotel-building.png', w: 176, h: 240, offset: 'translate-y-0' },
-  { src: '/work/lead-enrichment/modern-office-facade.png', w: 176, h: 130, offset: 'translate-y-[16px]' },
-  { src: '/work/lead-enrichment/skyscraper-sunset.png', w: 176, h: 210, offset: '-translate-y-[8px]' },
-  { src: '/products/building.png', w: 176, h: 175, offset: 'translate-y-[6px]' },
+  { src: '/products/glad-hms/glad-hms-1.png', w: 176, h: 190, offset: 'translate-y-[12px]' },
+  { src: '/work/prayas-app/prayas-app-1.png', w: 176, h: 140, offset: '-translate-y-[10px]' },
+  { src: '/products/settledesk/settledesk-1.png', w: 176, h: 220, offset: 'translate-y-[8px]' },
+  { src: '/work/ai-mock-interview/mock-interview-1.png', w: 176, h: 160, offset: '-translate-y-[14px]' },
+  { src: '/work/stock-management/canteen-app-1.png', w: 176, h: 240, offset: 'translate-y-0' },
+  { src: '/work/lead-enrichment/lead-enrichment-1.png', w: 176, h: 130, offset: 'translate-y-[16px]' },
+  { src: '/products/glad-hms/glad-hms-2.png', w: 176, h: 210, offset: '-translate-y-[8px]' },
+  { src: '/products/settledesk/settledesk-2.png', w: 176, h: 175, offset: 'translate-y-[6px]' },
 ];
 
 export default function Footer({

@@ -151,7 +151,7 @@ export const gladHmsProduct: ProductItem = {
       description: 'Automated 0%/12%/18% tax slabs alongside real-time Occupancy, ADR, and RevPAR metrics.',
     },
   ],
-  overviewGraphic: '/products/hotel-building-transparent.png',
+  overviewGraphic: '/products/glad-hms/glad-hms-1.png',
   threeTier: [
     {
       role: 'For Front Desk & Reservations',
@@ -449,7 +449,7 @@ export const settledeskProduct: ProductItem = {
       description: 'React Native mobile app for agents synchronized with web admin consoles with sub-200ms latency.',
     },
   ],
-  overviewGraphic: '/products/building.png',
+  overviewGraphic: '/products/settledesk/settledesk-1.png',
   threeTier: [
     {
       role: 'For Platform Operators',
