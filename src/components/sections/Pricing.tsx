@@ -6,14 +6,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import PillButton from '@/components/ui/PillButton';
-import { budgetBands } from '@/data/engagement';
+import { engagementTiers } from '@/data/engagement';
 
-const PRICING_SYNONYMS = [
-  'Scope & Budget.',
-  'Pick Plans.',
-  'Plans & Rates.',
-  'Fixed Scope.',
-  'Investment.',
+const ENGAGEMENT_SYNONYMS = [
+  'Tailored Scope.',
+  'Scope & Fit.',
+  'Your Terms.',
+  'Fair & Lean.',
+  'Value First.',
   'Engagement.',
 ];
 
@@ -21,7 +21,7 @@ export default function Pricing() {
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const [wordIdx, setWordIdx] = useState(0);
-  const [displayedWord, setDisplayedWord] = useState(PRICING_SYNONYMS[0]);
+  const [displayedWord, setDisplayedWord] = useState(ENGAGEMENT_SYNONYMS[0]);
   const isFirstMount = useRef(true);
 
   // 1. Initial entrance scroll animation
@@ -71,8 +71,8 @@ export default function Pricing() {
         onComplete: () => {
           if (isCancelled) return;
           setWordIdx((prev) => {
-            const next = (prev + 1) % PRICING_SYNONYMS.length;
-            setDisplayedWord(PRICING_SYNONYMS[next]);
+            const next = (prev + 1) % ENGAGEMENT_SYNONYMS.length;
+            setDisplayedWord(ENGAGEMENT_SYNONYMS[next]);
             return next;
           });
         },
@@ -120,7 +120,7 @@ export default function Pricing() {
             ref={headlineRef}
             className="t-display-sm text-fg inline-flex items-baseline ml-[-4px]"
             style={{
-              fontSize: 'clamp(0px, 9vw, 160px)',
+              fontSize: 'clamp(0px, 9vw, 150px)',
               lineHeight: 0.90,
               letterSpacing: '-0.035em',
             }}
@@ -142,105 +142,118 @@ export default function Pricing() {
         <div className="mt-[40px] xl:mt-[74px]">
           <WordRail
             items={[
-              'Fixed Scope',
-              'Transparent',
-              'Senior Team',
-              'You Own It',
+              'Need-Based',
+              'Zero Agency Bloat',
+              'Transparent Scope',
+              'You Own 100%',
+              'Direct Partner Access',
             ]}
           />
         </div>
 
-        {/* Pricing Grid (3 cols on desktop, 1 col on tablet/mobile) */}
-        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[90px] grid grid-cols-1 xl:grid-cols-3 gap-[24px] xl:gap-[28px] max-w-[500px] xl:max-w-none mx-auto">
-          {budgetBands.map((plan) => {
+        {/* Calming Philosophy Statement */}
+        <div className="mt-8 xl:mt-12 px-[20px] md:px-[28px] xl:px-[40px] max-w-[820px]">
+          <p className="t-body text-fg-muted leading-relaxed">
+            We believe engineering should be strictly calibrated to satisfy your business goals—not to inflate agency hours or bill arbitrary figures. Every collaboration is tailored around the exact deliverables you need to succeed.
+          </p>
+        </div>
+
+        {/* Engagement Grid (3 cols on desktop, 1 col on tablet/mobile) */}
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] xl:mt-[60px] grid grid-cols-1 xl:grid-cols-3 gap-[24px] xl:gap-[28px] max-w-[500px] xl:max-w-none mx-auto">
+          {engagementTiers.map((plan) => {
             const isFeatured = plan.id === '02';
 
             return (
               <div
                 key={plan.id}
                 data-cursor="link"
-                className={`border rounded-[14px] pt-[26px] px-[20px] sm:px-[24px] pb-[30px] flex flex-col justify-between transition-colors duration-200 relative ${
+                className={`border rounded-[14px] pt-[28px] px-[20px] sm:px-[24px] pb-[30px] flex flex-col justify-between transition-colors duration-200 relative ${
                   isFeatured
                     ? 'bg-surface-2 border-line-solid shadow-md'
                     : 'bg-surface border-line-solid hover:bg-surface-2'
                 }`}
               >
-                {isFeatured && (
+                {plan.badge && (
                   <div className="absolute -top-3 right-6 bg-accent text-white text-[10.5px] font-semibold uppercase tracking-wider px-3 py-0.5 rounded-full shadow-sm">
-                    Most Popular
+                    {plan.badge}
                   </div>
                 )}
                 <div>
-                  {/* Budget Band & Timeline Row */}
-                  <div className="flex items-baseline gap-2 flex-wrap">
-                    <span
-                      className="text-fg font-medium tracking-tight"
-                      style={{ fontSize: 'clamp(26px, 3.2vw, 46px)', lineHeight: 1.0 }}
-                    >
-                      {plan.budget}
-                    </span>
-                    <span className="text-[13.5px] xl:text-[15px] text-fg-muted font-normal">
-                      · {plan.timeline}
-                    </span>
+                  {/* Tier Name & Timeline Row */}
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-baseline justify-between gap-2 flex-wrap">
+                      <h3
+                        className="text-fg font-medium tracking-tight"
+                        style={{ fontSize: 'clamp(24px, 2.8vw, 36px)', lineHeight: 1.1 }}
+                      >
+                        {plan.name}
+                      </h3>
+                      <span className="text-[12.5px] xl:text-[13.5px] text-fg-muted font-normal">
+                        {plan.timeline}
+                      </span>
+                    </div>
+                    <div className="text-[11.5px] uppercase tracking-wider font-semibold text-accent mt-0.5">
+                      {plan.phase}
+                    </div>
                   </div>
 
-                  {/* Plan Name */}
-                  <h3 className="mt-[28px] xl:mt-[32px] text-[18px] font-medium text-fg">
-                    {plan.name}
-                  </h3>
+                  {/* Tagline */}
+                  <p className="mt-[14px] text-[13.5px] text-fg font-medium leading-snug">
+                    {plan.tagline}
+                  </p>
 
-                {/* Description */}
-                <p className="mt-[10px] t-body text-fg-muted min-h-[48px] leading-relaxed">
-                  {plan.description}
-                </p>
+                  {/* Description */}
+                  <p className="mt-[8px] t-body-sm text-fg-muted min-h-[48px] leading-relaxed">
+                    {plan.description}
+                  </p>
 
-                {/* Divider */}
-                <div className="mt-[24px] w-full h-[1px] bg-line" />
+                  {/* Divider */}
+                  <div className="mt-[22px] w-full h-[1px] bg-line" />
 
-                {/* Feature Rows with Exact Opacity Ladder */}
-                <div className="mt-[24px] flex flex-col gap-[14px]">
-                  {plan.features.map((feature, fIdx) => {
-                    const isActive = fIdx < plan.activeFeaturesCount;
-                    return (
-                      <div
-                        key={fIdx}
-                        className={`flex items-start gap-2.5 transition-opacity duration-200 ${
-                          isActive ? 'opacity-100' : 'opacity-[0.32]'
-                        }`}
-                      >
-                        <svg
-                          className="w-[14px] h-[14px] text-fg shrink-0 mt-1"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                  {/* Feature Rows with Opacity Ladder */}
+                  <div className="mt-[22px] flex flex-col gap-[13px]">
+                    {plan.features.map((feature, fIdx) => {
+                      const isActive = fIdx < plan.activeFeaturesCount;
+                      return (
+                        <div
+                          key={fIdx}
+                          className={`flex items-start gap-2.5 transition-opacity duration-200 ${
+                            isActive ? 'opacity-100' : 'opacity-[0.35]'
+                          }`}
                         >
-                          <polyline points="2.5 7.5 5.5 10.5 11.5 3.5" />
-                        </svg>
-                        <span className="text-[14.5px] font-medium text-fg leading-snug">
-                          {feature}
-                        </span>
-                      </div>
-                    );
-                  })}
+                          <svg
+                            className="w-[14px] h-[14px] text-accent shrink-0 mt-1"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <polyline points="2.5 7.5 5.5 10.5 11.5 3.5" />
+                          </svg>
+                          <span className="text-[14px] font-medium text-fg leading-snug">
+                            {feature}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Card CTA */}
+                <div className="mt-[32px] pt-4 border-t border-line flex justify-center">
+                  <PillButton href="/contact">Discuss Scope</PillButton>
                 </div>
               </div>
-
-              {/* Card CTA */}
-              <div className="mt-[32px] pt-4 border-t border-line flex justify-center">
-                <PillButton href="/contact">Start a Conversation</PillButton>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
         </div>
 
-        {/* Indicative Disclaimer Note */}
+        {/* Reassuring Commitment Note */}
         <div className="mt-10 xl:mt-12 px-[20px] text-center">
-          <p className="t-body-sm text-fg-muted max-w-[640px] mx-auto">
-            Every project is quoted fixed-scope after a discovery call. These bands are indicative, not a price list.
+          <p className="t-body-sm text-fg-muted max-w-[680px] mx-auto leading-relaxed">
+            Every engagement starts with a zero-obligation discovery session. We define a lean, fixed-scope proposal matched directly to your timeline and goals—no inflated estimates, no surprises.
           </p>
         </div>
       </section>
