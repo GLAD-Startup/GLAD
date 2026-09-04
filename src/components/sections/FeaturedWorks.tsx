@@ -43,31 +43,43 @@ export default function FeaturedWorks() {
   return (
     <section ref={sectionRef} id="work" className="relative w-full bg-bg select-none">
       {/* 1. Marquee Band */}
-      <div className="relative w-full overflow-hidden py-3 bg-bg">
+      <div className="relative w-full overflow-hidden py-4 xl:py-6 bg-surface/30 border-y border-line">
         <div ref={marqueeContentRef} className="will-change-transform">
-          <Marquee speed={20}>
-            <span className="t-marquee text-fg pr-[80px] whitespace-nowrap inline-flex items-center">
-              Selected Works
-              <span className="inline-flex items-center ml-[0.06em] -translate-y-[0.14em]">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-[0.40em] h-[0.40em] inline-block"
-                  aria-label="Copyright"
-                >
-                  <circle cx="12" cy="12" r="9.5" />
-                  <path d="M14.5 9.2a3.6 3.6 0 0 0-5 0 3.6 3.6 0 0 0 0 5.6 3.6 3.6 0 0 0 5 0" />
-                </svg>
+          <Marquee speed={22}>
+            <div className="flex items-center gap-6 md:gap-10 pr-[60px] md:pr-[90px] whitespace-nowrap py-3">
+              <span
+                className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                style={{
+                  fontSize: 'clamp(44px, 6.5vw, 96px)',
+                  lineHeight: 1.18,
+                  letterSpacing: '-0.035em',
+                }}
+              >
+                Selected Works
               </span>
-            </span>
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-accent text-white shadow-sm">
+                Case Studies
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span
+                className="text-fg-muted font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                style={{
+                  fontSize: 'clamp(44px, 6.5vw, 96px)',
+                  lineHeight: 1.18,
+                  letterSpacing: '-0.035em',
+                }}
+              >
+                Shipped Software
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+                GLAD STUDIO®
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+            </div>
           </Marquee>
         </div>
       </div>
-      <Divider />
 
       {/* 2. Copy Block (Right-aligned with small margin) */}
       <div className="px-[20px] md:px-[28px] xl:px-0 ml-auto mr-[20px] md:mr-[28px] xl:mr-[40px] mt-[56px] max-w-[520px] space-y-[34px]">

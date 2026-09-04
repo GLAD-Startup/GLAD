@@ -43,6 +43,7 @@ const useIsomorphicLayoutEffect =
 export default function Journal({ isListingPage = false }: JournalProps) {
   const containerRef = useRef<HTMLElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const marqueeContentRef = useRef<HTMLDivElement>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const displayedArticles = isListingPage ? articlesData : articlesData.slice(0, 3);
@@ -54,6 +55,25 @@ export default function Journal({ isListingPage = false }: JournalProps) {
     if (!container) return;
 
     const ctx = gsap.context(() => {
+      // 1. Entrance slide-up animation for Marquee Header on scroll
+      if (marqueeContentRef.current) {
+        gsap.fromTo(
+          marqueeContentRef.current,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: container,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      }
+
       // Responsive matchMedia for Desktop (>=1024px)
       const mm = gsap.matchMedia();
 
@@ -146,28 +166,42 @@ export default function Journal({ isListingPage = false }: JournalProps) {
         <h2 className="sr-only">Engineering Insights</h2>
 
         {/* 1. Top Section Marquee Carousel Header */}
-        <div className="relative w-full overflow-hidden py-3 xl:py-6 bg-bg border-b border-line">
-          <Marquee speed={26}>
-            <span className="t-marquee text-fg pr-[60px] xl:pr-[100px] whitespace-nowrap inline-flex items-center">
-              Article
-              <span className="inline-flex items-center mx-[0.06em] -translate-y-[0.10em]">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-[0.40em] h-[0.40em] inline-block"
-                  aria-label="Copyright"
+        <div className="relative w-full overflow-hidden py-5 xl:py-7 bg-surface/30 border-b border-line">
+          <div ref={marqueeContentRef} className="will-change-transform">
+            <Marquee speed={24}>
+              <div className="flex items-center gap-6 md:gap-10 pr-[60px] md:pr-[90px] whitespace-nowrap py-3">
+                <span
+                  className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                  style={{
+                    fontSize: 'clamp(44px, 6.5vw, 96px)',
+                    lineHeight: 1.18,
+                    letterSpacing: '-0.035em',
+                  }}
                 >
-                  <circle cx="12" cy="12" r="9.5" />
-                  <path d="M14.5 9.2a3.6 3.6 0 0 0-5 0 3.6 3.6 0 0 0 0 5.6 3.6 3.6 0 0 0 5 0" />
-                </svg>
+                  Engineering Insights
+                </span>
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-accent text-white shadow-sm">
+                  Technical Notes
+                </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span
+                className="text-fg-muted font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                style={{
+                  fontSize: 'clamp(44px, 6.5vw, 96px)',
+                  lineHeight: 1.18,
+                  letterSpacing: '-0.035em',
+                }}
+              >
+                Article Features
               </span>
-              Feature
-            </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+                GLAD STUDIO®
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+            </div>
           </Marquee>
+          </div>
         </div>
 
         {/* 2. Top Copy Block */}

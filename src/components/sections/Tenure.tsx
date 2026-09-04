@@ -204,16 +204,6 @@ export default function Tenure() {
                   }`}
                 />
               ))}
-
-              {/* Bottom Caption Pill */}
-              <div className="absolute bottom-2 left-2 right-2 z-20 px-2.5 py-1.5 rounded-[8px] bg-[#0A0A0B]/85 backdrop-blur-md border border-white/15 text-left pointer-events-none transition-all duration-300">
-                <div className="text-[10px] font-semibold text-accent uppercase tracking-wider truncate">
-                  {processVisuals[wordIdx].title}
-                </div>
-                <div className="text-[9px] text-[#A8A8AD] truncate">
-                  {processVisuals[wordIdx].subtitle}
-                </div>
-              </div>
             </div>
           </div>
         </div>

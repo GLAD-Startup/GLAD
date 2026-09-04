@@ -247,7 +247,7 @@ export default function ServicesPageClient() {
       <div
         ref={previewRef}
         className={clsx(
-          'fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[190px] h-[253px] xl:w-[210px] xl:h-[280px] rounded-[12px] overflow-hidden z-50 pointer-events-none shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/15 bg-surface will-change-transform hidden min-[1024px]:block ring-1 ring-black/30',
+          'fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[135px] h-[180px] xl:w-[150px] xl:h-[200px] rounded-[10px] overflow-hidden z-50 pointer-events-none shadow-[0_16px_36px_rgba(0,0,0,0.35)] border border-white/15 bg-surface will-change-transform hidden min-[1024px]:block ring-1 ring-black/20',
           isHovering && activeServiceIndex !== null
             ? 'opacity-100 scale-100 transition-[opacity,transform] duration-500 ease-out'
             : 'opacity-0 scale-75 transition-[opacity,transform] duration-350 ease-in'
@@ -266,7 +266,7 @@ export default function ServicesPageClient() {
                 src={service.image}
                 alt={service.title}
                 fill
-                sizes="(max-width: 1280px) 190px, 210px"
+                sizes="(max-width: 1280px) 135px, 150px"
                 className="object-cover block"
                 priority={idx === 0}
                 quality={95}

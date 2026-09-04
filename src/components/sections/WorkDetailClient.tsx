@@ -165,25 +165,37 @@ export default function WorkDetailClient({
   };
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[48px]">
+    <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[81px]">
       {/* 1. Marquee Header */}
-      <div className="overflow-hidden bg-bg">
-        <Divider />
-        <div className="py-4 md:py-6 overflow-hidden bg-bg">
+      <div className="overflow-hidden bg-surface/30 border-y border-line">
+        <div className="py-5 md:py-7 overflow-hidden">
           <Marquee speed={28}>
-            <span
-              className="t-marquee text-fg pr-[80px] whitespace-nowrap block pb-[0.22em] pt-[0.06em]"
-              style={{
-                fontSize: 'clamp(64px, 10.5vw, 160px)',
-                lineHeight: 1.08,
-                letterSpacing: '-0.035em',
-              }}
-            >
-              {project.title} / {project.category} / GLAD STUDIO® /&nbsp;
-            </span>
+            <div className="flex items-center gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-3">
+              <span
+                className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                style={{
+                  fontSize: 'clamp(42px, 6vw, 92px)',
+                  lineHeight: 1.18,
+                  letterSpacing: '-0.035em',
+                }}
+              >
+                {project.title}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-medium tracking-wide bg-surface border border-line-solid text-fg">
+                {project.category}
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-normal tracking-tight text-[18px] md:text-[22px]">
+                {project.client}
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+                GLAD STUDIO®
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+            </div>
           </Marquee>
         </div>
-        <Divider />
       </div>
 
       {/* 2. Sub-Nav & Breadcrumb Row */}
@@ -757,22 +769,36 @@ export default function WorkDetailClient({
       </div>
 
       {/* 11. More Works Marquee */}
-      <Divider />
-      <div className="py-4 md:py-6 overflow-hidden bg-bg">
-        <Marquee speed={30}>
-          <span
-            className="t-marquee text-fg pr-[80px] whitespace-nowrap block pb-[0.22em] pt-[0.06em]"
-            style={{
-              fontSize: 'clamp(0px, 14vw, 220px)',
-              lineHeight: 1.08,
-              letterSpacing: '-0.035em',
-            }}
-          >
-            More Works© /
-          </span>
-        </Marquee>
+      <div className="overflow-hidden bg-surface/30 border-y border-line">
+        <div className="py-5 md:py-7 overflow-hidden">
+          <Marquee speed={28}>
+            <div className="flex items-center gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-3">
+              <span
+                className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                style={{
+                  fontSize: 'clamp(42px, 6vw, 92px)',
+                  lineHeight: 1.18,
+                  letterSpacing: '-0.035em',
+                }}
+              >
+                More Works
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-medium tracking-wide bg-accent text-white shadow-sm">
+                Selected Portfolio
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-normal tracking-tight text-[18px] md:text-[22px]">
+                Case Studies & Systems
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+                GLAD STUDIO®
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+            </div>
+          </Marquee>
+        </div>
       </div>
-      <Divider />
 
       {/* 12. Next Two Projects as ProjectCards */}
       <div className="relative w-full h-auto xl:h-[720px] mt-[48px] xl:mt-[60px] px-[20px] md:px-[28px] xl:px-0 flex flex-col xl:block gap-[72px] xl:gap-0 pb-16 xl:pb-0">
