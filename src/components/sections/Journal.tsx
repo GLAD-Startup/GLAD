@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ArticleCard from '@/components/ui/ArticleCard';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import Marquee from '@/components/ui/Marquee';
+import PillButton from '@/components/ui/PillButton';
 import { articlesData } from '@/data/insights';
 
 export const RECEDE_CONSTANTS = {
@@ -32,13 +33,19 @@ export const articleConfigs: ArticleCardConfig[] = [
   { id: 5, coverW: 690, coverH: 578, x: 66, y: 2820 },
 ];
 
+export interface JournalProps {
+  isListingPage?: boolean;
+}
+
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
-export default function Journal() {
+export default function Journal({ isListingPage = false }: JournalProps) {
   const containerRef = useRef<HTMLElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  const displayedArticles = isListingPage ? articlesData : articlesData.slice(0, 3);
 
   useIsomorphicLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -127,7 +134,7 @@ export default function Journal() {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [displayedArticles.length]);
 
   return (
     <>
@@ -163,12 +170,30 @@ export default function Journal() {
           </Marquee>
         </div>
 
-        {/* 2. 5 Scattered Overlapping Article Cards */}
+        {/* 2. Top Copy Block */}
+        <div className="px-[20px] md:px-[28px] xl:px-0 ml-auto mr-[20px] md:mr-[28px] xl:mr-[40px] mt-[48px] max-w-[520px] space-y-[24px]">
+          <p className="t-body text-fg-muted">
+            {isListingPage
+              ? 'Our complete library of engineering essays, system design teardowns, and autonomous AI architectures.'
+              : 'Practitioner guides on autonomous agent loops, production RAG pipelines, fine-tuning tradeoffs, and scalable product engineering.'}
+          </p>
+          {!isListingPage && (
+            <div>
+              <PillButton href="/insights">See All Insights</PillButton>
+            </div>
+          )}
+        </div>
+
+        {/* 3. Scattered Overlapping Article Cards */}
         <div
           ref={cardsContainerRef}
-          className="relative w-full h-auto xl:h-[3620px] py-10 md:py-16 xl:py-0 px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-8 sm:gap-12 md:gap-16 xl:gap-0"
+          className={`relative w-full py-10 md:py-16 xl:py-0 px-[20px] md:px-[28px] xl:px-[40px] flex flex-col xl:block gap-8 sm:gap-12 md:gap-16 xl:gap-0 ${
+            isListingPage
+              ? 'h-auto xl:h-[3620px]'
+              : 'h-auto xl:h-[2240px]'
+          }`}
         >
-          {articlesData.slice(0, 5).map((article, idx) => {
+          {displayedArticles.map((article, idx) => {
             const config = articleConfigs[idx];
             return (
               <ArticleCard
@@ -185,6 +210,7 @@ export default function Journal() {
             );
           })}
         </div>
+
       </section>
 
       {/* Section Eyebrow */}
