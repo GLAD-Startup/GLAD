@@ -68,13 +68,13 @@ export default function ContactPageClient() {
         );
       }
 
-      // 2. Fast Parallax scroll effect: image moves up quickly inside frame on scroll to display full photo
+      // 2. Subtle Parallax scroll effect on typography poster card
       if (imageFrameRef.current && imageInnerRef.current) {
         gsap.fromTo(
           imageInnerRef.current,
-          { yPercent: 0 },
+          { y: 0 },
           {
-            yPercent: -42,
+            y: -20,
             ease: 'none',
             scrollTrigger: {
               trigger: imageFrameRef.current,
@@ -132,29 +132,25 @@ export default function ContactPageClient() {
     <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[84px]">
       {/* 1. Top Section: Overlapping Photo Card on Left + Refined Contact Channels on Right */}
       <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[20px] md:pt-[36px] xl:pt-[44px] pb-0 grid grid-cols-1 lg:grid-cols-[380px_1fr] xl:grid-cols-[410px_1fr] gap-[32px] lg:gap-[56px] xl:gap-[80px] items-start relative z-20">
-        {/* Left: Refined Portrait Photo Slot with Fast Parallax & Carousel Overlap (No Hover Zoom) */}
+        {/* Left: Minimal Swiss Typography Poster Card with Ambient Shadow & Hover Micro-Interaction */}
         <div
           ref={imageFrameRef}
           data-cursor="pointer"
-          className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.9] lg:aspect-[4/4.85] max-w-[370px] xl:max-w-[400px] rounded-[18px] overflow-hidden bg-surface border border-line-solid shadow-[0_24px_50px_rgba(0,0,0,0.22)] will-change-transform group translate-y-[20px] md:translate-y-[52px] lg:translate-y-[76px] xl:translate-y-[88px] -mb-[40px] md:-mb-[72px] lg:-mb-[100px] z-30 pointer-events-auto"
+          className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.9] lg:aspect-[4/4.85] max-w-[370px] xl:max-w-[400px] rounded-[18px] overflow-hidden bg-[#FAFAF7] border border-line-solid shadow-[0_16px_40px_rgba(0,0,0,0.06)] will-change-transform group translate-y-[20px] md:translate-y-[52px] lg:translate-y-[76px] xl:translate-y-[88px] -mb-[40px] md:-mb-[72px] lg:-mb-[100px] z-30 pointer-events-auto transition-all duration-300 hover:border-fg/30 hover:shadow-[0_20px_48px_rgba(0,0,0,0.1)]"
         >
-          {/* Inner parallax container with ample travel height */}
+          {/* Inner parallax container */}
           <div
             ref={imageInnerRef}
-            className="absolute -top-[5%] left-0 w-full h-[165%] will-change-transform"
+            className="absolute -top-[2%] left-0 w-full h-[106%] will-change-transform"
           >
             <Image
-              src="/team/somesh.jpeg"
-              alt="GLAD Studio Engineering Team"
+              src="/brand/contact-typography.svg"
+              alt="GLAD Studio — Project Initiation & Discovery Specimen"
               fill
               priority
               unoptimized
-              className="object-cover block"
+              className="object-contain p-1 block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.01]"
             />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-75 pointer-events-none" />
-          <div className="absolute bottom-4 left-4 z-10 text-[12px] font-medium text-white/90 bg-black/60 backdrop-blur-md px-3.5 py-1 rounded-full border border-white/15">
-            GLAD Studio • Vrindavan Office
           </div>
         </div>
 

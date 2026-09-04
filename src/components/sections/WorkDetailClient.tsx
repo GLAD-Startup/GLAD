@@ -495,7 +495,7 @@ export default function WorkDetailClient({
                   Web & Desktop Platform · macOS & Windows
                 </span>
                 <span className="text-[12px] font-mono text-fg-dim">
-                  0{desktopIndex + 1} / 0{desktopScreens.length} Screens
+                  {String(desktopIndex + 1).padStart(2, '0')} / {String(desktopScreens.length).padStart(2, '0')} Screens
                 </span>
               </div>
             )}
@@ -592,7 +592,7 @@ export default function WorkDetailClient({
                   />
                 ))}
                 <span className="ml-3 text-[12px] font-mono text-fg-muted">
-                  0{desktopIndex + 1} / 0{desktopScreens.length}
+                  {String(desktopIndex + 1).padStart(2, '0')} / {String(desktopScreens.length).padStart(2, '0')}
                 </span>
               </div>
             )}
@@ -608,7 +608,7 @@ export default function WorkDetailClient({
                   Mobile Application Interfaces · iOS & Android
                 </span>
                 <span className="text-[12px] font-mono text-fg-dim">
-                  0{mobileIndex + 1} / 0{mobileScreens.length} Screens
+                  {String(mobileIndex + 1).padStart(2, '0')} / {String(mobileScreens.length).padStart(2, '0')} Screens
                 </span>
               </div>
             )}
@@ -708,7 +708,7 @@ export default function WorkDetailClient({
                   />
                 ))}
                 <span className="ml-3 text-[12px] font-mono text-fg-muted">
-                  0{mobileIndex + 1} / 0{mobileScreens.length}
+                  {String(mobileIndex + 1).padStart(2, '0')} / {String(mobileScreens.length).padStart(2, '0')}
                 </span>
               </div>
             )}
@@ -947,7 +947,7 @@ export default function WorkDetailClient({
           {/* Bottom Counter Pill in Zoom View */}
           {mobileScreens.length > 1 && (
             <div className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-[120] flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1A1E]/90 border border-white/20 text-[#FBFBF9] font-mono text-[12px] shadow-2xl">
-              <span>0{(zoomIndex ?? 0) + 1} / 0{mobileScreens.length}</span>
+              <span>{String((zoomIndex ?? 0) + 1).padStart(2, '0')} / {String(mobileScreens.length).padStart(2, '0')}</span>
             </div>
           )}
         </div>
