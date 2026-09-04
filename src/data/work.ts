@@ -193,7 +193,6 @@ export const projectsData: ProjectItem[] = [
       '/work/prayas-app/prayas-app-2.png',
       '/work/prayas-app/prayas-app-3.png',
       '/work/prayas-app/prayas-app-4.png',
-      '/work/prayas-app/prayas-app-5.png',
       '/work/prayas-app/prayas-app-6.png',
       '/work/prayas-app/prayas-app-7.png',
       '/work/prayas-app/prayas-app-8.png',

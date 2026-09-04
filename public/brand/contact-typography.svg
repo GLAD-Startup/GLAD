@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 900" width="750" height="900" fill="none">
-  <!-- Card Base: Elegant warm off-white / architectural paper -->
-  <rect width="750" height="900" rx="16" fill="#FAFAF7"/>
+  <!-- Card Base: Elegant warm off-white / architectural specimen paper -->
+  <rect width="750" height="900" rx="14" fill="#FAFAF7"/>
   
-  <!-- Architectural Grid Texture -->
+  <!-- Architectural Subtle Grid Texture -->
   <defs>
     <pattern id="lightContactGrid" width="30" height="30" patternUnits="userSpaceOnUse">
       <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(10,10,11,0.025)" stroke-width="1"/>
     </pattern>
   </defs>
-  <rect width="750" height="900" rx="16" fill="url(#lightContactGrid)"/>
-  <rect x="1" y="1" width="748" height="898" rx="15" stroke="#E2E2DD" stroke-width="1" fill="none"/>
+  <rect width="750" height="900" rx="14" fill="url(#lightContactGrid)"/>
+  <rect x="1" y="1" width="748" height="898" rx="13" stroke="#E2E2DD" stroke-width="1" fill="none"/>
 
   <!-- Top Metadata Bar -->
   <text x="52" y="64" fill="#4E6B00" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" letter-spacing="2">[GLD® — INITIATION]</text>

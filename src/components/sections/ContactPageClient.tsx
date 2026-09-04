@@ -68,19 +68,19 @@ export default function ContactPageClient() {
         );
       }
 
-      // 2. Subtle Parallax scroll effect on typography poster card
+      // 2. Parallax sliding effect: high-speed responsive slide on scroll
       if (imageFrameRef.current && imageInnerRef.current) {
         gsap.fromTo(
           imageInnerRef.current,
           { y: 0 },
           {
-            y: -20,
+            y: -180,
             ease: 'none',
             scrollTrigger: {
               trigger: imageFrameRef.current,
-              start: 'top 85%',
-              end: 'bottom 10%',
-              scrub: 0.6,
+              start: 'top 140px',
+              end: 'bottom 20px',
+              scrub: 0.35,
             },
           }
         );
@@ -131,17 +131,20 @@ export default function ContactPageClient() {
   return (
     <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[84px]">
       {/* 1. Top Section: Overlapping Photo Card on Left + Refined Contact Channels on Right */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[20px] md:pt-[36px] xl:pt-[44px] pb-0 grid grid-cols-1 lg:grid-cols-[380px_1fr] xl:grid-cols-[410px_1fr] gap-[32px] lg:gap-[56px] xl:gap-[80px] items-start relative z-20">
-        {/* Left: Minimal Swiss Typography Poster Card with Ambient Shadow & Hover Micro-Interaction */}
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[20px] md:pt-[36px] xl:pt-[44px] pb-0 grid grid-cols-1 lg:grid-cols-[340px_1fr] xl:grid-cols-[370px_1fr] gap-[32px] lg:gap-[52px] xl:gap-[72px] items-start relative z-20">
+        {/* Left: Minimal Swiss Typography Poster Card with Black Background Base & Smooth Slide Scroll Effect */}
         <div
           ref={imageFrameRef}
           data-cursor="pointer"
-          className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.9] lg:aspect-[4/4.85] max-w-[370px] xl:max-w-[400px] rounded-[18px] overflow-hidden bg-[#FAFAF7] border border-line-solid shadow-[0_16px_40px_rgba(0,0,0,0.06)] will-change-transform group translate-y-[20px] md:translate-y-[52px] lg:translate-y-[76px] xl:translate-y-[88px] -mb-[40px] md:-mb-[72px] lg:-mb-[100px] z-30 pointer-events-auto transition-all duration-300 hover:border-fg/30 hover:shadow-[0_20px_48px_rgba(0,0,0,0.1)]"
+          className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.85] lg:aspect-[4/4.8] max-w-[320px] xl:max-w-[348px] lg:ml-[32px] xl:ml-[48px] will-change-transform group translate-y-[16px] md:translate-y-[44px] lg:translate-y-[64px] xl:translate-y-[76px] -mb-[32px] md:-mb-[60px] lg:-mb-[84px] z-30 pointer-events-auto"
         >
-          {/* Inner parallax container */}
+          {/* Black Background Base Card */}
+          <div className="absolute inset-0 rounded-[20px] bg-[#0A0A0B] border border-black/30 shadow-[0_20px_48px_rgba(0,0,0,0.20)] transition-all duration-300 group-hover:border-black/50 group-hover:shadow-[0_24px_56px_rgba(0,0,0,0.26)]" />
+
+          {/* Sliding Image Card on Top of Black Background (Default offset downward) */}
           <div
             ref={imageInnerRef}
-            className="absolute -top-[2%] left-0 w-full h-[106%] will-change-transform"
+            className="absolute top-[22px] md:top-[28px] bottom-[-14px] md:bottom-[-18px] left-[7px] md:left-[8px] right-[7px] md:right-[8px] rounded-[13px] overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.18)] will-change-transform z-10 transition-shadow duration-300 group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.26)]"
           >
             <Image
               src="/brand/contact-typography.svg"
@@ -149,7 +152,7 @@ export default function ContactPageClient() {
               fill
               priority
               unoptimized
-              className="object-contain p-1 block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.01]"
+              className="object-cover block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.01]"
             />
           </div>
         </div>
