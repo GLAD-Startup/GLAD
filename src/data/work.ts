@@ -243,10 +243,11 @@ export const projectsData: ProjectItem[] = [
     metric: 'Zero Stock Discrepancies · 32% Less Wastage',
     liveUrl: 'https://gladstudio.net/work/stock-management',
     shots: [
+      { src: '/work/stock-management/canteen-cover.png', caption: 'Tablet POS console and mobile inventory tracking for GLA Canteen' },
       { src: '/work/stock-management/canteen-app-1.png', caption: 'Real-time multi-counter stock sync and daily kitchen consumption tracking' },
-      { src: '/work/stock-management/canteen-app-2.png', caption: 'Procurement manifest and automated low-stock alert dashboard' },
     ],
     galleryImages: [
+      '/work/stock-management/canteen-cover.png',
       '/work/stock-management/canteen-app-1.png',
       '/work/stock-management/canteen-app-2.png',
       '/work/stock-management/canteen-app-3.png',
@@ -259,9 +260,9 @@ export const projectsData: ProjectItem[] = [
     innerY: 70,
     innerW: 210,
     innerH: 280,
-    outerSrc: '/work/stock-management/canteen-app-1.png',
+    outerSrc: '/work/stock-management/canteen-cover.png',
     innerSrc: '/work/stock-management/canteen-app-2.png',
-    outerMedia: { src: '/work/stock-management/canteen-app-1.png' },
+    outerMedia: { src: '/work/stock-management/canteen-cover.png' },
     innerMedia: { src: '/work/stock-management/canteen-app-2.png' },
   },
   {
@@ -295,10 +296,11 @@ export const projectsData: ProjectItem[] = [
     metric: 'Real-time Grading',
     liveUrl: 'https://gladstudio.net/portfolio/ai-mock-interview',
     shots: [
-      { src: '/work/ai-mock-interview/mock-interview-1.png', caption: 'Role-specific live code challenge and AI proctor interview session' },
+      { src: '/work/ai-mock-interview/mock-interview-cover.png', caption: 'TalentScale AI conversational assessment console with real-time scoring and waveform analysis' },
       { src: '/work/ai-mock-interview/mock-interview-2.png', caption: 'Candidate evaluation report, rubric breakdown, and AI feedback scorecard' },
     ],
     galleryImages: [
+      '/work/ai-mock-interview/mock-interview-cover.png',
       '/work/ai-mock-interview/mock-interview-1.png',
       '/work/ai-mock-interview/mock-interview-2.png',
       '/work/ai-mock-interview/mock-interview-3.png',
@@ -312,9 +314,9 @@ export const projectsData: ProjectItem[] = [
     innerY: 84,
     innerW: 230,
     innerH: 174,
-    outerSrc: '/work/ai-mock-interview/mock-interview-1.png',
+    outerSrc: '/work/ai-mock-interview/mock-interview-cover.png',
     innerSrc: '/work/ai-mock-interview/mock-interview-2.png',
-    outerMedia: { src: '/work/ai-mock-interview/mock-interview-1.png' },
+    outerMedia: { src: '/work/ai-mock-interview/mock-interview-cover.png' },
     innerMedia: { src: '/work/ai-mock-interview/mock-interview-2.png' },
   },
   {

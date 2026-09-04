@@ -161,7 +161,7 @@ const productCards = [
     desc: 'Mobile-first multi-counter dining inventory tracking, rapid barcode check-in, real-time consumption auditing, and customer account ledgers.',
     stats: 'MULTI-COUNTER SYNC · QR SCANNING · CUSTOMER LEDGERS',
     href: '/work/stock-management',
-    src: '/work/stock-management/canteen-app-1.png',
+    src: '/work/stock-management/canteen-cover.png',
   },
   {
     id: 5,
@@ -171,7 +171,7 @@ const productCards = [
     desc: 'Autonomous multimodal interviewer simulating realistic technical and executive assessments with instant rubric scoring.',
     stats: 'LLM VOICE PIPELINE · ADAPTIVE RUBRICS · REAL-TIME STT',
     href: '/work/ai-mock-interview',
-    src: '/work/ai-mock-interview/mock-interview-1.png',
+    src: '/work/ai-mock-interview/mock-interview-cover.png',
   },
   {
     id: 6,

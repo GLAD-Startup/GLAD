@@ -32,7 +32,7 @@ export default function WorkDetailClient({
 
   // Categorize screenshots into desktop vs mobile
   const isMobileImage = (src: string) =>
-    src.includes('app-') || src.includes('mobile') || project.slug === 'stock-management';
+    (src.includes('app-') || src.includes('mobile')) && !src.includes('cover');
   const desktopScreens = project.galleryImages.filter((src) => !isMobileImage(src));
   const mobileScreens = project.galleryImages.filter((src) => isMobileImage(src));
 
