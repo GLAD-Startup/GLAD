@@ -15,6 +15,15 @@ export const metadata: Metadata = {
   },
   description:
     'We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.',
+  icons: {
+    icon: [
+      { url: '/brand/og-image.png', type: 'image/png' },
+      { url: '/brand/og-image.png', sizes: '32x32', type: 'image/png' },
+      { url: '/brand/og-image.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: '/brand/og-image.png',
+    apple: '/brand/og-image.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function InsightsPage() {
   return (
     <main className="min-h-screen bg-bg select-none pt-[84px]">
-      <Journal />
+      <Journal isListingPage />
       <Faq />
       <Footer />
     </main>

@@ -36,8 +36,8 @@ const contactChannels = [
     external: true,
   },
   {
-    label: '+91 94572 45650',
-    href: 'tel:+919457245650',
+    label: siteConfig.contact.phone,
+    href: `tel:${siteConfig.contact.phone.replace(/\s+/g, '')}`,
     external: true,
   },
   {

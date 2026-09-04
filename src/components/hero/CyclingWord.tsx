@@ -291,7 +291,7 @@ export default function CyclingWord() {
 
   return (
     <>
-      <span className="sr-only">इरादा</span>
+      <span className="sr-only">{cyclingWords[0]}</span>
       <span
         ref={wrapperRef}
         aria-live="off"

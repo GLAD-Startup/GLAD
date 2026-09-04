@@ -321,11 +321,11 @@ export default function Nav() {
             </div>
 
             {/* Desktop & Tablet Center Column (>=1024px) */}
-            <div className="hidden lg:flex absolute left-[47%] -translate-x-1/2 flex-col justify-center gap-1">
+            <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 flex-col items-center justify-center gap-1 text-center">
               <span className="text-[13px] font-semibold text-fg leading-tight">
                 Quick Links
               </span>
-              <div className="group/links text-[13.5px] font-medium text-fg leading-normal flex items-center flex-wrap">
+              <div className="group/links text-[13.5px] font-medium text-fg leading-normal flex items-center justify-center flex-wrap">
                 {/* 1. Home */}
                 <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
                   <RollingNavLink href="/" label="Home" />

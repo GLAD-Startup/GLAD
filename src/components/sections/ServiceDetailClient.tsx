@@ -17,34 +17,62 @@ interface ServiceDetailClientProps {
   service: ServiceItem;
 }
 
-const serviceVisuals: Record<string, { outer: string; inner: string; caseStudySlug: string; caseStudyTitle: string }> = {
+const serviceVisuals: Record<
+  string,
+  {
+    outer: string;
+    inner: string;
+    video: string;
+    caseStudySlug: string;
+    caseStudyTitle: string;
+  }
+> = {
   'mvp-development': {
     outer: '/products/glad-hms/glad-hms-1.png',
     inner: '/products/glad-hms/glad-hms-2.png',
+    video: '/videos/MVP Dev.mp4',
     caseStudySlug: 'glad-hms',
     caseStudyTitle: 'GLAD HMS Modular Operating System',
   },
   'web-application-development': {
     outer: '/products/settledesk/settledesk-1.png',
     inner: '/products/settledesk/settledesk-2.png',
+    video: '/videos/Website Dev.mp4',
     caseStudySlug: 'settledesk',
     caseStudyTitle: 'SettleDesk Brokerage Platform',
   },
   'mobile-app-development': {
     outer: '/work/prayas-app/prayas-admin-1.png',
     inner: '/work/prayas-app/prayas-app-1.png',
+    video: '/videos/Mobile Dev.mp4',
     caseStudySlug: 'prayas-app',
     caseStudyTitle: 'Prayas Healthcare App, Website & Admin Portal',
   },
   'ai-solutions': {
     outer: '/work/ai-mock-interview/mock-interview-1.png',
     inner: '/work/ai-mock-interview/mock-interview-2.png',
+    video: '/videos/AI Solutions.mp4',
     caseStudySlug: 'ai-mock-interview',
     caseStudyTitle: 'AI Mock Interview Assessment Platform',
+  },
+  'business-automation': {
+    outer: '/work/lead-enrichment/lead-enrichment-1.png',
+    inner: '/work/lead-enrichment/lead-enrichment-3.png',
+    video: '/videos/Business Automation.mp4',
+    caseStudySlug: 'lead-enrichment',
+    caseStudyTitle: 'High-Throughput Lead Enrichment Pipeline',
+  },
+  'automation': {
+    outer: '/work/lead-enrichment/lead-enrichment-1.png',
+    inner: '/work/lead-enrichment/lead-enrichment-3.png',
+    video: '/videos/Business Automation.mp4',
+    caseStudySlug: 'lead-enrichment',
+    caseStudyTitle: 'High-Throughput Lead Enrichment Pipeline',
   },
   'cloud-devops': {
     outer: '/work/lead-enrichment/lead-enrichment-1.png',
     inner: '/work/lead-enrichment/lead-enrichment-3.png',
+    video: '/videos/Business Automation.mp4',
     caseStudySlug: 'lead-enrichment',
     caseStudyTitle: 'High-Throughput Lead Enrichment Pipeline',
   },
@@ -59,6 +87,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
   const visuals = serviceVisuals[service.slug] || {
     outer: '/work/lead-enrichment/modern-office-facade.png',
     inner: '/work/lead-enrichment/skyscraper-sunset.png',
+    video: '/videos/MVP Dev.mp4',
     caseStudySlug: 'lead-enrichment',
     caseStudyTitle: 'Lead Enrichment Platform',
   };
@@ -76,13 +105,30 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
         );
       }
 
-      // 2. Parallax on inner floating card
-      if (mediaRef.current && innerMediaRef.current) {
+      // 2. Upward scroll parallax on video frame & inner video
+      if (mediaRef.current) {
+        gsap.fromTo(
+          mediaRef.current,
+          { y: 25 },
+          {
+            y: -55,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: mediaRef.current,
+              start: 'top 85%',
+              end: 'bottom top',
+              scrub: 1.2,
+            },
+          }
+        );
+      }
+
+      if (innerMediaRef.current && mediaRef.current) {
         gsap.fromTo(
           innerMediaRef.current,
-          { y: -18 },
+          { yPercent: -10 },
           {
-            y: 18,
+            yPercent: 10,
             ease: 'none',
             scrollTrigger: {
               trigger: mediaRef.current,
@@ -93,31 +139,43 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
           }
         );
       }
-    });
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[48px]">
-      {/* 1. Marquee Header (Spaced comfortably beneath nav with full descender clearance) */}
-      <div className="overflow-hidden bg-bg">
-        <Divider />
-        <div className="py-4 md:py-6 overflow-hidden bg-bg">
-          <Marquee speed={32}>
-            <span
-              className="t-marquee text-fg pr-[80px] whitespace-nowrap block pb-[0.22em] pt-[0.06em]"
-              style={{
-                fontSize: 'clamp(64px, 10.5vw, 160px)',
-                lineHeight: 1.08,
-                letterSpacing: '-0.035em',
-              }}
-            >
-              {service.title} / {service.category} / GLAD STUDIO® /&nbsp;
-            </span>
+    <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[81px]">
+      {/* 1. Marquee Header (Editorial Service Ticker) */}
+      <div className="overflow-hidden bg-surface/30 border-y border-line">
+        <div className="py-5 md:py-7 overflow-hidden">
+          <Marquee speed={28}>
+            <div className="flex items-center gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-3">
+              <span
+                className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                style={{
+                  fontSize: 'clamp(42px, 6vw, 92px)',
+                  lineHeight: 1.18,
+                  letterSpacing: '-0.035em',
+                }}
+              >
+                {service.title}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-medium tracking-wide bg-surface border border-line-solid text-fg">
+                {service.category}
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-accent font-medium text-[13.5px] uppercase tracking-wider font-mono">
+                Scope: {service.timeline}
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+                GLAD STUDIO®
+              </span>
+              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+            </div>
           </Marquee>
         </div>
-        <Divider />
       </div>
 
       {/* 2. Sub-Nav & Eyebrow Row */}
@@ -202,44 +260,36 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
           </div>
         </div>
 
-        {/* Right Column: Dual-Layer Parallax Showcase Card */}
-        <div ref={mediaRef} className="relative w-full aspect-[16/11] rounded-[16px] overflow-hidden bg-surface border border-line-solid group shadow-sm">
-          {/* Outer Visual */}
-          <div className="w-full h-full relative transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.03] group-hover:opacity-85">
-            <Image
-              src={visuals.outer}
-              alt={`${service.title} architectural visualization`}
-              fill
-              priority
-              unoptimized
-              className="object-cover block"
-            />
-          </div>
-
-          {/* Inner Floating Detail Card with Parallax */}
+        {/* Right Column: High-Definition Video Showcase Card */}
+        <div
+          ref={mediaRef}
+          className="relative w-full aspect-[16/10] xl:aspect-[16/11] rounded-[16px] overflow-hidden bg-surface border border-line-solid group shadow-xl"
+        >
+          {/* Main Showcase Video Player with inner parallax translation */}
           <div
             ref={innerMediaRef}
-            className="absolute inset-0 m-auto w-[52%] h-[56%] max-w-[360px] rounded-[12px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-line-solid bg-surface z-10 will-change-transform pointer-events-none"
+            className="w-full h-[120%] -top-[10%] absolute left-0 will-change-transform"
           >
-            <div className="w-full h-full relative transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.10]">
+            {visuals.video ? (
+              <video
+                src={visuals.video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="w-full h-full object-cover block rounded-[16px]"
+              />
+            ) : (
               <Image
-                src={visuals.inner}
-                alt={`${service.title} interface detail`}
+                src={visuals.outer}
+                alt={`${service.title} architectural visualization`}
                 fill
+                priority
                 unoptimized
                 className="object-cover block"
               />
-            </div>
-          </div>
-
-          {/* Floating Category Badge */}
-          <div className="absolute top-4 left-4 z-20 bg-bg/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-line-solid text-[12px] font-medium text-fg shadow-sm">
-            {service.category}
-          </div>
-
-          {/* Floating Timeline Badge */}
-          <div className="absolute bottom-4 right-4 z-20 bg-bg/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-line-solid text-[12px] font-medium text-accent shadow-sm">
-            {service.timeline}
+            )}
           </div>
         </div>
       </div>

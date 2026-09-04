@@ -542,7 +542,7 @@ export default function Clients() {
       <SectionEyebrow
         left={<>ENGAGEMENT MODELS <span lang="hi">योजनाएँ</span></>}
         index="(GLD® — 09)"
-        right="SCOPE & BUDGET"
+        right="TAILORED SCOPE"
       />
     </>
   );

@@ -15,7 +15,6 @@ const statementWords = [
   'just',
   'software.',
   'A',
-  'small',
   'senior',
   'team',
   'that',
@@ -271,7 +270,7 @@ export default function Profile() {
           <p className="t-body text-fg-muted">
             We started GLAD studio because founders kept losing months to agencies that overpromised and left them with code they couldn&apos;t maintain. So we built something different —{' '}
             <strong className="text-fg font-semibold">
-              a tiny, senior team
+              a senior team
             </strong>{' '}
             that works on a small number of projects at a time and ships every week.
           </p>
