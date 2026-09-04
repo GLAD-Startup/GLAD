@@ -79,7 +79,7 @@ export const leadershipTeam: TeamMember[] = [
 
 export const studioStatement = {
   quote:
-    'We started GLAD studio because founders kept losing months to agencies that overpromised and left them with code they couldn’t maintain. So we built something different — a tiny, senior team that works on a small number of projects at a time and ships every week.',
+    'We started GLAD studio because founders kept losing months to agencies that overpromised and left them with code they couldn’t maintain. So we built something different — a senior team that works on a small number of projects at a time and ships every week.',
   yearsCount: '13+ Years',
   yearsCaption: 'Combined Engineering Leadership',
 };

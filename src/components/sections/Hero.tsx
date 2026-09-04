@@ -54,7 +54,7 @@ export default function Hero() {
         className="relative w-full h-auto xl:h-[460px] pt-[24px] md:pt-[32px] xl:pt-[36px] px-[20px] md:px-[28px] xl:px-[40px] pb-8 xl:pb-0 bg-bg select-none flex flex-col justify-between"
       >
         {/* Headline — hard 4 lines on desktop/tablet, natural wrapping on mobile with line masks */}
-        <h1 className="t-heading max-w-[580px] text-fg relative z-10">
+        <h1 className="t-heading max-w-[580px] text-fg relative z-10 pl-[16px] sm:pl-[28px] xl:pl-[36px]">
           <span className="block overflow-hidden">
             <span data-intro="headline-line" className="block will-change-transform pb-1">
               Building Web, Mobile
@@ -144,12 +144,12 @@ export default function Hero() {
               <div className="relative w-full aspect-[1920/1080] max-h-full flex items-center justify-center">
                 {/* Video Screen inside Dynamic Phone Frame */}
                 <div
-                  className="absolute overflow-hidden bg-black rounded-[20px] sm:rounded-[28px] md:rounded-[36px]"
+                  className="absolute overflow-hidden bg-black rounded-[24px] sm:rounded-[36px] md:rounded-[48px]"
                   style={{
-                    left: '2.34%',
-                    top: '5.09%',
-                    width: '95.31%',
-                    height: '86.11%',
+                    left: '1.4%',
+                    top: '7.2%',
+                    width: '97.2%',
+                    height: '85.6%',
                   }}
                 >
                   <video

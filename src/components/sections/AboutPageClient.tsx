@@ -15,11 +15,6 @@ import { siteConfig } from '@/data/site';
 
 const studioMetrics = [
   {
-    value: '13+ Yrs',
-    label: 'Combined Leadership',
-    sublabel: 'Decades of hardened full-stack expertise',
-  },
-  {
     value: 'Wk 3',
     label: 'Working Software',
     sublabel: 'Live clickable staging deployments',
@@ -284,7 +279,7 @@ export default function AboutPageClient() {
                 We started GLAD studio because founders kept losing months to agencies that overpromised, staffed projects with junior contractors learning on client budgets, and left founders with fragile codebases they couldn&apos;t maintain.
               </p>
               <p>
-                So we built something different — a tiny, senior team that works on a small number of projects at a time and ships every week. We operate with zero account middlemen and zero telephone-game miscommunications.
+                So we built something different — a senior team that works on a small number of projects at a time and ships every week. We operate with zero account middlemen and zero telephone-game miscommunications.
               </p>
             </div>
 
@@ -339,10 +334,10 @@ export default function AboutPageClient() {
 
         </div>
 
-        {/* 4 Stat Metrics Grid */}
+        {/* 3 Stat Metrics Grid */}
         <div
           ref={statsRef}
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mt-12 md:mt-16 pt-10 border-t border-line"
+          className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12 md:mt-16 pt-10 border-t border-line"
         >
           {studioMetrics.map((stat, idx) => (
             <div

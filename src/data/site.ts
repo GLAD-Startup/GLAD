@@ -16,11 +16,11 @@ export interface ContactChannel {
 }
 
 export const cyclingWords = [
-  'इरादा',
-  'हुनर',
-  'लगन',
-  'नीयत',
-  'जुनून',
+  'संकल्प',
+  'कुशलता',
+  'निष्ठा',
+  'दक्षता',
+  'गुणवत्ता',
 ] as const;
 
 export const siteConfig = {
@@ -39,7 +39,7 @@ export const siteConfig = {
   contact: {
     email: 'contact@gladstudio.net',
     inquiryEmail: 'sayhi@gladstudio.net',
-    phone: '+91 94572 45650',
+    phone: '+91 93514 05078',
     phoneDisplay: '+91 (0) Vrindavan Studio',
     calLink: 'arjun-rajput-2mdsis',
     calUrl: 'https://cal.com/arjun-rajput-2mdsis',
