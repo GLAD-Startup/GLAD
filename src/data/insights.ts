@@ -892,7 +892,7 @@ export const articlesData: ArticleItem[] = [
       'A comprehensive guide to AI development costs in India. Learn the key cost drivers, architectural complexity tiers, infrastructure expenses, and how to budget for production AI systems.',
     quote:
       'The true cost of an AI system is never just the API tokens — it is the engineering discipline behind schema validation, evaluation harnesses, and deterministic guardrails.',
-    coverSrc: '/articles/ai-agent-1.jpg',
+    coverSrc: '/articles/ai-agent-5.jpg',
     portraitSrc: '/team/parth.jpeg',
     paragraphs: [
       'Budgeting for AI software engineering in 2026 requires understanding the six distinct complexity tiers: basic AI-powered feature integrations, conversational assistants with session memory, production RAG search engines with vector databases, autonomous multi-tool agents, AI-enabled multi-tenant SaaS platforms, and private VPC enterprise models.',
