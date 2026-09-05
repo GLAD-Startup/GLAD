@@ -26,7 +26,7 @@ interface CardConfig {
 const cardConfigs: CardConfig[] = [
   {
     item: testimonialsData[0], // Prayas NGO Team
-    x: 218,
+    x: 130,
     fromY: '110vh',
     toY: '-100vh',
     startProgress: 0.08,
@@ -34,7 +34,7 @@ const cardConfigs: CardConfig[] = [
   },
   {
     item: testimonialsData[1], // Rakesh Khetan (GLA Canteen)
-    x: 1010,
+    x: 880,
     fromY: '120vh',
     toY: '-105vh',
     startProgress: 0.24,
@@ -42,7 +42,7 @@ const cardConfigs: CardConfig[] = [
   },
   {
     item: testimonialsData[2], // Nitesh Khandelwal (Earth Travels)
-    x: 600,
+    x: 505,
     fromY: '125vh',
     toY: '-100vh',
     startProgress: 0.4,
@@ -52,27 +52,27 @@ const cardConfigs: CardConfig[] = [
 
 function TestimonialCardBody({ item }: { item: TestimonialItem }) {
   return (
-    <div className="w-full bg-[#0A0A0B] border border-white/10 rounded-[14px] p-[24px] shadow-[0_24px_60px_-16px_rgba(0,0,0,0.65)] select-none transition-transform duration-300">
+    <div className="w-full bg-[#0A0A0B] border border-white/12 rounded-[18px] p-[28px] sm:p-[34px] xl:p-[38px] shadow-[0_28px_70px_-16px_rgba(0,0,0,0.75)] select-none transition-transform duration-300">
       {/* Quote */}
-      <p className="t-body text-[#FBFBF9] text-[15px] xl:text-[15.5px] leading-[1.62] font-normal">
+      <p className="t-body text-[#FBFBF9] text-[16.5px] sm:text-[17.5px] xl:text-[18.5px] leading-[1.65] font-normal">
         &ldquo;{item.quote}&rdquo;
       </p>
 
       {/* Outcome line in accent-bright for dark background */}
       {item.outcome && (
-        <div className="mt-3.5 text-[13px] font-medium text-accent-bright tracking-[0.02em]">
+        <div className="mt-4 text-[13.5px] sm:text-[14.5px] font-medium text-accent-bright tracking-[0.02em]">
           Outcome: <span className="font-semibold">{item.outcome}</span>
         </div>
       )}
 
       {/* Divider */}
-      <div className="w-full h-[1px] bg-white/10 mt-[16px] mb-[14px]" />
+      <div className="w-full h-[1px] bg-white/10 mt-[20px] mb-[18px]" />
 
       {/* Footer Row */}
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3.5">
           {/* Avatar */}
-          <div className="w-[44px] h-[44px] rounded-[8px] overflow-hidden relative shrink-0 bg-white/5 border border-white/10">
+          <div className="w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-[10px] overflow-hidden relative shrink-0 bg-white/5 border border-white/12">
             <Image
               src={item.avatarSrc}
               alt={item.name}
@@ -85,12 +85,12 @@ function TestimonialCardBody({ item }: { item: TestimonialItem }) {
           {/* Name & Role */}
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-[#FBFBF9] text-[14.5px] leading-tight">
+              <span className="font-semibold text-[#FBFBF9] text-[15.5px] sm:text-[16.5px] leading-tight">
                 {item.name}
               </span>
               {item.verified && (
                 <svg
-                  className="w-[14px] h-[14px] text-accent-bright shrink-0"
+                  className="w-[15px] h-[15px] text-accent-bright shrink-0"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                   aria-label="Verified Client"
@@ -103,7 +103,7 @@ function TestimonialCardBody({ item }: { item: TestimonialItem }) {
                 </svg>
               )}
             </div>
-            <p className="text-[#A8A8AD] text-[13px] leading-snug mt-0.5">
+            <p className="text-[#A8A8AD] text-[13.5px] sm:text-[14px] leading-snug mt-0.5">
               {item.role}
             </p>
           </div>
@@ -111,7 +111,7 @@ function TestimonialCardBody({ item }: { item: TestimonialItem }) {
 
         {/* Client Name at right */}
         {item.clientName && (
-          <span className="text-white/40 text-[12px] font-medium uppercase tracking-wider shrink-0 hidden sm:inline-block">
+          <span className="text-white/40 text-[12.5px] font-medium uppercase tracking-wider shrink-0 hidden sm:inline-block">
             {item.clientName}
           </span>
         )}
@@ -299,29 +299,29 @@ export default function Testimonials() {
 
           {/* 2. Testimonial Cards Layer [z-index: 30] */}
           <div className="absolute inset-0 z-30 pointer-events-none">
-            {/* Card 1: Prayas NGO Team (x: 218px) */}
+            {/* Card 1: Prayas NGO Team (Left-anchored with 40px+ margin) */}
             <div
               ref={card1Ref}
-              style={{ left: `${cardConfigs[0].x}px` }}
-              className="absolute top-0 w-[390px] xl:w-[410px] pointer-events-auto"
+              style={{ left: 'clamp(40px, 6vw, 120px)' }}
+              className="absolute top-0 w-[440px] xl:w-[480px] pointer-events-auto"
             >
               <TestimonialCardBody item={cardConfigs[0].item} />
             </div>
 
-            {/* Card 2: Rakesh Khetan — GLA Canteen (x: 1010px) */}
+            {/* Card 2: Rakesh Khetan — GLA Canteen (Right-anchored with 40px+ margin) */}
             <div
               ref={card2Ref}
-              style={{ left: `${cardConfigs[1].x}px` }}
-              className="absolute top-0 w-[390px] xl:w-[410px] pointer-events-auto"
+              style={{ left: 'calc(100% - clamp(460px, 34vw, 520px))' }}
+              className="absolute top-0 w-[440px] xl:w-[480px] pointer-events-auto"
             >
               <TestimonialCardBody item={cardConfigs[1].item} />
             </div>
 
-            {/* Card 3: Nitesh Khandelwal — Earth Travels (x: 600px) */}
+            {/* Card 3: Nitesh Khandelwal — Earth Travels (Center-anchored) */}
             <div
               ref={card3Ref}
-              style={{ left: `${cardConfigs[2].x}px` }}
-              className="absolute top-0 w-[390px] xl:w-[410px] pointer-events-auto"
+              style={{ left: 'calc(50% - clamp(220px, 16vw, 240px))' }}
+              className="absolute top-0 w-[440px] xl:w-[480px] pointer-events-auto"
             >
               <TestimonialCardBody item={cardConfigs[2].item} />
             </div>
@@ -331,13 +331,13 @@ export default function Testimonials() {
         {/* -----------------------------------------------------------
             MOBILE & TABLET NON-PINNED FLOW (< 1024px)
             ----------------------------------------------------------- */}
-        <div className="min-[1024px]:hidden w-full relative py-12 px-[20px] md:px-[28px] flex flex-col gap-[72px]">
+        <div className="min-[1024px]:hidden w-full relative py-12 px-[20px] md:px-[28px] flex flex-col gap-10 md:gap-14">
           {/* Background Marquee */}
-          <div className="w-full overflow-hidden opacity-20 select-none pointer-events-none -my-6">
+          <div className="w-full overflow-hidden opacity-20 select-none pointer-events-none -my-4">
             <div className="flex flex-row w-max animate-marquee">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="flex items-center shrink-0 pr-[40px]">
-                  <span className="text-[72px] md:text-[110px] font-normal leading-[0.9] tracking-tight text-fg">
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center shrink-0 pr-[40px] md:pr-[60px]">
+                  <span className="text-[54px] sm:text-[72px] md:text-[100px] font-normal leading-[0.9] tracking-tight text-fg">
                     Client Work© - Reviews
                   </span>
                 </div>
@@ -345,8 +345,8 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Stacked Cards with 72px gaps */}
-          <div className="flex flex-col gap-[72px] w-full max-w-[480px] mx-auto">
+          {/* Stacked Cards with responsive gap */}
+          <div className="flex flex-col gap-8 sm:gap-10 md:gap-12 w-full max-w-[540px] mx-auto">
             {testimonialsData.slice(0, 3).map((item) => (
               <TestimonialCardBody key={item.id} item={item} />
             ))}

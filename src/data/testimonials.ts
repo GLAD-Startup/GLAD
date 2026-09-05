@@ -18,7 +18,7 @@ export const testimonialsData: TestimonialItem[] = [
     company: 'Prayas NGO',
     clientName: 'Prayas NGO',
     quote:
-      "The Prayas App transformed how we coordinate blood donations and health equipment lending. It's now the backbone of our community outreach.",
+      "The Prayas mobile app, public website, and admin portal transformed how we coordinate blood donations and medical equipment lending. It's now the complete backbone of our operations.",
     outcome: '10,000+ Community Reach',
     avatarSrc: '/clients/prayas.jpg',
     verified: true,
@@ -30,7 +30,7 @@ export const testimonialsData: TestimonialItem[] = [
     company: 'GLA Canteen',
     clientName: 'GLA Canteen',
     quote:
-      'GLA Canteen Stock Management transformed our daily inventory tracking and order workflow, giving us clear visibility into stock levels and sales.',
+      'GLAD Studio’s Canteen Inventory & Customer Management app transformed our daily stock tracking, customer billing, and kitchen procurement, giving us live visibility across every counter and eliminating wastage.',
     outcome: 'Zero Stock Discrepancies',
     avatarSrc: '/clients/gla-canteen.png',
     verified: true,

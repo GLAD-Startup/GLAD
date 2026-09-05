@@ -1,10 +1,8 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ProjectItem } from '@/data/work';
 
 interface WorkCardProps {
@@ -13,44 +11,8 @@ interface WorkCardProps {
 }
 
 export default function WorkCard({ project, priority = false }: WorkCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const card = cardRef.current;
-    const inner = innerRef.current;
-    if (!inner || !card) return;
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-    if (prefersReducedMotion) return;
-
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 1024px)', () => {
-      gsap.fromTo(
-        inner,
-        { y: 15 },
-        {
-          y: -15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.6,
-          },
-        }
-      );
-    });
-
-    return () => mm.revert();
-  }, []);
-
   return (
-    <div ref={cardRef} className="w-full select-none">
+    <div className="w-full select-none">
       <Link
         href={`/work/${project.slug}`}
         data-cursor="view"
@@ -59,7 +21,7 @@ export default function WorkCard({ project, priority = false }: WorkCardProps) {
       >
         {/* Outer Card Container */}
         <div className="relative w-full aspect-[16/10.5] rounded-[14px] sm:rounded-[16px] overflow-hidden bg-surface border border-line-solid">
-          {/* Outer Image (Reduced dimming on hover) */}
+          {/* Outer Background Image (Reduced dimming on hover) */}
           <div className="w-full h-full relative transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.02] group-hover:opacity-75">
             <Image
               src={project.outerSrc}
@@ -69,22 +31,6 @@ export default function WorkCard({ project, priority = false }: WorkCardProps) {
               unoptimized
               className="object-cover block"
             />
-          </div>
-
-          {/* Inner Floating Overlay Image (Zooms inside frame on hover) */}
-          <div
-            ref={innerRef}
-            className="absolute inset-0 m-auto w-[54%] h-[56%] max-w-[420px] rounded-[10px] sm:rounded-[12px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.45)] border border-line-solid bg-surface z-10 will-change-transform pointer-events-none"
-          >
-            <div className="w-full h-full relative transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.12]">
-              <Image
-                src={project.innerSrc}
-                alt={`${project.title} detail`}
-                fill
-                unoptimized
-                className="object-cover block"
-              />
-            </div>
           </div>
 
           {/* White Ribbon Opening & Expanding Vertically on Hover (Sleeker height) */}

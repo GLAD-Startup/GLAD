@@ -34,11 +34,15 @@ export default function HeroIntro({ children }: HeroIntroProps) {
     // If reduced motion or already played, skip timeline, remove armed class, and leave scroll unlocked
     if (prefersReducedMotion || hasPlayed) {
       document.documentElement.classList.remove('intro-armed');
-      const video = document.querySelector<HTMLVideoElement>(
+      const videos = document.querySelectorAll<HTMLVideoElement>(
         '[data-intro="video-card"] video'
       );
-      if (video) {
+      videos.forEach((video) => {
         video.play().catch(() => {});
+      });
+      const navEl = document.querySelector('[data-intro="nav"]');
+      if (navEl) {
+        gsap.set(navEl, { clearProps: 'opacity,transform' });
       }
       return;
     }
@@ -56,6 +60,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
 
       ctx = gsap.context(() => {
         // Query elements by data-intro attributes
+        const nav = document.querySelector('[data-intro="nav"]');
         const wordmark = document.querySelector('[data-intro="wordmark"]');
         const studioGradient = document.querySelector(
           '[data-intro="studio-gradient"], [data-intro="glad-gradient"]'
@@ -64,16 +69,12 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           '[data-intro="wordmark-divider"]'
         );
         const videoCard = document.querySelector('[data-intro="video-card"]');
-        const video = document.querySelector<HTMLVideoElement>(
+        const videos = document.querySelectorAll<HTMLVideoElement>(
           '[data-intro="video-card"] video'
         );
         const wordRail = document.querySelector('[data-intro="word-rail"]');
         const headlineLines = document.querySelectorAll(
           '[data-intro="headline-line"]'
-        );
-        const nav = document.querySelector('[data-intro="nav"]');
-        const navHairline = document.querySelector(
-          '[data-intro="nav-hairline"]'
         );
         const eyebrow = document.querySelector('[data-intro="eyebrow"]');
 
@@ -83,12 +84,19 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           wordmark.style.transformOrigin = 'center center';
         }
 
-        // Ensure video is playing
-        if (video) {
+        // Ensure all videos are playing
+        videos.forEach((video) => {
           video.play().catch(() => {});
-        }
+        });
 
         // Set initial GSAP values matching the from states
+        if (nav) {
+          gsap.set(nav, {
+            opacity: 0,
+            y: -24,
+          });
+        }
+
         gsap.set(wordmark, {
           y: -500,
           opacity: 0,
@@ -122,16 +130,6 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           yPercent: 100,
         });
 
-        gsap.set(nav, {
-          y: -14,
-          opacity: 0,
-        });
-
-        gsap.set(navHairline, {
-          scaleX: 0,
-          transformOrigin: 'left center',
-        });
-
         gsap.set(eyebrow, {
           opacity: 0,
         });
@@ -151,11 +149,12 @@ export default function HeroIntro({ children }: HeroIntroProps) {
               activeLenis.start();
             }
 
-            // Remove will-change compositor layer from wordmark
-            // Clear residual GSAP inline styles on nav and studioGradient
-            gsap.set(nav, { clearProps: 'transform,opacity' });
+            // Clear residual GSAP inline styles on studioGradient and nav
             if (studioGradient) {
               gsap.set(studioGradient, { clearProps: 'clipPath' });
+            }
+            if (nav) {
+              gsap.set(nav, { clearProps: 'opacity,transform' });
             }
 
             // Mark session as played
@@ -228,9 +227,9 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.60,
             ease: 'power3.out',
             onStart: () => {
-              if (video) {
+              videos.forEach((video) => {
                 video.play().catch(() => {});
-              }
+              });
             },
           },
           3.45
@@ -259,33 +258,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           3.73
         );
 
-        // 3.87s: Nav: y: -14px, opacity: 0 -> y: 0, opacity: 1
-        tl.to(
-          nav,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.50,
-            ease: 'power2.out',
-            onComplete: () => {
-              gsap.set(nav, { clearProps: 'transform,opacity' });
-            },
-          },
-          3.87
-        );
-
-        // 4.03s: Nav hairline: scaleX: 0 -> 1 from left
-        tl.to(
-          navHairline,
-          {
-            scaleX: 1,
-            duration: 0.50,
-            ease: 'power2.out',
-          },
-          4.03
-        );
-
-        // 4.17s: Eyebrow row: opacity: 0 -> 1
+        // 3.95s: Eyebrow row: opacity: 0 -> 1
         tl.to(
           eyebrow,
           {
@@ -293,8 +266,23 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             duration: 0.40,
             ease: 'power1.out',
           },
-          4.17
+          3.95
         );
+
+        // 4.05s: Header Nav — slide and fade down smoothly into place after hero animation
+        if (nav) {
+          tl.to(
+            nav,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.65,
+              ease: 'power3.out',
+              clearProps: 'opacity,transform',
+            },
+            4.05
+          );
+        }
       });
     };
 
@@ -305,6 +293,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
       if (ctx) ctx.revert();
       document.body.style.overflow = '';
       document.documentElement.classList.remove('intro-armed');
+      const navEl = document.querySelector('[data-intro="nav"]');
+      if (navEl) {
+        gsap.set(navEl, { clearProps: 'opacity,transform' });
+      }
     };
   }, []);
 

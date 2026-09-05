@@ -16,12 +16,11 @@ export interface ContactChannel {
 }
 
 export const cyclingWords = [
-  'इरादा',
-  'मक़सद',
-  'हुनर',
-  'लगन',
-  'नीयत',
-  'जुनून',
+  'संकल्प',
+  'कुशलता',
+  'निष्ठा',
+  'दक्षता',
+  'गुणवत्ता',
 ] as const;
 
 export const siteConfig = {
@@ -38,10 +37,12 @@ export const siteConfig = {
     coordinates: '27.5806° N, 77.7006° E',
   },
   contact: {
-    email: 'hello@gladstudio.net',
+    email: 'contact@gladstudio.net',
     inquiryEmail: 'sayhi@gladstudio.net',
-    phone: '+91 94572 45650',
+    phone: '+91 93514 05078',
     phoneDisplay: '+91 (0) Vrindavan Studio',
+    calLink: 'arjun-rajput-2mdsis',
+    calUrl: 'https://cal.com/arjun-rajput-2mdsis',
   },
   socials: {
     x: 'https://x.com/_GLAD_Studio',
@@ -73,8 +74,8 @@ export const siteConfig = {
       external: true,
     },
     {
-      label: 'hello@gladstudio.net',
-      href: 'mailto:hello@gladstudio.net',
+      label: 'contact@gladstudio.net',
+      href: 'mailto:contact@gladstudio.net',
       external: false,
     },
   ] as ContactChannel[],

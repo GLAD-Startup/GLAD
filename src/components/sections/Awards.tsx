@@ -7,61 +7,35 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 
-const staggerOffsets = [
-  'translate-y-0',
-  '-translate-y-[14px]',
-  'translate-y-0',
-  '-translate-y-[8px]',
-];
 
 const whyUsRows = [
   {
-    // Source: MVP Development service timeline (4 – 8 weeks) from GLAD site
     metric: '4 – 8 wks',
     value: 'Fast Development',
     desc: 'Weeks, not quarters. Senior team, focused scope, no agency overhead.',
-    thumbnails: [
-      '/work/fluxor/corporate-server.png',
-      '/work/prayas-app/phone-3d.png',
-      '/work/stock-management/properties-3d.png',
-      '/work/ai-mock-interview/hero-3d.png',
-    ],
+    image: '/why-us/why-us-fast-dev.svg',
+    tag: 'Sprint Velocity & Milestones',
   },
   {
-    // Source: Contact page SLA response time (< 24h) from GLAD site
     metric: '< 24h',
     value: 'Transparent Communication',
     desc: 'Async updates, weekly demos, and a Slack channel you actually use.',
-    thumbnails: [
-      '/work/lead-enrichment/modern-office-facade.png',
-      '/work/q-safe/building.png',
-      '/work/prayas-app/real-estate-app.png',
-      '/work/fluxor/real-estate-contract.png',
-    ],
+    image: '/why-us/why-us-communication.svg',
+    tag: 'Direct Slack & Async Demos',
   },
   {
-    // Source: 100% source code ownership & IP transfer guarantee from GLAD site
     metric: '100%',
     value: 'Modern Technologies',
     desc: 'TypeScript, React 19, Flutter, Postgres, and AI built into your product, not bolted on.',
-    thumbnails: [
-      '/work/stock-management/commission-3d.png',
-      '/work/ai-mock-interview/broker-deal.png',
-      '/work/lead-enrichment/skyscraper-sunset.png',
-      '/work/q-safe/broker-office.png',
-    ],
+    image: '/why-us/why-us-modern-tech.svg',
+    tag: 'Full-Stack Modern Core & AI',
   },
   {
-    // Source: SettleDesk & GLAD HMS 99.9% uptime SLA from GLAD site
     metric: '99.9%',
     value: 'Scalable Architecture',
     desc: 'Production-ready from day one — type-safe, tested, observable.',
-    thumbnails: [
-      '/products/hotel-building.png',
-      '/products/building.png',
-      '/work/fluxor/corporate-server.png',
-      '/work/stock-management/properties-3d.png',
-    ],
+    image: '/why-us/why-us-scalable-arch.svg',
+    tag: '99.9% Uptime & Observability',
   },
 ];
 
@@ -138,58 +112,48 @@ export default function Awards() {
                 className="group py-[28px] md:py-[36px] xl:py-[44px] px-2 border-b border-line transition-colors duration-200 hover:bg-surface"
               >
                 {/* Desktop 4-Column Grid (>=1200px) */}
-                <div className="hidden xl:grid grid-cols-[200px_300px_1fr_420px] items-start gap-4">
-                  <div className="text-[17px] font-semibold text-accent pt-1">
+                <div className="hidden xl:grid grid-cols-[180px_260px_1fr_400px] items-center gap-6">
+                  <div className="text-[17px] font-semibold text-accent">
                     {row.metric}
                   </div>
-                  <div className="text-[16px] font-medium text-fg pt-1">
+                  <div className="text-[16px] font-medium text-fg">
                     {row.value}
                   </div>
-                  <p className="t-body-sm text-fg-muted max-w-[340px]">
+                  <p className="t-body-sm text-fg-muted max-w-[320px]">
                     {row.desc}
                   </p>
-                  <div className="flex items-center gap-[10px] justify-end">
-                    {row.thumbnails.map((src, sIdx) => (
-                      <div
-                        key={sIdx}
-                        className={`w-[86px] h-[122px] rounded-[6px] overflow-hidden bg-surface border border-line-solid relative shrink-0 transition-all duration-300 ease-out opacity-85 group-hover:opacity-100 group-hover:scale-[1.04] ${staggerOffsets[sIdx % staggerOffsets.length]}`}
-                      >
-                        <Image
-                          src={src}
-                          alt={`${row.value} visual showcase ${sIdx + 1}`}
-                          fill
-                          unoptimized
-                          className="object-cover block"
-                        />
-                      </div>
-                    ))}
+                  <div className="flex items-center justify-end w-full">
+                    <div className="relative w-full max-w-[380px] aspect-[16/9] rounded-[10px] overflow-hidden bg-[#0A0A0B] border border-line-solid shadow-xl group/card transition-all duration-500 hover:scale-[1.03] hover:border-fg/50 hover:shadow-2xl">
+                      <Image
+                        src={row.image}
+                        alt={`${row.value} — ${row.desc}`}
+                        fill
+                        unoptimized
+                        className="object-contain block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/card:scale-[1.01]"
+                      />
+                    </div>
                   </div>
                 </div>
 
                 {/* Tablet 2-Column Grid (810px - 1199px) */}
-                <div className="hidden min-[810px]:grid xl:hidden grid-cols-2 gap-4 items-center">
-                  <div className="flex flex-col gap-1">
+                <div className="hidden min-[810px]:grid xl:hidden grid-cols-[1fr_300px] gap-6 items-center">
+                  <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-3">
                       <span className="text-[16px] font-semibold text-accent">{row.metric}</span>
                       <span className="text-[16px] font-medium text-fg">{row.value}</span>
                     </div>
-                    <p className="t-body-sm text-fg-muted max-w-[320px]">{row.desc}</p>
+                    <p className="t-body-sm text-fg-muted max-w-[340px]">{row.desc}</p>
                   </div>
-                  <div className="flex items-center gap-[8px] justify-end overflow-hidden">
-                    {row.thumbnails.map((src, sIdx) => (
-                      <div
-                        key={sIdx}
-                        className="w-[72px] h-[100px] rounded-[6px] overflow-hidden bg-surface border border-line-solid relative shrink-0"
-                      >
-                        <Image
-                          src={src}
-                          alt={`${row.value} visual showcase ${sIdx + 1}`}
-                          fill
-                          unoptimized
-                          className="object-cover block"
-                        />
-                      </div>
-                    ))}
+                  <div className="flex items-center justify-end">
+                    <div className="relative w-full max-w-[280px] aspect-[16/9] rounded-[8px] overflow-hidden bg-[#0A0A0B] border border-line-solid shadow-lg">
+                      <Image
+                        src={row.image}
+                        alt={`${row.value} — ${row.desc}`}
+                        fill
+                        unoptimized
+                        className="object-contain block"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -200,21 +164,14 @@ export default function Awards() {
                     <span className="text-[15px] text-accent font-semibold">{row.metric}</span>
                   </div>
                   <p className="t-body-sm text-fg-muted">{row.desc}</p>
-                  <div className="flex items-center gap-[8px] overflow-x-auto py-2">
-                    {row.thumbnails.map((src, sIdx) => (
-                      <div
-                        key={sIdx}
-                        className="w-[72px] h-[100px] rounded-[6px] overflow-hidden bg-surface border border-line-solid relative shrink-0"
-                      >
-                        <Image
-                          src={src}
-                          alt={`${row.value} visual showcase ${sIdx + 1}`}
-                          fill
-                          unoptimized
-                          className="object-cover block"
-                        />
-                      </div>
-                    ))}
+                  <div className="relative w-full aspect-[16/9] rounded-[8px] overflow-hidden bg-[#0A0A0B] border border-line-solid mt-1 shadow-md">
+                    <Image
+                      src={row.image}
+                      alt={`${row.value} — ${row.desc}`}
+                      fill
+                      unoptimized
+                      className="object-contain block"
+                    />
                   </div>
                 </div>
               </div>

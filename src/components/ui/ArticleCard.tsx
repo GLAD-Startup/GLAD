@@ -145,7 +145,7 @@ export default function ArticleCard({
       )}
       style={
         {
-          '--card-x': `${x}px`,
+          '--card-x': `clamp(24px, calc(${x} / 1512 * 100vw), ${x + 20}px)`,
           '--card-y': `${y}px`,
           '--dim-factor': isDimmed ? 0.35 : 1,
           opacity: 'calc(var(--scroll-opacity, 1) * var(--dim-factor, 1))',
@@ -198,30 +198,31 @@ export default function ArticleCard({
             </div>
           </div>
 
-          {/* 2. Title: left: +960, top: +32, width: 400px (explicit), font-size: 30px, line-height: 1.18, letter-spacing: -0.01em, color: var(--fg), z-index: 5 */}
+          {/* 2. Title: positioned relative to cover width */}
           <div
             className="absolute z-[5] pointer-events-none"
             style={{
-              left: '960px',
-              top: '32px',
-              width: '400px',
+              left: `${coverW + 48}px`,
+              top: '24px',
+              width: '380px',
+              maxWidth: 'calc(100vw - 860px)',
             }}
           >
             <h3
-              className="text-[30px] font-normal text-fg leading-[1.18] tracking-[-0.01em]"
+              className="text-[26px] 2xl:text-[30px] font-normal text-fg leading-[1.18] tracking-[-0.01em]"
             >
               {article.title}
             </h3>
           </div>
 
-          {/* 3. Portrait: left: +960, top: +170, 216 × 234, border-radius: 10px, overflow: hidden, z-index: 1 */}
+          {/* 3. Portrait: positioned relative to cover width */}
           <div
             className="absolute z-[1] rounded-[10px] overflow-hidden bg-surface border border-line-solid shadow-2xl"
             style={{
-              left: '960px',
-              top: '170px',
-              width: '216px',
-              height: '234px',
+              left: `${coverW + 48}px`,
+              top: '150px',
+              width: '200px',
+              height: '220px',
             }}
           >
             <div
@@ -238,13 +239,14 @@ export default function ArticleCard({
             </div>
           </div>
 
-          {/* 4. Meta block: left: +736, top: +450, width: 320px (explicit), z-index: 2 */}
+          {/* 4. Meta block: positioned relative to cover width */}
           <div
             className="absolute z-[2]"
             style={{
-              left: '736px',
-              top: '450px',
-              width: '320px',
+              left: `${coverW + 48}px`,
+              top: '390px',
+              width: '360px',
+              maxWidth: 'calc(100vw - 860px)',
             }}
           >
             {/* Category and read time: 11px uppercase, --fg-muted, letter-spacing: 0.04em, line-height: 1.4 */}
@@ -253,13 +255,13 @@ export default function ArticleCard({
             </div>
 
             {/* Date at 15px --fg, margin-top: 10px, weight 400 (weekday dropped) */}
-            <div className="text-[15px] font-normal text-fg mt-[10px]">
+            <div className="text-[14px] 2xl:text-[15px] font-normal text-fg mt-[8px]">
               {formattedDate}
             </div>
 
             {/* Excerpt: margin-top: 8px, 13.5px --fg-muted, line-height: 1.5, truncated to 3 lines */}
             <p
-              className="mt-[8px] text-[13.5px] font-normal text-fg-muted leading-[1.5] line-clamp-3"
+              className="mt-[8px] text-[13px] 2xl:text-[13.5px] font-normal text-fg-muted leading-[1.5] line-clamp-3"
               style={{
                 display: '-webkit-box',
                 WebkitLineClamp: 3,

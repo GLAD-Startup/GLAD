@@ -15,23 +15,23 @@ import { servicesData } from '@/data/services';
 const servicesWithImages = [
   {
     ...servicesData[0],
-    image: '/work/fluxor/corporate-server.png',
+    image: '/services/service-mvp.jpg',
   },
   {
     ...servicesData[1],
-    image: '/work/lead-enrichment/modern-office-facade.png',
+    image: '/services/service-web.jpg',
   },
   {
     ...servicesData[2],
-    image: '/work/prayas-app/phone-3d.png',
+    image: '/services/service-mobile.jpg',
   },
   {
     ...servicesData[3],
-    image: '/work/ai-mock-interview/hero-3d.png',
+    image: '/services/service-ai.jpg',
   },
   {
     ...servicesData[4],
-    image: '/work/stock-management/properties-3d.png',
+    image: '/services/service-automation.jpg',
   },
 ];
 
@@ -243,11 +243,11 @@ export default function ServicesPageClient() {
         </div>
       </div>
 
-      {/* Floating Cursor-Following Image Preview Frame (Matches Home Page Services Section) */}
+      {/* Floating Cursor-Following Image Preview Frame (Minimal Editorial Scale) */}
       <div
         ref={previewRef}
         className={clsx(
-          'fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[160px] h-[210px] xl:w-[180px] xl:h-[235px] rounded-[12px] overflow-hidden z-50 pointer-events-none shadow-[0_25px_60px_rgba(0,0,0,0.35)] border border-line-solid bg-surface will-change-transform hidden min-[1024px]:block',
+          'fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[135px] h-[180px] xl:w-[150px] xl:h-[200px] rounded-[10px] overflow-hidden z-50 pointer-events-none shadow-[0_16px_36px_rgba(0,0,0,0.35)] border border-white/15 bg-surface will-change-transform hidden min-[1024px]:block ring-1 ring-black/20',
           isHovering && activeServiceIndex !== null
             ? 'opacity-100 scale-100 transition-[opacity,transform] duration-500 ease-out'
             : 'opacity-0 scale-75 transition-[opacity,transform] duration-350 ease-in'
@@ -266,9 +266,10 @@ export default function ServicesPageClient() {
                 src={service.image}
                 alt={service.title}
                 fill
-                sizes="180px"
+                sizes="(max-width: 1280px) 135px, 150px"
                 className="object-cover block"
                 priority={idx === 0}
+                quality={95}
               />
             </div>
           ))}

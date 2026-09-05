@@ -9,6 +9,7 @@ import Marquee from '@/components/ui/Marquee';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
+import WorkCard from '@/components/ui/WorkCard';
 
 export function generateStaticParams() {
   return projectsData.map((p) => ({
@@ -119,24 +120,34 @@ export default async function PortfolioDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <main className="min-h-screen bg-bg select-none pt-[84px]">
+      <main className="min-h-screen bg-bg select-none pt-[81px]">
         {/* 1. Title Marquee */}
-        <Divider />
-        <div className="py-2 overflow-hidden bg-bg">
-          <Marquee speed={30}>
-            <span
-              className="t-marquee text-fg pr-[80px] whitespace-nowrap block"
-              style={{
-                fontSize: 'clamp(0px, 14vw, 220px)',
-                lineHeight: 0.90,
-                letterSpacing: '-0.035em',
-              }}
-            >
-              {project.title} /
-            </span>
-          </Marquee>
+        <div className="overflow-hidden bg-surface/30 border-y border-line">
+          <div className="py-4 md:py-6 overflow-hidden">
+            <Marquee speed={28}>
+              <div className="flex items-center gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-1">
+                <span
+                  className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.08em] pt-[0.04em]"
+                  style={{
+                    fontSize: 'clamp(42px, 6vw, 92px)',
+                    lineHeight: 1.05,
+                    letterSpacing: '-0.035em',
+                  }}
+                >
+                  {project.title}
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-medium tracking-wide bg-surface border border-line-solid text-fg">
+                  {project.category}
+                </span>
+                <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+                <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+                  GLAD STUDIO®
+                </span>
+                <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              </div>
+            </Marquee>
+          </div>
         </div>
-        <Divider />
 
         {/* 2. Category Label */}
         <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] xl:mt-[48px]">
@@ -196,15 +207,17 @@ export default async function PortfolioDetailPage({
             <div key={idx} className="flex flex-col gap-3">
               <div
                 data-cursor="view"
-                className="w-full aspect-[16/10] xl:aspect-[16/9] rounded-[12px] overflow-hidden relative bg-surface border border-line-solid shadow-xl"
+                className="w-full aspect-[16/10] xl:aspect-[16/9] rounded-[12px] overflow-hidden relative bg-surface border border-line-solid shadow-xl flex items-center justify-center p-3 md:p-5"
               >
-                <Image
-                  src={shot.src}
-                  alt={`${project.title} — ${shot.caption}`}
-                  fill
-                  unoptimized
-                  className="object-cover block"
-                />
+                <div className="relative w-full h-full">
+                  <Image
+                    src={shot.src}
+                    alt={`${project.title} — ${shot.caption}`}
+                    fill
+                    unoptimized
+                    className="object-contain block"
+                  />
+                </div>
               </div>
               <div className="flex justify-between items-center text-[13px] text-fg-muted px-1">
                 <span>{shot.caption}</span>
@@ -267,51 +280,40 @@ export default async function PortfolioDetailPage({
 
         {/* 8. More Work Marquee with Next Two Projects */}
         <div className="mt-[80px] xl:mt-[120px]">
-          <Divider />
-          <div className="py-2 overflow-hidden bg-bg">
-            <Marquee speed={26}>
-              <span
-                className="t-marquee text-fg pr-[80px] whitespace-nowrap block"
-                style={{
-                  fontSize: 'clamp(0px, 12vw, 190px)',
-                  lineHeight: 0.90,
-                  letterSpacing: '-0.035em',
-                }}
-              >
-                More Work© /
-              </span>
-            </Marquee>
+          <div className="overflow-hidden bg-surface/30 border-y border-line">
+            <div className="py-4 md:py-6 overflow-hidden">
+              <Marquee speed={28}>
+                <div className="flex items-center gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-1">
+                  <span
+                    className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.08em] pt-[0.04em]"
+                    style={{
+                      fontSize: 'clamp(42px, 6vw, 92px)',
+                      lineHeight: 1.05,
+                      letterSpacing: '-0.035em',
+                    }}
+                  >
+                    More Works
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-medium tracking-wide bg-accent text-white shadow-sm">
+                    Selected Portfolio
+                  </span>
+                  <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+                  <span className="text-fg-muted font-normal tracking-tight text-[18px] md:text-[22px]">
+                    Case Studies & Systems
+                  </span>
+                  <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+                  <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+                    GLAD STUDIO®
+                  </span>
+                  <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+                </div>
+              </Marquee>
+            </div>
           </div>
-          <Divider />
 
           <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
             {nextProjects.map((nextProj) => (
-              <Link
-                key={nextProj.id}
-                href={`/portfolio/${nextProj.slug}`}
-                className="group block"
-              >
-                <div
-                  data-cursor="view"
-                  className="w-full aspect-[16/10] rounded-[12px] overflow-hidden relative bg-surface border border-line-solid"
-                >
-                  <Image
-                    src={nextProj.outerSrc}
-                    alt={nextProj.title}
-                    fill
-                    unoptimized
-                    className="object-cover block transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="mt-3 flex justify-between items-baseline">
-                  <span className="text-[18px] font-medium text-fg group-hover:text-accent transition-colors">
-                    {nextProj.title}
-                  </span>
-                  <span className="text-[13px] text-fg-muted">
-                    {nextProj.category}
-                  </span>
-                </div>
-              </Link>
+              <WorkCard key={nextProj.id} project={nextProj} />
             ))}
           </div>
         </div>

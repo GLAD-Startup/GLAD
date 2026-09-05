@@ -15,14 +15,14 @@ export interface FooterProps {
 }
 
 const filmstripImages = [
-  { src: '/work/fluxor/corporate-server.png', w: 176, h: 190, offset: 'translate-y-[12px]' },
-  { src: '/work/prayas-app/phone-3d.png', w: 176, h: 140, offset: '-translate-y-[10px]' },
-  { src: '/work/stock-management/properties-3d.png', w: 176, h: 220, offset: 'translate-y-[8px]' },
-  { src: '/work/ai-mock-interview/hero-3d.png', w: 176, h: 160, offset: '-translate-y-[14px]' },
-  { src: '/products/hotel-building.png', w: 176, h: 240, offset: 'translate-y-0' },
-  { src: '/work/lead-enrichment/modern-office-facade.png', w: 176, h: 130, offset: 'translate-y-[16px]' },
-  { src: '/work/q-safe/building.png', w: 176, h: 210, offset: '-translate-y-[8px]' },
-  { src: '/products/building.png', w: 176, h: 175, offset: 'translate-y-[6px]' },
+  { src: '/products/glad-hms/glad-hms-1.png', w: 176, h: 190, offset: 'translate-y-[12px]' },
+  { src: '/work/prayas-app/prayas-app-1.png', w: 176, h: 140, offset: '-translate-y-[10px]' },
+  { src: '/products/settledesk/settledesk-1.png', w: 176, h: 220, offset: 'translate-y-[8px]' },
+  { src: '/work/ai-mock-interview/mock-interview-cover.png', w: 176, h: 160, offset: '-translate-y-[14px]' },
+  { src: '/work/stock-management/canteen-cover.png', w: 176, h: 240, offset: 'translate-y-0' },
+  { src: '/work/lead-enrichment/lead-enrichment-1.png', w: 176, h: 130, offset: 'translate-y-[16px]' },
+  { src: '/products/glad-hms/glad-hms-2.png', w: 176, h: 210, offset: '-translate-y-[8px]' },
+  { src: '/products/settledesk/settledesk-2.png', w: 176, h: 175, offset: 'translate-y-[6px]' },
 ];
 
 export default function Footer({
@@ -114,7 +114,7 @@ export default function Footer({
   ];
 
   const studioLinks = [
-    { label: 'Products', href: '/products' },
+    { label: 'All Products', href: '/products' },
     { label: 'GLAD HMS', href: '/products/glad-hms' },
     { label: 'SettleDesk', href: '/products/settledesk' },
     { label: 'Insights', href: '/article/what-is-ai-agent-development' },
@@ -179,11 +179,11 @@ export default function Footer({
         <h3 className="t-heading-sm text-fg leading-tight">
           Let&apos;s build something great together.
         </h3>
-        <PillButton href="/contact">Book a Discovery Call</PillButton>
+        <PillButton calLink="arjun-rajput-2mdsis">Book a Discovery Call</PillButton>
       </div>
 
       {/* 5. Link Bar with 5 Groups */}
-      <div className="mt-[56px] xl:mt-[80px] px-[20px] md:px-[28px] xl:px-[40px] pt-[36px] pb-[48px] border-t border-line grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-[13px]">
+      <div className="mt-[48px] md:mt-[56px] xl:mt-[80px] px-[20px] md:px-[28px] xl:px-[40px] pt-[32px] md:pt-[36px] pb-[40px] md:pb-[48px] border-t border-line grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-8 text-[13px]">
         {/* Group 1: Back To Top */}
         <div className="flex flex-col">
           <span className="font-semibold text-fg uppercase tracking-wider">
@@ -271,7 +271,7 @@ export default function Footer({
         </div>
 
         {/* Group 5: Legal & Copyright */}
-        <div className="flex flex-col">
+        <div className="flex flex-col col-span-2 sm:col-span-1">
           <span className="font-semibold text-fg uppercase tracking-wider">
             {siteConfig.footer.copyright}
           </span>
@@ -303,7 +303,7 @@ export default function Footer({
           ref={watermarkRef}
           className="text-fg/[0.15] font-normal leading-[0.80] tracking-[-0.045em] whitespace-nowrap select-none will-change-transform text-center mx-auto"
           style={{
-            fontSize: 'clamp(72px, 20vw, 320px)',
+            fontSize: 'clamp(54px, 18vw, 320px)',
             fontFeatureSettings: '"zero" 1',
           }}
           aria-hidden="true"

@@ -10,6 +10,8 @@ export interface MarqueeProps {
   direction?: 'left' | 'right';
   className?: string;
   itemClassName?: string;
+  fadeEdges?: boolean;
+  pauseOnHover?: boolean;
 }
 
 export default function Marquee({
@@ -18,6 +20,8 @@ export default function Marquee({
   direction = 'left',
   className,
   itemClassName,
+  fadeEdges = true,
+  pauseOnHover = false,
 }: MarqueeProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const tweenRef = useRef<gsap.core.Tween | null>(null);
@@ -54,8 +58,30 @@ export default function Marquee({
     };
   }, [speed, direction]);
 
+  const handleMouseEnter = () => {
+    if (pauseOnHover && tweenRef.current) {
+      tweenRef.current.pause();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (pauseOnHover && tweenRef.current) {
+      tweenRef.current.play();
+    }
+  };
+
   return (
     <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={
+        fadeEdges
+          ? {
+              maskImage: 'linear-gradient(to right, transparent 0%, black 3.5%, black 96.5%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 3.5%, black 96.5%, transparent 100%)',
+            }
+          : undefined
+      }
       className={clsx(
         'relative w-full overflow-hidden select-none whitespace-nowrap',
         className
@@ -66,13 +92,13 @@ export default function Marquee({
         className="flex flex-row w-max will-change-transform"
       >
         {/* Render children 3 times for seamless infinite loop */}
-        <div className={clsx('flex items-center shrink-0', itemClassName)}>
+        <div className={clsx('flex items-center shrink-0 py-2.5', itemClassName)}>
           {children}
         </div>
-        <div className={clsx('flex items-center shrink-0', itemClassName)}>
+        <div className={clsx('flex items-center shrink-0 py-2.5', itemClassName)}>
           {children}
         </div>
-        <div className={clsx('flex items-center shrink-0', itemClassName)}>
+        <div className={clsx('flex items-center shrink-0 py-2.5', itemClassName)}>
           {children}
         </div>
       </div>

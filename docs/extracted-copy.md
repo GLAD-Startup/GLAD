@@ -42,25 +42,45 @@ Extracted from the previous version (`C:\Users\imsto\Desktop\GLAD\Old Design`).
 
 ## 2. Portfolio Case Studies (Full Body Copy)
 
-### 1. Fluxor
-- **Category:** Desktop Application
-- **Summary:** Automated Document Orchestration & Asset Classification Engine
-- **The Challenge:** Users were spending hours manually organizing, renaming, and sorting files across cluttered directories — a tedious, error-prone process.
-- **The Solution:** Built an AI-powered Windows desktop application that automatically analyzes file content and metadata to suggest smart renames and classify files into organized folder structures.
+### 1. GLAD HMS
+- **Category:** Hospitality SaaS
+- **Summary:** Modular Enterprise Hospitality Operating System & Multi-Property Platform
+- **The Challenge:** Hotels and multi-property chains face severe revenue leakage and administrative bottlenecks caused by siloed legacy PMS tools, slow room turnover dispatch, and error-prone folio reconciliation.
+- **The Solution:** Engineered a unified modular hospitality operating system with real-time room availability matrix, automated folio split calculation, multi-property scoped RBAC, and instant housekeeping dispatch.
 - **Key Features:**
-  - AI-driven file renaming
-  - Automatic folder classification
-  - Batch file processing
-  - Smart content analysis
-- **Outcome:** Reduced file organization time by over 80% for users with large, unstructured directories.
-- **Tech Stack:** Python, ML models
+  - Real-time room availability & rate matrix
+  - Automated folio & ledger reconciliation
+  - Multi-property scoped RBAC & audit logs
+  - Instant housekeeping turnover dispatch
+- **Outcome:** Standardized operations across multi-property hospitality networks with 99.9% uptime and zero double-booking discrepancies.
+- **Tech Stack:** Next.js, React.js, Node.js, PostgreSQL, Redis
+- **Associated Client Metric:** 99.9% Platform Uptime
 - **Image Captions:**
-  - `Shot 1`: AI-driven file renaming and content analysis engine
-  - `Shot 2`: Batch file processing and automatic folder classification
+  - `Shot 1`: Enterprise modular room inventory matrix and multi-property management console
+  - `Shot 2`: Automated folio ledger and guest reservation dispatch interface
 
 ---
 
-### 2. Prayas App
+### 2. SettleDesk
+- **Category:** Real Estate OS
+- **Summary:** Unified Real Estate Brokerage Operating System & Commission Settlement Engine
+- **The Challenge:** Commercial real estate brokerages struggle with high deal closing friction, untracked escrow pipelines, and tedious manual calculations for complex tiered agent commission splits.
+- **The Solution:** Architected an enterprise transaction management operating system that unifies transaction workflows, automates custom tiered commission splits, reconciles earnest money ledgers, and secures contract closings.
+- **Key Features:**
+  - Automated tiered commission splitting
+  - Multi-tenant agent workspaces & RBAC
+  - Earnest money escrow ledger reconciliation
+  - Real-time closing pipeline analytics
+- **Outcome:** Streamlined settlement operations for 500+ commercial brokers with 10,000+ units managed across national networks.
+- **Tech Stack:** React.js, Node.js, PostgreSQL, Docker, AWS
+- **Associated Client Metric:** 500+ Brokers Onboarded
+- **Image Captions:**
+  - `Shot 1`: Enterprise commercial brokerage dashboard and multi-tenant deal pipeline
+  - `Shot 2`: Automated commission ledger and transaction settlement engine
+
+---
+
+### 3. Prayas App
 - **Category:** Mobile App
 - **Summary:** Decentralized Medical Inventory Control & Resource Logistics Platform
 - **The Challenge:** Prayas NGO needed a streamlined way to manage health equipment lending and coordinate blood donation drives across their community network.
@@ -79,7 +99,7 @@ Extracted from the previous version (`C:\Users\imsto\Desktop\GLAD\Old Design`).
 
 ---
 
-### 3. Stock Management
+### 4. Stock Management
 - **Category:** Full Stack Platform
 - **Summary:** Multi-Tenant Enterprise Inventory & Supply Chain Orchestration Suite
 - **The Challenge:** A business with multiple sub-divisions was struggling to track inventory across departments using disconnected spreadsheets and manual processes.
@@ -98,7 +118,7 @@ Extracted from the previous version (`C:\Users\imsto\Desktop\GLAD\Old Design`).
 
 ---
 
-### 4. AI Mock Interview
+### 5. AI Mock Interview
 - **Category:** AI Product
 - **Summary:** Low-Latency Conversational AI Technical Assessment Engine
 - **The Challenge:** Job seekers lacked access to realistic, on-demand interview practice with meaningful feedback beyond generic question banks.
@@ -116,7 +136,7 @@ Extracted from the previous version (`C:\Users\imsto\Desktop\GLAD\Old Design`).
 
 ---
 
-### 5. Lead Enrichment
+### 6. Lead Enrichment
 - **Category:** Business Automation
 - **Summary:** High-Throughput Lead Sourcing & Automated Data Cleansing Pipeline
 - **The Challenge:** Sales teams were manually researching leads, validating websites, and crafting outreach emails — a process that couldn't scale beyond a handful of prospects per day.
@@ -131,24 +151,6 @@ Extracted from the previous version (`C:\Users\imsto\Desktop\GLAD\Old Design`).
 - **Image Captions:**
   - `Shot 1`: Automated lead enrichment and website validation pipeline
   - `Shot 2`: AI-powered personalized email generation and batch execution engine
-
----
-
-### 6. Q-SAFE
-- **Category:** Security Platform
-- **Summary:** Zero-Knowledge Encrypted Secure File Transmission Portal
-- **The Challenge:** Organizations needed a secure, self-hosted way to share sensitive documents without relying on third-party services that lacked fine-grained access controls.
-- **The Solution:** Built a secure file-sharing platform enabling encrypted file transfer through links and QR codes, with JWT-based authentication, role-based access control, Redis caching, Celery background processing, and automated cleanup tasks.
-- **Key Features:**
-  - Encrypted file transfer via links & QR
-  - JWT auth & role-based access control
-  - Background processing with Celery
-  - Automated file cleanup & expiration
-- **Outcome:** Enabled secure, scalable document sharing for organizations handling sensitive data.
-- **Tech Stack:** Django REST Framework, PostgreSQL, Docker
-- **Image Captions:**
-  - `Shot 1`: Zero-knowledge encrypted file transmission and QR code sharing portal
-  - `Shot 2`: Role-based access control and automated file expiration management
 
 ---
 
@@ -421,7 +423,6 @@ Extracted from the previous version (`C:\Users\imsto\Desktop\GLAD\Old Design`).
 | **"3x Online Inquiries"** | Earth Travels Testimonial | Client Metric | **Real**: Reported increase in online customer package inquiries following website launch. |
 | **"Week 3 Working Staging"** | Studio SLA / Process | Studio Policy | **Operational Commitment**: Guaranteed internal sprint milestone for delivering live deployed staging URLs to clients. |
 | **"100% IP Transfer"** | Commercial Terms | Legal / SLA | **Contractual Term**: Full assignment of code repositories, schemas, and design assets upon milestone settlement. |
-| **"Reduced file organization time by >80%"** | Fluxor Case Study | Product Metric | **Estimated Benchmark**: Efficiency benchmark based on automated AI batch file renaming tests vs manual sorting. |
 | **"Scaled outreach from dozens to thousands/day"** | Lead Enrichment Case Study | Pipeline Capacity | **Architecture Benchmark**: Technical throughput capacity of n8n async batch scraper and email generation worker. |
 | **"500+ Brokers Onboarded"** | SettleDesk Hero Stats | Product Claim | **Marketing Target / Projected**: Marketing metric from SettleDesk product landing page. |
 | **"10,000+ Units Managed"** | SettleDesk Hero Stats | Product Claim | **Marketing Target / Projected**: Scalability benchmark target from SettleDesk product landing page. |

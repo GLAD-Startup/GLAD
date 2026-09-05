@@ -13,23 +13,23 @@ import { servicesData } from '@/data/services';
 const servicesWithImages = [
   {
     ...servicesData[0],
-    image: '/work/fluxor/corporate-server.png',
+    image: '/services/service-mvp.jpg',
   },
   {
     ...servicesData[1],
-    image: '/work/lead-enrichment/modern-office-facade.png',
+    image: '/services/service-web.jpg',
   },
   {
     ...servicesData[2],
-    image: '/work/prayas-app/phone-3d.png',
+    image: '/services/service-mobile.jpg',
   },
   {
     ...servicesData[3],
-    image: '/work/ai-mock-interview/hero-3d.png',
+    image: '/services/service-ai.jpg',
   },
   {
     ...servicesData[4],
-    image: '/work/stock-management/properties-3d.png',
+    image: '/services/service-automation.jpg',
   },
 ];
 
@@ -121,61 +121,73 @@ export default function Services() {
         />
       </div>
 
-      {/* 3. List Block with Right Alignment & Hover Image Follower */}
-      <div className="mx-[20px] md:mx-[28px] xl:mx-[40px] mt-[48px] xl:mt-[72px]">
+      {/* 3. Services Content: Left Video Card & Right Interactive Services List */}
+      <div className="mx-[20px] md:mx-[28px] xl:mx-[40px] mt-[48px] xl:mt-[72px] flex flex-col xl:flex-row xl:items-start gap-10 xl:gap-14">
+        {/* Left Column: Ambient Studio Loop Video (Sticky on desktop) */}
+        <div className="w-full xl:w-[32%] xl:sticky xl:top-[120px] shrink-0">
+          <div className="w-full aspect-[4/5] max-h-[560px] rounded-[12px] overflow-hidden bg-surface border border-line-solid shadow-xl relative select-none">
+            <video
+              src="/videos/low.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="w-full h-full object-cover block rounded-[12px]"
+            />
+          </div>
+        </div>
+
+        {/* Right Column: Interactive Services Rows */}
         <div
           onMouseLeave={() => setIsHovering(false)}
-          className="xl:ml-[35%] xl:w-[65%] border-t border-line"
+          className="w-full xl:w-[68%] border-t border-line"
         >
-          {servicesWithImages.map((service, idx) => {
-            const isItemActive = activeServiceIndex === idx && isHovering;
-
-            return (
-              <Link
-                key={service.id}
-                href={`/services/${service.slug}`}
-                data-cursor="link"
-                onMouseEnter={() => {
-                  setActiveServiceIndex(idx);
-                  setIsHovering(true);
-                }}
-                className="group block py-[28px] md:py-[36px] xl:py-[42px] px-2 xl:px-4 border-b border-line transition-colors duration-300 hover:bg-surface"
-              >
-                {/* Desktop 3-Column Grid (>=1200px): [80px 260px 1fr] */}
-                <div className="hidden xl:grid grid-cols-[80px_260px_1fr] items-start gap-8">
-                  <div className="t-label text-fg pt-0.5 flex items-center">
-                    <span>{service.index}</span>
-                  </div>
-                  <h3 className="t-title-lg text-fg font-medium transition-transform duration-300 ease-out group-hover:translate-x-[6px]">
-                    {service.title}
-                  </h3>
-                  <p className="t-body-sm text-fg-muted leading-relaxed max-w-[480px]">
-                    {service.description}
-                  </p>
+          {servicesWithImages.map((service, idx) => (
+            <Link
+              key={service.id}
+              href={`/services/${service.slug}`}
+              data-cursor="link"
+              onMouseEnter={() => {
+                setActiveServiceIndex(idx);
+                setIsHovering(true);
+              }}
+              className="group block py-[28px] md:py-[36px] xl:py-[42px] px-2 xl:px-4 border-b border-line transition-colors duration-300 hover:bg-surface"
+            >
+              {/* Desktop 3-Column Grid (>=1200px): [80px 240px 1fr] */}
+              <div className="hidden xl:grid grid-cols-[60px_240px_1fr] items-start gap-6 2xl:gap-8">
+                <div className="t-label text-fg pt-0.5 flex items-center">
+                  <span>{service.index}</span>
                 </div>
+                <h3 className="t-title-lg text-fg font-medium transition-transform duration-300 ease-out group-hover:translate-x-[6px]">
+                  {service.title}
+                </h3>
+                <p className="t-body-sm text-fg-muted leading-relaxed max-w-[500px]">
+                  {service.description}
+                </p>
+              </div>
 
-                {/* Tablet / Mobile Grid (<1200px) */}
-                <div className="grid xl:hidden grid-cols-[50px_1fr] md:grid-cols-[60px_200px_1fr] gap-3 md:gap-6 items-start">
-                  <div className="t-label text-fg-muted flex items-center">
-                    <span>{service.index}</span>
-                  </div>
-                  <div>
-                    <h3 className="t-title-lg text-fg font-medium">{service.title}</h3>
-                    <p className="t-body-sm text-fg-muted mt-2 md:hidden">{service.description}</p>
-                  </div>
-                  <p className="t-body-sm text-fg-muted hidden md:block">{service.description}</p>
+              {/* Tablet / Mobile Grid (<1200px) */}
+              <div className="grid xl:hidden grid-cols-[50px_1fr] md:grid-cols-[60px_200px_1fr] gap-3 md:gap-6 items-start">
+                <div className="t-label text-fg-muted flex items-center">
+                  <span>{service.index}</span>
                 </div>
-              </Link>
-            );
-          })}
+                <div>
+                  <h3 className="t-title-lg text-fg font-medium">{service.title}</h3>
+                  <p className="t-body-sm text-fg-muted mt-2 md:hidden">{service.description}</p>
+                </div>
+                <p className="t-body-sm text-fg-muted hidden md:block">{service.description}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
 
-      {/* Floating Cursor-Following Image Preview Frame (Compact scale) */}
+      {/* Floating Cursor-Following Image Preview Frame (Minimal Editorial Scale) */}
       <div
         ref={previewRef}
         className={clsx(
-          'fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[140px] h-[180px] xl:w-[155px] xl:h-[195px] rounded-[10px] overflow-hidden z-50 pointer-events-none shadow-xl border border-line-solid bg-surface will-change-transform hidden min-[1024px]:block',
+          'fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[135px] h-[180px] xl:w-[150px] xl:h-[200px] rounded-[10px] overflow-hidden z-50 pointer-events-none shadow-[0_16px_36px_rgba(0,0,0,0.35)] border border-white/15 bg-surface will-change-transform hidden min-[1024px]:block ring-1 ring-black/20',
           isHovering && activeServiceIndex !== null
             ? 'opacity-100 scale-100 transition-[opacity,transform] duration-500 ease-out'
             : 'opacity-0 scale-75 transition-[opacity,transform] duration-350 ease-in'
@@ -194,9 +206,10 @@ export default function Services() {
                 src={service.image}
                 alt={service.title}
                 fill
-                sizes="155px"
+                sizes="(max-width: 1280px) 135px, 150px"
                 className="object-cover block"
                 priority={idx === 0}
+                quality={95}
               />
             </div>
           ))}

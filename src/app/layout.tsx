@@ -3,7 +3,9 @@ import './globals.css';
 import SmoothScroll from '@/components/providers/SmoothScroll';
 import Cursor from '@/components/ui/Cursor';
 import Nav from '@/components/layout/Nav';
-import BackToTop from '@/components/ui/BackToTop';
+import FloatingFooter from '@/components/layout/FloatingFooter';
+import CalProvider from '@/components/providers/CalProvider';
+import PageTransition from '@/components/providers/PageTransition';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gladstudio.net'),
@@ -13,6 +15,15 @@ export const metadata: Metadata = {
   },
   description:
     'We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.',
+  icons: {
+    icon: [
+      { url: '/brand/og-image.png', type: 'image/png' },
+      { url: '/brand/og-image.png', sizes: '32x32', type: 'image/png' },
+      { url: '/brand/og-image.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: '/brand/og-image.png',
+    apple: '/brand/og-image.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -65,7 +76,7 @@ const organizationJsonLd = {
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    email: 'hello@gladstudio.net',
+    email: 'contact@gladstudio.net',
     contactType: 'customer support',
   },
 };
@@ -91,6 +102,8 @@ export default function RootLayout({
                   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                   if (isHome && !reduced) {
                     document.documentElement.classList.add('intro-armed');
+                  } else {
+                    document.documentElement.classList.remove('intro-armed');
                   }
                 } catch(e) {}
               })();
@@ -104,14 +117,15 @@ export default function RootLayout({
       </head>
       <body className="bg-bg text-fg antialiased overflow-x-clip cursor-none min-h-screen">
         <SmoothScroll>
+          <CalProvider />
           <Cursor />
           <Nav />
           <div id="top" className="w-full flex justify-center bg-bg min-h-screen">
-            <div className="w-full max-w-[1512px] relative bg-bg">
+            <PageTransition>
               {children}
-            </div>
+            </PageTransition>
           </div>
-          <BackToTop />
+          <FloatingFooter />
         </SmoothScroll>
       </body>
     </html>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 900" width="750" height="900" fill="none">
+  <!-- Card Base: Elegant warm off-white / architectural specimen paper -->
+  <rect width="750" height="900" rx="14" fill="#FAFAF7"/>
+  
+  <!-- Architectural Subtle Grid Texture -->
+  <defs>
+    <pattern id="lightContactGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(10,10,11,0.025)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="750" height="900" rx="14" fill="url(#lightContactGrid)"/>
+  <rect x="1" y="1" width="748" height="898" rx="13" stroke="#E2E2DD" stroke-width="1" fill="none"/>
+
+  <!-- Top Metadata Bar -->
+  <text x="52" y="64" fill="#4E6B00" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" letter-spacing="2">[GLD® — INITIATION]</text>
+  <text x="698" y="64" text-anchor="end" fill="#6B6B70" font-family="'JetBrains Mono', monospace, sans-serif" font-size="13" font-weight="500" letter-spacing="1">STUDIO CADENCE</text>
+  <line x1="52" y1="88" x2="698" y2="88" stroke="#E6E6E1" stroke-width="1.2"/>
+
+  <!-- Status Pill -->
+  <g transform="translate(52, 116)">
+    <rect width="210" height="32" rx="16" fill="#EDF3D8" stroke="#C4DE6E" stroke-width="1"/>
+    <circle cx="16" cy="16" r="4.5" fill="#4E6B00"/>
+    <text x="28" y="21" fill="#364B00" font-family="'JetBrains Mono', monospace, sans-serif" font-size="12" font-weight="700" letter-spacing="0.8">ACCEPTING SPRINTS</text>
+  </g>
+
+  <!-- Giant Minimal Display Headline -->
+  <text x="52" y="240" fill="#0A0A0B" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="88" font-weight="800" letter-spacing="-4">START A</text>
+  <text x="52" y="326" fill="#0A0A0B" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="88" font-weight="800" letter-spacing="-4">SPRINT<tspan fill="#4E6B00">.</tspan></text>
+
+  <!-- Tagline -->
+  <text x="54" y="380" fill="#6B6B70" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="19" font-weight="500" letter-spacing="-0.2">Weeks, not quarters. Zero agency overhead.</text>
+
+  <line x1="52" y1="425" x2="698" y2="425" stroke="#E6E6E1" stroke-width="1.2"/>
+
+  <!-- Minimal 3-Row Metric Showcase with High Breathing Room -->
+  <!-- Metric 01 -->
+  <g transform="translate(52, 490)">
+    <text x="0" y="0" fill="#0A0A0B" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="44" font-weight="700" letter-spacing="-1.5">4 – 8 Weeks</text>
+    <text x="646" y="-6" text-anchor="end" fill="#4E6B00" font-family="'JetBrains Mono', monospace, sans-serif" font-size="13" font-weight="700" letter-spacing="1">MVP SHIP</text>
+    <text x="0" y="28" fill="#6B6B70" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="400">Production software live on staging</text>
+  </g>
+
+  <line x1="52" y1="555" x2="698" y2="555" stroke="#EFEFEA" stroke-width="1"/>
+
+  <!-- Metric 02 -->
+  <g transform="translate(52, 620)">
+    <text x="0" y="0" fill="#0A0A0B" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="44" font-weight="700" letter-spacing="-1.5">&lt; 24 Hours</text>
+    <text x="646" y="-6" text-anchor="end" fill="#4E6B00" font-family="'JetBrains Mono', monospace, sans-serif" font-size="13" font-weight="700" letter-spacing="1">RESPONSE SLA</text>
+    <text x="0" y="28" fill="#6B6B70" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="400">Direct senior engineer &amp; founder access</text>
+  </g>
+
+  <line x1="52" y1="685" x2="698" y2="685" stroke="#EFEFEA" stroke-width="1"/>
+
+  <!-- Metric 03 -->
+  <g transform="translate(52, 750)">
+    <text x="0" y="0" fill="#0A0A0B" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="44" font-weight="700" letter-spacing="-1.5">100%</text>
+    <text x="646" y="-6" text-anchor="end" fill="#4E6B00" font-family="'JetBrains Mono', monospace, sans-serif" font-size="13" font-weight="700" letter-spacing="1">IP ASSIGNED</text>
+    <text x="0" y="28" fill="#6B6B70" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="400">Complete code repository, keys &amp; infrastructure</text>
+  </g>
+
+  <!-- Bottom Footer Anchor -->
+  <line x1="52" y1="820" x2="698" y2="820" stroke="#E6E6E1" stroke-width="1.2"/>
+  <text x="52" y="856" fill="#0A0A0B" font-family="'General Sans', -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="700" letter-spacing="-0.2">GLAD STUDIO®</text>
+  <text x="698" y="856" text-anchor="end" fill="#4E6B00" font-family="'JetBrains Mono', monospace, sans-serif" font-size="13" font-weight="700">START A PROJECT →</text>
+</svg>

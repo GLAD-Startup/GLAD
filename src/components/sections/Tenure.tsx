@@ -5,29 +5,44 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
-import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import { processRows } from '@/data/process';
 
-const rotatingTeam = [
+const processVisuals = [
   {
-    src: '/team/arjun.jpg',
-    name: 'Arjun Singh Rajput',
-    role: 'CEO & Head of Strategy',
+    src: '/process/process-1.jpg',
+    word: 'Process.',
+    title: 'Technical Blueprint',
+    subtitle: 'System Architecture & Schema',
   },
   {
-    src: '/team/jatin.jpg',
-    name: 'Jatin Khetan',
-    role: 'CFO & Head of Product & Design',
+    src: '/process/process-2.jpg',
+    word: 'Practice.',
+    title: 'UI/UX Design Systems',
+    subtitle: 'High-Fidelity Interactive Prototype',
   },
   {
-    src: '/team/somesh.jpeg',
-    name: 'Somesh Rajput',
-    role: 'CTO & Head of Engineering',
+    src: '/process/process-3.jpg',
+    word: 'Method.',
+    title: 'Senior Code Craft',
+    subtitle: 'Production TypeScript & React Core',
   },
   {
-    src: '/team/parth.jpeg',
-    name: 'Parth Garg',
-    role: 'COO & Head of Operations',
+    src: '/process/process-4.jpg',
+    word: 'Craft.',
+    title: 'Automated Test Suites',
+    subtitle: 'Continuous QA & Quality Verification',
+  },
+  {
+    src: '/process/process-5.jpg',
+    word: 'System.',
+    title: 'Zero-Downtime Pipeline',
+    subtitle: 'Continuous Staging & Cloud Deploy',
+  },
+  {
+    src: '/process/process-6.jpg',
+    word: 'Ritual.',
+    title: 'Sprint Ritual',
+    subtitle: 'Weekly Demos, Retro & Handoff',
   },
 ];
 
@@ -43,19 +58,9 @@ const PROCESS_SYNONYMS = [
 export default function Tenure() {
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const [currentTeamIdx, setCurrentTeamIdx] = useState(0);
   const [wordIdx, setWordIdx] = useState(0);
   const [displayedWord, setDisplayedWord] = useState(PROCESS_SYNONYMS[0]);
   const isFirstMount = useRef(true);
-
-  // 1. Team photo rotator (1.8s interval — slightly faster cycling)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTeamIdx((prev) => (prev + 1) % rotatingTeam.length);
-    }, 1800);
-
-    return () => clearInterval(timer);
-  }, []);
 
   // 2. Initial entrance scroll animation
   useEffect(() => {
@@ -171,23 +176,31 @@ export default function Tenure() {
             ))}
           </h2>
 
-          {/* Corner Team Photo — Decoupled and strictly anchored on the right */}
+          {/* Corner Process Visual — Decoupled and strictly anchored on the right */}
           <div className="mt-4 md:mt-0 md:absolute md:right-[28px] xl:right-[40px] md:top-[12px] xl:top-[16px] z-10">
             <div
               data-cursor="view"
-              data-cursor-text={rotatingTeam[currentTeamIdx].name}
-              data-cursor-subtext={rotatingTeam[currentTeamIdx].role}
-              className="w-[145px] md:w-[170px] xl:w-[195px] h-[190px] md:h-[220px] xl:h-[255px] rounded-[10px] overflow-hidden bg-surface border border-line-solid relative shadow-lg"
+              data-cursor-text={processVisuals[wordIdx].title}
+              data-cursor-subtext={processVisuals[wordIdx].subtitle}
+              onClick={() => {
+                setWordIdx((prev) => {
+                  const next = (prev + 1) % PROCESS_SYNONYMS.length;
+                  setDisplayedWord(PROCESS_SYNONYMS[next]);
+                  return next;
+                });
+              }}
+              className="w-[150px] md:w-[175px] xl:w-[200px] h-[195px] md:h-[225px] xl:h-[260px] rounded-[12px] overflow-hidden bg-surface border border-line-solid relative shadow-2xl group cursor-pointer transition-all duration-300 hover:scale-[1.03] hover:border-fg/40"
             >
-              {rotatingTeam.map((member, idx) => (
+              {processVisuals.map((visual, idx) => (
                 <Image
-                  key={member.src}
-                  src={member.src}
-                  alt={`${member.name} — ${member.role}`}
+                  key={visual.src}
+                  src={visual.src}
+                  alt={`${visual.title} — ${visual.subtitle}`}
                   fill
                   unoptimized
-                  className={`object-cover block transition-opacity duration-500 ease-in-out ${
-                    idx === currentTeamIdx ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                  priority={idx === 0}
+                  className={`object-cover block transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                    idx === wordIdx ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-95 z-0 pointer-events-none'
                   }`}
                 />
               ))}

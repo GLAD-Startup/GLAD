@@ -117,7 +117,7 @@ export default function Cursor() {
     <div
       ref={cursorRef}
       className={clsx(
-        'fixed top-0 left-0 pointer-events-none z-[9999] will-change-transform select-none hidden min-[810px]:block',
+        'fixed top-0 left-0 pointer-events-none z-[99999] will-change-transform select-none hidden min-[810px]:block',
         !isVisible && 'opacity-0'
       )}
       style={{
@@ -125,7 +125,7 @@ export default function Cursor() {
         mixBlendMode: 'difference',
       }}
     >
-      {/* 1. Default State: 10px solid white dot that inverts to black over light and white over black, with partial difference along boundaries */}
+      {/* 1. Default State: 10px solid white dot with difference blend mode */}
       <div
         className={clsx(
           'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-[10px] h-[10px] rounded-full bg-white will-change-transform',
@@ -135,7 +135,7 @@ export default function Cursor() {
         )}
       />
 
-      {/* 2. Pointer Hand State: Exact vector filled with #FFFFFF under mix-blend-mode: difference */}
+      {/* 2. Pointer Hand State: Vector filled with #FFFFFF under mix-blend-mode: difference */}
       <div
         className={clsx(
           'absolute top-0 left-0 will-change-transform origin-[3.2px_0px]',
