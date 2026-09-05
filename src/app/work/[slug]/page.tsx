@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { works, getProjectBySlug } from '@/data/works';
+import { works, getProjectBySlug } from '@/data/work';
 import WorkDetailClient from '@/components/sections/WorkDetailClient';
 
 export function generateStaticParams() {

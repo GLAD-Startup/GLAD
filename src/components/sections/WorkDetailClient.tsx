@@ -299,78 +299,41 @@ export default function WorkDetailClient({
           </div>
         </div>
 
-        {/* Right Column: Hero Device Frame (Phone for Canteen App, Monitor for SaaS/Web) */}
-        {project.slug === 'stock-management' ? (
+        {/* Right Column: Hero Studio Monitor Frame */}
+        <div
+          ref={mediaRef}
+          className="relative w-full aspect-[1920/1080] max-w-[680px] lg:max-w-none mx-auto drop-shadow-2xl will-change-transform group select-none"
+        >
+          {/* Screenshot Image Screen inside Monitor Frame */}
           <div
-            ref={mediaRef}
-            className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[546/1080] mx-auto drop-shadow-2xl will-change-transform group select-none overflow-hidden rounded-[38px] sm:rounded-[42px]"
+            className="absolute overflow-hidden bg-white rounded-[3px] sm:rounded-[6px]"
+            style={{
+              left: '17.92%',
+              top: '5.83%',
+              width: '64.06%',
+              height: '64.07%',
+            }}
           >
-            {/* Screenshot Image inside Phone Frame */}
-            <div
-              className="absolute overflow-hidden bg-white rounded-[32px] sm:rounded-[36px]"
-              style={{
-                left: '7.14%',
-                top: '6.39%',
-                width: '85.71%',
-                height: '89.5%',
-              }}
-            >
-              <Image
-                src={project.outerSrc || project.galleryImages[0]}
-                alt={`${project.title} mobile showcase`}
-                fill
-                priority
-                unoptimized
-                className="object-cover object-top block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.02]"
-              />
-            </div>
-
-            {/* Mobile Frame Overlay */}
             <Image
-              src="/frames/mobile-frame.png"
-              alt="Mobile device frame"
+              src={project.outerSrc || project.galleryImages[0]}
+              alt={`${project.title} monitor overview`}
               fill
               priority
               unoptimized
-              className="object-contain pointer-events-none block z-10"
+              className="object-contain block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.015]"
             />
           </div>
-        ) : (
-          <div
-            ref={mediaRef}
-            className="relative w-full aspect-[1920/1080] max-w-[680px] lg:max-w-none mx-auto drop-shadow-2xl will-change-transform group select-none"
-          >
-            {/* Screenshot Image Screen inside Monitor Frame */}
-            <div
-              className="absolute overflow-hidden bg-white rounded-[3px] sm:rounded-[6px]"
-              style={{
-                left: '17.92%',
-                top: '5.83%',
-                width: '64.06%',
-                height: '64.07%',
-              }}
-            >
-              <Image
-                src={project.outerSrc || project.galleryImages[0]}
-                alt={`${project.title} monitor overview`}
-                fill
-                priority
-                unoptimized
-                className="object-contain block transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.015]"
-              />
-            </div>
 
-            {/* Studio Monitor Frame Overlay */}
-            <Image
-              src="/frames/monitor-frame.png"
-              alt="Desktop monitor frame"
-              fill
-              priority
-              unoptimized
-              className="object-contain pointer-events-none block z-10"
-            />
-          </div>
-        )}
+          {/* Studio Monitor Frame Overlay */}
+          <Image
+            src="/frames/monitor-frame.png"
+            alt="Desktop monitor frame"
+            fill
+            priority
+            unoptimized
+            className="object-contain pointer-events-none block z-10"
+          />
+        </div>
       </div>
 
       {/* 4. Meta Specifications Hairline Row */}

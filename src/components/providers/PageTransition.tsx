@@ -38,7 +38,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
   const currentPathnameRef = useRef(pathname);
   const isFirstMountRef = useRef(true);
 
-  // Core navigation with exit animation
+  // Programmatic navigation helper with prefetching
   const navigateTo = useCallback(
     (href: string) => {
       // Ignore if currently transitioning
@@ -63,6 +63,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
         return;
       }
 
+      // Prefetch target route immediately
+      router.prefetch(href);
+
       // If reduced motion is preferred, navigate immediately
       if (prefersReducedMotion) {
         router.push(href);
@@ -74,9 +77,9 @@ export default function PageTransition({ children }: PageTransitionProps) {
       // Slide down and fade out current page content
       if (containerRef.current) {
         gsap.to(containerRef.current, {
-          y: 45,
+          y: 35,
           opacity: 0,
-          duration: 0.32,
+          duration: 0.25,
           ease: 'power2.in',
           onComplete: () => {
             router.push(href);
@@ -88,53 +91,6 @@ export default function PageTransition({ children }: PageTransitionProps) {
     },
     [isTransitioning, router]
   );
-
-  // Global link interception handler
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      // Only handle left clicks without modifier keys
-      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
-        return;
-      }
-
-      const target = e.target as HTMLElement | null;
-      if (!target) return;
-
-      const anchor = target.closest('a');
-      if (!anchor) return;
-
-      const href = anchor.getAttribute('href');
-      if (!href) return;
-
-      // Ignore external links, downloads, new tabs, and special protocols
-      if (
-        anchor.target === '_blank' ||
-        anchor.hasAttribute('download') ||
-        anchor.getAttribute('data-no-transition') === 'true' ||
-        href.startsWith('http://') ||
-        href.startsWith('https://') ||
-        href.startsWith('mailto:') ||
-        href.startsWith('tel:') ||
-        href.startsWith('javascript:')
-      ) {
-        return;
-      }
-
-      // If it's a hash jump on the same page
-      if (href.startsWith('#')) {
-        return;
-      }
-
-      // Prevent default and run transition
-      e.preventDefault();
-      navigateTo(href);
-    };
-
-    document.addEventListener('click', handleClick, { capture: true });
-    return () => {
-      document.removeEventListener('click', handleClick, { capture: true });
-    };
-  }, [navigateTo]);
 
   // Entrance animation whenever pathname changes
   useEffect(() => {
