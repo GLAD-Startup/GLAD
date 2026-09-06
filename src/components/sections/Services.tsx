@@ -133,7 +133,7 @@ export default function Services() {
               loop
               playsInline
               preload="auto"
-              className="w-full h-full object-cover block rounded-[12px]"
+              className="w-full h-full object-cover block rounded-[12px] scale-[1.035]"
             />
           </div>
         </div>
