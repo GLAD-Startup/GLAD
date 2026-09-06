@@ -92,6 +92,62 @@ export default function PageTransition({ children }: PageTransitionProps) {
     [isTransitioning, router]
   );
 
+  // Global link interception handler
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      // Only handle primary left clicks without modifier keys
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+        return;
+      }
+
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      const anchor = target.closest('a');
+      if (!anchor) return;
+
+      // Ignore Cal modal triggers
+      if (
+        anchor.hasAttribute('data-cal-link') ||
+        anchor.closest('[data-cal-link]') ||
+        target.closest('[data-cal-link]')
+      ) {
+        return;
+      }
+
+      const href = anchor.getAttribute('href');
+      if (!href) return;
+
+      // Ignore external links, downloads, new tabs, and special protocols
+      if (
+        anchor.target === '_blank' ||
+        anchor.hasAttribute('download') ||
+        anchor.getAttribute('data-no-transition') === 'true' ||
+        href.startsWith('http://') ||
+        href.startsWith('https://') ||
+        href.startsWith('mailto:') ||
+        href.startsWith('tel:') ||
+        href.startsWith('javascript:')
+      ) {
+        return;
+      }
+
+      // If it's a hash jump on the same page
+      if (href.startsWith('#')) {
+        return;
+      }
+
+      // Prevent default instant navigation and run smooth exit transition
+      e.preventDefault();
+      navigateTo(href);
+    };
+
+    document.addEventListener('click', handleClick, { capture: true });
+    return () => {
+      document.removeEventListener('click', handleClick, { capture: true });
+    };
+  }, [navigateTo]);
+
   // Entrance animation whenever pathname changes
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
