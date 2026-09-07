@@ -1,6 +1,11 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  compress: true,
+  poweredByHeader: false,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
   async redirects() {
     return [
       {
@@ -25,6 +30,16 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/journal/:slug',
+        destination: '/insights/:slug',
+        permanent: true,
+      },
+      {
+        source: '/article',
+        destination: '/insights',
+        permanent: true,
+      },
+      {
+        source: '/article/:slug',
         destination: '/insights/:slug',
         permanent: true,
       },

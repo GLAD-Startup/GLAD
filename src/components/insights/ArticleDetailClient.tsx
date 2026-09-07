@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import { Check } from 'lucide-react';
 import type { ArticleItem } from '@/data/insights';
 import { articlesData } from '@/data/insights';
+import { servicesData } from '@/data/services';
+import { projectsData } from '@/data/work';
 import Divider from '@/components/ui/Divider';
 import Marquee from '@/components/ui/Marquee';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
@@ -38,7 +40,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
         <Marquee speed={28} itemClassName="py-2 flex items-center">
           <div className="flex items-center gap-8 md:gap-12 pr-[60px] md:pr-[80px] whitespace-nowrap py-1">
             {/* Article Title */}
-            <span
+            <h1
               className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.2em] pt-[0.08em]"
               style={{
                 fontSize: 'clamp(26px, 3.6vw, 52px)',
@@ -47,7 +49,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
               }}
             >
               {article.title}
-            </span>
+            </h1>
 
             {/* Category Pill */}
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-accent text-white shadow-sm">
@@ -333,6 +335,58 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
                   </div>
                 );
               })}
+            </div>
+          </div>
+        )}
+
+        {/* Applied Engineering Practice & Production Proof (Data-Driven) */}
+        {((article.relatedServiceSlugs && article.relatedServiceSlugs.length > 0) ||
+          (article.relatedWorkSlugs && article.relatedWorkSlugs.length > 0)) && (
+          <div className="mt-12 p-7 md:p-9 rounded-[16px] bg-surface border border-line-solid">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="max-w-xl">
+                <span className="text-[11.5px] font-mono font-semibold uppercase tracking-wider text-accent block mb-2">
+                  Applied Engineering Practice
+                </span>
+                <h3 className="text-[20px] font-semibold text-fg leading-snug">
+                  Building production systems with this architecture?
+                </h3>
+                <p className="text-[14px] text-fg-muted mt-2 leading-relaxed">
+                  GLAD Studio builds and ships custom AI solutions and automated workflows with senior engineers, deterministic guardrails, and fixed delivery cadences.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
+                {article.relatedServiceSlugs?.map((slug) => {
+                  const s = servicesData.find((svc) => svc.slug === slug);
+                  if (!s) return null;
+                  return (
+                    <Link
+                      key={s.slug}
+                      href={`/services/${s.slug}`}
+                      className="inline-flex items-center justify-between gap-3 px-4 py-2.5 rounded-[10px] bg-bg border border-line-solid text-[13px] font-medium text-fg hover:border-fg/40 hover:text-accent transition-all"
+                    >
+                      <span>Explore {s.title}</span>
+                      <span>→</span>
+                    </Link>
+                  );
+                })}
+
+                {article.relatedWorkSlugs?.map((slug) => {
+                  const w = projectsData.find((proj) => proj.slug === slug);
+                  if (!w) return null;
+                  return (
+                    <Link
+                      key={w.slug}
+                      href={`/work/${w.slug}`}
+                      className="inline-flex items-center justify-between gap-3 px-4 py-2.5 rounded-[10px] bg-surface-2 border border-line text-[13px] font-medium text-fg hover:border-fg/40 transition-all"
+                    >
+                      <span>Case Study: {w.title}</span>
+                      <span>→</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}

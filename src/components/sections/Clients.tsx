@@ -422,7 +422,7 @@ export default function Clients() {
               Software platforms<br />built to scale.
             </h3>
             <p className="t-body-sm text-fg-muted mt-2 max-w-[340px]">
-              Proprietary SaaS systems designed, engineered, and operated by GLAD studio.
+              Proprietary SaaS systems designed, engineered, and operated by GLAD Studio.
             </p>
           </div>
 
@@ -497,7 +497,7 @@ export default function Clients() {
                 Software platforms built to scale.
               </h3>
               <p className="t-body-sm text-fg-muted mt-2">
-                Proprietary SaaS systems designed, engineered, and operated by GLAD studio.
+                Proprietary SaaS systems designed, engineered, and operated by GLAD Studio.
               </p>
             </div>
 

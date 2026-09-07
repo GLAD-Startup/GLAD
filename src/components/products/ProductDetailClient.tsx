@@ -25,7 +25,7 @@ import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import WordRail from '@/components/ui/WordRail';
 import { openCalModal } from '@/components/providers/CalProvider';
 import PillButton from '@/components/ui/PillButton';
-import Faq from '@/components/sections/Faq';
+import ProductFaq from '@/components/products/ProductFaq';
 import Footer from '@/components/layout/Footer';
 import MockUiPanel from '@/components/products/MockUiPanel';
 import type { ProductItem } from '@/data/products';
@@ -38,6 +38,14 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
   const containerRef = useRef<HTMLDivElement>(null);
   const isHms = product.slug === 'glad-hms';
   const [activeCascadeTab, setActiveCascadeTab] = useState<string>(isHms ? 'frontdesk' : 'agent');
+
+  useEffect(() => {
+    setActiveCascadeTab(isHms ? 'frontdesk' : 'agent');
+  }, [isHms]);
+
+  const effectiveCascadeTab = isHms
+    ? (['frontdesk', 'housekeeping', 'finance'].includes(activeCascadeTab) ? activeCascadeTab : 'frontdesk')
+    : (['agent', 'admin', 'simulator'].includes(activeCascadeTab) ? activeCascadeTab : 'agent');
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -188,6 +196,14 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 <Phone className="w-3.5 h-3.5 text-accent" />
                 <span>Book a Discovery Call</span>
               </button>
+              <Link
+                href={`/work/${isHms ? 'glad-hms' : 'settledesk'}`}
+                data-cursor="pointer"
+                className="text-[13.5px] font-medium text-fg-muted hover:text-fg transition-colors flex items-center gap-1.5 py-2 px-3"
+              >
+                <span>Read Case Study</span>
+                <span>→</span>
+              </Link>
             </div>
           </div>
 
@@ -284,23 +300,23 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
 
               {/* Tab Display Panel */}
               <div>
-                {isHms && activeCascadeTab === 'frontdesk' && (
+                {isHms && effectiveCascadeTab === 'frontdesk' && (
                   <MockUiPanel variant="hms-checkin" />
                 )}
-                {isHms && activeCascadeTab === 'housekeeping' && (
+                {isHms && effectiveCascadeTab === 'housekeeping' && (
                   <MockUiPanel variant="hms-housekeeping" />
                 )}
-                {isHms && activeCascadeTab === 'finance' && (
+                {isHms && effectiveCascadeTab === 'finance' && (
                   <MockUiPanel variant="hms-billing" />
                 )}
 
-                {!isHms && activeCascadeTab === 'agent' && (
+                {!isHms && effectiveCascadeTab === 'agent' && (
                   <MockUiPanel variant="settledesk-agent" />
                 )}
-                {!isHms && activeCascadeTab === 'admin' && (
+                {!isHms && effectiveCascadeTab === 'admin' && (
                   <MockUiPanel variant="settledesk-ledger" />
                 )}
-                {!isHms && activeCascadeTab === 'simulator' && (
+                {!isHms && effectiveCascadeTab === 'simulator' && (
                   <MockUiPanel variant="settledesk-simulator" />
                 )}
               </div>
@@ -433,6 +449,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                       loop
                       muted
                       playsInline
+                      preload="metadata"
                       className="w-full h-full object-cover block"
                     />
                   </div>
@@ -456,6 +473,16 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                   <MockUiPanel variant="hms-housekeeping" />
                 ) : feature.mockVariant === 'hms-billing' ? (
                   <MockUiPanel variant="hms-billing" />
+                ) : feature.mockVariant === 'settledesk-admin' ? (
+                  <MockUiPanel variant="settledesk-admin" />
+                ) : feature.mockVariant === 'settledesk-ledger' ? (
+                  <MockUiPanel variant="settledesk-ledger" />
+                ) : feature.mockVariant === 'settledesk-agent' ? (
+                  <MockUiPanel variant="settledesk-agent" />
+                ) : feature.mockVariant === 'settledesk-simulator' ? (
+                  <MockUiPanel variant="settledesk-simulator" />
+                ) : isHms ? (
+                  <MockUiPanel variant="hms-grid" />
                 ) : (
                   <MockUiPanel variant="settledesk-simulator" />
                 )}
@@ -699,39 +726,41 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         </div>
       </section>
 
-      {/* 12. CROSS-SELL CARD (Pointing to Sister Product) */}
-      <section className="mt-[90px] xl:mt-[130px] px-[20px] md:px-[28px] xl:px-[40px]">
-        <div className="cross-sell-card-container max-w-7xl mx-auto bg-surface border border-line-solid rounded-[18px] p-8 xl:p-12 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 items-center shadow-[0_20px_50px_-24px_rgba(10,10,11,0.15)]">
-          <div className="space-y-4">
-            <span className="inline-block px-2.5 py-1 rounded-full text-[11px] font-medium uppercase tracking-wider bg-accent/10 text-accent font-mono">
-              {product.crossSell.badge}
-            </span>
-            <h3 className="t-heading-sm text-fg font-normal">
-              {product.crossSell.headline}
-            </h3>
-            <p className="t-body text-fg-muted max-w-xl">
-              {product.crossSell.description}
-            </p>
-            <div className="pt-2">
-              <PillButton href={`/products/${product.crossSell.targetSlug}`}>
-                Explore {product.crossSell.targetName} →
-              </PillButton>
+      {/* 12. CROSS-SELL CARD (Pointing to Sister Product, if configured) */}
+      {product.crossSell && (
+        <section className="mt-[90px] xl:mt-[130px] px-[20px] md:px-[28px] xl:px-[40px]">
+          <div className="cross-sell-card-container max-w-7xl mx-auto bg-surface border border-line-solid rounded-[18px] p-8 xl:p-12 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 items-center shadow-[0_20px_50px_-24px_rgba(10,10,11,0.15)]">
+            <div className="space-y-4">
+              <span className="inline-block px-2.5 py-1 rounded-full text-[11px] font-medium uppercase tracking-wider bg-accent/10 text-accent font-mono">
+                {product.crossSell.badge}
+              </span>
+              <h3 className="t-heading-sm text-fg font-normal">
+                {product.crossSell.headline}
+              </h3>
+              <p className="t-body text-fg-muted max-w-xl">
+                {product.crossSell.description}
+              </p>
+              <div className="pt-2">
+                <PillButton href={`/products/${product.crossSell.targetSlug}`}>
+                  Explore {product.crossSell.targetName} →
+                </PillButton>
+              </div>
             </div>
-          </div>
 
-          <div className="cross-sell-frame relative aspect-[4/3] rounded-[12px] overflow-hidden bg-bg border border-line flex items-center justify-center p-4 shadow-inner will-change-transform">
-            <div className="cross-sell-image-inner relative w-full h-[155%] flex items-center justify-center will-change-transform">
-              <Image
-                src={product.crossSell.graphic}
-                alt={product.crossSell.targetName}
-                fill
-                unoptimized
-                className="object-contain p-4 block"
-              />
+            <div className="cross-sell-frame relative aspect-[4/3] rounded-[12px] overflow-hidden bg-bg border border-line flex items-center justify-center p-4 shadow-inner will-change-transform">
+              <div className="cross-sell-image-inner relative w-full h-[155%] flex items-center justify-center will-change-transform">
+                <Image
+                  src={product.crossSell.graphic}
+                  alt={product.crossSell.targetName}
+                  fill
+                  unoptimized
+                  className="object-contain p-4 block"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 13. CLOSING CTA (WITH FULL-BLEED BACKGROUND VIDEO & EDGE FADES) */}
       <section className="relative overflow-hidden mt-[90px] xl:mt-[130px] border-y border-line py-[100px] xl:py-[140px] px-[20px] md:px-[28px] xl:px-[40px] text-center bg-surface/30">
@@ -743,6 +772,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             loop
             muted
             playsInline
+            preload="none"
             className="w-full h-full object-cover opacity-75 xl:opacity-85 brightness-105"
           >
             <source
@@ -787,6 +817,15 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               <span>{product.closingCta.secondaryButtonText}</span>
             </button>
           </div>
+          <div className="pt-4 flex items-center justify-center gap-2 text-[13px] text-fg-muted">
+            <span>Engineered by GLAD Studio.</span>
+            <Link
+              href={isHms ? '/services/web-application-development' : '/services/business-automation'}
+              className="font-medium text-fg hover:text-accent underline underline-offset-4 transition-colors"
+            >
+              Explore {isHms ? 'Web Application Development' : 'Business Automation'} Practice →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -799,7 +838,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         />
       </div>
 
-      <Faq />
+      <ProductFaq faqs={product.faqs} isHms={isHms} />
 
       {/* 15. FOOTER */}
       <Footer />

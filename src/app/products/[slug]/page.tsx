@@ -28,8 +28,8 @@ export async function generateMetadata({
 
   const title =
     product.slug === 'glad-hms'
-      ? 'GLAD HMS — Modular Hotel Management System | GLAD Studio'
-      : 'SettleDesk — Run Your Entire Brokerage on One Platform';
+      ? 'GLAD HMS — Modular Hospitality Management System'
+      : 'SettleDesk — Real Estate Brokerage Operating System';
 
   const description =
     product.slug === 'glad-hms'
@@ -37,12 +37,13 @@ export async function generateMetadata({
       : 'SettleDesk unifies property management, agent operations, lead tracking, and commission payouts into one secure, real-time SaaS platform for real estate brokerages.';
 
   const url = `https://gladstudio.net/products/${product.slug}`;
+  const fullTitle = `${title} | GLAD Studio`;
 
   return {
     title,
     description,
     openGraph: {
-      title,
+      title: fullTitle,
       description,
       url,
       type: 'website',
@@ -57,7 +58,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: fullTitle,
       description,
       images: ['https://gladstudio.net/og-image.png'],
     },
@@ -82,7 +83,7 @@ export default async function ProductDetailPage({
     '@graph': [
       {
         '@type': 'SoftwareApplication',
-        '@id': `https://gladstudio.net/products/${product.slug}/#software`,
+        '@id': `https://gladstudio.net/products/${product.slug}#software`,
         name: product.name,
         operatingSystem: 'Web, Cloud, iOS, Android',
         applicationCategory:
@@ -91,17 +92,22 @@ export default async function ProductDetailPage({
             : 'BusinessApplication',
         description: product.description,
         url: `https://gladstudio.net/products/${product.slug}`,
+        provider: {
+          '@type': 'Organization',
+          '@id': 'https://gladstudio.net/#organization',
+          name: 'GLAD Studio',
+          url: 'https://gladstudio.net',
+        },
         publisher: {
           '@type': 'Organization',
           '@id': 'https://gladstudio.net/#organization',
           name: 'GLAD Studio',
           url: 'https://gladstudio.net',
-          logo: 'https://gladstudio.net/og-image.png',
         },
       },
       {
         '@type': 'WebPage',
-        '@id': `https://gladstudio.net/products/${product.slug}/#webpage`,
+        '@id': `https://gladstudio.net/products/${product.slug}#webpage`,
         url: `https://gladstudio.net/products/${product.slug}`,
         name: `${product.name} — ${product.tagline} | GLAD Studio`,
         description: product.description,
@@ -111,7 +117,7 @@ export default async function ProductDetailPage({
       },
       {
         '@type': 'BreadcrumbList',
-        '@id': `https://gladstudio.net/products/${product.slug}/#breadcrumb`,
+        '@id': `https://gladstudio.net/products/${product.slug}#breadcrumb`,
         itemListElement: [
           {
             '@type': 'ListItem',
@@ -135,7 +141,7 @@ export default async function ProductDetailPage({
       },
       {
         '@type': 'FAQPage',
-        '@id': `https://gladstudio.net/products/${product.slug}/#faq`,
+        '@id': `https://gladstudio.net/products/${product.slug}#faq`,
         mainEntity: product.faqs.map((faq) => ({
           '@type': 'Question',
           name: faq.question,

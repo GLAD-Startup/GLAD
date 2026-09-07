@@ -117,7 +117,7 @@ export default function Footer({
     { label: 'All Products', href: '/products' },
     { label: 'GLAD HMS', href: '/products/glad-hms' },
     { label: 'SettleDesk', href: '/products/settledesk' },
-    { label: 'Insights', href: '/article/what-is-ai-agent-development' },
+    { label: 'Insights', href: '/insights/what-is-ai-agent-development' },
     { label: 'Work', href: '/work' },
     { label: 'Process', href: '/#process' },
     { label: 'About', href: '/about' },

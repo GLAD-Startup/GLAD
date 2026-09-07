@@ -23,18 +23,45 @@ export async function generateMetadata({
       title: 'Service Not Found',
     };
   }
+  const serviceImages: Record<string, string> = {
+    'mvp-development': '/services/service-mvp.jpg',
+    'web-application-development': '/services/service-web.jpg',
+    'mobile-app-development': '/services/service-mobile.jpg',
+    'ai-solutions': '/services/service-ai.jpg',
+    'business-automation': '/services/service-automation.jpg',
+  };
+
+  const fullImageUrl = `https://gladstudio.net${serviceImages[service.slug] || '/og-image.png'}`;
+
+  const serviceTitles: Record<string, string> = {
+    'mvp-development': 'MVP Development Services for Startups',
+    'web-application-development': 'Custom Web Application Development Services',
+    'mobile-app-development': 'Mobile App Development Services — iOS & Android',
+    'ai-solutions': 'AI Solutions & Custom AI Agent Development',
+    'business-automation': 'Business Process Automation & Internal Tools',
+  };
+
+  const pageTitle = serviceTitles[service.slug] || `${service.title} Services`;
 
   return {
-    title: `${service.title} — Services`,
+    title: pageTitle,
     description: service.description,
     alternates: {
       canonical: `https://gladstudio.net/services/${service.slug}`,
     },
     openGraph: {
-      title: `${service.title} — GLAD Studio`,
+      title: `${pageTitle} | GLAD Studio`,
       description: service.description,
       url: `https://gladstudio.net/services/${service.slug}`,
       type: 'website',
+      images: [
+        {
+          url: fullImageUrl,
+          width: 896,
+          height: 1200,
+          alt: service.title,
+        },
+      ],
     },
   };
 }
@@ -54,24 +81,22 @@ export default async function ServiceDetailPage({
   const serviceJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Service',
+    '@id': `https://gladstudio.net/services/${service.slug}#service`,
+    url: `https://gladstudio.net/services/${service.slug}`,
     name: service.title,
+    description: service.description,
     provider: {
       '@type': 'Organization',
-      name: 'GLAD studio',
+      '@id': 'https://gladstudio.net/#organization',
+      name: 'GLAD Studio',
       url: 'https://gladstudio.net',
-    },
-    description: service.description,
-    areaServed: 'Worldwide',
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
     },
   };
 
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    '@id': `https://gladstudio.net/services/${service.slug}#breadcrumb`,
     itemListElement: [
       {
         '@type': 'ListItem',

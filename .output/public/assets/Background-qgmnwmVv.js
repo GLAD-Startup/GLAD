@@ -1,0 +1,1 @@
+import{j as e}from"./vendor-react-CwsuuxOG.js";function t(){return e.jsx("div",{className:"pointer-events-none absolute inset-0 overflow-hidden -z-10 noise-bg",children:e.jsx("div",{className:"absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-background"})})}export{t as H};

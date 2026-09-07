@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
@@ -276,7 +277,7 @@ export default function AboutPageClient() {
             </h2>
             <div className="flex flex-col gap-4 t-body text-fg-muted leading-relaxed">
               <p>
-                We started GLAD studio because founders kept losing months to agencies that overpromised, staffed projects with junior contractors learning on client budgets, and left founders with fragile codebases they couldn&apos;t maintain.
+                We started GLAD Studio because founders kept losing months to agencies that overpromised, staffed projects with junior contractors learning on client budgets, and left founders with fragile codebases they couldn&apos;t maintain.
               </p>
               <p>
                 So we built something different — a senior team that works on a small number of projects at a time and ships every week. We operate with zero account middlemen and zero telephone-game miscommunications.
@@ -286,7 +287,7 @@ export default function AboutPageClient() {
             {/* Pull Quote Box */}
             <div className="mt-2 p-6 rounded-[14px] bg-surface border-l-4 border-accent border-t border-r border-b border-line-solid">
               <p className="text-[16px] xl:text-[18px] font-normal text-fg leading-snug">
-                &ldquo;When you partner with GLAD studio, you talk directly with the senior engineers designing your database schemas, writing your types, and training your models.&rdquo;
+                &ldquo;When you partner with GLAD Studio, you talk directly with the senior engineers designing your database schemas, writing your types, and training your models.&rdquo;
               </p>
             </div>
           </div>
@@ -515,10 +516,24 @@ export default function AboutPageClient() {
           <p className="text-[15px] md:text-[16px] text-[#A8A8AD] max-w-[620px] mx-auto mt-4 leading-relaxed">
             Tell us about your product roadmap. We will review your requirements and respond within 24 hours with architectural feedback and availability.
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <PillButton calLink="arjun-rajput-2mdsis" variant="inverted">
               Book a Discovery Call
             </PillButton>
+            <Link
+              href="/services"
+              data-cursor="pointer"
+              className="text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-4"
+            >
+              Explore Engineering Services →
+            </Link>
+            <Link
+              href="/work"
+              data-cursor="pointer"
+              className="text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-4"
+            >
+              View Client Work →
+            </Link>
           </div>
         </div>
       </section>

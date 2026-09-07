@@ -41,20 +41,24 @@ export default function ContactForm() {
     const nextErrors: typeof errors = {};
     if (!formData.name.trim()) {
       nextErrors.name = 'Please provide your name';
+    } else if (formData.name.trim().length > 100) {
+      nextErrors.name = 'Name must be 100 characters or less';
     }
     if (!formData.email.trim()) {
       nextErrors.email = 'Please provide your email address';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+    } else if (formData.email.trim().length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       nextErrors.email = 'Please provide a valid email address';
     }
     if (!formData.description.trim()) {
       nextErrors.description = 'Please describe what you are looking to build';
+    } else if (formData.description.trim().length > 5000) {
+      nextErrors.description = 'Description must be 5000 characters or less';
     }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setServerError(null);
 
@@ -62,17 +66,45 @@ export default function ContactForm() {
 
     setIsSubmitting(true);
     try {
-      const res = await fetch('/api/contact', {
+      const form = e.currentTarget;
+      const formDataPayload = new FormData(form);
+      formDataPayload.set('name', formData.name.trim());
+      formDataPayload.set('email', formData.email.trim());
+      formDataPayload.set('company', formData.company.trim());
+      formDataPayload.set('timeline', formData.timeline.trim());
+      formDataPayload.set('budget', formData.budget);
+      formDataPayload.set('description', formData.description.trim());
+
+      const res = await fetch('https://formsubmit.co/ajax/contact@gladstudio.net', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: {
+          Accept: 'application/json',
+        },
+        body: formDataPayload,
       });
 
+      if (!res.ok) {
+        let errorMsg = 'Failed to submit enquiry. Please email us directly at contact@gladstudio.net';
+        try {
+          const errorData = await res.json();
+          if (errorData?.message && typeof errorData.message === 'string') {
+            errorMsg = errorData.message;
+          }
+        } catch {
+          // Response body was not JSON
+        }
+        setServerError(errorMsg);
+        return;
+      }
+
       const data = await res.json();
-      if (res.ok && data.success) {
+      if (data && (data.success === true || data.success === 'true')) {
         setIsSuccess(true);
       } else {
-        setServerError(data.error || 'Failed to submit enquiry. Please email us directly at contact@gladstudio.net');
+        setServerError(
+          (typeof data?.message === 'string' && data.message) ||
+            'Failed to submit enquiry. Please email us directly at contact@gladstudio.net'
+        );
       }
     } catch {
       setServerError('Network error. Please try again or email us directly at contact@gladstudio.net');
@@ -140,6 +172,7 @@ export default function ContactForm() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
+          <input type="hidden" name="budget" value={formData.budget} />
           {/* Row 1: Name & Email */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Name */}
@@ -151,6 +184,7 @@ export default function ContactForm() {
                 id="contact-name"
                 type="text"
                 name="name"
+                maxLength={100}
                 placeholder="e.g. Arjun Singh"
                 value={formData.name}
                 onChange={(e) => {
@@ -176,6 +210,7 @@ export default function ContactForm() {
                 id="contact-email"
                 type="email"
                 name="email"
+                maxLength={254}
                 placeholder="e.g. arjun@company.com"
                 value={formData.email}
                 onChange={(e) => {
@@ -204,6 +239,7 @@ export default function ContactForm() {
                 id="contact-company"
                 type="text"
                 name="company"
+                maxLength={200}
                 placeholder="e.g. Acme Ventures"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
@@ -220,6 +256,7 @@ export default function ContactForm() {
                 id="contact-timeline"
                 type="text"
                 name="timeline"
+                maxLength={100}
                 placeholder="e.g. 4–8 weeks / ASAP"
                 value={formData.timeline}
                 onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
@@ -264,6 +301,7 @@ export default function ContactForm() {
             <textarea
               id="contact-description"
               name="description"
+              maxLength={5000}
               rows={4}
               placeholder="Tell us what you're building, key features, target users, and any technical preferences..."
               value={formData.description}

@@ -44,6 +44,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
       if (navEl) {
         gsap.set(navEl, { clearProps: 'opacity,transform' });
       }
+      const studioBase = document.querySelector('[data-intro="studio-base"]');
+      if (studioBase instanceof HTMLElement) {
+        studioBase.style.opacity = '0';
+      }
       return;
     }
 
@@ -65,6 +69,7 @@ export default function HeroIntro({ children }: HeroIntroProps) {
         const studioGradient = document.querySelector(
           '[data-intro="studio-gradient"], [data-intro="glad-gradient"]'
         );
+        const studioBase = document.querySelector('[data-intro="studio-base"]');
         const wordmarkDividers = document.querySelectorAll(
           '[data-intro="wordmark-divider"]'
         );
@@ -107,14 +112,16 @@ export default function HeroIntro({ children }: HeroIntroProps) {
 
         if (studioGradient) {
           gsap.set(studioGradient, {
-            clipPath: 'inset(0 0 0 100%)',
+            clipPath: 'inset(-20% 0 -30% 100%)',
           });
         }
 
-        gsap.set(wordmarkDividers, {
-          scaleX: 0,
-          transformOrigin: 'center center',
-        });
+        if (wordmarkDividers.length > 0) {
+          gsap.set(wordmarkDividers, {
+            scaleX: 0,
+            transformOrigin: 'center center',
+          });
+        }
 
         gsap.set(videoCard, {
           y: 26,
@@ -153,6 +160,9 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             if (studioGradient) {
               gsap.set(studioGradient, { clearProps: 'clipPath' });
             }
+            if (studioBase instanceof HTMLElement) {
+              studioBase.style.opacity = '0';
+            }
             if (nav) {
               gsap.set(nav, { clearProps: 'opacity,transform' });
             }
@@ -180,12 +190,12 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           0.45
         );
 
-        // 0.95s - 2.75s: Studio gradient fill animation: slower right-to-left wipe (inset(0 0 0 100%) -> inset(0 0 0 0%))
+        // 0.95s - 2.75s: Studio gradient fill animation: slower right-to-left wipe (inset(-20% 0 -30% 100%) -> inset(-20% 0 -30% 0%))
         if (studioGradient) {
           tl.to(
             studioGradient,
             {
-              clipPath: 'inset(0 0 0 0%)',
+              clipPath: 'inset(-20% 0 -30% 0%)',
               duration: 1.80,
               ease: 'power1.inOut',
             },
@@ -206,16 +216,31 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           2.75
         );
 
+        // 2.75s: Studio base — fade out base text underneath to eliminate any edge bleeding
+        if (studioBase) {
+          tl.to(
+            studioBase,
+            {
+              opacity: 0,
+              duration: 0.35,
+              ease: 'power1.out',
+            },
+            2.75
+          );
+        }
+
         // 2.75s: Wordmark dividers: scaleX: 0 -> 1 from center
-        tl.to(
-          wordmarkDividers,
-          {
-            scaleX: 1,
-            duration: 0.90,
-            ease: 'expo.out',
-          },
-          2.75
-        );
+        if (wordmarkDividers.length > 0) {
+          tl.to(
+            wordmarkDividers,
+            {
+              scaleX: 1,
+              duration: 0.90,
+              ease: 'expo.out',
+            },
+            2.75
+          );
+        }
 
         // 3.45s: Video card: y: 26px, scale: 0.94, opacity: 0 -> y: 0, scale: 1, opacity: 1
         tl.to(
@@ -296,6 +321,10 @@ export default function HeroIntro({ children }: HeroIntroProps) {
       const navEl = document.querySelector('[data-intro="nav"]');
       if (navEl) {
         gsap.set(navEl, { clearProps: 'opacity,transform' });
+      }
+      const studioBase = document.querySelector('[data-intro="studio-base"]');
+      if (studioBase instanceof HTMLElement) {
+        studioBase.style.opacity = '';
       }
     };
   }, []);

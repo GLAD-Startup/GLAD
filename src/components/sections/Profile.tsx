@@ -268,7 +268,7 @@ export default function Profile() {
         {/* Closing Block — Positioned on right side below Jatin's photo */}
         <div className="w-full max-w-[452px] mx-auto xl:mx-0 xl:absolute xl:right-[40px] xl:top-[1060px] z-10">
           <p className="t-body text-fg-muted">
-            We started GLAD studio because founders kept losing months to agencies that overpromised and left them with code they couldn&apos;t maintain. So we built something different —{' '}
+            We started GLAD Studio because founders kept losing months to agencies that overpromised and left them with code they couldn&apos;t maintain. So we built something different —{' '}
             <strong className="text-fg font-semibold">
               a senior team
             </strong>{' '}

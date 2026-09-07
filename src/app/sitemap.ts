@@ -6,12 +6,11 @@ import { articlesData } from '@/data/insights';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://gladstudio.net';
-  const lastModified = new Date();
 
-  // Static routes
-  const staticRoutes = [
+  // Static canonical routes
+  const staticRoutes: MetadataRoute.Sitemap = [
     '',
-    '/portfolio',
+    '/work',
     '/services',
     '/products',
     '/process',
@@ -22,46 +21,53 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified,
     changeFrequency: 'weekly' as const,
     priority: route === '' ? 1.0 : 0.8,
   }));
 
-  // Portfolio dynamic routes
-  const portfolioRoutes = projectsData.map((p) => ({
-    url: `${baseUrl}/portfolio/${p.slug}`,
-    lastModified,
-    changeFrequency: 'monthly' as const,
-    priority: 0.9,
-  }));
+  // Work dynamic routes
+  const workRoutes: MetadataRoute.Sitemap = projectsData.map((p) => {
+    const parsedDate = p.date ? new Date(p.date) : null;
+    const isValidDate = parsedDate && !isNaN(parsedDate.getTime());
+
+    return {
+      url: `${baseUrl}/work/${p.slug}`,
+      ...(isValidDate ? { lastModified: parsedDate } : {}),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    };
+  });
 
   // Service dynamic routes
-  const serviceRoutes = servicesData.map((s) => ({
+  const serviceRoutes: MetadataRoute.Sitemap = servicesData.map((s) => ({
     url: `${baseUrl}/services/${s.slug}`,
-    lastModified,
     changeFrequency: 'monthly' as const,
     priority: 0.9,
   }));
 
   // Product dynamic routes
-  const productRoutes = productsData.map((p) => ({
+  const productRoutes: MetadataRoute.Sitemap = productsData.map((p) => ({
     url: `${baseUrl}/products/${p.slug}`,
-    lastModified,
     changeFrequency: 'monthly' as const,
     priority: 0.9,
   }));
 
   // Insights dynamic routes
-  const insightRoutes = articlesData.map((a) => ({
-    url: `${baseUrl}/insights/${a.slug}`,
-    lastModified,
-    changeFrequency: 'monthly' as const,
-    priority: 0.85,
-  }));
+  const insightRoutes: MetadataRoute.Sitemap = articlesData.map((a) => {
+    const parsedDate = a.date ? new Date(a.date) : null;
+    const isValidDate = parsedDate && !isNaN(parsedDate.getTime());
+
+    return {
+      url: `${baseUrl}/insights/${a.slug}`,
+      ...(isValidDate ? { lastModified: parsedDate } : {}),
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    };
+  });
 
   return [
     ...staticRoutes,
-    ...portfolioRoutes,
+    ...workRoutes,
     ...serviceRoutes,
     ...productRoutes,
     ...insightRoutes,

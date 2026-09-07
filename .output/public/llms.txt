@@ -1,0 +1,62 @@
+# GLAD Studio
+
+> Full-service software studio specializing in AI-powered web applications, mobile app development, data engineering, and business automation.
+
+## Core Capabilities
+- **MVP Development**: High-velocity v1 creation for startups (4–8 week delivery timeline).
+- **Web Application Development**: Scalable SaaS platforms, custom dashboards, and web portals using React, TypeScript, and TanStack.
+- **Mobile Development**: Cross-platform Android & iOS applications using Flutter and React Native.
+- **AI & Automation**: Custom LLM integrations, conversational AI, automated lead enrichment, and workflow orchestration.
+
+## Primary Routes & Pages
+- Homepage: https://gladstudio.net/
+- Services Overview: https://gladstudio.net/services
+- MVP Development: https://gladstudio.net/services/mvp-development
+- Web Application Development: https://gladstudio.net/services/web-application-development
+- Mobile App Development: https://gladstudio.net/services/mobile-app-development
+- AI Solutions: https://gladstudio.net/services/ai-solutions
+- Business Automation: https://gladstudio.net/services/business-automation
+- Insights Hub: https://gladstudio.net/insights
+- AI Development Cost in India: https://gladstudio.net/insights/ai-development-cost-india
+- AI Agent vs Chatbot: https://gladstudio.net/insights/ai-agent-vs-chatbot
+- What Is AI Agent Development: https://gladstudio.net/insights/what-is-ai-agent-development
+- RAG vs Fine-Tuning: https://gladstudio.net/insights/rag-vs-fine-tuning
+- How to Build an AI Agent for Business: https://gladstudio.net/insights/how-to-build-ai-agent-for-business
+- Products Overview: https://gladstudio.net/products
+- GLAD HMS (Hospitality SaaS): https://gladstudio.net/products/glad-hms
+- SettleDesk (Real Estate SaaS): https://gladstudio.net/products/settledesk
+- Portfolio: https://gladstudio.net/portfolio
+- Process: https://gladstudio.net/process
+- About: https://gladstudio.net/about
+- Contact: https://gladstudio.net/contact
+
+## AI Engineering Insights
+- **AI Development Cost in India (2026)**: A realistic engineering breakdown of AI software development costs in India—covering RAG pipelines, autonomous agents, vector databases, model token usage, and operational maintenance (https://gladstudio.net/insights/ai-development-cost-india)
+- **AI Agent vs Chatbot**: Technical comparison between conversational interfaces and autonomous goal-driven agents capable of executing multi-step business actions via tool calling and API connectors (https://gladstudio.net/insights/ai-agent-vs-chatbot)
+- **What Is AI Agent Development?**: In-depth engineering blueprint detailing how AI agents plan tasks, invoke APIs, query vector stores, manage state, and adhere to deterministic safety guardrails (https://gladstudio.net/insights/what-is-ai-agent-development)
+- **RAG vs Fine-Tuning**: Architectural decision guide comparing Retrieval-Augmented Generation (pgvector) against model parameter fine-tuning for factual accuracy, data freshness, privacy, and hybrid systems (https://gladstudio.net/insights/rag-vs-fine-tuning)
+- **How to Build an AI Agent for Business**: A 9-step implementation roadmap for designing, evaluating, and deploying production-ready AI agents with real-world tool integrations and human checkpoints (https://gladstudio.net/insights/how-to-build-ai-agent-for-business)
+
+## Services
+- **MVP Development**: Custom MVP engineering for startups and businesses. GLAD Studio designs and builds scalable web, mobile, and SaaS MVPs with production-ready architecture, type safety, and 100% IP ownership (https://gladstudio.net/services/mvp-development)
+- **Web Application Development**: Full-stack custom web applications and multi-tenant SaaS platforms engineered with React, TypeScript, FastAPI, Node.js, and PostgreSQL (https://gladstudio.net/services/web-application-development)
+- **Mobile App Development**: Cross-platform iOS and Android mobile applications built using Flutter and React Native with offline-first local SQLite sync and biometric security (https://gladstudio.net/services/mobile-app-development)
+- **AI Solutions**: Production-grade AI systems including custom LLM applications, autonomous AI agents with LangGraph/CrewAI, RAG retrieval pipelines with pgvector, and computer vision models (https://gladstudio.net/services/ai-solutions)
+- **Business Automation**: Custom workflow automation, API integrations, lead enrichment pipelines, and self-hosted n8n instances to eliminate manual data entry and streamline operations (https://gladstudio.net/services/business-automation)
+
+## Proprietary Software Products
+- **GLAD HMS**: Modular, multi-tenant Hotel Management System (HMS) for room reservations, front desk operations, housekeeping task boards, stay folios, and USALI revenue analytics (https://gladstudio.net/products/glad-hms)
+- **SettleDesk**: Real estate brokerage operating system unifying property catalogs, agent workflows, deal approvals, and commission split payouts (https://gladstudio.net/products/settledesk)
+
+## Featured Portfolio Case Studies
+- **Fluxor**: Automated Document Orchestration & Asset Classification Engine (https://gladstudio.net/portfolio/fluxor)
+- **Prayas App**: Decentralized Medical Inventory Control & Resource Logistics Platform (https://gladstudio.net/portfolio/prayas-app)
+- **Stock Management**: Multi-Tenant Enterprise Inventory & Supply Chain Suite (https://gladstudio.net/portfolio/stock-management)
+- **AI Mock Interview**: Low-Latency Conversational AI Technical Assessment Engine (https://gladstudio.net/portfolio/ai-mock-interview)
+- **Lead Enrichment**: High-Throughput Lead Sourcing & Automated Data Cleansing Pipeline (https://gladstudio.net/portfolio/lead-enrichment)
+- **Q-SAFE**: Zero-Knowledge Encrypted Secure File Transmission Portal (https://gladstudio.net/portfolio/q-safe)
+
+## Contact Information
+- Email: hello@gladstudio.net
+- Website: https://gladstudio.net
+- Location: India (Serving global client base)

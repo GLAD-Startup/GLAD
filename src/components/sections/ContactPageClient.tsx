@@ -21,7 +21,7 @@ const contactChannels = [
     external: false,
   },
   {
-    label: 'Office: Vrindavan, India.',
+    label: 'Office: Vrindavan, India',
     href: 'https://maps.google.com/?q=Vrindavan,Uttar+Pradesh,India',
     external: true,
   },
@@ -131,20 +131,20 @@ export default function ContactPageClient() {
   return (
     <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[84px]">
       {/* 1. Top Section: Overlapping Photo Card on Left + Refined Contact Channels on Right */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[20px] md:pt-[36px] xl:pt-[44px] pb-0 grid grid-cols-1 lg:grid-cols-[340px_1fr] xl:grid-cols-[370px_1fr] gap-[32px] lg:gap-[52px] xl:gap-[72px] items-start relative z-20">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[28px] md:pt-[44px] xl:pt-[56px] pb-[36px] md:pb-[48px] xl:pb-[60px] grid grid-cols-1 lg:grid-cols-[340px_1fr] xl:grid-cols-[370px_1fr] gap-[36px] lg:gap-[52px] xl:gap-[72px] items-center relative z-20">
         {/* Left: Minimal Swiss Typography Poster Card with Black Background Base & Smooth Slide Scroll Effect */}
         <div
           ref={imageFrameRef}
           data-cursor="pointer"
-          className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.85] lg:aspect-[4/4.8] max-w-[320px] xl:max-w-[348px] lg:ml-[32px] xl:ml-[48px] will-change-transform group translate-y-[16px] md:translate-y-[44px] lg:translate-y-[64px] xl:translate-y-[76px] -mb-[32px] md:-mb-[60px] lg:-mb-[84px] z-30 pointer-events-auto"
+          className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.85] lg:aspect-[4/4.8] max-w-[300px] xl:max-w-[330px] mx-auto lg:mx-0 lg:ml-[24px] xl:ml-[36px] will-change-transform group z-30 pointer-events-auto"
         >
           {/* Black Background Base Card */}
           <div className="absolute inset-0 rounded-[20px] bg-[#0A0A0B] border border-black/30 shadow-[0_20px_48px_rgba(0,0,0,0.20)] transition-all duration-300 group-hover:border-black/50 group-hover:shadow-[0_24px_56px_rgba(0,0,0,0.26)]" />
 
-          {/* Sliding Image Card on Top of Black Background (Default offset downward) */}
+          {/* Sliding Image Card on Top of Black Background */}
           <div
             ref={imageInnerRef}
-            className="absolute top-[22px] md:top-[28px] bottom-[-14px] md:bottom-[-18px] left-[7px] md:left-[8px] right-[7px] md:right-[8px] rounded-[13px] overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.18)] will-change-transform z-10 transition-shadow duration-300 group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.26)]"
+            className="absolute top-[16px] md:top-[20px] bottom-[16px] md:bottom-[20px] left-[7px] md:left-[8px] right-[7px] md:right-[8px] rounded-[13px] overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.18)] will-change-transform z-10 transition-shadow duration-300 group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.26)]"
           >
             <Image
               src="/brand/contact-typography.svg"
@@ -158,7 +158,7 @@ export default function ContactPageClient() {
         </div>
 
         {/* Right: Stacked Contact Channel Links with Rolling Text & Silky Slow Animated Underline (Right Aligned) */}
-        <div ref={linksRef} className="flex flex-col border-t border-line w-full max-w-[520px] self-center ml-auto">
+        <div ref={linksRef} className="flex flex-col border-t border-line w-full max-w-full lg:max-w-[540px] xl:max-w-[580px] ml-auto">
           {contactChannels.map((item, idx) => (
             <a
               key={idx}
@@ -174,16 +174,16 @@ export default function ContactPageClient() {
                 }
               }}
               data-cursor="pointer"
-              className="contact-row group relative flex items-center justify-between py-[12px] md:py-[14px] xl:py-[15px] border-b border-line text-fg transition-colors duration-200 select-none overflow-hidden cursor-pointer"
+              className="contact-row group relative flex items-center justify-between py-[14px] md:py-[16px] xl:py-[18px] border-b border-line text-fg transition-colors duration-200 select-none overflow-hidden cursor-pointer"
             >
               {/* Channel Label with Smooth Slide-Up Replace Animation (Full Descender Clearance) */}
-              <span className="relative inline-block overflow-hidden h-[1.55em] pt-[0.05em] pb-[0.20em] text-[14px] md:text-[15.5px] xl:text-[16.5px] font-medium text-fg leading-[1.3]">
-                <span className="block transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-full text-fg leading-[1.3]">
+              <span className="relative inline-block overflow-hidden h-[1.7em] text-[14px] md:text-[15.5px] xl:text-[16.5px] font-medium text-fg leading-[1.3]">
+                <span className="block transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-full text-fg leading-[1.3] pt-[0.15em] pb-[0.25em]">
                   {item.label}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="absolute top-[0.05em] left-0 block translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0 text-fg font-medium leading-[1.3]"
+                  className="absolute top-0 left-0 block translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0 text-fg font-medium leading-[1.3] pt-[0.15em] pb-[0.25em]"
                 >
                   {item.label}
                 </span>
@@ -227,13 +227,13 @@ export default function ContactPageClient() {
       </div>
 
       {/* 3. Giant Display Headline: "Contact Now" (Centered, t-display token, font-normal) */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[24px] md:pt-[36px] xl:pt-[44px] pb-[16px] md:pb-[24px] overflow-hidden border-b border-line flex justify-center items-center text-center">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[28px] md:pt-[40px] xl:pt-[48px] pb-[20px] md:pb-[28px] xl:pb-[36px] overflow-hidden border-b border-line flex justify-center items-center text-center">
         <h1
           ref={headlineRef}
-          className="t-display text-fg font-normal select-none whitespace-nowrap will-change-transform text-center overflow-hidden py-1"
+          className="t-display text-fg font-normal select-none whitespace-nowrap will-change-transform text-center overflow-hidden py-2"
           style={{
-            fontSize: 'clamp(56px, 13vw, 190px)',
-            lineHeight: 0.88,
+            fontSize: 'clamp(52px, 12.5vw, 190px)',
+            lineHeight: 0.90,
             letterSpacing: '-0.035em',
           }}
         >
@@ -252,7 +252,12 @@ export default function ContactPageClient() {
       </div>
 
       {/* 4. Interactive Quick Message Drawer / Enquiry Form Toggle */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[32px] pb-[16px] flex items-center justify-between">
+      <div
+        className={clsx(
+          'px-[20px] md:px-[28px] xl:px-[40px] py-[24px] md:py-[28px] flex items-center justify-between transition-colors',
+          !showEnquiryForm && 'border-b border-line'
+        )}
+      >
         <div className="flex items-center gap-3">
           <span className="text-[12px] font-semibold text-accent uppercase tracking-widest">
             Project Proposal & Scoping
@@ -298,13 +303,11 @@ export default function ContactPageClient() {
       </div>
 
       {/* 5. Section Eyebrow matching the reference design */}
-      <div className="mt-[48px] xl:mt-[72px]">
-        <SectionEyebrow
-          left={<>⊕ HELP CENTER <span lang="hi">सहायता</span></>}
-          index="(GLD® — 11)"
-          right="CLARIFICATIONS"
-        />
-      </div>
+      <SectionEyebrow
+        left={<>⊕ HELP CENTER <span lang="hi">सहायता</span></>}
+        index="(GLD® — 11)"
+        right="CLARIFICATIONS"
+      />
 
       {/* 6. FAQ Accordion Section */}
       <Faq />

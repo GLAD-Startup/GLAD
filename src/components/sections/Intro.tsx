@@ -63,7 +63,7 @@ export default function Intro() {
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               className="w-full h-full object-cover block rounded-[12px]"
             />
           </div>

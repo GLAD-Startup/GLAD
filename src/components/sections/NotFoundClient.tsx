@@ -81,7 +81,7 @@ export default function NotFoundClient() {
               Looks like you found a dead end.
             </h1>
             <p className="t-body text-fg-muted max-w-[500px] leading-relaxed">
-              The page you are looking for has been moved, removed, or never existed in the GLAD studio directory.
+              The page you are looking for has been moved, removed, or never existed in the GLAD Studio directory.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-3">

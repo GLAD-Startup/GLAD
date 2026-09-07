@@ -93,7 +93,7 @@ export default function Faq() {
                 ref={headlineRef}
                 className="t-display-sm text-fg inline-block will-change-transform"
                 style={{
-                  fontSize: 'clamp(0px, 9vw, 150px)',
+                  fontSize: 'clamp(48px, 9vw, 150px)',
                   lineHeight: 0.98,
                   letterSpacing: '-0.035em',
                 }}
@@ -150,7 +150,7 @@ export default function Faq() {
           </div>
 
           {/* Right Column: FAQ Questions brought up to the top */}
-          <div className="flex flex-col xl:pt-[10px]">
+          <div className="flex flex-col">
             {/* Accordion List with 8 Rows */}
             <div className="border-t border-line">
               {faqsData.map((item, idx) => {
@@ -168,12 +168,12 @@ export default function Faq() {
                       type="button"
                       onClick={() => toggleFaq(idx)}
                       data-cursor="link"
-                      className="w-full flex items-center text-left focus:outline-none group cursor-pointer"
+                      className="w-full flex items-start text-left focus:outline-none group cursor-pointer"
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                     >
                       {/* Number */}
-                      <span className="w-[45px] xl:w-[70px] shrink-0 text-[13px] font-medium text-fg-muted">
+                      <span className="w-[45px] xl:w-[70px] shrink-0 text-[13px] font-medium text-fg-muted pt-0.5">
                         {item.number}
                       </span>
 
@@ -183,7 +183,7 @@ export default function Faq() {
                       </span>
 
                       {/* + / - Rotating Glyph */}
-                      <div className="ml-auto shrink-0 w-6 h-6 flex items-center justify-center text-fg">
+                      <div className="ml-auto shrink-0 w-6 h-6 flex items-center justify-center text-fg pt-0.5">
                         <svg
                           className={`w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                             isOpen ? 'rotate-45' : 'rotate-0'
@@ -211,7 +211,7 @@ export default function Faq() {
                           : 'max-h-0 opacity-0'
                       }`}
                     >
-                      <div className="pt-[14px] xl:pt-[16px] pl-[32px] sm:pl-[45px] xl:pl-[70px]">
+                      <div className="pt-[14px] xl:pt-[16px] pl-[45px] xl:pl-[70px]">
                         <p className="t-body-sm text-fg-muted max-w-[620px] leading-[1.55]">
                           {item.answer}
                         </p>
@@ -226,7 +226,7 @@ export default function Faq() {
       </section>
 
       {/* Section Eyebrow */}
-      <div className="mt-[120px] xl:mt-[160px]">
+      <div className="mt-[64px] md:mt-[80px] xl:mt-[100px]">
         <SectionEyebrow
           left={<>GET IN TOUCH <span lang="hi">समापन</span></>}
           index="(GLD® — 12)"

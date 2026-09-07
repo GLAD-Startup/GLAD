@@ -93,7 +93,7 @@ export interface ProductItem {
   aboutStory: ProductStory;
   pricingTiers: ProductPricingTier[];
   faqs: ProductFaq[];
-  crossSell: {
+  crossSell?: {
     badge: string;
     headline: string;
     description: string;
@@ -390,16 +390,6 @@ export const gladHmsProduct: ProductItem = {
         'Yes, newly registered hotels receive a 15-day self-serve trial with core modules pre-provisioned, allowing immediate room inventory configuration and front-desk testing.',
     },
   ],
-  crossSell: {
-    badge: 'Real Estate SaaS',
-    headline: 'Run Your Entire Brokerage. On One Platform.',
-    description:
-      'Explore SettleDesk — GLAD Studio’s proprietary SaaS unifying property management, agent operations, lead tracking, and commission payouts in real time.',
-    targetSlug: 'settledesk',
-    targetName: 'SettleDesk',
-    metric: '500+ Brokers Onboarded',
-    graphic: '/products/building.png',
-  },
   closingCta: {
     heading: 'Ready to Modernize Your Hotel Operations?',
     subline:
@@ -668,6 +658,11 @@ export const settledeskProduct: ProductItem = {
   ],
   faqs: [
     {
+      question: 'What is SettleDesk?',
+      answer:
+        'SettleDesk is an enterprise Real Estate Brokerage Operating System engineered by GLAD Studio. It unifies property management, agent workspaces, lead pipelines, and tiered commission settlements onto a single secure platform.',
+    },
+    {
       question: 'How fast can our brokerage get set up on SettleDesk?',
       answer:
         'Provisioning a new company workspace takes under 5 minutes. Admins can instantly start uploading property catalogs and inviting team members.',
@@ -815,16 +810,6 @@ export const settledeskProduct: ProductItem = {
       image: '/products/real-estate-app.png',
     },
   ],
-  crossSell: {
-    badge: 'Hospitality SaaS',
-    headline: 'Enterprise-Grade Hotel Operations. Built Module by Module.',
-    description:
-      'Explore GLAD HMS — GLAD Studio’s modular hotel operating system unifying reservations, housekeeping task boards, and USALI revenue analytics.',
-    targetSlug: 'glad-hms',
-    targetName: 'GLAD HMS',
-    metric: '100% Modular PMS',
-    graphic: '/products/hotel-building-transparent.png',
-  },
   closingCta: {
     heading: 'Run Your Brokerage with Precision.',
     subline:

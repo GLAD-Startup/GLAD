@@ -12,6 +12,10 @@ import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
 import type { ServiceItem } from '@/data/services';
+import { servicesData } from '@/data/services';
+import { projectsData } from '@/data/work';
+import { articlesData } from '@/data/insights';
+import { productsData } from '@/data/products';
 
 interface ServiceDetailClientProps {
   service: ServiceItem;
@@ -254,7 +258,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
               data-cursor="pointer"
               className="text-[14px] font-medium text-fg-muted hover:text-fg transition-colors flex items-center gap-1.5 py-2 px-3"
             >
-              <span>View Case Study</span>
+              <span>View {visuals.caseStudyTitle}</span>
               <span>→</span>
             </Link>
           </div>
@@ -277,7 +281,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
                 muted
                 loop
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="w-full h-full object-cover block rounded-[16px]"
               />
             ) : (
@@ -402,6 +406,159 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
           ))}
         </div>
       </div>
+
+      {/* 8. Related Production Work (Data-Driven, 1-3 Verified Projects) */}
+      {service.relatedWorkSlugs && service.relatedWorkSlugs.length > 0 && (
+        <>
+          <div className="mt-[80px] xl:mt-[110px]">
+            <SectionEyebrow
+              left={<>PROVEN DEPLOYMENTS <span lang="hi">प्रमाण</span></>}
+              index={`(GLD® — ${service.index}C)`}
+              right="RELEVANT CASE STUDIES"
+            />
+          </div>
+          <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {service.relatedWorkSlugs.map((slug) => {
+                const proj = projectsData.find((p) => p.slug === slug);
+                if (!proj) return null;
+                return (
+                  <Link
+                    key={proj.slug}
+                    href={`/work/${proj.slug}`}
+                    data-cursor="pointer"
+                    className="group bg-surface border border-line-solid rounded-[14px] p-6 flex flex-col justify-between hover:bg-surface-2 transition-all duration-300 shadow-sm hover:shadow-md"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between text-[11.5px] font-mono text-accent uppercase tracking-wider mb-3">
+                        <span>{proj.category}</span>
+                        <span>{proj.year}</span>
+                      </div>
+                      <h4 className="text-[18px] font-semibold text-fg group-hover:text-accent transition-colors leading-snug">
+                        {proj.title}
+                      </h4>
+                      <p className="text-[13.5px] text-fg-muted mt-2.5 leading-relaxed line-clamp-3">
+                        {proj.summary}
+                      </p>
+                    </div>
+                    <div className="mt-6 pt-4 border-t border-line flex items-center justify-between text-[13px] font-medium text-fg">
+                      <span className="text-fg-muted group-hover:text-fg transition-colors">
+                        {proj.metric || 'Explore Technical Architecture'}
+                      </span>
+                      <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">→</span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* 9. Related Engineering Insights (Data-Driven, Verified Topics Only) */}
+      {service.relatedInsightSlugs && service.relatedInsightSlugs.length > 0 && (
+        <>
+          <div className="mt-[80px] xl:mt-[110px]">
+            <SectionEyebrow
+              left={<>ENGINEERING GUIDES <span lang="hi">अध्ययन</span></>}
+              index={`(GLD® — ${service.index}D)`}
+              right="TECHNICAL INSIGHTS"
+            />
+          </div>
+          <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {service.relatedInsightSlugs.slice(0, 4).map((slug) => {
+                const art = articlesData.find((a) => a.slug === slug);
+                if (!art) return null;
+                return (
+                  <Link
+                    key={art.slug}
+                    href={`/insights/${art.slug}`}
+                    data-cursor="pointer"
+                    className="group bg-surface border border-line-solid rounded-[14px] p-6 flex flex-col justify-between hover:bg-surface-2 transition-all duration-300 shadow-sm"
+                  >
+                    <div>
+                      <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-accent">
+                        {art.category}
+                      </span>
+                      <h4 className="text-[17px] font-semibold text-fg group-hover:text-accent transition-colors mt-2 leading-snug">
+                        {art.title}
+                      </h4>
+                      <p className="text-[13.5px] text-fg-muted mt-2 leading-relaxed line-clamp-2">
+                        {art.excerpt}
+                      </p>
+                    </div>
+                    <div className="mt-5 pt-3.5 border-t border-line flex items-center justify-between text-[12.5px] font-mono text-fg-muted">
+                      <span>{art.readTime}</span>
+                      <span className="text-fg font-medium group-hover:translate-x-1 transition-transform">
+                        Read Engineering Guide →
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* 10. Proprietary Platform Engineering (Data-Driven, Validated Platforms Only) */}
+      {service.relatedProductSlugs && service.relatedProductSlugs.length > 0 && (
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
+          <div className="p-6 rounded-[14px] bg-surface border border-line-solid flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <span className="text-[11.5px] font-semibold text-accent uppercase tracking-wider block">
+                Proprietary Platform Engineering
+              </span>
+              <p className="text-[14px] text-fg-muted mt-1">
+                Engineered by GLAD Studio: inspect our live product operating systems.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              {service.relatedProductSlugs.map((slug) => {
+                const prod = productsData.find((p) => p.slug === slug);
+                if (!prod) return null;
+                return (
+                  <Link
+                    key={prod.slug}
+                    href={`/products/${prod.slug}`}
+                    className="px-4 py-2 rounded-full border border-line-solid bg-bg text-[13px] font-medium text-fg hover:border-fg/40 hover:bg-surface-2 transition-all flex items-center gap-1.5"
+                  >
+                    <span>{prod.name} Platform</span>
+                    <span>→</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 11. Complementary Engineering Disciplines */}
+      {service.relatedServiceSlugs && service.relatedServiceSlugs.length > 0 && (
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
+          <div className="pt-6 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[13.5px]">
+            <span className="text-fg-muted font-medium">
+              Complementary Engineering Disciplines:
+            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              {service.relatedServiceSlugs.map((slug) => {
+                const rel = servicesData.find((s) => s.slug === slug);
+                if (!rel) return null;
+                return (
+                  <Link
+                    key={rel.slug}
+                    href={`/services/${rel.slug}`}
+                    className="px-3.5 py-1.5 rounded-full bg-surface border border-line-solid text-fg hover:border-fg/40 hover:text-accent transition-all text-[12.5px] font-medium"
+                  >
+                    {rel.title} →
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 8. Call to Action Banner */}
       <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[80px] xl:mt-[120px]">
