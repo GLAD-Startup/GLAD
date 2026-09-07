@@ -297,11 +297,11 @@ export default function Footer({
       {/* 6. Giant Faded Year Display Watermark (Centered with Increased Visibility & Smooth Scroll Slide-Up) */}
       <div
         ref={watermarkContainerRef}
-        className="w-full border-t border-line overflow-hidden select-none px-[20px] md:px-[28px] xl:px-[40px] pt-12 md:pt-16 xl:pt-20 pb-8 md:pb-12 xl:pb-16 flex justify-center items-center text-center"
+        className="w-full border-t border-line overflow-hidden select-none px-[20px] md:px-[28px] xl:px-[40px] pt-10 md:pt-14 xl:pt-16 pb-0 flex justify-center items-center text-center"
       >
         <div
           ref={watermarkRef}
-          className="text-fg/[0.15] font-normal leading-[0.95] tracking-[-0.045em] whitespace-nowrap select-none will-change-transform text-center mx-auto"
+          className="text-fg/[0.15] font-normal leading-[0.85] tracking-[-0.045em] whitespace-nowrap select-none will-change-transform text-center mx-auto"
           style={{
             fontSize: 'clamp(54px, 18vw, 320px)',
             fontFeatureSettings: '"zero" 1',
