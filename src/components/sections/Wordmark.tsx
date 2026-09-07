@@ -36,7 +36,7 @@ export default function Wordmark() {
   return (
     <section
       ref={containerRef}
-      className="relative z-20 w-full overflow-visible pt-[18px] md:pt-[24px] px-[20px] md:px-[28px] xl:px-[40px] pb-[30px] md:pb-[48px] bg-transparent flex justify-center items-center select-none"
+      className="relative z-20 w-full overflow-visible pt-[36px] md:pt-[48px] xl:pt-[60px] px-[20px] md:px-[28px] xl:px-[40px] pb-[36px] md:pb-[48px] xl:pb-[60px] bg-transparent flex justify-center items-center select-none"
     >
       <div
         ref={wordmarkRef}
@@ -53,8 +53,9 @@ export default function Wordmark() {
         <span className="relative inline-block">
           {/* Base dim layer during drop and hold */}
           <span
+            data-intro="studio-base"
             aria-hidden="true"
-            className="inline-block select-none"
+            className="inline-block select-none transition-opacity duration-300"
             style={{
               paddingTop: '0.10em',
               paddingBottom: '0.28em',

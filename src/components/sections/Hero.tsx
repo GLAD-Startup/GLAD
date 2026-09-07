@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
-import Divider from '@/components/ui/Divider';
 import CyclingWord from '@/components/hero/CyclingWord';
 
 const TOTAL_FRAMES = 3;
@@ -158,7 +157,7 @@ export default function Hero() {
                     muted
                     loop
                     playsInline
-                    preload="auto"
+                    preload="none"
                     className="w-full h-full object-cover block"
                   />
                 </div>
@@ -168,7 +167,6 @@ export default function Hero() {
                   src="/frames/dynamic-phone-frame.png"
                   alt="Smartphone frame"
                   fill
-                  priority
                   unoptimized
                   className="object-contain pointer-events-none block z-10"
                 />
@@ -203,7 +201,7 @@ export default function Hero() {
                     muted
                     loop
                     playsInline
-                    preload="auto"
+                    preload="none"
                     className="w-full h-full object-cover block"
                   />
                 </div>
@@ -213,7 +211,6 @@ export default function Hero() {
                   src="/frames/monitor-frame.png"
                   alt="Desktop Studio Monitor frame"
                   fill
-                  priority
                   unoptimized
                   className="object-contain pointer-events-none block z-10"
                 />
@@ -233,9 +230,6 @@ export default function Hero() {
           />
         </div>
       </section>
-
-      {/* Divider below the hero container */}
-      <Divider data-intro="wordmark-divider" className="origin-center will-change-transform" />
     </>
   );
 }

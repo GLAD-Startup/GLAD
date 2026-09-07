@@ -67,6 +67,8 @@ export interface ArticleItem {
   portraitSrc: string;
   sections: ArticleSection[];
   faqs: ArticleFaq[];
+  relatedServiceSlugs?: string[];
+  relatedWorkSlugs?: string[];
 }
 
 export const articlesData: ArticleItem[] = [
@@ -87,6 +89,8 @@ export const articlesData: ArticleItem[] = [
       'An AI agent is not a chatbot that answers questions — it is a software runtime that uses a language model as a reasoning engine to execute multi-step work across external APIs.',
     coverSrc: '/articles/ai-agent-1.jpg',
     portraitSrc: '/team/somesh.jpeg',
+    relatedServiceSlugs: ['ai-solutions'],
+    relatedWorkSlugs: ['ai-mock-interview'],
     paragraphs: [
       'AI agent development is the software engineering discipline of building systems where a large language model serves as a central reasoning and decision-making engine. Given a high-level business goal, an AI agent autonomously plans sub-tasks, selects and invokes external tools (APIs, databases, search engines), inspects the tool output, and iterates through a stateful execution loop until the goal is completed.',
       'Unlike traditional chatbots that generate passive text responses, an autonomous agent operates in an active loop: Ingestion -> Task Decomposition -> Tool Selection -> Tool Execution -> Observation Reasoning -> Subsequent Execution -> Termination. Each step in the loop is evaluated against deterministic schemas and Pydantic validation boundaries to ensure output consistency and safety.',
@@ -341,6 +345,8 @@ export const articlesData: ArticleItem[] = [
       'Deterministic software rules should govern your agent boundaries. Use LLMs for flexible semantic reasoning, but let strict SQL and Pydantic schemas enforce the rules.',
     coverSrc: '/articles/ai-agent-2.jpg',
     portraitSrc: '/team/arjun.jpg',
+    relatedServiceSlugs: ['ai-solutions', 'business-automation'],
+    relatedWorkSlugs: ['lead-enrichment'],
     paragraphs: [
       'Before writing a single line of agentic code, engineering teams must evaluate whether a business process actually qualifies for an autonomous agent. Workflows that thrive under agent orchestration involve semi-structured inputs, dynamic tool sequencing, and reversible operational actions with human-in-the-loop checkpoints.',
       'The production lifecycle follows nine rigorous steps: selecting a high-impact bottleneck, establishing objective quantitative evaluation metrics, routing between foundation models, defining strict JSON tool schemas, connecting domain knowledge via RAG vector search, wrapping execution in deterministic guardrails, structuring state machines with LangGraph, running synthetic benchmark evaluations, and deploying continuous tracing telemetry.',
@@ -557,6 +563,8 @@ export const articlesData: ArticleItem[] = [
       'If you need text returned to a screen, build a chatbot. If you need a database updated, an invoice audited, and a team alerted, build an agent.',
     coverSrc: '/articles/ai-agent-3.jpg',
     portraitSrc: '/team/somesh.jpeg',
+    relatedServiceSlugs: ['ai-solutions', 'business-automation'],
+    relatedWorkSlugs: ['ai-mock-interview'],
     paragraphs: [
       'The fundamental distinction between chatbots and AI agents comes down to actions versus words. A chatbot is built to converse, summarize text, and answer questions. An AI agent is built to plan, take autonomous actions, call APIs, mutate database records, and self-correct when unexpected errors occur during execution.',
       'Chatbots follow linear, scripted conversational trees or simple single-turn retrieval patterns. AI agents, by contrast, possess dynamic tool-calling registries, maintain multi-step execution graphs, and execute cyclic loops until an overarching business goal is satisfied.',
@@ -816,6 +824,8 @@ export const articlesData: ArticleItem[] = [
       'RAG provides the open-book context; fine-tuning provides the specialized habit. Know whether you are teaching a model new facts or training a model in a specific discipline.',
     coverSrc: '/articles/ai-agent-4.jpg',
     portraitSrc: '/team/jatin.jpg',
+    relatedServiceSlugs: ['ai-solutions'],
+    relatedWorkSlugs: [],
     paragraphs: [
       'A common architectural dilemma when building production AI systems is deciding between Retrieval-Augmented Generation (RAG) and model fine-tuning. RAG injects verified external factual context into the model prompt at runtime, while fine-tuning permanently modifies model weights to adapt syntax, tone, or formatting.',
       'RAG is vastly superior for dynamic business data, strict source attribution, and role-based document access controls, requiring zero model retraining when company documentation updates. Fine-tuning excels at enforcing strict JSON output schemas, replicating unique organizational brand voices, and minimizing prompt token overhead on repetitive tasks.',
@@ -976,6 +986,8 @@ export const articlesData: ArticleItem[] = [
       'The true cost of an AI system is never just the API tokens — it is the engineering discipline behind schema validation, evaluation harnesses, and deterministic guardrails.',
     coverSrc: '/articles/ai-agent-5.jpg',
     portraitSrc: '/team/parth.jpeg',
+    relatedServiceSlugs: ['ai-solutions'],
+    relatedWorkSlugs: [],
     paragraphs: [
       'Budgeting for AI software engineering in 2026 requires understanding the six distinct complexity tiers: basic AI-powered feature integrations, conversational assistants with session memory, production RAG search engines with vector databases, autonomous multi-tool agents, AI-enabled multi-tenant SaaS platforms, and private VPC enterprise models.',
       'Primary cost drivers are not foundation model API token fees, but rather workflow complexity, data cleanliness, OCR parsing overhead, and evaluation test harness coverage. Without automated evaluation suites, AI applications suffer from silent quality degradation over time.',

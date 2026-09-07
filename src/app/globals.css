@@ -1,5 +1,4 @@
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -31,7 +30,7 @@
   --color-rail-bg: var(--rail-bg);
   --color-rail-fg: var(--rail-fg);
 
-  --font-sans: 'General Sans', 'Noto Sans JP', 'Noto Sans Devanagari', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'General Sans', var(--font-noto-devanagari), 'Noto Sans Devanagari', 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
@@ -244,7 +243,6 @@ select:-webkit-autofill:focus {
   margin-bottom: -0.28em;
   padding-right: 0.04em;
   padding-left: 0.02em;
-  clip-path: inset(0% 0 0 0);
 }
 
 @keyframes marquee {
@@ -321,7 +319,7 @@ html.intro-armed [data-intro="wordmark"] {
 
 html.intro-armed [data-intro="studio-gradient"],
 html.intro-armed [data-intro="glad-gradient"] {
-  clip-path: inset(0 0 0 100%) !important;
+  clip-path: inset(-20% 0 -30% 100%) !important;
 }
 
 html.intro-armed [data-intro="wordmark-divider"] {

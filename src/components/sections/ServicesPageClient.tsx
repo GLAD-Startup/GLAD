@@ -269,7 +269,7 @@ export default function ServicesPageClient() {
                 sizes="(max-width: 1280px) 135px, 150px"
                 className="object-cover block"
                 priority={idx === 0}
-                quality={95}
+                quality={75}
               />
             </div>
           ))}

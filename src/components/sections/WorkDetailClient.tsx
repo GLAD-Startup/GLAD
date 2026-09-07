@@ -14,6 +14,7 @@ import ProjectCard from '@/components/ui/ProjectCard';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
 import type { ProjectItem } from '@/data/work';
+import { servicesData } from '@/data/services';
 
 interface WorkDetailClientProps {
   project: ProjectItem;
@@ -26,6 +27,9 @@ export default function WorkDetailClient({
   nextProject1,
   nextProject2,
 }: WorkDetailClientProps) {
+  const primaryService = project.primaryServiceSlug
+    ? servicesData.find((s) => s.slug === project.primaryServiceSlug)
+    : undefined;
   const containerRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
@@ -284,6 +288,34 @@ export default function WorkDetailClient({
             </div>
           </div>
 
+          {/* Engineering Discipline Link (Data-Driven) */}
+          {(primaryService || (project.relatedServiceSlugs && project.relatedServiceSlugs.length > 0)) && (
+            <div className="mt-5 flex flex-wrap items-center gap-2 text-[12.5px]">
+              <span className="text-fg-muted font-normal">Engineering Disciplines:</span>
+              {primaryService && (
+                <Link
+                  href={`/services/${primaryService.slug}`}
+                  className="font-medium text-fg hover:text-accent underline underline-offset-4 decoration-line transition-colors"
+                >
+                  {primaryService.title}
+                </Link>
+              )}
+              {project.relatedServiceSlugs?.map((slug) => {
+                const s = servicesData.find((svc) => svc.slug === slug);
+                if (!s) return null;
+                return (
+                  <Link
+                    key={s.slug}
+                    href={`/services/${s.slug}`}
+                    className="font-medium text-fg-muted hover:text-accent underline underline-offset-4 decoration-line transition-colors"
+                  >
+                    • {s.title}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
           {/* Action CTAs */}
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <PillButton calLink="arjun-rajput-2mdsis">Book Discovery Call</PillButton>
@@ -296,6 +328,16 @@ export default function WorkDetailClient({
               <span>Explore Screenshots</span>
               <span className="transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
             </button>
+            {project.primaryProductSlug && (
+              <Link
+                href={`/products/${project.primaryProductSlug}`}
+                data-cursor="pointer"
+                className="text-[14px] font-medium text-fg-muted hover:text-fg transition-colors flex items-center gap-1.5 py-2 px-3"
+              >
+                <span>Explore Live Platform</span>
+                <span>→</span>
+              </Link>
+            )}
           </div>
         </div>
 
@@ -711,6 +753,15 @@ export default function WorkDetailClient({
             <PillButton calLink="arjun-rajput-2mdsis" variant="inverted">
               Book a Discovery Call
             </PillButton>
+            {primaryService && (
+              <Link
+                href={`/services/${primaryService.slug}`}
+                data-cursor="pointer"
+                className="text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-4"
+              >
+                Explore {primaryService.title} →
+              </Link>
+            )}
             <Link
               href="/work"
               data-cursor="pointer"

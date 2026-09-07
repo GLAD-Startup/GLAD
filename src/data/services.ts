@@ -22,6 +22,10 @@ export interface ServiceItem {
   phases: ServicePhase[];
   techStack: string[];
   imageSeeds: string[];
+  relatedServiceSlugs?: string[];
+  relatedWorkSlugs?: string[];
+  relatedProductSlugs?: string[];
+  relatedInsightSlugs?: string[];
 }
 
 export const servicesData: ServiceItem[] = [
@@ -88,6 +92,10 @@ export const servicesData: ServiceItem[] = [
     ],
     techStack: ['React 19', 'Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS', 'Supabase'],
     imageSeeds: ['glad-mvp-1', 'glad-mvp-2', 'glad-mvp-3', 'glad-mvp-4'],
+    relatedServiceSlugs: ['web-application-development', 'mobile-app-development'],
+    relatedWorkSlugs: ['glad-hms'],
+    relatedProductSlugs: ['glad-hms'],
+    relatedInsightSlugs: ['what-is-ai-agent-development', 'how-to-build-ai-agent-for-business'],
   },
   {
     id: '02',
@@ -152,6 +160,9 @@ export const servicesData: ServiceItem[] = [
     ],
     techStack: ['React 19', 'TanStack Start', 'TypeScript', 'Node.js', 'FastAPI', 'PostgreSQL', 'Redis'],
     imageSeeds: ['glad-web-1', 'glad-web-2', 'glad-web-3', 'glad-web-4'],
+    relatedServiceSlugs: ['mvp-development', 'business-automation'],
+    relatedWorkSlugs: ['glad-hms', 'settledesk', 'prayas-app'],
+    relatedProductSlugs: ['glad-hms', 'settledesk'],
   },
   {
     id: '03',
@@ -216,6 +227,8 @@ export const servicesData: ServiceItem[] = [
     ],
     techStack: ['Flutter', 'React Native', 'Dart', 'TypeScript', 'Firebase', 'SQLite', 'Fastlane'],
     imageSeeds: ['glad-mob-1', 'glad-mob-2', 'glad-mob-3', 'glad-mob-4'],
+    relatedServiceSlugs: ['mvp-development', 'web-application-development'],
+    relatedWorkSlugs: ['prayas-app', 'stock-management'],
   },
   {
     id: '04',
@@ -275,6 +288,9 @@ export const servicesData: ServiceItem[] = [
     ],
     techStack: ['Python', 'FastAPI', 'pgvector', 'LangChain', 'OpenAI', 'Claude', 'LangSmith', 'Docker'],
     imageSeeds: ['glad-ai-1', 'glad-ai-2', 'glad-ai-3', 'glad-ai-4'],
+    relatedServiceSlugs: ['business-automation', 'web-application-development'],
+    relatedWorkSlugs: ['ai-mock-interview'],
+    relatedInsightSlugs: ['ai-development-cost-india', 'rag-vs-fine-tuning', 'what-is-ai-agent-development', 'how-to-build-ai-agent-for-business'],
   },
   {
     id: '05',
@@ -334,6 +350,10 @@ export const servicesData: ServiceItem[] = [
     ],
     techStack: ['n8n', 'Python', 'Node.js', 'PostgreSQL', 'Redis Queues', 'Docker', 'HubSpot / Salesforce'],
     imageSeeds: ['glad-auto-1', 'glad-auto-2', 'glad-auto-3', 'glad-auto-4'],
+    relatedServiceSlugs: ['ai-solutions', 'web-application-development'],
+    relatedWorkSlugs: ['lead-enrichment', 'settledesk'],
+    relatedProductSlugs: ['settledesk'],
+    relatedInsightSlugs: ['how-to-build-ai-agent-for-business', 'ai-agent-vs-chatbot'],
   },
 ];
 

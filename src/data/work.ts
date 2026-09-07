@@ -27,6 +27,9 @@ export interface ProjectItem {
   liveUrl?: string;
   shots: ProjectShot[];
   galleryImages: string[];
+  primaryServiceSlug?: string;
+  relatedServiceSlugs?: string[];
+  primaryProductSlug?: string;
   // Scattered homepage layout coordinates
   x: number;
   y: number;
@@ -73,6 +76,9 @@ export const projectsData: ProjectItem[] = [
     year: '2024',
     metric: '99.9% Platform Uptime',
     liveUrl: 'https://gladstudio.net/products/glad-hms',
+    primaryServiceSlug: 'web-application-development',
+    relatedServiceSlugs: ['mvp-development'],
+    primaryProductSlug: 'glad-hms',
     shots: [
       { src: '/products/glad-hms/glad-hms-1.png', caption: 'Enterprise modular room inventory matrix and multi-property management console' },
       { src: '/products/glad-hms/glad-hms-2.png', caption: 'Multi-calendar room matrix, bookings timeline, and availability grid' },
@@ -128,6 +134,9 @@ export const projectsData: ProjectItem[] = [
     year: '2024',
     metric: '500+ Brokers Onboarded',
     liveUrl: 'https://gladstudio.net/products/settledesk',
+    primaryServiceSlug: 'business-automation',
+    relatedServiceSlugs: ['web-application-development'],
+    primaryProductSlug: 'settledesk',
     shots: [
       { src: '/products/settledesk/settledesk-1.png', caption: 'Enterprise commercial brokerage dashboard and multi-tenant deal pipeline' },
       { src: '/products/settledesk/settledesk-2.png', caption: 'Automated commission ledger and transaction settlement engine' },
@@ -182,6 +191,8 @@ export const projectsData: ProjectItem[] = [
     year: '2024',
     metric: '10,000+ Community Reach',
     liveUrl: 'https://gladstudio.net/work/prayas-app',
+    primaryServiceSlug: 'mobile-app-development',
+    relatedServiceSlugs: ['web-application-development'],
     shots: [
       { src: '/work/prayas-app/prayas-admin-1.png', caption: 'Centralized admin portal for medical inventory tracking, request dispatch, and donor verification' },
       { src: '/work/prayas-app/prayas-app-1.png', caption: 'Mobile application for donor-recipient matching, blood donation requests, and health logistics' },
@@ -241,6 +252,8 @@ export const projectsData: ProjectItem[] = [
     year: '2024',
     metric: 'Zero Stock Discrepancies · 32% Less Wastage',
     liveUrl: 'https://gladstudio.net/work/stock-management',
+    primaryServiceSlug: 'mobile-app-development',
+    relatedServiceSlugs: ['web-application-development'],
     shots: [
       { src: '/work/stock-management/canteen-cover.png', caption: 'Tablet POS console and mobile inventory tracking for GLA Canteen' },
       { src: '/work/stock-management/canteen-app-1.png', caption: 'Real-time multi-counter stock sync and daily kitchen consumption tracking' },
@@ -293,7 +306,8 @@ export const projectsData: ProjectItem[] = [
     techStack: ['React.js', 'FastAPI', 'HuggingFace', 'MongoDB', 'Python'],
     year: '2025',
     metric: 'Real-time Grading',
-    liveUrl: 'https://gladstudio.net/portfolio/ai-mock-interview',
+    liveUrl: 'https://gladstudio.net/work/ai-mock-interview',
+    primaryServiceSlug: 'ai-solutions',
     shots: [
       { src: '/work/ai-mock-interview/mock-interview-cover.png', caption: 'TalentScale AI conversational assessment console with real-time scoring and waveform analysis' },
       { src: '/work/ai-mock-interview/mock-interview-2.png', caption: 'Candidate evaluation report, rubric breakdown, and AI feedback scorecard' },
@@ -347,7 +361,9 @@ export const projectsData: ProjectItem[] = [
     techStack: ['Python', 'n8n', 'PostgreSQL', 'Docker', 'OpenAI'],
     year: '2025',
     metric: '1,000s Leads / Day',
-    liveUrl: 'https://gladstudio.net/portfolio/lead-enrichment',
+    liveUrl: 'https://gladstudio.net/work/lead-enrichment',
+    primaryServiceSlug: 'business-automation',
+    relatedServiceSlugs: ['ai-solutions'],
     shots: [
       { src: '/work/lead-enrichment/lead-enrichment-1.png', caption: 'Automated lead enrichment and website validation pipeline' },
       { src: '/work/lead-enrichment/lead-enrichment-3.png', caption: 'AI-powered personalized email generation and batch execution engine' },

@@ -275,7 +275,7 @@ export default function CyclingWord() {
           lang="hi"
           className="inline-block tracking-[0.02em]"
           style={{
-            fontFamily: "'Noto Sans Devanagari', 'Noto Sans JP', sans-serif",
+            fontFamily: "var(--font-noto-devanagari), 'Noto Sans Devanagari', sans-serif",
             fontSize: '1.05em',
           }}
         >
@@ -311,7 +311,7 @@ export default function CyclingWord() {
             lang="hi"
             className="inline-block tracking-[0.02em] whitespace-nowrap will-change-transform"
             style={{
-              fontFamily: "'Noto Sans Devanagari', 'Noto Sans JP', sans-serif",
+              fontFamily: "var(--font-noto-devanagari), 'Noto Sans Devanagari', sans-serif",
               fontSize: '1.05em',
             }}
           >
@@ -324,7 +324,7 @@ export default function CyclingWord() {
             lang="hi"
             className="absolute left-0 top-0 inline-block tracking-[0.02em] whitespace-nowrap will-change-transform opacity-0"
             style={{
-              fontFamily: "'Noto Sans Devanagari', 'Noto Sans JP', sans-serif",
+              fontFamily: "var(--font-noto-devanagari), 'Noto Sans Devanagari', sans-serif",
               fontSize: '1.05em',
             }}
           >
@@ -361,7 +361,7 @@ export default function CyclingWord() {
             lang="hi"
             className="inline-block tracking-[0.02em]"
             style={{
-              fontFamily: "'Noto Sans Devanagari', 'Noto Sans JP', sans-serif",
+              fontFamily: "var(--font-noto-devanagari), 'Noto Sans Devanagari', sans-serif",
               fontSize: '1.05em',
             }}
           >

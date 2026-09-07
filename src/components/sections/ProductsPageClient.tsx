@@ -4,11 +4,11 @@ import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { productsData } from '@/data/products';
+import { productsData, productsOverviewFaqs } from '@/data/products';
 import PillButton from '@/components/ui/PillButton';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import WordRail from '@/components/ui/WordRail';
-import Faq from '@/components/sections/Faq';
+import ProductFaq from '@/components/products/ProductFaq';
 import Footer from '@/components/layout/Footer';
 
 export default function ProductsPageClient() {
@@ -149,7 +149,7 @@ export default function ProductsPageClient() {
           ref={descRef}
           className="t-body text-fg-muted mt-3 max-w-[680px] leading-relaxed will-change-transform"
         >
-          Proprietary SaaS systems designed, engineered, and operated by GLAD studio to validate database architectures and solve real-world enterprise operations.
+          Proprietary SaaS systems designed, engineered, and operated by GLAD Studio to validate database architectures and solve real-world enterprise operations.
         </p>
       </div>
 
@@ -246,7 +246,7 @@ export default function ProductsPageClient() {
                   src={product.overviewGraphic}
                   alt={`${product.name} visual preview`}
                   fill
-                  unoptimized
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-contain p-4 block"
                 />
               </div>
@@ -264,7 +264,7 @@ export default function ProductsPageClient() {
         />
       </div>
 
-      <Faq />
+      <ProductFaq faqs={productsOverviewFaqs} />
 
       {/* Footer */}
       <Footer />

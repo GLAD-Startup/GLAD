@@ -163,7 +163,11 @@ export default function Journal({ isListingPage = false }: JournalProps) {
         id="journal"
         className="relative w-full bg-bg select-none"
       >
-        <h2 className="sr-only">Engineering Insights</h2>
+        {isListingPage ? (
+          <h1 className="sr-only">Engineering Insights</h1>
+        ) : (
+          <h2 className="sr-only">Engineering Insights</h2>
+        )}
 
         {/* 1. Top Section Marquee Carousel Header */}
         <div className="relative w-full overflow-hidden py-5 xl:py-7 bg-surface/30 border-b border-line">

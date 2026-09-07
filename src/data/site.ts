@@ -24,7 +24,7 @@ export const cyclingWords = [
 ] as const;
 
 export const siteConfig = {
-  name: 'GLAD studio',
+  name: 'GLAD Studio',
   tagline: 'Web, Mobile & AI Product Engineering',
   legalName: 'GLAD Studio',
   foundedYear: 2024,
@@ -83,6 +83,6 @@ export const siteConfig = {
     wordRail: ['Independent', 'Senior Team', 'Multidisciplinary', 'India-Based'],
     mission:
       'An engineering-focused software and AI product studio building custom digital products, SaaS platforms, AI systems, and business automation solutions.',
-    copyright: '© 2026 GLAD studio',
+    copyright: '© 2026 GLAD Studio',
   },
 };

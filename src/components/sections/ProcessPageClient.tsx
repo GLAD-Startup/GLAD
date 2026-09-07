@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { processRows } from '@/data/process';
 import ProcessCard from '@/components/ui/ProcessCard';
+import Link from 'next/link';
+import PillButton from '@/components/ui/PillButton';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/layout/Footer';
@@ -263,6 +265,30 @@ export default function ProcessPageClient() {
 
             </div>
 
+          </div>
+        </div>
+      </div>
+
+      {/* Lightweight Process-to-Commercial Transition Bar */}
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] md:mt-[72px]">
+        <div className="py-6 px-6 md:px-8 rounded-[14px] bg-surface border border-line-solid flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span className="text-[11.5px] font-semibold text-accent uppercase tracking-wider block">
+              Applied Execution
+            </span>
+            <p className="text-[14.5px] text-fg font-normal mt-0.5">
+              Ready to apply our structured sprint model to your product roadmap?
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/services"
+              data-cursor="pointer"
+              className="text-[13.5px] font-medium text-fg hover:text-accent transition-colors py-2 px-3"
+            >
+              Explore Engineering Services →
+            </Link>
+            <PillButton calLink="arjun-rajput-2mdsis">Start Discovery</PillButton>
           </div>
         </div>
       </div>

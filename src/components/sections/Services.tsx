@@ -132,7 +132,7 @@ export default function Services() {
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               className="w-full h-full object-cover block rounded-[12px] scale-[1.035]"
             />
           </div>
@@ -209,7 +209,7 @@ export default function Services() {
                 sizes="(max-width: 1280px) 135px, 150px"
                 className="object-cover block"
                 priority={idx === 0}
-                quality={95}
+                quality={75}
               />
             </div>
           ))}

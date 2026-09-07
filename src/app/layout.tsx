@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Noto_Sans_Devanagari } from 'next/font/google';
 import './globals.css';
 import SmoothScroll from '@/components/providers/SmoothScroll';
 import Cursor from '@/components/ui/Cursor';
@@ -7,11 +8,18 @@ import FloatingFooter from '@/components/layout/FloatingFooter';
 import CalProvider from '@/components/providers/CalProvider';
 import PageTransition from '@/components/providers/PageTransition';
 
+const notoSansDevanagari = Noto_Sans_Devanagari({
+  subsets: ['devanagari'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-noto-devanagari',
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://gladstudio.net'),
   title: {
-    default: 'GLAD studio — Web, Mobile & AI Development Agency',
-    template: '%s — GLAD studio',
+    default: 'GLAD Studio — Web, Mobile & AI Product Engineering',
+    template: '%s | GLAD Studio',
   },
   description:
     'We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.',
@@ -28,8 +36,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://gladstudio.net',
-    siteName: 'GLAD studio',
-    title: 'GLAD studio — Web, Mobile & AI Development Agency',
+    siteName: 'GLAD Studio',
+    title: 'GLAD Studio — Web, Mobile & AI Product Engineering',
     description:
       'We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.',
     images: [
@@ -37,7 +45,7 @@ export const metadata: Metadata = {
         url: '/brand/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'GLAD studio — Web, Mobile & AI Development Agency',
+        alt: 'GLAD Studio — Web, Mobile & AI Development Agency',
       },
     ],
   },
@@ -59,14 +67,16 @@ export const viewport: Viewport = {
 const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'GLAD studio',
+  '@id': 'https://gladstudio.net/#organization',
+  name: 'GLAD Studio',
   url: 'https://gladstudio.net',
   logo: 'https://gladstudio.net/brand/website-logo-white-background-compatible.png',
+  description:
+    'We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.',
   sameAs: [
     'https://x.com/_GLAD_Studio',
     'https://www.linkedin.com/company/glad-studio-2k26',
     'https://www.instagram.com/__gladstudio/',
-    'https://www.reddit.com/r/GLADStudio/s/z5nCr2xFAK',
   ],
   address: {
     '@type': 'PostalAddress',
@@ -81,6 +91,19 @@ const organizationJsonLd = {
   },
 };
 
+const webSiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://gladstudio.net/#website',
+  url: 'https://gladstudio.net',
+  name: 'GLAD Studio',
+  description:
+    'We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.',
+  publisher: {
+    '@id': 'https://gladstudio.net/#organization',
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -90,9 +113,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className="bg-bg text-fg antialiased overflow-x-clip cursor-none"
+      className={`bg-bg text-fg antialiased overflow-x-clip min-[810px]:cursor-none ${notoSansDevanagari.variable}`}
     >
       <head>
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -114,8 +139,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+        />
       </head>
-      <body className="bg-bg text-fg antialiased overflow-x-clip cursor-none min-h-screen">
+      <body className="bg-bg text-fg antialiased overflow-x-clip min-[810px]:cursor-none min-h-screen">
         <SmoothScroll>
           <CalProvider />
           <Cursor />
