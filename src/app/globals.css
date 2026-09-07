@@ -160,7 +160,7 @@ select:-webkit-autofill:focus {
 
 .t-eyebrow {
   font-size: 11px;
-  line-height: 1.00;
+  line-height: 1.40;
   letter-spacing: 0.045em;
   font-weight: 500;
   text-transform: uppercase;
@@ -176,6 +176,9 @@ select:-webkit-autofill:focus {
 }
 
 .eyebrow-shimmer-white {
+  display: inline-block;
+  padding-top: 3px;
+  padding-bottom: 3px;
   background: linear-gradient(
     90deg,
     var(--fg) 0%,
@@ -192,6 +195,9 @@ select:-webkit-autofill:focus {
 }
 
 .eyebrow-shimmer-accent {
+  display: inline-block;
+  padding-top: 3px;
+  padding-bottom: 3px;
   background: linear-gradient(
     90deg,
     var(--accent) 0%,
@@ -337,7 +343,8 @@ html.intro-armed [data-intro="word-rail"] {
 }
 
 html.intro-armed [data-intro="headline-line"] {
-  transform: translate3d(0, 100%, 0) !important;
+  opacity: 0 !important;
+  transform: translate3d(0, 125%, 0) !important;
 }
 
 html.intro-armed [data-intro="eyebrow"] {

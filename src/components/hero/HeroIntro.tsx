@@ -48,6 +48,12 @@ export default function HeroIntro({ children }: HeroIntroProps) {
       if (studioBase instanceof HTMLElement) {
         studioBase.style.opacity = '0';
       }
+      const headlineLines = document.querySelectorAll(
+        '[data-intro="headline-line"]'
+      );
+      if (headlineLines.length > 0) {
+        gsap.set(headlineLines, { clearProps: 'opacity,transform' });
+      }
       return;
     }
 
@@ -134,7 +140,8 @@ export default function HeroIntro({ children }: HeroIntroProps) {
         });
 
         gsap.set(headlineLines, {
-          yPercent: 100,
+          yPercent: 125,
+          opacity: 0,
         });
 
         gsap.set(eyebrow, {
@@ -165,6 +172,9 @@ export default function HeroIntro({ children }: HeroIntroProps) {
             }
             if (nav) {
               gsap.set(nav, { clearProps: 'opacity,transform' });
+            }
+            if (headlineLines.length > 0) {
+              gsap.set(headlineLines, { clearProps: 'opacity,transform' });
             }
 
             // Mark session as played
@@ -271,14 +281,16 @@ export default function HeroIntro({ children }: HeroIntroProps) {
           3.59
         );
 
-        // 3.73s: Headline: per-line mask reveal y: 100% -> y: 0, stagger: 0.06s
+        // 3.73s: Headline: per-line mask reveal y: 125% -> y: 0, opacity: 0 -> 1, stagger: 0.06s
         tl.to(
           headlineLines,
           {
             yPercent: 0,
+            opacity: 1,
             duration: 0.65,
             stagger: 0.06,
             ease: 'power3.out',
+            clearProps: 'opacity,transform',
           },
           3.73
         );
@@ -325,6 +337,12 @@ export default function HeroIntro({ children }: HeroIntroProps) {
       const studioBase = document.querySelector('[data-intro="studio-base"]');
       if (studioBase instanceof HTMLElement) {
         studioBase.style.opacity = '';
+      }
+      const headlineLines = document.querySelectorAll(
+        '[data-intro="headline-line"]'
+      );
+      if (headlineLines.length > 0) {
+        gsap.set(headlineLines, { clearProps: 'opacity,transform' });
       }
     };
   }, []);

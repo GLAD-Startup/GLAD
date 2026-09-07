@@ -144,7 +144,7 @@ export default function ContactPageClient() {
           {/* Sliding Image Card on Top of Black Background */}
           <div
             ref={imageInnerRef}
-            className="absolute top-[16px] md:top-[20px] bottom-[16px] md:bottom-[20px] left-[7px] md:left-[8px] right-[7px] md:right-[8px] rounded-[13px] overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.18)] will-change-transform z-10 transition-shadow duration-300 group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.26)]"
+            className="absolute top-[2px] md:top-[4px] bottom-[30px] md:bottom-[36px] left-[7px] md:left-[8px] right-[7px] md:right-[8px] rounded-[13px] overflow-hidden shadow-[0_12px_28px_rgba(0,0,0,0.18)] will-change-transform z-10 transition-shadow duration-300 group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.26)]"
           >
             <Image
               src="/brand/contact-typography.svg"

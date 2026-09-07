@@ -29,24 +29,24 @@ const cardConfigs: CardConfig[] = [
     x: 130,
     fromY: '110vh',
     toY: '-100vh',
-    startProgress: 0.08,
-    endProgress: 0.76,
+    startProgress: 0.05,
+    endProgress: 0.65,
   },
   {
     item: testimonialsData[1], // Rakesh Khetan (GLA Canteen)
     x: 880,
     fromY: '120vh',
     toY: '-105vh',
-    startProgress: 0.24,
-    endProgress: 0.94,
+    startProgress: 0.20,
+    endProgress: 0.78,
   },
   {
     item: testimonialsData[2], // Nitesh Khandelwal (Earth Travels)
     x: 505,
     fromY: '125vh',
     toY: '-100vh',
-    startProgress: 0.4,
-    endProgress: 1.0,
+    startProgress: 0.35,
+    endProgress: 0.88,
   },
 ];
 
@@ -207,6 +207,7 @@ export default function Testimonials() {
 
               const duration = config.endProgress - config.startProgress;
 
+              // Vertical travel
               tl.fromTo(
                 el,
                 { y: config.fromY },
@@ -216,6 +217,29 @@ export default function Testimonials() {
                   duration,
                 },
                 config.startProgress
+              );
+
+              // Smooth fade-in as card rises from bottom
+              tl.fromTo(
+                el,
+                { opacity: 0 },
+                {
+                  opacity: 1,
+                  duration: duration * 0.18,
+                  ease: 'power2.out',
+                },
+                config.startProgress
+              );
+
+              // Smooth fade-out before hitting the top edge of the section
+              tl.to(
+                el,
+                {
+                  opacity: 0,
+                  duration: duration * 0.22,
+                  ease: 'power2.in',
+                },
+                config.endProgress - duration * 0.22
               );
             });
           }
@@ -262,7 +286,7 @@ export default function Testimonials() {
             className="headline-group absolute inset-x-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none flex flex-col items-center will-change-auto"
           >
             {/* Marquee Viewport: overflow-hidden, full bleed [no transform] */}
-            <div className="marquee-viewport w-full overflow-hidden select-none">
+            <div className="marquee-viewport w-full overflow-hidden select-none py-6 xl:py-10">
               {/* Marquee Drift: horizontal drift (scrubbed xPercent: 0 -> -30) */}
               <div ref={marqueeDriftRef} className="marquee-drift w-full">
                 {/* Marquee Loop: infinite continuous loop (duration: 60, repeat: -1) */}
@@ -273,14 +297,16 @@ export default function Testimonials() {
                   {[0, 1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="flex items-center shrink-0 pr-[80px] xl:pr-[120px]"
+                      className="flex items-center shrink-0 pr-[80px] xl:pr-[120px] py-3"
                     >
                       <span
-                        className="t-marquee text-fg"
+                        className="t-marquee text-fg inline-block"
                         style={{
                           fontSize: 'clamp(0px, 16vw, 270px)',
-                          lineHeight: 0.90,
+                          lineHeight: 1.08,
                           letterSpacing: '-0.035em',
+                          paddingTop: '0.12em',
+                          paddingBottom: '0.06em',
                         }}
                       >
                         Client Work© - Reviews
@@ -291,14 +317,20 @@ export default function Testimonials() {
               </div>
             </div>
 
-            {/* CTA Button: 56px below marquee viewport, horizontally centered [z-index: 20] */}
-            <div className="cta mt-[56px] flex justify-center z-20 pointer-events-auto">
+            {/* CTA Button: horizontally centered [z-index: 20] */}
+            <div className="cta mt-[4px] xl:mt-[8px] flex justify-center z-20 pointer-events-auto">
               <PillButton href="/contact">Get in touch</PillButton>
             </div>
           </div>
 
           {/* 2. Testimonial Cards Layer [z-index: 30] */}
-          <div className="absolute inset-0 z-30 pointer-events-none">
+          <div
+            className="absolute inset-0 z-30 pointer-events-none"
+            style={{
+              maskImage: 'linear-gradient(to bottom, transparent 0%, black 80px, black calc(100% - 80px), transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 80px, black calc(100% - 80px), transparent 100%)',
+            }}
+          >
             {/* Card 1: Prayas NGO Team (Left-anchored with 40px+ margin) */}
             <div
               ref={card1Ref}
@@ -333,11 +365,11 @@ export default function Testimonials() {
             ----------------------------------------------------------- */}
         <div className="min-[1024px]:hidden w-full relative py-12 px-[20px] md:px-[28px] flex flex-col gap-10 md:gap-14">
           {/* Background Marquee */}
-          <div className="w-full overflow-hidden opacity-20 select-none pointer-events-none -my-4">
+          <div className="w-full overflow-hidden opacity-20 select-none pointer-events-none py-3 -my-3">
             <div className="flex flex-row w-max animate-marquee">
               {[0, 1, 2, 3].map((i) => (
-                <div key={i} className="flex items-center shrink-0 pr-[40px] md:pr-[60px]">
-                  <span className="text-[54px] sm:text-[72px] md:text-[100px] font-normal leading-[0.9] tracking-tight text-fg">
+                <div key={i} className="flex items-center shrink-0 pr-[40px] md:pr-[60px] py-1.5">
+                  <span className="text-[54px] sm:text-[72px] md:text-[100px] font-normal leading-[1.08] tracking-tight text-fg inline-block pt-1 pb-0.5">
                     Client Work© - Reviews
                   </span>
                 </div>

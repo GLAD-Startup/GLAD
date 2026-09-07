@@ -302,17 +302,18 @@ export default function CyclingWord() {
         {/* Overflow hidden mask holding the word stack */}
         <span
           ref={maskRef}
-          className="relative inline-block overflow-hidden w-full align-baseline"
+          className="relative inline-block overflow-hidden w-full align-baseline pt-2 -mt-2 pb-0.5"
           style={{ verticalAlign: 'baseline' }}
         >
           {/* Active / Current Word */}
           <span
             ref={currentWordRef}
             lang="hi"
-            className="inline-block tracking-[0.02em] whitespace-nowrap will-change-transform"
+            className="inline-block tracking-[0.02em] whitespace-nowrap will-change-transform pt-1 pb-0.5"
             style={{
               fontFamily: "var(--font-noto-devanagari), 'Noto Sans Devanagari', sans-serif",
               fontSize: '1.05em',
+              lineHeight: 1.25,
             }}
           >
             {cyclingWords[0]}
@@ -322,10 +323,11 @@ export default function CyclingWord() {
           <span
             ref={nextWordRef}
             lang="hi"
-            className="absolute left-0 top-0 inline-block tracking-[0.02em] whitespace-nowrap will-change-transform opacity-0"
+            className="absolute left-0 top-0 inline-block tracking-[0.02em] whitespace-nowrap will-change-transform opacity-0 pt-1 pb-0.5"
             style={{
               fontFamily: "var(--font-noto-devanagari), 'Noto Sans Devanagari', sans-serif",
               fontSize: '1.05em',
+              lineHeight: 1.25,
             }}
           >
             {cyclingWords[1]}
@@ -359,10 +361,11 @@ export default function CyclingWord() {
             key={idx}
             data-measure-idx={idx}
             lang="hi"
-            className="inline-block tracking-[0.02em]"
+            className="inline-block tracking-[0.02em] pt-1 pb-0.5"
             style={{
               fontFamily: "var(--font-noto-devanagari), 'Noto Sans Devanagari', sans-serif",
               fontSize: '1.05em',
+              lineHeight: 1.25,
             }}
           >
             {word}

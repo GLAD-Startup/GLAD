@@ -69,8 +69,8 @@ export default function Hero() {
               Ship Fast and Scale
             </span>
           </span>
-          <span className="block overflow-hidden">
-            <span data-intro="headline-line" className="block will-change-transform pb-1">
+          <span className="block overflow-hidden pt-3 -mt-3">
+            <span data-intro="headline-line" className="block will-change-transform pb-1 pt-1">
               With <CyclingWord />.
             </span>
           </span>

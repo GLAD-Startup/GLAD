@@ -153,11 +153,11 @@ export default function Tenure() {
         className="relative w-full bg-bg select-none"
       >
         {/* Top Area with Decoupled Headline & Corner Image */}
-        <div className="relative pt-[16px] md:pt-[20px] xl:pt-[24px] px-[20px] md:px-[28px] xl:px-[40px] min-h-[160px] md:min-h-[220px] xl:min-h-[265px]">
+        <div className="relative pt-[48px] md:pt-[60px] xl:pt-[72px] px-[20px] md:px-[28px] xl:px-[40px] min-h-[200px] md:min-h-[260px] xl:min-h-[310px]">
           {/* Headline with Staggered Character Spans — Decoupled with full descender clearance */}
           <h2
             ref={headlineRef}
-            className="t-display-sm text-fg inline-flex items-baseline ml-[-4px] -mt-[2px] md:-mt-[6px] xl:-mt-[8px]"
+            className="t-display-sm text-fg inline-flex items-baseline ml-[-4px]"
             style={{
               fontSize: 'clamp(0px, 10vw, 175px)',
               lineHeight: 0.90,
@@ -177,7 +177,7 @@ export default function Tenure() {
           </h2>
 
           {/* Corner Process Visual — Decoupled and strictly anchored on the right */}
-          <div className="mt-4 md:mt-0 md:absolute md:right-[28px] xl:right-[40px] md:top-[12px] xl:top-[16px] z-10">
+          <div className="mt-4 md:mt-0 md:absolute md:right-[28px] xl:right-[40px] md:top-[48px] xl:top-[60px] z-10">
             <div
               data-cursor="view"
               data-cursor-text={processVisuals[wordIdx].title}

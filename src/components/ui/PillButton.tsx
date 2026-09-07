@@ -78,7 +78,7 @@ export default function PillButton({
       return (
         <span
           className={clsx(
-            'relative z-10 inline-flex items-center overflow-hidden transition-colors duration-300',
+            'relative z-10 inline-flex items-center overflow-hidden transition-colors duration-200',
             isInverted ? 'group-hover:text-rail-bg' : 'group-hover:text-bg'
           )}
         >
@@ -89,9 +89,9 @@ export default function PillButton({
             >
               {/* Primary letter: translates from 0% to -100% on hover */}
               <span
-                className="block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform"
+                className="block transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-full will-change-transform"
                 style={{
-                  transitionDelay: `${index * 20}ms`,
+                  transitionDelay: `${index * 12}ms`,
                 }}
               >
                 {char === ' ' ? '\u00A0' : char}
@@ -100,9 +100,9 @@ export default function PillButton({
               {/* Duplicate letter: absolute inset-0 starts at +100% and lands at exact 0% on hover */}
               <span
                 aria-hidden="true"
-                className="absolute inset-0 block translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 will-change-transform"
+                className="absolute inset-0 block translate-y-full transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 will-change-transform"
                 style={{
-                  transitionDelay: `${index * 20}ms`,
+                  transitionDelay: `${index * 12}ms`,
                 }}
               >
                 {char === ' ' ? '\u00A0' : char}
@@ -115,7 +115,7 @@ export default function PillButton({
     return (
       <span
         className={clsx(
-          'relative z-10 transition-colors duration-300',
+          'relative z-10 transition-colors duration-200',
           isInverted ? 'group-hover:text-rail-bg' : 'group-hover:text-bg'
         )}
       >
@@ -128,7 +128,7 @@ export default function PillButton({
     <div
       aria-hidden="true"
       className={clsx(
-        'absolute inset-0 z-0 rounded-[999px] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform',
+        'absolute inset-0 z-0 rounded-[999px] translate-y-full group-hover:translate-y-0 transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
         isInverted ? 'bg-rail-fg' : 'bg-fg'
       )}
     />

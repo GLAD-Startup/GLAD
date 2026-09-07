@@ -171,12 +171,12 @@ export default function ProcessPageClient() {
               <div className="space-y-6">
                 <h1
                   ref={headlineRef}
-                  className="text-fg font-normal leading-[0.88] tracking-[-0.04em] select-none"
+                  className="text-fg font-normal leading-[0.96] tracking-[-0.04em] select-none"
                   style={{
                     fontSize: 'clamp(50px, 8.2vw, 128px)',
                   }}
                 >
-                  <span className="block overflow-hidden pb-1">
+                  <span className="block overflow-hidden pt-3 pb-1 -mt-3">
                     <span className="inline-block">
                       {'Our'.split('').map((ch, idx) => (
                         <span key={idx} className="inline-block process-char will-change-transform">
@@ -185,7 +185,7 @@ export default function ProcessPageClient() {
                       ))}
                     </span>
                   </span>
-                  <span className="block overflow-hidden pt-1">
+                  <span className="block overflow-hidden pt-2 pb-1.5 -mt-1">
                     <span className="inline-block whitespace-nowrap">
                       {'Process'.split('').map((ch, idx) => (
                         <span key={idx} className="inline-block process-char will-change-transform">
