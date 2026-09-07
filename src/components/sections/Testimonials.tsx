@@ -318,7 +318,7 @@ export default function Testimonials() {
             </div>
 
             {/* CTA Button: horizontally centered [z-index: 20] */}
-            <div className="cta mt-[4px] xl:mt-[8px] flex justify-center z-20 pointer-events-auto">
+            <div className="cta -mt-[20px] xl:-mt-[28px] flex justify-center z-20 pointer-events-auto">
               <PillButton href="/contact">Get in touch</PillButton>
             </div>
           </div>
