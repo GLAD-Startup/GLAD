@@ -255,8 +255,8 @@ export default function ProductsPageClient() {
         ))}
       </div>
 
-      {/* FAQ Section with GLD 11 & GLD 12 Eyebrows */}
-      <div className="mt-[100px] xl:mt-[140px]">
+      {/* FAQ Section */}
+      <div className="mt-12 sm:mt-16 xl:mt-[140px]">
         <SectionEyebrow
           left={<>FREQUENTLY ASKED <span lang="hi">प्रश्नावली</span></>}
           index="(GLD® — 11)"
@@ -265,6 +265,15 @@ export default function ProductsPageClient() {
       </div>
 
       <ProductFaq faqs={productsOverviewFaqs} />
+
+      {/* Concluding Section Eyebrow */}
+      <div className="mt-[64px] md:mt-[80px] xl:mt-[100px]">
+        <SectionEyebrow
+          left={<>GET IN TOUCH <span lang="hi">समापन</span></>}
+          index="(GLD® — 12)"
+          right="STUDIO WRAP"
+        />
+      </div>
 
       {/* Footer */}
       <Footer />

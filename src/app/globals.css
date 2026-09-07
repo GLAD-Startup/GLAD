@@ -176,7 +176,6 @@ select:-webkit-autofill:focus {
 }
 
 .eyebrow-shimmer-white {
-  display: inline-block;
   padding-top: 3px;
   padding-bottom: 3px;
   background: linear-gradient(
@@ -195,7 +194,6 @@ select:-webkit-autofill:focus {
 }
 
 .eyebrow-shimmer-accent {
-  display: inline-block;
   padding-top: 3px;
   padding-bottom: 3px;
   background: linear-gradient(
@@ -392,4 +390,9 @@ cal-modal iframe {
   box-shadow: none !important;
   outline: none !important;
   background: transparent !important;
+}
+
+/* ── Mobile Menu Open State ─────────────────────────── */
+html.mobile-menu-open #floating-footer {
+  display: none !important;
 }

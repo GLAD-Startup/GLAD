@@ -56,13 +56,13 @@ export default function WorkPageClient() {
         <div className="px-[20px] md:px-[28px] xl:px-[40px]">
           <div className="grid grid-cols-1 lg:grid-cols-[42%_58%] xl:grid-cols-[40%_60%]">
             {/* Left Column: Stationary / Sticky Header Vertically Centered */}
-            <div className="py-[36px] md:py-[54px] xl:py-[72px] lg:pr-[36px] xl:pr-[48px]">
+            <div className="pt-[24px] pb-[16px] sm:py-[36px] lg:py-[54px] xl:py-[72px] lg:pr-[36px] xl:pr-[48px]">
               <div className="lg:sticky lg:top-[calc(50vh-130px)] xl:top-[calc(50vh-140px)] self-start">
                 <h1
                   ref={headlineRef}
                   className="text-fg font-normal leading-[0.88] tracking-[-0.04em] select-none"
                   style={{
-                    fontSize: 'clamp(60px, 10.5vw, 155px)',
+                    fontSize: 'clamp(52px, 10.5vw, 155px)',
                   }}
                 >
                   <span className="block overflow-hidden pb-1">
@@ -94,7 +94,7 @@ export default function WorkPageClient() {
             </div>
 
             {/* Right Column: Vertically Stacked Dual-Layer Project Cards with Vertical Divider Line */}
-            <div className="lg:border-l lg:border-line pt-[36px] md:pt-[54px] xl:pt-[72px] pb-[60px] md:pb-[80px] xl:pb-[110px] lg:pl-[36px] xl:pl-[48px] flex flex-col gap-[52px] sm:gap-[68px] xl:gap-[88px] w-full">
+            <div className="border-t border-line lg:border-t-0 lg:border-l lg:border-line pt-[28px] sm:pt-[44px] lg:pt-[54px] xl:pt-[72px] pb-[60px] md:pb-[80px] xl:pb-[110px] lg:pl-[36px] xl:pl-[48px] flex flex-col gap-[36px] sm:gap-[52px] xl:gap-[88px] w-full">
               {projectsData.map((proj, idx) => (
                 <WorkCard key={proj.id} project={proj} priority={idx === 0} />
               ))}

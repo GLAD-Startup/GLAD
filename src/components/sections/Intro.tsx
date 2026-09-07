@@ -72,14 +72,10 @@ export default function Intro() {
         {/* Statement — Senior team of four statement */}
         <div className="xl:absolute xl:left-[calc(40px+min(440px,28vw)+48px)] xl:right-[40px] xl:top-[64px] z-10 max-w-[860px] w-auto">
           <p className="t-heading-sm text-fg">
-            A senior team of four
-            <sup
+            A senior team of four<sup
               style={{ fontSize: '0.42em', verticalAlign: 'super' }}
-              className="font-normal tracking-normal ml-0.5"
-            >
-              ™
-            </sup>{' '}
-            turning ideas into shipped web, mobile and AI products — in weeks, not quarters.
+              className="font-normal tracking-normal"
+            >™</sup>{' '}turning ideas into shipped web, mobile and AI products — in weeks, not quarters.
           </p>
         </div>
 

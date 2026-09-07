@@ -11,11 +11,11 @@ export interface ProcessCardProps {
 export default function ProcessCard({ step }: ProcessCardProps) {
   return (
     <div className="process-step-card group relative select-none w-full">
-      <div className="relative w-full h-full bg-surface border border-line-solid rounded-[14px] p-7 sm:p-8 xl:p-10 flex flex-col justify-between overflow-hidden shadow-sm transition-colors duration-200 hover:bg-surface-2">
+      <div className="relative w-full h-full bg-surface border border-line-solid rounded-[14px] p-5 sm:p-8 xl:p-10 flex flex-col justify-between overflow-hidden shadow-sm transition-colors duration-200 hover:bg-surface-2">
         {/* Ghost Typographic Watermark Step Number */}
         <div
           aria-hidden="true"
-          className="absolute right-4 -bottom-3 text-[90px] sm:text-[105px] xl:text-[120px] font-mono font-bold text-fg/[0.035] leading-none pointer-events-none select-none tracking-tighter z-0"
+          className="absolute right-3 sm:right-4 -bottom-2 sm:-bottom-3 text-[76px] sm:text-[105px] xl:text-[120px] font-mono font-bold text-fg/[0.035] leading-none pointer-events-none select-none tracking-tighter z-0"
         >
           {step.step}
         </div>
@@ -32,28 +32,28 @@ export default function ProcessCard({ step }: ProcessCardProps) {
             </div>
 
             {/* When / Timeline Pill Badge */}
-            <span className="text-[12px] font-mono font-medium text-fg uppercase tracking-wider bg-bg/95 px-3 py-1 rounded-full border border-line-solid shadow-2xs">
+            <span className="text-[11.5px] sm:text-[12px] font-mono font-medium text-fg uppercase tracking-wider bg-bg/95 px-2.5 sm:px-3 py-1 rounded-full border border-line-solid shadow-2xs">
               {step.when}
             </span>
           </div>
 
           {/* Stage Title */}
-          <h3 className="text-[21px] sm:text-[22px] xl:text-[24px] font-medium text-fg mt-6 tracking-tight leading-snug">
+          <h3 className="text-[20px] sm:text-[22px] xl:text-[24px] font-medium text-fg mt-4 sm:mt-6 tracking-tight leading-snug">
             {step.stage}
           </h3>
 
           {/* Stage Description */}
-          <p className="t-body text-fg-muted mt-3 leading-[1.65]">
+          <p className="t-body text-fg-muted mt-2.5 sm:mt-3 leading-[1.6]">
             {step.description}
           </p>
         </div>
 
         {/* Card Bottom Milestone Checkpoint Footer */}
-        <div className="relative z-10 mt-8 pt-4 border-t border-line flex items-center justify-between text-[12.5px] sm:text-[13px] text-fg-muted font-sans">
-          <span className="font-mono text-[11.5px] tracking-wider text-fg-muted/85 uppercase">
+        <div className="relative z-10 mt-6 sm:mt-8 pt-3.5 sm:pt-4 border-t border-line flex flex-wrap items-center justify-between gap-y-2 gap-x-3 text-[12px] sm:text-[13px] text-fg-muted font-sans">
+          <span className="font-mono text-[11px] sm:text-[11.5px] tracking-wider text-fg-muted/85 uppercase">
             Phase Checkpoint • {step.step}/08
           </span>
-          <div className="flex items-center gap-1.5 text-fg font-medium">
+          <div className="flex items-center gap-1.5 text-fg font-medium text-[12px] sm:text-[13px] shrink-0">
             <svg
               className="w-3.5 h-3.5 text-accent shrink-0"
               viewBox="0 0 16 16"

@@ -114,23 +114,14 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="w-full bg-surface/90 border border-line-solid rounded-[20px] p-6 sm:p-8 md:p-11 shadow-md relative backdrop-blur-sm">
-      {/* Header & Trust Chips */}
-      <div className="border-b border-line pb-6 mb-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-          <span className="text-[12px] font-semibold text-accent uppercase tracking-widest">
-            Project Proposal & Scoping
-          </span>
-          <span className="text-[12.5px] text-fg-muted">
-            Reply time: &lt; 24 hours
-          </span>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
+    <div className="w-full bg-surface/90 border border-line-solid rounded-[20px] p-5 sm:p-8 md:p-11 shadow-md relative backdrop-blur-sm">
+      {/* Trust Chips Bar */}
+      <div className="border-b border-line pb-4 sm:pb-5 mb-5 sm:mb-7">
+        <div className="flex flex-wrap items-center gap-2">
           {trustChips.map((chip, idx) => (
             <span
               key={idx}
-              className="px-3 py-1 rounded-full text-[12px] font-medium bg-bg border border-line-solid text-fg select-none flex items-center gap-1.5"
+              className="px-2.5 sm:px-3 py-1 rounded-full text-[11.5px] sm:text-[12px] font-medium bg-bg border border-line-solid text-fg select-none flex items-center gap-1.5 shadow-xs"
             >
               <span className="text-accent font-bold">✓</span>
               <span>{chip}</span>
@@ -171,13 +162,13 @@ export default function ContactForm() {
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-6" noValidate>
           <input type="hidden" name="budget" value={formData.budget} />
           {/* Row 1: Name & Email */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Name */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="contact-name" className="text-[12.5px] font-semibold text-fg uppercase tracking-wider">
+              <label htmlFor="contact-name" className="text-[11.5px] sm:text-[12.5px] font-semibold text-fg uppercase tracking-wider">
                 Your Name <span className="text-accent">*</span>
               </label>
               <input
@@ -192,7 +183,7 @@ export default function ContactForm() {
                   if (errors.name) setErrors({ ...errors, name: undefined });
                 }}
                 aria-invalid={!!errors.name}
-                className="w-full bg-bg border border-line-solid rounded-[10px] py-3.5 px-4 text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200"
+                className="w-full bg-bg border border-line-solid rounded-[10px] py-3 sm:py-3.5 px-3.5 sm:px-4 text-[14.5px] sm:text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200"
               />
               {errors.name && (
                 <p className="text-accent text-[12px] font-medium" role="alert">
@@ -203,7 +194,7 @@ export default function ContactForm() {
 
             {/* Email */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="contact-email" className="text-[12.5px] font-semibold text-fg uppercase tracking-wider">
+              <label htmlFor="contact-email" className="text-[11.5px] sm:text-[12.5px] font-semibold text-fg uppercase tracking-wider">
                 Email Address <span className="text-accent">*</span>
               </label>
               <input
@@ -218,7 +209,7 @@ export default function ContactForm() {
                   if (errors.email) setErrors({ ...errors, email: undefined });
                 }}
                 aria-invalid={!!errors.email}
-                className="w-full bg-bg border border-line-solid rounded-[10px] py-3.5 px-4 text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200"
+                className="w-full bg-bg border border-line-solid rounded-[10px] py-3 sm:py-3.5 px-3.5 sm:px-4 text-[14.5px] sm:text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200"
               />
               {errors.email && (
                 <p className="text-accent text-[12px] font-medium" role="alert">
@@ -229,10 +220,10 @@ export default function ContactForm() {
           </div>
 
           {/* Row 2: Company & Target Timeline */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Company */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="contact-company" className="text-[12.5px] font-semibold text-fg uppercase tracking-wider">
+              <label htmlFor="contact-company" className="text-[11.5px] sm:text-[12.5px] font-semibold text-fg uppercase tracking-wider">
                 Company / Organization <span className="text-fg-dim font-normal normal-case">(Optional)</span>
               </label>
               <input
@@ -243,13 +234,13 @@ export default function ContactForm() {
                 placeholder="e.g. Acme Ventures"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                className="w-full bg-bg border border-line-solid rounded-[10px] py-3.5 px-4 text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200"
+                className="w-full bg-bg border border-line-solid rounded-[10px] py-3 sm:py-3.5 px-3.5 sm:px-4 text-[14.5px] sm:text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200"
               />
             </div>
 
             {/* Timeline */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="contact-timeline" className="text-[12.5px] font-semibold text-fg uppercase tracking-wider">
+              <label htmlFor="contact-timeline" className="text-[11.5px] sm:text-[12.5px] font-semibold text-fg uppercase tracking-wider">
                 Desired Timeline <span className="text-fg-dim font-normal normal-case">(Optional)</span>
               </label>
               <input
@@ -260,17 +251,17 @@ export default function ContactForm() {
                 placeholder="e.g. 4–8 weeks / ASAP"
                 value={formData.timeline}
                 onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                className="w-full bg-bg border border-line-solid rounded-[10px] py-3.5 px-4 text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200"
+                className="w-full bg-bg border border-line-solid rounded-[10px] py-3 sm:py-3.5 px-3.5 sm:px-4 text-[14.5px] sm:text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200"
               />
             </div>
           </div>
 
           {/* Row 3: Interactive Budget Range Selector Pills */}
-          <div className="flex flex-col gap-2.5 pt-1">
-            <label className="text-[12.5px] font-semibold text-fg uppercase tracking-wider">
+          <div className="flex flex-col gap-2 pt-1">
+            <label className="text-[11.5px] sm:text-[12.5px] font-semibold text-fg uppercase tracking-wider">
               Estimated Budget Range
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {budgetOptions.map((opt) => {
                 const isSelected = formData.budget === opt;
                 return (
@@ -280,7 +271,7 @@ export default function ContactForm() {
                     onClick={() => setFormData({ ...formData, budget: opt })}
                     data-cursor="pointer"
                     className={clsx(
-                      'px-4 py-2 rounded-full text-[13px] font-medium transition-all duration-200 cursor-pointer border',
+                      'px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[12px] sm:text-[13px] font-medium transition-all duration-200 cursor-pointer border',
                       isSelected
                         ? 'bg-fg text-bg border-fg shadow-sm'
                         : 'bg-bg text-fg border-line-solid hover:border-fg/40'
@@ -295,7 +286,7 @@ export default function ContactForm() {
 
           {/* Row 4: Project Description */}
           <div className="flex flex-col gap-1.5 pt-1">
-            <label htmlFor="contact-description" className="text-[12.5px] font-semibold text-fg uppercase tracking-wider">
+            <label htmlFor="contact-description" className="text-[11.5px] sm:text-[12.5px] font-semibold text-fg uppercase tracking-wider">
               Project Description &amp; Requirements <span className="text-accent">*</span>
             </label>
             <textarea
@@ -310,7 +301,7 @@ export default function ContactForm() {
                 if (errors.description) setErrors({ ...errors, description: undefined });
               }}
               aria-invalid={!!errors.description}
-              className="w-full bg-bg border border-line-solid rounded-[10px] py-3.5 px-4 text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200 resize-none leading-relaxed"
+              className="w-full bg-bg border border-line-solid rounded-[10px] py-3 sm:py-3.5 px-3.5 sm:px-4 text-[14.5px] sm:text-[15.5px] text-fg placeholder:text-fg-dim outline-none focus:border-fg transition-colors duration-200 resize-none leading-relaxed"
             />
             {errors.description && (
               <p className="text-accent text-[12px] font-medium" role="alert">
@@ -327,18 +318,18 @@ export default function ContactForm() {
           )}
 
           {/* Submit Action Row */}
-          <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-line">
+          <div className="pt-3 sm:pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-t border-line">
             <button
               type="submit"
               disabled={isSubmitting}
               data-cursor="pointer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-fg text-bg font-medium text-[14.5px] hover:bg-accent hover:text-white transition-all duration-200 cursor-pointer disabled:opacity-50 shadow-md group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-fg text-bg font-medium text-[14px] sm:text-[14.5px] hover:bg-accent hover:text-white transition-all duration-200 cursor-pointer disabled:opacity-50 shadow-md group active:scale-[0.99]"
             >
               <span>{isSubmitting ? 'Sending Proposal Request...' : 'Send Scoping Request'}</span>
               <span className="transform transition-transform duration-200 group-hover:translate-x-1">→</span>
             </button>
 
-            <span className="text-[12.5px] text-fg-muted">
+            <span className="text-[12px] text-fg-muted text-center sm:text-right">
               🔒 100% Confidential • NDA provided upon request
             </span>
           </div>

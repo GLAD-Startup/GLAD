@@ -106,13 +106,13 @@ export default function ServicesPageClient() {
       {/* 1. Hero Block */}
       <div
         ref={heroRef}
-        className="pt-[48px] xl:pt-[80px] px-[20px] md:px-[28px] xl:px-[40px] overflow-hidden"
+        className="pt-[36px] sm:pt-[48px] xl:pt-[80px] px-[20px] md:px-[28px] xl:px-[40px] overflow-hidden"
       >
         <h1
           ref={headlineRef}
           className="t-display-sm text-fg whitespace-nowrap will-change-transform"
           style={{
-            fontSize: 'clamp(0px, 10vw, 150px)',
+            fontSize: 'clamp(44px, 10vw, 150px)',
             lineHeight: 0.90,
             letterSpacing: '-0.035em',
           }}
@@ -127,20 +127,20 @@ export default function ServicesPageClient() {
         </h1>
         <h2
           ref={subtitleRef}
-          className="t-heading-sm text-fg mt-4 max-w-[800px] leading-[1.15] will-change-transform"
+          className="t-heading-sm text-fg mt-3 sm:mt-4 max-w-[800px] leading-[1.15] will-change-transform text-[26px] sm:text-[36px] md:text-[44px]"
         >
           Built for ambitious teams.
         </h2>
         <p
           ref={descRef}
-          className="t-body text-fg-muted mt-3 max-w-[680px] will-change-transform"
+          className="t-body text-fg-muted mt-2.5 sm:mt-3 max-w-[680px] will-change-transform text-[14px] sm:text-[15px]"
         >
           From rapid MVP validation to multi-tenant SaaS platforms and autonomous AI agent architectures.
         </p>
       </div>
 
       {/* 2. Word Rail */}
-      <div className="mt-[40px] xl:mt-[60px]">
+      <div className="mt-[28px] sm:mt-[40px] xl:mt-[60px]">
         <WordRail
           items={[
             'Senior Engineers',
@@ -154,7 +154,7 @@ export default function ServicesPageClient() {
       </div>
 
       {/* 3. Expanded 5 Services List with Floating Preview on Hover */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[72px]">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] xl:mt-[72px]">
         <div className="border-t border-line">
           {servicesWithImages.map((service, idx) => (
             <Link
@@ -168,15 +168,26 @@ export default function ServicesPageClient() {
               onMouseLeave={() => {
                 setIsHovering(false);
               }}
-              className="group py-[36px] xl:py-[48px] border-b border-line grid grid-cols-1 xl:grid-cols-[100px_320px_1fr_260px] gap-6 xl:gap-8 items-start transition-colors duration-300 hover:bg-surface/80 rounded-[8px] px-2 relative block cursor-pointer"
+              className="group py-[28px] sm:py-[36px] xl:py-[48px] border-b border-line grid grid-cols-1 xl:grid-cols-[100px_320px_1fr_260px] gap-4 sm:gap-6 xl:gap-8 items-start transition-colors duration-300 hover:bg-surface/80 rounded-[8px] px-1 sm:px-2 relative block cursor-pointer"
             >
-              {/* Number */}
-              <div className="text-[17px] font-semibold text-accent pt-1 transition-transform duration-300 group-hover:translate-x-1">
+              {/* Number (Desktop) */}
+              <div className="hidden xl:block text-[17px] font-semibold text-accent pt-1 transition-transform duration-300 group-hover:translate-x-1">
                 {service.index}
               </div>
 
               {/* Title & Timeline with Rolling Text Hover Effect */}
               <div>
+                {/* Mobile Index & Timeline Badge */}
+                <div className="flex items-center gap-2 xl:hidden mb-2">
+                  <span className="text-[13px] font-semibold text-accent font-mono">
+                    {service.index}
+                  </span>
+                  <span className="text-fg-dim">•</span>
+                  <span className="text-[12px] text-fg-muted font-normal">
+                    Timeline: {service.timeline}
+                  </span>
+                </div>
+
                 <div className="inline-block relative overflow-hidden">
                   <span className="relative inline-flex overflow-hidden text-[20px] xl:text-[22px] font-semibold text-fg">
                     <span className="block transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform text-fg">
@@ -190,13 +201,13 @@ export default function ServicesPageClient() {
                     </span>
                   </span>
                 </div>
-                <span className="text-[13.5px] text-fg-muted font-normal mt-1 block">
+                <span className="text-[13.5px] text-fg-muted font-normal mt-1 hidden xl:block">
                   Timeline: {service.timeline}
                 </span>
               </div>
 
               {/* Description & Deliverables */}
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3.5 sm:gap-4">
                 <p className="t-body-sm text-fg-muted leading-relaxed">
                   {service.description}
                 </p>
@@ -221,7 +232,7 @@ export default function ServicesPageClient() {
               </div>
 
               {/* Core Technologies as Pill Tags & Action */}
-              <div className="flex flex-col gap-4 xl:items-end">
+              <div className="flex flex-col gap-3.5 sm:gap-4 xl:items-end">
                 <div className="flex flex-wrap gap-1.5 xl:justify-end">
                   {service.techStack.map((tech) => (
                     <span
@@ -233,7 +244,7 @@ export default function ServicesPageClient() {
                   ))}
                 </div>
 
-                <div className="text-[13px] font-semibold text-fg group-hover:text-accent transition-all duration-200 mt-2 flex items-center gap-1">
+                <div className="text-[13.5px] font-semibold text-fg group-hover:text-accent transition-all duration-200 mt-1 sm:mt-2 flex items-center gap-1.5 py-1">
                   <span>Explore Service Specification</span>
                   <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </div>
@@ -277,9 +288,14 @@ export default function ServicesPageClient() {
       </div>
 
       {/* 4. Section Eyebrow preceding FAQ */}
-      <div className="mt-[80px] xl:mt-[120px]">
+      <div className="mt-[56px] sm:mt-[80px] xl:mt-[120px]">
         <SectionEyebrow
-          left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
+          left={
+            <>
+              <span className="hidden sm:inline">COMMON QUESTIONS <span lang="hi">सहायता</span></span>
+              <span className="sm:hidden">COMMON QUESTIONS</span>
+            </>
+          }
           index="(GLD® — 11)"
           right="CLARIFICATIONS"
         />

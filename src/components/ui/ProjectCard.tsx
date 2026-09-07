@@ -156,25 +156,32 @@ export default function ProjectCard({
         </div>
 
         {/* Caption Row beneath box (Bold with Rolling Text Slide-Up Animation) */}
-        <div className="absolute top-full mt-[12px] xl:mt-[16px] left-0 w-full flex justify-between items-center text-[14.5px] sm:text-[15px] xl:text-[16px] text-fg font-semibold px-0.5">
-          {/* Project Title: Rolling text slide-up on card hover (all at once) */}
-          <span className="relative inline-flex overflow-hidden font-semibold text-fg select-none">
-            {/* Primary line: slides up to -100% on hover */}
-            <span className="block transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform text-fg font-semibold">
-              {title}
+        <div className="absolute top-full mt-[12px] xl:mt-[16px] left-0 w-full flex justify-between items-start text-[14.5px] sm:text-[15px] xl:text-[16px] text-fg font-semibold px-0.5">
+          {/* Project Title and Category Subtitle */}
+          <div className="flex flex-col gap-0.5 min-w-0 pr-2">
+            <span className="relative inline-flex overflow-hidden font-semibold text-fg select-none">
+              {/* Primary line: slides up to -100% on hover */}
+              <span className="block transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform text-fg font-semibold truncate">
+                {title}
+              </span>
+
+              {/* Duplicate line: slides in from +100% to 0% on hover */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 will-change-transform text-fg font-semibold truncate"
+              >
+                {title}
+              </span>
             </span>
 
-            {/* Duplicate line: slides in from +100% to 0% on hover */}
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 will-change-transform text-fg font-semibold"
-            >
-              {title}
+            {/* Category subtitle displayed on mobile since hover ribbon is desktop-only */}
+            <span className="text-[12px] font-medium text-fg-muted truncate sm:hidden">
+              {hoverCategoryText}
             </span>
-          </span>
+          </div>
 
           {/* Project Index */}
-          <span className="font-semibold text-fg">
+          <span className="font-semibold text-fg shrink-0 ml-auto">
             ({index})
           </span>
         </div>

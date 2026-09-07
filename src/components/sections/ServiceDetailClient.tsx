@@ -109,39 +109,41 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
         );
       }
 
-      // 2. Upward scroll parallax on video frame & inner video
+      // 2. Upward scroll parallax on video frame & inner video (desktop only >= 1024px)
       if (mediaRef.current) {
-        gsap.fromTo(
-          mediaRef.current,
-          { y: 25 },
-          {
-            y: -55,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: mediaRef.current,
-              start: 'top 85%',
-              end: 'bottom top',
-              scrub: 1.2,
-            },
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 1024px)', () => {
+          gsap.fromTo(
+            mediaRef.current,
+            { y: 25 },
+            {
+              y: -55,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: mediaRef.current,
+                start: 'top 85%',
+                end: 'bottom top',
+                scrub: 1.2,
+              },
+            }
+          );
+          if (innerMediaRef.current) {
+            gsap.fromTo(
+              innerMediaRef.current,
+              { yPercent: -10 },
+              {
+                yPercent: 10,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: mediaRef.current,
+                  start: 'top bottom',
+                  end: 'bottom top',
+                  scrub: 1.2,
+                },
+              }
+            );
           }
-        );
-      }
-
-      if (innerMediaRef.current && mediaRef.current) {
-        gsap.fromTo(
-          innerMediaRef.current,
-          { yPercent: -10 },
-          {
-            yPercent: 10,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: mediaRef.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.2,
-            },
-          }
-        );
+        });
       }
     }, containerRef);
 
@@ -152,38 +154,38 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
     <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[81px]">
       {/* 1. Marquee Header (Editorial Service Ticker) */}
       <div className="overflow-hidden bg-surface/30 border-y border-line">
-        <div className="py-5 md:py-7 overflow-hidden">
+        <div className="py-3.5 sm:py-5 md:py-7 overflow-hidden">
           <Marquee speed={28}>
-            <div className="flex items-center gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-3">
+            <div className="flex items-center gap-5 sm:gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-1 sm:py-3">
               <span
                 className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
                 style={{
-                  fontSize: 'clamp(42px, 6vw, 92px)',
+                  fontSize: 'clamp(32px, 5.5vw, 92px)',
                   lineHeight: 1.18,
                   letterSpacing: '-0.035em',
                 }}
               >
                 {service.title}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-medium tracking-wide bg-surface border border-line-solid text-fg">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-[12px] font-medium tracking-wide bg-surface border border-line-solid text-fg">
                 {service.category}
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
-              <span className="text-accent font-medium text-[13.5px] uppercase tracking-wider font-mono">
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
+              <span className="text-accent font-medium text-[12.5px] sm:text-[13.5px] uppercase tracking-wider font-mono">
                 Scope: {service.timeline}
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
-              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-medium text-[12px] sm:text-[13.5px] uppercase tracking-widest">
                 GLAD STUDIO®
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
             </div>
           </Marquee>
         </div>
       </div>
 
       {/* 2. Sub-Nav & Eyebrow Row */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[32px] xl:mt-[44px] flex items-center justify-between">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[24px] sm:mt-[32px] xl:mt-[44px] flex items-center justify-between">
         <Link
           href="/services"
           data-cursor="pointer"
@@ -215,7 +217,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
       </div>
 
       {/* 3. Hero Section: 2-Column Editorial Grid */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[24px] xl:mt-[36px] grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 xl:gap-14 items-center">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[20px] sm:mt-[24px] xl:mt-[36px] grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 sm:gap-10 xl:gap-14 items-center">
         {/* Left Column: Headline, Description & Tech Stack */}
         <div>
           <div className="text-[12px] font-semibold text-accent uppercase tracking-widest mb-3">
@@ -224,17 +226,17 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
           <h1
             ref={headlineRef}
             className="t-heading-sm text-fg leading-[1.08] tracking-[-0.025em] will-change-transform"
-            style={{ fontSize: 'clamp(32px, 4vw, 52px)' }}
+            style={{ fontSize: 'clamp(28px, 4vw, 52px)' }}
           >
             {service.title} for High-Growth Teams
           </h1>
 
-          <p className="t-body text-fg-muted mt-5 leading-relaxed max-w-[640px]">
+          <p className="t-body text-fg-muted mt-4 sm:mt-5 leading-relaxed max-w-[640px] text-[14.5px] sm:text-[15px]">
             {service.description}
           </p>
 
           {/* Tech Stack Pills */}
-          <div className="mt-7 flex flex-col gap-2.5">
+          <div className="mt-6 sm:mt-7 flex flex-col gap-2.5">
             <span className="text-[11.5px] font-semibold text-fg uppercase tracking-wider">
               Core Technologies & Architecture
             </span>
@@ -242,7 +244,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
               {service.techStack.map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1.5 rounded-full text-[12.5px] font-medium bg-surface border border-line-solid text-fg transition-all duration-200 hover:border-fg/40 hover:scale-[1.03]"
+                  className="px-3 py-1.5 rounded-full text-[12px] sm:text-[12.5px] font-medium bg-surface border border-line-solid text-fg transition-all duration-200 hover:border-fg/40 hover:scale-[1.03]"
                 >
                   {tech}
                 </span>
@@ -251,15 +253,16 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
           </div>
 
           {/* Action CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-4">
             <PillButton calLink="arjun-rajput-2mdsis">Book a Discovery Call</PillButton>
             <Link
               href={`/work/${visuals.caseStudySlug}`}
               data-cursor="pointer"
-              className="text-[14px] font-medium text-fg-muted hover:text-fg transition-colors flex items-center gap-1.5 py-2 px-3"
+              className="text-[13.5px] sm:text-[14px] font-medium text-fg-muted hover:text-fg transition-colors inline-flex items-center gap-1.5 py-1.5 px-2"
             >
-              <span>View {visuals.caseStudyTitle}</span>
-              <span>→</span>
+              <span className="sm:hidden">View Case Study</span>
+              <span className="hidden sm:inline">View {visuals.caseStudyTitle}</span>
+              <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
             </Link>
           </div>
         </div>
@@ -267,7 +270,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
         {/* Right Column: High-Definition Video Showcase Card */}
         <div
           ref={mediaRef}
-          className="relative w-full aspect-[16/10] xl:aspect-[16/11] rounded-[16px] overflow-hidden bg-surface border border-line-solid group shadow-xl"
+          className="relative w-full aspect-[16/10] xl:aspect-[16/11] rounded-[16px] overflow-hidden bg-surface border border-line-solid group shadow-xl mt-2 sm:mt-0"
         >
           {/* Main Showcase Video Player with inner parallax translation */}
           <div
@@ -299,23 +302,28 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
       </div>
 
       {/* 4. Section Divider */}
-      <div className="mt-[70px] xl:mt-[100px]">
+      <div className="mt-[56px] sm:mt-[70px] xl:mt-[100px]">
         <SectionEyebrow
-          left={<>SPECIFICATION DETAILS <span lang="hi">विवरण</span></>}
+          left={
+            <>
+              <span className="hidden sm:inline">SPECIFICATION DETAILS <span lang="hi">विवरण</span></span>
+              <span className="sm:hidden">SPECIFICATIONS</span>
+            </>
+          }
           index={`(GLD® — ${service.index}A)`}
           right="DELIVERABLES & CAPABILITIES"
         />
       </div>
 
       {/* 5. Key Deliverables & Core Capabilities Side-by-Side Cards */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px] grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] xl:mt-[64px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 xl:gap-10">
         {/* Left Card: Guaranteed Deliverables */}
-        <div className="bg-surface border border-line-solid rounded-[16px] p-7 xl:p-9 shadow-sm transition-all duration-300 hover:border-line hover:shadow-md">
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-line">
+        <div className="bg-surface border border-line-solid rounded-[16px] p-5 sm:p-7 xl:p-9 shadow-sm transition-all duration-300 hover:border-line hover:shadow-md">
+          <div className="flex items-center justify-between mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-line">
             <span className="text-[12.5px] font-semibold text-accent uppercase tracking-wider">
               Guaranteed Deliverables
             </span>
-            <span className="text-[11.5px] px-2.5 py-0.5 rounded-full bg-bg border border-line-solid text-fg-muted font-medium">
+            <span className="text-[11px] sm:text-[11.5px] px-2.5 py-0.5 rounded-full bg-bg border border-line-solid text-fg-muted font-medium">
               100% IP Transfer
             </span>
           </div>
@@ -336,26 +344,26 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
         </div>
 
         {/* Right Card: Core Capabilities Breakdown */}
-        <div className="bg-surface border border-line-solid rounded-[16px] p-7 xl:p-9 shadow-sm transition-all duration-300 hover:border-line hover:shadow-md">
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-line">
+        <div className="bg-surface border border-line-solid rounded-[16px] p-5 sm:p-7 xl:p-9 shadow-sm transition-all duration-300 hover:border-line hover:shadow-md">
+          <div className="flex items-center justify-between mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-line">
             <span className="text-[12.5px] font-semibold text-accent uppercase tracking-wider">
               Core Engineering Capabilities
             </span>
-            <span className="text-[11.5px] px-2.5 py-0.5 rounded-full bg-bg border border-line-solid text-fg-muted font-medium">
+            <span className="text-[11px] sm:text-[11.5px] px-2.5 py-0.5 rounded-full bg-bg border border-line-solid text-fg-muted font-medium">
               Production Standard
             </span>
           </div>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-4 sm:gap-5">
             {service.capabilities.map((cap, idx) => (
               <div
                 key={idx}
-                className="border-b border-line pb-4 last:border-b-0 last:pb-0 group"
+                className="border-b border-line pb-3.5 sm:pb-4 last:border-b-0 last:pb-0 group"
               >
-                <h3 className="text-[16px] font-semibold text-fg group-hover:text-accent transition-colors">
+                <h3 className="text-[15px] sm:text-[16px] font-semibold text-fg group-hover:text-accent transition-colors">
                   {cap.title}
                 </h3>
-                <p className="text-[14px] text-fg-muted mt-1.5 leading-relaxed">
+                <p className="text-[13.5px] sm:text-[14px] text-fg-muted mt-1 sm:mt-1.5 leading-relaxed">
                   {cap.body}
                 </p>
               </div>
@@ -365,41 +373,51 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
       </div>
 
       {/* 6. Section Divider for Roadmap */}
-      <div className="mt-[80px] xl:mt-[110px]">
+      <div className="mt-[56px] sm:mt-[80px] xl:mt-[110px]">
         <SectionEyebrow
-          left={<>EXECUTION ROADMAP <span lang="hi">प्रक्रिया</span></>}
+          left={
+            <>
+              <span className="hidden sm:inline">EXECUTION ROADMAP <span lang="hi">प्रक्रिया</span></span>
+              <span className="sm:hidden">EXECUTION ROADMAP</span>
+            </>
+          }
           index={`(GLD® — ${service.index}B)`}
           right="SPRINT BY SPRINT"
         />
       </div>
 
       {/* 7. Phased Delivery Roadmap Table */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] xl:mt-[64px]">
         <div className="border-t border-line">
           {service.phases.map((phase, idx) => (
             <div
               key={idx}
-              className="group py-[28px] md:py-[36px] px-3 border-b border-line grid grid-cols-1 md:grid-cols-[90px_160px_1.1fr_1.5fr] gap-4 md:gap-6 items-start transition-colors duration-200 hover:bg-surface/80 rounded-[8px]"
+              className="group py-[22px] sm:py-[28px] md:py-[36px] px-2 sm:px-3 border-b border-line grid grid-cols-1 md:grid-cols-[90px_160px_1.1fr_1.5fr] gap-3 sm:gap-4 md:gap-6 items-start transition-colors duration-200 hover:bg-surface/80 rounded-[8px]"
             >
-              {/* Step number */}
-              <span className="text-[14px] font-semibold text-accent pt-0.5">
-                0{idx + 1}
-              </span>
+              {/* Step number & timeline on mobile */}
+              <div className="flex items-center gap-2.5 md:block">
+                <span className="text-[14px] font-semibold text-accent pt-0.5 font-mono">
+                  0{idx + 1}
+                </span>
+                <span className="md:hidden inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-surface border border-line-solid text-fg uppercase tracking-wider">
+                  {phase.meta}
+                </span>
+              </div>
 
-              {/* Timeline badge */}
-              <div>
+              {/* Timeline badge (desktop) */}
+              <div className="hidden md:block">
                 <span className="inline-block px-2.5 py-1 rounded-full text-[11.5px] font-semibold bg-surface border border-line-solid text-fg uppercase tracking-wider">
                   {phase.meta}
                 </span>
               </div>
 
               {/* Phase Title */}
-              <h4 className="text-[17px] font-semibold text-fg group-hover:text-accent transition-colors">
+              <h4 className="text-[16px] sm:text-[17px] font-semibold text-fg group-hover:text-accent transition-colors">
                 {phase.title}
               </h4>
 
               {/* Phase Description */}
-              <p className="text-[14.5px] text-fg-muted leading-relaxed">
+              <p className="text-[14px] sm:text-[14.5px] text-fg-muted leading-relaxed">
                 {phase.body}
               </p>
             </div>
@@ -410,15 +428,20 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
       {/* 8. Related Production Work (Data-Driven, 1-3 Verified Projects) */}
       {service.relatedWorkSlugs && service.relatedWorkSlugs.length > 0 && (
         <>
-          <div className="mt-[80px] xl:mt-[110px]">
+          <div className="mt-[56px] sm:mt-[80px] xl:mt-[110px]">
             <SectionEyebrow
-              left={<>PROVEN DEPLOYMENTS <span lang="hi">प्रमाण</span></>}
+              left={
+                <>
+                  <span className="hidden sm:inline">PROVEN DEPLOYMENTS <span lang="hi">प्रमाण</span></span>
+                  <span className="sm:hidden">PROVEN DEPLOYMENTS</span>
+                </>
+              }
               index={`(GLD® — ${service.index}C)`}
               right="RELEVANT CASE STUDIES"
             />
           </div>
-          <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] xl:mt-[64px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
               {service.relatedWorkSlugs.map((slug) => {
                 const proj = projectsData.find((p) => p.slug === slug);
                 if (!proj) return null;
@@ -427,21 +450,21 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
                     key={proj.slug}
                     href={`/work/${proj.slug}`}
                     data-cursor="pointer"
-                    className="group bg-surface border border-line-solid rounded-[14px] p-6 flex flex-col justify-between hover:bg-surface-2 transition-all duration-300 shadow-sm hover:shadow-md"
+                    className="group bg-surface border border-line-solid rounded-[14px] p-5 sm:p-6 flex flex-col justify-between hover:bg-surface-2 transition-all duration-300 shadow-sm hover:shadow-md"
                   >
                     <div>
-                      <div className="flex items-center justify-between text-[11.5px] font-mono text-accent uppercase tracking-wider mb-3">
+                      <div className="flex items-center justify-between text-[11px] sm:text-[11.5px] font-mono text-accent uppercase tracking-wider mb-2.5 sm:mb-3">
                         <span>{proj.category}</span>
                         <span>{proj.year}</span>
                       </div>
-                      <h4 className="text-[18px] font-semibold text-fg group-hover:text-accent transition-colors leading-snug">
+                      <h4 className="text-[17px] sm:text-[18px] font-semibold text-fg group-hover:text-accent transition-colors leading-snug">
                         {proj.title}
                       </h4>
-                      <p className="text-[13.5px] text-fg-muted mt-2.5 leading-relaxed line-clamp-3">
+                      <p className="text-[13px] sm:text-[13.5px] text-fg-muted mt-2 leading-relaxed line-clamp-3">
                         {proj.summary}
                       </p>
                     </div>
-                    <div className="mt-6 pt-4 border-t border-line flex items-center justify-between text-[13px] font-medium text-fg">
+                    <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-line flex items-center justify-between text-[12.5px] sm:text-[13px] font-medium text-fg">
                       <span className="text-fg-muted group-hover:text-fg transition-colors">
                         {proj.metric || 'Explore Technical Architecture'}
                       </span>
@@ -458,15 +481,20 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
       {/* 9. Related Engineering Insights (Data-Driven, Verified Topics Only) */}
       {service.relatedInsightSlugs && service.relatedInsightSlugs.length > 0 && (
         <>
-          <div className="mt-[80px] xl:mt-[110px]">
+          <div className="mt-[56px] sm:mt-[80px] xl:mt-[110px]">
             <SectionEyebrow
-              left={<>ENGINEERING GUIDES <span lang="hi">अध्ययन</span></>}
+              left={
+                <>
+                  <span className="hidden sm:inline">ENGINEERING GUIDES <span lang="hi">अध्ययन</span></span>
+                  <span className="sm:hidden">ENGINEERING GUIDES</span>
+                </>
+              }
               index={`(GLD® — ${service.index}D)`}
               right="TECHNICAL INSIGHTS"
             />
           </div>
-          <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] xl:mt-[64px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
               {service.relatedInsightSlugs.slice(0, 4).map((slug) => {
                 const art = articlesData.find((a) => a.slug === slug);
                 if (!art) return null;
@@ -475,20 +503,20 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
                     key={art.slug}
                     href={`/insights/${art.slug}`}
                     data-cursor="pointer"
-                    className="group bg-surface border border-line-solid rounded-[14px] p-6 flex flex-col justify-between hover:bg-surface-2 transition-all duration-300 shadow-sm"
+                    className="group bg-surface border border-line-solid rounded-[14px] p-5 sm:p-6 flex flex-col justify-between hover:bg-surface-2 transition-all duration-300 shadow-sm"
                   >
                     <div>
                       <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-accent">
                         {art.category}
                       </span>
-                      <h4 className="text-[17px] font-semibold text-fg group-hover:text-accent transition-colors mt-2 leading-snug">
+                      <h4 className="text-[16px] sm:text-[17px] font-semibold text-fg group-hover:text-accent transition-colors mt-2 leading-snug">
                         {art.title}
                       </h4>
-                      <p className="text-[13.5px] text-fg-muted mt-2 leading-relaxed line-clamp-2">
+                      <p className="text-[13px] sm:text-[13.5px] text-fg-muted mt-2 leading-relaxed line-clamp-2">
                         {art.excerpt}
                       </p>
                     </div>
-                    <div className="mt-5 pt-3.5 border-t border-line flex items-center justify-between text-[12.5px] font-mono text-fg-muted">
+                    <div className="mt-4 sm:mt-5 pt-3 sm:pt-3.5 border-t border-line flex items-center justify-between text-[12px] sm:text-[12.5px] font-mono text-fg-muted">
                       <span>{art.readTime}</span>
                       <span className="text-fg font-medium group-hover:translate-x-1 transition-transform">
                         Read Engineering Guide →
@@ -504,17 +532,17 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
 
       {/* 10. Proprietary Platform Engineering (Data-Driven, Validated Platforms Only) */}
       {service.relatedProductSlugs && service.relatedProductSlugs.length > 0 && (
-        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
-          <div className="p-6 rounded-[14px] bg-surface border border-line-solid flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] xl:mt-[64px]">
+          <div className="p-5 sm:p-6 rounded-[14px] bg-surface border border-line-solid flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <span className="text-[11.5px] font-semibold text-accent uppercase tracking-wider block">
                 Proprietary Platform Engineering
               </span>
-              <p className="text-[14px] text-fg-muted mt-1">
+              <p className="text-[13.5px] sm:text-[14px] text-fg-muted mt-1">
                 Engineered by GLAD Studio: inspect our live product operating systems.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
               {service.relatedProductSlugs.map((slug) => {
                 const prod = productsData.find((p) => p.slug === slug);
                 if (!prod) return null;
@@ -522,7 +550,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
                   <Link
                     key={prod.slug}
                     href={`/products/${prod.slug}`}
-                    className="px-4 py-2 rounded-full border border-line-solid bg-bg text-[13px] font-medium text-fg hover:border-fg/40 hover:bg-surface-2 transition-all flex items-center gap-1.5"
+                    className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-line-solid bg-bg text-[12.5px] sm:text-[13px] font-medium text-fg hover:border-fg/40 hover:bg-surface-2 transition-all flex items-center gap-1.5"
                   >
                     <span>{prod.name} Platform</span>
                     <span>→</span>
@@ -536,8 +564,8 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
 
       {/* 11. Complementary Engineering Disciplines */}
       {service.relatedServiceSlugs && service.relatedServiceSlugs.length > 0 && (
-        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px]">
-          <div className="pt-6 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[13.5px]">
+        <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] xl:mt-[64px]">
+          <div className="pt-5 sm:pt-6 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 text-[13px] sm:text-[13.5px]">
             <span className="text-fg-muted font-medium">
               Complementary Engineering Disciplines:
             </span>
@@ -549,7 +577,7 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
                   <Link
                     key={rel.slug}
                     href={`/services/${rel.slug}`}
-                    className="px-3.5 py-1.5 rounded-full bg-surface border border-line-solid text-fg hover:border-fg/40 hover:text-accent transition-all text-[12.5px] font-medium"
+                    className="px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-surface border border-line-solid text-fg hover:border-fg/40 hover:text-accent transition-all text-[12px] sm:text-[12.5px] font-medium"
                   >
                     {rel.title} →
                   </Link>
@@ -561,27 +589,26 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
       )}
 
       {/* 8. Call to Action Banner */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[80px] xl:mt-[120px]">
-        <div className="w-full bg-[#0A0A0B] text-[#FBFBF9] rounded-[20px] p-8 md:p-14 xl:p-18 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-2xl">
-          <div className="text-[12px] font-semibold text-[#C6F000] uppercase tracking-widest mb-3">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[64px] sm:mt-[80px] xl:mt-[120px]">
+        <div className="w-full bg-[#0A0A0B] text-[#FBFBF9] rounded-[20px] p-6 sm:p-10 md:p-14 xl:p-18 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-2xl">
+          <div className="text-[11.5px] sm:text-[12px] font-semibold text-[#C6F000] uppercase tracking-widest mb-2.5 sm:mb-3">
             Ready to Build?
           </div>
           <h3
-            className="font-normal leading-[1.05] tracking-[-0.03em] max-w-[800px] text-[#FBFBF9]"
-            style={{ fontSize: 'clamp(28px, 4.5vw, 56px)' }}
+            className="font-normal leading-[1.08] tracking-[-0.03em] max-w-[800px] text-[#FBFBF9] text-[24px] sm:text-[34px] md:text-[44px] xl:text-[54px]"
           >
             Start your {service.title} sprint this month.
           </h3>
-          <p className="text-[#A8A8AD] text-[15px] md:text-[17px] max-w-[580px] mt-4 leading-relaxed">
+          <p className="text-[#A8A8AD] text-[13.5px] sm:text-[15px] md:text-[17px] max-w-[580px] mt-3.5 sm:mt-4 leading-relaxed">
             Direct communication with senior engineers. Fixed weekly cadence, continuous staging demos, and complete IP transfer.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
             <PillButton calLink="arjun-rajput-2mdsis" variant="inverted">Book a Discovery Call</PillButton>
             <Link
               href="/work"
               data-cursor="pointer"
-              className="text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-4"
+              className="text-[13px] sm:text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-1.5 px-3 text-center"
             >
               Explore All Works →
             </Link>
@@ -590,9 +617,14 @@ export default function ServiceDetailClient({ service }: ServiceDetailClientProp
       </div>
 
       {/* 9. FAQ Section */}
-      <div className="mt-[90px] xl:mt-[130px]">
+      <div className="mt-[56px] sm:mt-[90px] xl:mt-[130px]">
         <SectionEyebrow
-          left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
+          left={
+            <>
+              <span className="hidden sm:inline">COMMON QUESTIONS <span lang="hi">सहायता</span></span>
+              <span className="sm:hidden">COMMON QUESTIONS</span>
+            </>
+          }
           index="(GLD® — 11)"
           right="CLARIFICATIONS"
         />

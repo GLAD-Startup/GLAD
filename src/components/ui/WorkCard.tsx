@@ -44,25 +44,32 @@ export default function WorkCard({ project, priority = false }: WorkCardProps) {
         </div>
 
         {/* Caption Row beneath outer card */}
-        <div className="mt-3.5 xl:mt-4 flex justify-between items-center text-[15px] xl:text-[16px] text-fg font-semibold px-0.5">
-          {/* Project Title: Rolling text slide-up on card hover (all at once) */}
-          <span className="relative inline-flex overflow-hidden font-semibold text-fg select-none">
-            {/* Primary line: slides up to -100% on hover */}
-            <span className="block transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform text-fg font-semibold">
-              {project.title}
+        <div className="mt-3.5 xl:mt-4 flex justify-between items-start text-[15px] xl:text-[16px] text-fg font-semibold px-0.5">
+          {/* Project Title & Mobile Category */}
+          <div className="flex flex-col">
+            <span className="relative inline-flex overflow-hidden font-semibold text-fg select-none">
+              {/* Primary line: slides up to -100% on hover */}
+              <span className="block transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full will-change-transform text-fg font-semibold">
+                {project.title}
+              </span>
+
+              {/* Duplicate line: slides in from +100% to 0% on hover */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 will-change-transform text-fg font-semibold"
+              >
+                {project.title}
+              </span>
             </span>
 
-            {/* Duplicate line: slides in from +100% to 0% on hover */}
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:translate-y-0 will-change-transform text-fg font-semibold"
-            >
-              {project.title}
+            {/* Mobile Category Indicator (Since ribbon hover is desktop-only) */}
+            <span className="text-[12px] font-normal text-fg-muted mt-0.5 sm:hidden">
+              {project.category}
             </span>
-          </span>
+          </div>
 
           {/* Project Index */}
-          <span className="font-semibold text-fg">
+          <span className="font-semibold text-fg shrink-0 pt-0.5">
             ({project.index})
           </span>
         </div>

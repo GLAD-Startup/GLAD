@@ -104,6 +104,50 @@ export default function WorkDetailClient({
   const nextMobile = () =>
     setMobileIndex((prev) => (prev < mobileScreens.length - 1 ? prev + 1 : 0));
 
+  // Touch swipe handling for carousels
+  const desktopTouchRef = useRef<{ startX: number; endX: number }>({ startX: 0, endX: 0 });
+  const mobileTouchRef = useRef<{ startX: number; endX: number }>({ startX: 0, endX: 0 });
+  const zoomTouchRef = useRef<{ startX: number; endX: number }>({ startX: 0, endX: 0 });
+
+  const handleDesktopTouchStart = (e: React.TouchEvent) => {
+    desktopTouchRef.current.startX = e.targetTouches[0].clientX;
+    desktopTouchRef.current.endX = e.targetTouches[0].clientX;
+  };
+  const handleDesktopTouchMove = (e: React.TouchEvent) => {
+    desktopTouchRef.current.endX = e.targetTouches[0].clientX;
+  };
+  const handleDesktopTouchEnd = () => {
+    const diff = desktopTouchRef.current.startX - desktopTouchRef.current.endX;
+    if (diff > 45) nextDesktop();
+    else if (diff < -45) prevDesktop();
+  };
+
+  const handleMobileTouchStart = (e: React.TouchEvent) => {
+    mobileTouchRef.current.startX = e.targetTouches[0].clientX;
+    mobileTouchRef.current.endX = e.targetTouches[0].clientX;
+  };
+  const handleMobileTouchMove = (e: React.TouchEvent) => {
+    mobileTouchRef.current.endX = e.targetTouches[0].clientX;
+  };
+  const handleMobileTouchEnd = () => {
+    const diff = mobileTouchRef.current.startX - mobileTouchRef.current.endX;
+    if (diff > 45) nextMobile();
+    else if (diff < -45) prevMobile();
+  };
+
+  const handleZoomTouchStart = (e: React.TouchEvent) => {
+    zoomTouchRef.current.startX = e.targetTouches[0].clientX;
+    zoomTouchRef.current.endX = e.targetTouches[0].clientX;
+  };
+  const handleZoomTouchMove = (e: React.TouchEvent) => {
+    zoomTouchRef.current.endX = e.targetTouches[0].clientX;
+  };
+  const handleZoomTouchEnd = () => {
+    const diff = zoomTouchRef.current.startX - zoomTouchRef.current.endX;
+    if (diff > 45) nextZoom();
+    else if (diff < -45) prevZoom();
+  };
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -117,22 +161,25 @@ export default function WorkDetailClient({
         );
       }
 
-      // 2. Upward scroll parallax on hero monitor frame
+      // 2. Upward scroll parallax on hero monitor frame (desktop only >= 1024px)
       if (mediaRef.current) {
-        gsap.fromTo(
-          mediaRef.current,
-          { y: 0 },
-          {
-            y: -90,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: mediaRef.current,
-              start: 'top 80%',
-              end: 'bottom top',
-              scrub: 1.2,
-            },
-          }
-        );
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 1024px)', () => {
+          gsap.fromTo(
+            mediaRef.current,
+            { y: 0 },
+            {
+              y: -90,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: mediaRef.current,
+                start: 'top 80%',
+                end: 'bottom top',
+                scrub: 1.2,
+              },
+            }
+          );
+        });
       }
     });
 
@@ -172,31 +219,31 @@ export default function WorkDetailClient({
     <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[81px]">
       {/* 1. Marquee Header */}
       <div className="overflow-hidden bg-surface/30 border-y border-line">
-        <div className="py-5 md:py-7 overflow-hidden">
+        <div className="py-3.5 sm:py-5 md:py-7 overflow-hidden">
           <Marquee speed={28}>
-            <div className="flex items-center gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-3">
+            <div className="flex items-center gap-5 sm:gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-1 sm:py-3">
               <span
                 className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
                 style={{
-                  fontSize: 'clamp(42px, 6vw, 92px)',
+                  fontSize: 'clamp(32px, 5.5vw, 92px)',
                   lineHeight: 1.18,
                   letterSpacing: '-0.035em',
                 }}
               >
                 {project.title}
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-medium tracking-wide bg-surface border border-line-solid text-fg">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-[12px] font-medium tracking-wide bg-surface border border-line-solid text-fg">
                 {project.category}
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
-              <span className="text-fg-muted font-normal tracking-tight text-[18px] md:text-[22px]">
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-normal tracking-tight text-[16px] sm:text-[18px] md:text-[22px]">
                 {project.client}
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
-              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-medium text-[12px] sm:text-[13.5px] uppercase tracking-widest">
                 GLAD STUDIO®
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
             </div>
           </Marquee>
         </div>
@@ -251,14 +298,16 @@ export default function WorkDetailClient({
           <h1
             ref={headlineRef}
             className="t-heading-sm text-fg leading-[1.08] tracking-[-0.025em] will-change-transform"
-            style={{ fontSize: 'clamp(32px, 4.2vw, 54px)' }}
+            style={{ fontSize: 'clamp(28px, 4.2vw, 54px)' }}
           >
             {project.summary}
           </h1>
 
-          <p className="t-body text-fg-muted mt-5 leading-relaxed max-w-[640px]">
-            {project.subtitle}
-          </p>
+          {project.subtitle && project.subtitle !== project.summary && (
+            <p className="t-body text-fg-muted mt-4 sm:mt-5 leading-relaxed max-w-[640px]">
+              {project.subtitle}
+            </p>
+          )}
 
           {/* Metric Highlight Badge */}
           {project.metric && (
@@ -317,27 +366,32 @@ export default function WorkDetailClient({
           )}
 
           {/* Action CTAs */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-4">
             <PillButton calLink="arjun-rajput-2mdsis">Book Discovery Call</PillButton>
-            <button
-              type="button"
-              onClick={scrollToScreenshots}
-              data-cursor="pointer"
-              className="group text-[14px] font-medium text-fg-muted hover:text-fg transition-colors inline-flex items-center gap-1.5 py-2 px-3 cursor-pointer"
-            >
-              <span>Explore Screenshots</span>
-              <span className="transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
-            </button>
-            {project.primaryProductSlug && (
-              <Link
-                href={`/products/${project.primaryProductSlug}`}
+            <div className="flex items-center gap-3 text-[13.5px] sm:text-[14px]">
+              <button
+                type="button"
+                onClick={scrollToScreenshots}
                 data-cursor="pointer"
-                className="text-[14px] font-medium text-fg-muted hover:text-fg transition-colors flex items-center gap-1.5 py-2 px-3"
+                className="group font-medium text-fg-muted hover:text-fg transition-colors inline-flex items-center gap-1.5 py-1.5 px-1 cursor-pointer"
               >
-                <span>Explore Live Platform</span>
-                <span>→</span>
-              </Link>
-            )}
+                <span>Explore Screenshots</span>
+                <span className="transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
+              </button>
+              {project.primaryProductSlug && (
+                <>
+                  <span className="text-fg-dim select-none">•</span>
+                  <Link
+                    href={`/products/${project.primaryProductSlug}`}
+                    data-cursor="pointer"
+                    className="font-medium text-fg-muted hover:text-fg transition-colors inline-flex items-center gap-1.5 py-1.5 px-1"
+                  >
+                    <span>Explore Live Platform</span>
+                    <span>→</span>
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
@@ -424,59 +478,64 @@ export default function WorkDetailClient({
       </div>
 
       {/* 5. Section Eyebrow (Challenge & Engineering Solution) */}
-      <div className="mt-[70px] xl:mt-[100px]">
+      <div className="mt-[56px] sm:mt-[70px] xl:mt-[100px]">
         <SectionEyebrow
-          left={<>CHALLENGE & ARCHITECTURAL SOLUTION <span lang="hi">विवरण</span></>}
+          left={
+            <>
+              <span className="hidden sm:inline">CHALLENGE & ARCHITECTURAL SOLUTION <span lang="hi">विवरण</span></span>
+              <span className="sm:hidden">CHALLENGE & SOLUTION</span>
+            </>
+          }
           index={`(GLD® — ${project.index}A)`}
           right="ENGINEERING METHODOLOGY"
         />
       </div>
 
       {/* 6. Problem & Solution 2-Column Grid */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] xl:mt-[64px] grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] xl:mt-[64px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 xl:gap-10">
         {/* Left Card: The Operational Challenge */}
-        <div className="bg-surface border border-line-solid rounded-[16px] p-7 xl:p-9 shadow-sm flex flex-col justify-between">
+        <div className="bg-surface border border-line-solid rounded-[16px] p-5 sm:p-7 xl:p-9 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-5 pb-4 border-b border-line">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-line">
               <span className="text-[12.5px] font-semibold text-accent uppercase tracking-wider">
                 The Operational Challenge
               </span>
-              <span className="text-[11.5px] px-2.5 py-0.5 rounded-full bg-bg border border-line-solid text-fg-muted font-medium">
+              <span className="text-[11px] sm:text-[11.5px] px-2.5 py-0.5 rounded-full bg-bg border border-line-solid text-fg-muted font-medium">
                 Problem Definition
               </span>
             </div>
 
-            <p className="text-[15px] text-fg leading-relaxed">
+            <p className="text-[14.5px] sm:text-[15px] text-fg leading-relaxed">
               {project.challenge}
             </p>
           </div>
 
-          <div className="mt-8 pt-5 border-t border-line flex items-center gap-2.5 text-[13px] text-fg-muted">
-            <span className="w-2 h-2 rounded-full bg-fg-dim" />
+          <div className="mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-line flex items-center gap-2.5 text-[12.5px] sm:text-[13px] text-fg-muted">
+            <span className="w-2 h-2 rounded-full bg-fg-dim shrink-0" />
             <span>Target: Eliminate friction, latency, and operational bottlenecks.</span>
           </div>
         </div>
 
         {/* Right Card: The Engineering Solution & Key Deliverables */}
-        <div className="bg-surface border border-line-solid rounded-[16px] p-7 xl:p-9 shadow-sm flex flex-col justify-between">
+        <div className="bg-surface border border-line-solid rounded-[16px] p-5 sm:p-7 xl:p-9 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-5 pb-4 border-b border-line">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-line">
               <span className="text-[12.5px] font-semibold text-accent uppercase tracking-wider">
                 Architectural Solution
               </span>
-              <span className="text-[11.5px] px-2.5 py-0.5 rounded-full bg-bg border border-line-solid text-fg-muted font-medium">
+              <span className="text-[11px] sm:text-[11.5px] px-2.5 py-0.5 rounded-full bg-bg border border-line-solid text-fg-muted font-medium">
                 Engineered Delivery
               </span>
             </div>
 
-            <p className="text-[15px] text-fg leading-relaxed mb-6">
+            <p className="text-[14.5px] sm:text-[15px] text-fg leading-relaxed mb-5 sm:mb-6">
               {project.solution}
             </p>
 
             {/* Feature Bullets */}
-            <div className="flex flex-col gap-3.5">
+            <div className="flex flex-col gap-3">
               {project.features.map((feature, fIdx) => (
-                <div key={fIdx} className="flex items-start gap-3 text-[14.5px] text-fg">
+                <div key={fIdx} className="flex items-start gap-3 text-[14px] sm:text-[14.5px] text-fg">
                   <div className="w-5 h-5 rounded-full bg-bg border border-line-solid flex items-center justify-center shrink-0 mt-0.5 text-accent font-bold text-[11px]">
                     ✓
                   </div>
@@ -486,16 +545,21 @@ export default function WorkDetailClient({
             </div>
           </div>
 
-          <div className="mt-8 pt-5 border-t border-line flex items-center gap-2.5 text-[13px] text-accent font-medium">
+          <div className="mt-6 sm:mt-8 pt-4 sm:pt-5 border-t border-line flex items-center gap-2.5 text-[12.5px] sm:text-[13px] text-accent font-medium">
             <span>Outcome: {project.outcome}</span>
           </div>
         </div>
       </div>
 
       {/* 7. Section Eyebrow (Visual Interface & Production Screens) */}
-      <div id="gallery" className="mt-[80px] xl:mt-[120px] scroll-mt-24">
+      <div id="gallery" className="mt-[64px] sm:mt-[80px] xl:mt-[120px] scroll-mt-24">
         <SectionEyebrow
-          left={<>PRODUCTION INTERFACE & ARTIFACTS <span lang="hi">चित्र</span></>}
+          left={
+            <>
+              <span className="hidden sm:inline">PRODUCTION INTERFACE & ARTIFACTS <span lang="hi">चित्र</span></span>
+              <span className="sm:hidden">PRODUCTION INTERFACE</span>
+            </>
+          }
           index={`(GLD® — ${project.index}B)`}
           right="SYSTEM SCREENS"
         />
@@ -518,15 +582,20 @@ export default function WorkDetailClient({
             )}
 
             {/* Laptop Frame with Left & Right Arrow Controls */}
-            <div className="relative w-full max-w-[1240px] mx-auto flex items-center justify-center">
-              {/* Left Arrow */}
+            <div
+              onTouchStart={handleDesktopTouchStart}
+              onTouchMove={handleDesktopTouchMove}
+              onTouchEnd={handleDesktopTouchEnd}
+              className="relative w-full max-w-[1240px] mx-auto flex items-center justify-center"
+            >
+              {/* Left Arrow (Desktop/Tablet) */}
               {desktopScreens.length > 1 && (
                 <button
                   type="button"
                   onClick={prevDesktop}
                   aria-label="Previous screenshot"
                   data-cursor="pointer"
-                  className="absolute left-2 sm:-left-5 lg:-left-10 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md flex items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
+                  className="hidden sm:flex absolute -left-5 lg:-left-10 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
                 >
                   <span className="text-[18px] sm:text-[20px] transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
                 </button>
@@ -579,38 +648,56 @@ export default function WorkDetailClient({
                 />
               </div>
 
-              {/* Right Arrow */}
+              {/* Right Arrow (Desktop/Tablet) */}
               {desktopScreens.length > 1 && (
                 <button
                   type="button"
                   onClick={nextDesktop}
                   aria-label="Next screenshot"
                   data-cursor="pointer"
-                  className="absolute right-2 sm:-right-5 lg:-right-10 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md flex items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
+                  className="hidden sm:flex absolute -right-5 lg:-right-10 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
                 >
                   <span className="text-[18px] sm:text-[20px] transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                 </button>
               )}
             </div>
 
-            {/* Pagination Dots & Navigation Indicators */}
+            {/* Pagination Dots & Mobile Navigation Controls */}
             {desktopScreens.length > 1 && (
-              <div className="flex items-center gap-2 mt-2">
-                {desktopScreens.map((_, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setDesktopIndex(idx)}
-                    aria-label={`Go to screenshot ${idx + 1}`}
-                    className={clsx(
-                      'h-2 rounded-full transition-all duration-500 cursor-pointer',
-                      idx === desktopIndex ? 'w-8 bg-fg' : 'w-2 bg-fg-dim/40 hover:bg-fg-dim'
-                    )}
-                  />
-                ))}
-                <span className="ml-3 text-[12px] font-mono text-fg-muted">
-                  {String(desktopIndex + 1).padStart(2, '0')} / {String(desktopScreens.length).padStart(2, '0')}
-                </span>
+              <div className="flex items-center justify-between sm:justify-center w-full max-w-[340px] sm:max-w-none gap-3 mt-3">
+                <button
+                  type="button"
+                  onClick={prevDesktop}
+                  aria-label="Previous screenshot"
+                  className="sm:hidden w-8 h-8 rounded-full border border-line bg-surface flex items-center justify-center text-fg active:scale-95 transition-transform cursor-pointer"
+                >
+                  ←
+                </button>
+                <div className="flex items-center gap-2">
+                  {desktopScreens.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setDesktopIndex(idx)}
+                      aria-label={`Go to screenshot ${idx + 1}`}
+                      className={clsx(
+                        'h-2 rounded-full transition-all duration-500 cursor-pointer',
+                        idx === desktopIndex ? 'w-7 sm:w-8 bg-fg' : 'w-2 bg-fg-dim/40 hover:bg-fg-dim'
+                      )}
+                    />
+                  ))}
+                  <span className="ml-2 text-[12px] font-mono text-fg-muted">
+                    {String(desktopIndex + 1).padStart(2, '0')} / {String(desktopScreens.length).padStart(2, '0')}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={nextDesktop}
+                  aria-label="Next screenshot"
+                  className="sm:hidden w-8 h-8 rounded-full border border-line bg-surface flex items-center justify-center text-fg active:scale-95 transition-transform cursor-pointer"
+                >
+                  →
+                </button>
               </div>
             )}
           </div>
@@ -631,15 +718,20 @@ export default function WorkDetailClient({
             )}
 
             {/* Phone Frame with Left & Right Arrow Controls */}
-            <div className="relative w-full max-w-[480px] mx-auto flex items-center justify-center">
-              {/* Left Arrow */}
+            <div
+              onTouchStart={handleMobileTouchStart}
+              onTouchMove={handleMobileTouchMove}
+              onTouchEnd={handleMobileTouchEnd}
+              className="relative w-full max-w-[480px] mx-auto flex items-center justify-center"
+            >
+              {/* Left Arrow (Desktop/Tablet) */}
               {mobileScreens.length > 1 && (
                 <button
                   type="button"
                   onClick={prevMobile}
                   aria-label="Previous mobile screen"
                   data-cursor="pointer"
-                  className="absolute left-0 sm:-left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md flex items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
+                  className="hidden sm:flex absolute -left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
                 >
                   <span className="text-[18px] sm:text-[20px] transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
                 </button>
@@ -695,38 +787,56 @@ export default function WorkDetailClient({
                 />
               </div>
 
-              {/* Right Arrow */}
+              {/* Right Arrow (Desktop/Tablet) */}
               {mobileScreens.length > 1 && (
                 <button
                   type="button"
                   onClick={nextMobile}
                   aria-label="Next mobile screen"
                   data-cursor="pointer"
-                  className="absolute right-0 sm:-right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md flex items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
+                  className="hidden sm:flex absolute -right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-line bg-surface/90 hover:bg-surface-2 backdrop-blur-md items-center justify-center text-fg transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl group cursor-pointer"
                 >
                   <span className="text-[18px] sm:text-[20px] transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                 </button>
               )}
             </div>
 
-            {/* Pagination Dots & Navigation Indicators */}
+            {/* Pagination Dots & Mobile Navigation Indicators */}
             {mobileScreens.length > 1 && (
-              <div className="flex items-center gap-2 mt-2">
-                {mobileScreens.map((_, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setMobileIndex(idx)}
-                    aria-label={`Go to mobile screen ${idx + 1}`}
-                    className={clsx(
-                      'h-2 rounded-full transition-all duration-500 cursor-pointer',
-                      idx === mobileIndex ? 'w-8 bg-fg' : 'w-2 bg-fg-dim/40 hover:bg-fg-dim'
-                    )}
-                  />
-                ))}
-                <span className="ml-3 text-[12px] font-mono text-fg-muted">
-                  {String(mobileIndex + 1).padStart(2, '0')} / {String(mobileScreens.length).padStart(2, '0')}
-                </span>
+              <div className="flex items-center justify-between sm:justify-center w-full max-w-[300px] sm:max-w-none gap-3 mt-3">
+                <button
+                  type="button"
+                  onClick={prevMobile}
+                  aria-label="Previous mobile screen"
+                  className="sm:hidden w-8 h-8 rounded-full border border-line bg-surface flex items-center justify-center text-fg active:scale-95 transition-transform cursor-pointer"
+                >
+                  ←
+                </button>
+                <div className="flex items-center gap-2">
+                  {mobileScreens.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setMobileIndex(idx)}
+                      aria-label={`Go to mobile screen ${idx + 1}`}
+                      className={clsx(
+                        'h-2 rounded-full transition-all duration-500 cursor-pointer',
+                        idx === mobileIndex ? 'w-7 sm:w-8 bg-fg' : 'w-2 bg-fg-dim/40 hover:bg-fg-dim'
+                      )}
+                    />
+                  ))}
+                  <span className="ml-2 text-[12px] font-mono text-fg-muted">
+                    {String(mobileIndex + 1).padStart(2, '0')} / {String(mobileScreens.length).padStart(2, '0')}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={nextMobile}
+                  aria-label="Next mobile screen"
+                  className="sm:hidden w-8 h-8 rounded-full border border-line bg-surface flex items-center justify-center text-fg active:scale-95 transition-transform cursor-pointer"
+                >
+                  →
+                </button>
               </div>
             )}
           </div>
@@ -734,22 +844,21 @@ export default function WorkDetailClient({
       </div>
 
       {/* 9. Measured Impact & IP Transfer Banner */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[80px] xl:mt-[120px]">
-        <div className="w-full bg-[#0A0A0B] text-[#FBFBF9] rounded-[20px] p-8 md:p-14 xl:p-18 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-2xl">
-          <div className="text-[12px] font-semibold text-[#C6F000] uppercase tracking-widest mb-3">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[64px] sm:mt-[80px] xl:mt-[120px]">
+        <div className="w-full bg-[#0A0A0B] text-[#FBFBF9] rounded-[20px] p-6 sm:p-10 md:p-14 xl:p-18 text-center flex flex-col items-center justify-center relative overflow-hidden shadow-2xl">
+          <div className="text-[11.5px] sm:text-[12px] font-semibold text-[#C6F000] uppercase tracking-widest mb-2.5 sm:mb-3">
             Ready to Build?
           </div>
           <h3
-            className="font-normal leading-[1.05] tracking-[-0.03em] max-w-[800px] text-[#FBFBF9]"
-            style={{ fontSize: 'clamp(28px, 4.5vw, 56px)' }}
+            className="font-normal leading-[1.08] tracking-[-0.03em] max-w-[800px] text-[#FBFBF9] text-[24px] sm:text-[34px] md:text-[44px] xl:text-[54px]"
           >
             Start your {project.title} sprint this month.
           </h3>
-          <p className="text-[#A8A8AD] text-[15px] md:text-[17px] max-w-[580px] mt-4 leading-relaxed">
+          <p className="text-[#A8A8AD] text-[13.5px] sm:text-[15px] md:text-[17px] max-w-[580px] mt-3.5 sm:mt-4 leading-relaxed">
             Direct communication with senior engineers. Fixed weekly cadence, continuous staging demos, and complete IP transfer.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
             <PillButton calLink="arjun-rajput-2mdsis" variant="inverted">
               Book a Discovery Call
             </PillButton>
@@ -757,7 +866,7 @@ export default function WorkDetailClient({
               <Link
                 href={`/services/${primaryService.slug}`}
                 data-cursor="pointer"
-                className="text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-4"
+                className="text-[13px] sm:text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-1.5 px-3 text-center"
               >
                 Explore {primaryService.title} →
               </Link>
@@ -765,7 +874,7 @@ export default function WorkDetailClient({
             <Link
               href="/work"
               data-cursor="pointer"
-              className="text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-4"
+              className="text-[13px] sm:text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-1.5 px-3 text-center"
             >
               Explore All Works →
             </Link>
@@ -774,9 +883,14 @@ export default function WorkDetailClient({
       </div>
 
       {/* 10. More Works Section Eyebrow */}
-      <div className="mt-[90px] xl:mt-[130px]">
+      <div className="mt-[70px] sm:mt-[90px] xl:mt-[130px]">
         <SectionEyebrow
-          left={<>MORE SELECTED WORK <span lang="hi">परियोजनाएँ</span></>}
+          left={
+            <>
+              <span className="hidden sm:inline">MORE SELECTED WORK <span lang="hi">परियोजनाएँ</span></span>
+              <span className="sm:hidden">SELECTED WORK</span>
+            </>
+          }
           index="(GLD® — 03C)"
           right="SHIPPED PROJECTS"
         />
@@ -784,31 +898,31 @@ export default function WorkDetailClient({
 
       {/* 11. More Works Marquee */}
       <div className="overflow-hidden bg-surface/30 border-y border-line">
-        <div className="py-5 md:py-7 overflow-hidden">
+        <div className="py-3.5 sm:py-5 md:py-7 overflow-hidden">
           <Marquee speed={28}>
-            <div className="flex items-center gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-3">
+            <div className="flex items-center gap-5 sm:gap-6 md:gap-9 pr-[60px] md:pr-[80px] whitespace-nowrap py-1 sm:py-3">
               <span
                 className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
                 style={{
-                  fontSize: 'clamp(42px, 6vw, 92px)',
+                  fontSize: 'clamp(32px, 5.5vw, 92px)',
                   lineHeight: 1.18,
                   letterSpacing: '-0.035em',
                 }}
               >
                 More Works
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-medium tracking-wide bg-accent text-white shadow-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1 rounded-full text-[11px] sm:text-[12px] font-medium tracking-wide bg-accent text-white shadow-sm">
                 Selected Portfolio
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
-              <span className="text-fg-muted font-normal tracking-tight text-[18px] md:text-[22px]">
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-normal tracking-tight text-[16px] sm:text-[18px] md:text-[22px]">
                 Case Studies & Systems
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
-              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
+              <span className="text-fg-muted font-medium text-[12px] sm:text-[13.5px] uppercase tracking-widest">
                 GLAD STUDIO®
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+              <span className="text-fg-dim font-light text-[22px] sm:text-[28px] select-none">/</span>
             </div>
           </Marquee>
         </div>
@@ -856,7 +970,12 @@ export default function WorkDetailClient({
       {/* 13. FAQ Section */}
       <div className="mt-[70px] md:mt-[100px] xl:mt-[140px]">
         <SectionEyebrow
-          left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
+          left={
+            <>
+              <span className="hidden sm:inline">COMMON QUESTIONS <span lang="hi">सहायता</span></span>
+              <span className="sm:hidden">COMMON QUESTIONS</span>
+            </>
+          }
           index="(GLD® — 11)"
           right="CLARIFICATIONS"
         />
@@ -898,6 +1017,9 @@ export default function WorkDetailClient({
           {/* Centered Content: Left Arrow + Phone Frame + Right Arrow */}
           <div
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleZoomTouchStart}
+            onTouchMove={handleZoomTouchMove}
+            onTouchEnd={handleZoomTouchEnd}
             className={clsx(
               'relative max-h-[90vh] flex items-center justify-center gap-3 sm:gap-6 md:gap-8 cursor-default transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform',
               isZoomVisible
@@ -905,7 +1027,7 @@ export default function WorkDetailClient({
                 : 'scale-[0.82] opacity-0 translate-y-8'
             )}
           >
-            {/* Left Navigation Arrow (Closer to phone) */}
+            {/* Left Navigation Arrow */}
             {mobileScreens.length > 1 && (
               <button
                 type="button"
@@ -915,14 +1037,14 @@ export default function WorkDetailClient({
                 }}
                 data-cursor="pointer"
                 aria-label="Previous mobile screen"
-                className="z-[120] w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 bg-[#1A1A1E]/90 hover:bg-[#2A2A2E] hover:border-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95 shadow-2xl group cursor-pointer shrink-0"
+                className="z-[120] w-10 h-10 sm:w-13 sm:h-13 rounded-full border border-white/20 bg-[#1A1A1E]/90 hover:bg-[#2A2A2E] hover:border-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95 shadow-2xl group cursor-pointer shrink-0 absolute left-2 sm:static"
               >
-                <span className="text-[18px] sm:text-[22px] transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
+                <span className="text-[16px] sm:text-[22px] transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
               </button>
             )}
 
             {/* Centered Phone Mockup Frame */}
-            <div className="relative w-[80vw] max-w-[340px] sm:max-w-[380px] aspect-[546/1080] drop-shadow-[0_35px_100px_rgba(0,0,0,0.9)] overflow-hidden rounded-[42px] sm:rounded-[46px] shrink-0">
+            <div className="relative w-[76vw] max-w-[320px] sm:max-w-[380px] aspect-[546/1080] drop-shadow-[0_35px_100px_rgba(0,0,0,0.9)] overflow-hidden rounded-[38px] sm:rounded-[46px] shrink-0">
               {/* Stack of Screenshots inside Phone Screen with Smooth Slide Transitions */}
               <div
                 className="absolute overflow-hidden bg-white rounded-[34px] md:rounded-[38px]"
@@ -967,7 +1089,7 @@ export default function WorkDetailClient({
               />
             </div>
 
-            {/* Right Navigation Arrow (Closer to phone) */}
+            {/* Right Navigation Arrow */}
             {mobileScreens.length > 1 && (
               <button
                 type="button"
@@ -977,9 +1099,9 @@ export default function WorkDetailClient({
                 }}
                 data-cursor="pointer"
                 aria-label="Next mobile screen"
-                className="z-[120] w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 bg-[#1A1A1E]/90 hover:bg-[#2A2A2E] hover:border-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95 shadow-2xl group cursor-pointer shrink-0"
+                className="z-[120] w-10 h-10 sm:w-13 sm:h-13 rounded-full border border-white/20 bg-[#1A1A1E]/90 hover:bg-[#2A2A2E] hover:border-white/40 backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95 shadow-2xl group cursor-pointer shrink-0 absolute right-2 sm:static"
               >
-                <span className="text-[18px] sm:text-[22px] transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                <span className="text-[16px] sm:text-[22px] transition-transform duration-200 group-hover:translate-x-0.5">→</span>
               </button>
             )}
           </div>

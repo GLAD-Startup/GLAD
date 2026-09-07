@@ -89,8 +89,9 @@ export default function FloatingFooter() {
 
   return (
     <div
+      id="floating-footer"
       className={clsx(
-        'fixed bottom-5 sm:bottom-6 inset-x-0 z-50 flex justify-center pointer-events-none px-4 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]',
+        'fixed bottom-4 sm:bottom-6 inset-x-0 z-50 flex justify-center pointer-events-none px-2 sm:px-4 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]',
         isVisible
           ? 'translate-y-0 opacity-100 scale-100'
           : 'translate-y-16 opacity-0 scale-95'
@@ -99,17 +100,17 @@ export default function FloatingFooter() {
       <nav
         aria-label="Floating Quick Navigation"
         className={clsx(
-          'pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1.5 sm:p-2 rounded-full',
-          'bg-[#FBFBF9]/90 backdrop-blur-xl',
+          'pointer-events-auto flex items-center gap-1 sm:gap-1.5 p-1 sm:p-1.5 md:p-2 rounded-full',
+          'bg-[#FBFBF9]/92 backdrop-blur-xl',
           'border border-black/[0.08]',
-          'shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_6px_rgba(0,0,0,0.04)] select-none'
+          'shadow-[0_12px_36px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.04)] select-none max-w-[calc(100vw-16px)]'
         )}
       >
         {/* Services Link */}
         <Link
           href="/services"
           data-cursor="link"
-          className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[12.5px] sm:text-[13px] font-medium text-fg/80 hover:text-fg hover:bg-black/[0.04] transition-all duration-200"
+          className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3.5 py-1.5 rounded-full text-[11.5px] sm:text-[13px] font-medium text-fg/80 hover:text-fg hover:bg-black/[0.04] transition-all duration-200 shrink-0"
         >
           <Briefcase className="w-3.5 h-3.5 text-fg/70" />
           <span className="text-fg">Services</span>
@@ -119,7 +120,7 @@ export default function FloatingFooter() {
         <Link
           href="/work"
           data-cursor="link"
-          className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[12.5px] sm:text-[13px] font-medium text-fg/80 hover:text-fg hover:bg-black/[0.04] transition-all duration-200"
+          className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3.5 py-1.5 rounded-full text-[11.5px] sm:text-[13px] font-medium text-fg/80 hover:text-fg hover:bg-black/[0.04] transition-all duration-200 shrink-0"
         >
           <LayoutGrid className="w-3.5 h-3.5 text-fg/70" />
           <span className="text-fg">Work</span>
@@ -129,7 +130,7 @@ export default function FloatingFooter() {
         <Link
           href="/contact"
           data-cursor="link"
-          className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[12.5px] sm:text-[13px] font-medium text-fg/80 hover:text-fg hover:bg-black/[0.04] transition-all duration-200"
+          className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3.5 py-1.5 rounded-full text-[11.5px] sm:text-[13px] font-medium text-fg/80 hover:text-fg hover:bg-black/[0.04] transition-all duration-200 shrink-0"
         >
           <Mail className="w-3.5 h-3.5 text-fg/70" />
           <span className="text-fg">Contact</span>
@@ -142,7 +143,7 @@ export default function FloatingFooter() {
           data-cal-config='{"layout":"month_view"}'
           onClick={() => openCalModal('arjun-rajput-2mdsis')}
           data-cursor="pointer"
-          className="flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#16A34A] hover:bg-[#15803D] text-white text-[12.5px] sm:text-[13px] font-medium shadow-[0_2px_10px_rgba(22,163,74,0.3)] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+          className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 rounded-full bg-[#16A34A] hover:bg-[#15803D] text-white text-[11.5px] sm:text-[13px] font-medium shadow-[0_2px_10px_rgba(22,163,74,0.3)] transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer shrink-0"
         >
           <Phone className="w-3.5 h-3.5 fill-current" />
           <span className="whitespace-nowrap">Book a Call</span>
@@ -154,9 +155,9 @@ export default function FloatingFooter() {
           onClick={scrollToTop}
           data-cursor="pointer"
           aria-label="Scroll to top"
-          className="w-[32px] h-[32px] sm:w-[36px] sm:h-[36px] rounded-full border border-black/[0.08] bg-white/80 hover:bg-white flex items-center justify-center text-fg hover:text-accent shadow-sm transition-all duration-200 shrink-0 cursor-pointer ml-0.5"
+          className="w-[28px] h-[28px] sm:w-[34px] sm:h-[34px] rounded-full border border-black/[0.08] bg-white/80 hover:bg-white flex items-center justify-center text-fg hover:text-accent shadow-sm transition-all duration-200 shrink-0 cursor-pointer ml-0.5"
         >
-          <ArrowUp className="w-4 h-4 text-fg" />
+          <ArrowUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-fg" />
         </button>
       </nav>
     </div>

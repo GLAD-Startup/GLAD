@@ -53,7 +53,7 @@ export default function ContactPageClient() {
   const imageFrameRef = useRef<HTMLDivElement>(null);
   const imageInnerRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
-  const [showEnquiryForm, setShowEnquiryForm] = useState(false);
+  const [showEnquiryForm, setShowEnquiryForm] = useState(true);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -68,22 +68,42 @@ export default function ContactPageClient() {
         );
       }
 
-      // 2. Parallax sliding effect: high-speed responsive slide on scroll
+      // 2. Parallax sliding effect: active on desktop, gentle on mobile to avoid card clipping
       if (imageFrameRef.current && imageInnerRef.current) {
-        gsap.fromTo(
-          imageInnerRef.current,
-          { y: 0 },
-          {
-            y: -180,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: imageFrameRef.current,
-              start: 'top 140px',
-              end: 'bottom 20px',
-              scrub: 0.35,
-            },
-          }
-        );
+        ScrollTrigger.matchMedia({
+          '(min-width: 1024px)': function () {
+            gsap.fromTo(
+              imageInnerRef.current,
+              { y: 0 },
+              {
+                y: -140,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: imageFrameRef.current,
+                  start: 'top 140px',
+                  end: 'bottom 20px',
+                  scrub: 0.35,
+                },
+              }
+            );
+          },
+          '(max-width: 1023px)': function () {
+            gsap.fromTo(
+              imageInnerRef.current,
+              { y: 0 },
+              {
+                y: -24,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: imageFrameRef.current,
+                  start: 'top 140px',
+                  end: 'bottom 40px',
+                  scrub: 0.3,
+                },
+              }
+            );
+          },
+        });
       }
 
       // 3. Contact link rows entrance animation
@@ -131,12 +151,12 @@ export default function ContactPageClient() {
   return (
     <main ref={containerRef} className="min-h-screen bg-bg select-none pt-[84px]">
       {/* 1. Top Section: Overlapping Photo Card on Left + Refined Contact Channels on Right */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[28px] md:pt-[44px] xl:pt-[56px] pb-[36px] md:pb-[48px] xl:pb-[60px] grid grid-cols-1 lg:grid-cols-[340px_1fr] xl:grid-cols-[370px_1fr] gap-[36px] lg:gap-[52px] xl:gap-[72px] items-center relative z-20">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[24px] sm:pt-[28px] md:pt-[44px] xl:pt-[56px] pb-[32px] md:pb-[48px] xl:pb-[60px] grid grid-cols-1 lg:grid-cols-[340px_1fr] xl:grid-cols-[370px_1fr] gap-[28px] sm:gap-[36px] lg:gap-[52px] xl:gap-[72px] items-center relative z-20">
         {/* Left: Minimal Swiss Typography Poster Card with Black Background Base & Smooth Slide Scroll Effect */}
         <div
           ref={imageFrameRef}
           data-cursor="pointer"
-          className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.85] lg:aspect-[4/4.8] max-w-[300px] xl:max-w-[330px] mx-auto lg:mx-0 lg:ml-[24px] xl:ml-[36px] will-change-transform group z-30 pointer-events-auto"
+          className="relative w-full aspect-[4/4.8] sm:aspect-[4/4.85] lg:aspect-[4/4.8] max-w-[270px] sm:max-w-[300px] xl:max-w-[330px] mx-auto lg:mx-0 lg:ml-[24px] xl:ml-[36px] will-change-transform group z-30 pointer-events-auto"
         >
           {/* Black Background Base Card */}
           <div className="absolute inset-0 rounded-[20px] bg-[#0A0A0B] border border-black/30 shadow-[0_20px_48px_rgba(0,0,0,0.20)] transition-all duration-300 group-hover:border-black/50 group-hover:shadow-[0_24px_56px_rgba(0,0,0,0.26)]" />
@@ -174,10 +194,10 @@ export default function ContactPageClient() {
                 }
               }}
               data-cursor="pointer"
-              className="contact-row group relative flex items-center justify-between py-[14px] md:py-[16px] xl:py-[18px] border-b border-line text-fg transition-colors duration-200 select-none overflow-hidden cursor-pointer"
+              className="contact-row group relative flex items-center justify-between py-[12px] sm:py-[14px] md:py-[16px] xl:py-[18px] border-b border-line text-fg transition-colors duration-200 select-none overflow-hidden cursor-pointer"
             >
               {/* Channel Label with Smooth Slide-Up Replace Animation (Full Descender Clearance) */}
-              <span className="relative inline-block overflow-hidden h-[1.7em] text-[14px] md:text-[15.5px] xl:text-[16.5px] font-medium text-fg leading-[1.3]">
+              <span className="relative inline-block overflow-hidden h-[1.7em] text-[13.5px] sm:text-[14.5px] md:text-[15.5px] xl:text-[16.5px] font-medium text-fg leading-[1.3]">
                 <span className="block transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-full text-fg leading-[1.3] pt-[0.15em] pb-[0.25em]">
                   {item.label}
                 </span>
@@ -190,7 +210,7 @@ export default function ContactPageClient() {
               </span>
 
               {/* Diagonal Arrow ↗ */}
-              <span className="text-[14px] md:text-[16px] text-fg/80 group-hover:text-fg transform transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 inline-block shrink-0 ml-3">
+              <span className="text-[13px] sm:text-[14px] md:text-[16px] text-fg/80 group-hover:text-fg transform transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 inline-block shrink-0 ml-3">
                 ↗
               </span>
 
@@ -205,9 +225,9 @@ export default function ContactPageClient() {
       </div>
 
       {/* 2. Full-Bleed Horizontal Word Rail Ticker (White background, light editorial style matching Palmer) */}
-      <div className="w-full relative z-10 bg-bg border-y border-line overflow-hidden py-3">
+      <div className="w-full relative z-10 bg-bg border-y border-line overflow-hidden py-2.5 sm:py-3">
         <Marquee speed={32}>
-          <div className="flex items-center gap-14 pr-14 text-[13px] md:text-[14px] font-medium text-fg uppercase tracking-wider whitespace-nowrap">
+          <div className="flex items-center gap-10 sm:gap-14 pr-10 sm:pr-14 text-[12px] sm:text-[13px] md:text-[14px] font-medium text-fg uppercase tracking-wider whitespace-nowrap">
             <span>Email Us</span>
             <span className="text-line">•</span>
             <span>24/7 Support</span>
@@ -227,12 +247,12 @@ export default function ContactPageClient() {
       </div>
 
       {/* 3. Giant Display Headline: "Contact Now" (Centered, t-display token, font-normal) */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[28px] md:pt-[40px] xl:pt-[48px] pb-[20px] md:pb-[28px] xl:pb-[36px] overflow-hidden border-b border-line flex justify-center items-center text-center">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-[24px] sm:pt-[28px] md:pt-[40px] xl:pt-[48px] pb-[18px] sm:pb-[20px] md:pb-[28px] xl:pb-[36px] overflow-hidden border-b border-line flex justify-center items-center text-center">
         <h1
           ref={headlineRef}
           className="t-display text-fg font-normal select-none whitespace-nowrap will-change-transform text-center overflow-hidden py-2"
           style={{
-            fontSize: 'clamp(52px, 12.5vw, 190px)',
+            fontSize: 'clamp(42px, 11.5vw, 190px)',
             lineHeight: 0.90,
             letterSpacing: '-0.035em',
           }}
@@ -254,16 +274,16 @@ export default function ContactPageClient() {
       {/* 4. Interactive Quick Message Drawer / Enquiry Form Toggle */}
       <div
         className={clsx(
-          'px-[20px] md:px-[28px] xl:px-[40px] py-[24px] md:py-[28px] flex items-center justify-between transition-colors',
+          'px-[20px] md:px-[28px] xl:px-[40px] py-[16px] sm:py-[22px] md:py-[28px] flex items-center justify-between gap-3 transition-colors',
           !showEnquiryForm && 'border-b border-line'
         )}
       >
-        <div className="flex items-center gap-3">
-          <span className="text-[12px] font-semibold text-accent uppercase tracking-widest">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-3">
+          <span className="text-[11px] sm:text-[12px] font-semibold text-accent uppercase tracking-widest">
             Project Proposal & Scoping
           </span>
           <span className="text-fg-muted hidden sm:inline">•</span>
-          <span className="text-[13.5px] text-fg-muted hidden sm:inline">
+          <span className="text-[11.5px] sm:text-[13.5px] text-fg-muted">
             Direct response within 24 hours
           </span>
         </div>
@@ -272,10 +292,10 @@ export default function ContactPageClient() {
           type="button"
           onClick={() => setShowEnquiryForm(!showEnquiryForm)}
           data-cursor="pointer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-line-solid bg-surface text-[13px] font-medium text-fg hover:border-fg/40 hover:bg-surface-2 transition-all cursor-pointer shadow-sm"
+          className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-line-solid bg-surface text-[12px] sm:text-[13px] font-medium text-fg hover:border-fg/40 hover:bg-surface-2 transition-all cursor-pointer shadow-sm shrink-0 active:scale-[0.98]"
         >
-          <span>{showEnquiryForm ? 'Close Message Form' : 'Send Direct Message'}</span>
-          <span className="text-accent transition-transform duration-300">
+          <span>{showEnquiryForm ? 'Hide Form' : 'Send Direct Message'}</span>
+          <span className="text-accent font-bold text-[13px] sm:text-[14px]">
             {showEnquiryForm ? '−' : '+'}
           </span>
         </button>
@@ -291,7 +311,7 @@ export default function ContactPageClient() {
         <div className="min-h-0 overflow-hidden">
           <div
             className={clsx(
-              'px-[20px] md:px-[28px] xl:px-[40px] py-[32px] bg-surface/40 border-b border-line transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]',
+              'px-[16px] sm:px-[28px] xl:px-[40px] py-[20px] sm:py-[32px] bg-surface/40 border-b border-line transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]',
               showEnquiryForm ? 'translate-y-0' : '-translate-y-4'
             )}
           >
@@ -304,7 +324,12 @@ export default function ContactPageClient() {
 
       {/* 5. Section Eyebrow matching the reference design */}
       <SectionEyebrow
-        left={<>⊕ HELP CENTER <span lang="hi">सहायता</span></>}
+        left={
+          <>
+            <span className="hidden sm:inline">⊕ HELP CENTER <span lang="hi">सहायता</span></span>
+            <span className="sm:hidden">⊕ HELP CENTER</span>
+          </>
+        }
         index="(GLD® — 11)"
         right="CLARIFICATIONS"
       />

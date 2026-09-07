@@ -211,18 +211,18 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
           <div className="lg:col-span-6">
             <div className="bg-surface border border-line-solid rounded-[14px] p-5 md:p-6 shadow-[0_20px_50px_-24px_rgba(10,10,11,0.2)]">
               {/* Tab Bar Header */}
-              <div className="flex items-center justify-between border-b border-line pb-3 mb-4">
-                <span className="text-[11.5px] font-semibold uppercase tracking-wider text-fg-muted">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-line pb-3 mb-4">
+                <span className="text-[11px] sm:text-[11.5px] font-semibold uppercase tracking-wider text-fg-muted">
                   {isHms ? 'Live Operations Cascade' : 'Live Deal Cascade'}
                 </span>
-                <div className="flex items-center gap-1 bg-bg p-1 rounded-md border border-line text-[11px]">
+                <div className="grid grid-cols-3 sm:flex items-center gap-1 bg-bg p-1 rounded-md border border-line text-[11px] text-center">
                   {isHms ? (
                     <>
                       <button
                         type="button"
                         onClick={() => setActiveCascadeTab('frontdesk')}
                         className={clsx(
-                          'px-2.5 py-1 rounded-[4px] font-medium transition-colors cursor-pointer',
+                          'px-2 sm:px-2.5 py-1.5 sm:py-1 rounded-[4px] font-medium transition-colors cursor-pointer text-center whitespace-nowrap text-[10.5px] sm:text-[11px]',
                           activeCascadeTab === 'frontdesk'
                             ? 'bg-accent/15 text-accent font-semibold'
                             : 'text-fg-muted hover:text-fg'
@@ -234,7 +234,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                         type="button"
                         onClick={() => setActiveCascadeTab('housekeeping')}
                         className={clsx(
-                          'px-2.5 py-1 rounded-[4px] font-medium transition-colors cursor-pointer',
+                          'px-2 sm:px-2.5 py-1.5 sm:py-1 rounded-[4px] font-medium transition-colors cursor-pointer text-center whitespace-nowrap text-[10.5px] sm:text-[11px]',
                           activeCascadeTab === 'housekeeping'
                             ? 'bg-accent/15 text-accent font-semibold'
                             : 'text-fg-muted hover:text-fg'
@@ -246,7 +246,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                         type="button"
                         onClick={() => setActiveCascadeTab('finance')}
                         className={clsx(
-                          'px-2.5 py-1 rounded-[4px] font-medium transition-colors cursor-pointer',
+                          'px-2 sm:px-2.5 py-1.5 sm:py-1 rounded-[4px] font-medium transition-colors cursor-pointer text-center whitespace-nowrap text-[10.5px] sm:text-[11px]',
                           activeCascadeTab === 'finance'
                             ? 'bg-accent/15 text-accent font-semibold'
                             : 'text-fg-muted hover:text-fg'
@@ -261,7 +261,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                         type="button"
                         onClick={() => setActiveCascadeTab('agent')}
                         className={clsx(
-                          'px-2.5 py-1 rounded-[4px] font-medium transition-colors cursor-pointer',
+                          'px-2 sm:px-2.5 py-1.5 sm:py-1 rounded-[4px] font-medium transition-colors cursor-pointer text-center whitespace-nowrap text-[10.5px] sm:text-[11px]',
                           activeCascadeTab === 'agent'
                             ? 'bg-accent/15 text-accent font-semibold'
                             : 'text-fg-muted hover:text-fg'
@@ -273,7 +273,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                         type="button"
                         onClick={() => setActiveCascadeTab('admin')}
                         className={clsx(
-                          'px-2.5 py-1 rounded-[4px] font-medium transition-colors cursor-pointer',
+                          'px-2 sm:px-2.5 py-1.5 sm:py-1 rounded-[4px] font-medium transition-colors cursor-pointer text-center whitespace-nowrap text-[10.5px] sm:text-[11px]',
                           activeCascadeTab === 'admin'
                             ? 'bg-accent/15 text-accent font-semibold'
                             : 'text-fg-muted hover:text-fg'
@@ -285,7 +285,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                         type="button"
                         onClick={() => setActiveCascadeTab('simulator')}
                         className={clsx(
-                          'px-2.5 py-1 rounded-[4px] font-medium transition-colors cursor-pointer',
+                          'px-2 sm:px-2.5 py-1.5 sm:py-1 rounded-[4px] font-medium transition-colors cursor-pointer text-center whitespace-nowrap text-[10.5px] sm:text-[11px]',
                           activeCascadeTab === 'simulator'
                             ? 'bg-accent/15 text-accent font-semibold'
                             : 'text-fg-muted hover:text-fg'
@@ -330,10 +330,10 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8 max-w-7xl mx-auto [font-variant-numeric:tabular-nums]">
           {product.heroStats.map((stat, idx) => (
             <div key={idx} className="flex flex-col">
-              <span className="text-[28px] md:text-[34px] xl:text-[40px] font-medium text-fg leading-none tracking-tight">
+              <span className="text-[22px] sm:text-[28px] md:text-[34px] xl:text-[40px] font-medium text-fg leading-none tracking-tight">
                 {stat.value}
               </span>
-              <span className="mt-2 text-[12.5px] md:text-[13px] text-fg-muted font-normal">
+              <span className="mt-2 text-[12px] sm:text-[12.5px] md:text-[13px] text-fg-muted font-normal leading-snug">
                 {stat.label}
               </span>
             </div>
@@ -492,11 +492,11 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         })}
       </section>
 
-      {/* 8, 9, 10: ARCHITECTURAL, OPERATIONAL, AND STORY SECTIONS (WITH CONTINUOUS BACKGROUND IMAGE FOR GLAD HMS) */}
-      <div className="relative overflow-hidden mt-[90px] xl:mt-[130px]">
-        {/* Continuous Background Image spanning across Architectural, Operational, and Story sections */}
+      {/* 8, 9, 10: ARCHITECTURAL, OPERATIONAL, AND STORY SECTIONS (CONTINUOUS BACKGROUND GRAPHIC ON DESKTOP) */}
+      <div className="relative overflow-hidden mt-12 sm:mt-16 xl:mt-[130px]">
+        {/* Continuous Background Image: Hidden on mobile (<1024px) to preserve text readability */}
         {isHms ? (
-          <div className="absolute inset-0 pointer-events-none select-none z-0 flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none select-none z-0 hidden lg:flex items-center justify-center overflow-hidden">
             <div className="relative w-[90vw] max-w-[1300px] h-[92%] opacity-[0.22] xl:opacity-[0.28]">
               <Image
                 src="/products/hotel-building-transparent.png"
@@ -508,7 +508,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             </div>
           </div>
         ) : (
-          <div className="absolute inset-0 pointer-events-none select-none z-0 flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none select-none z-0 hidden lg:flex items-center justify-center overflow-hidden">
             <div className="relative w-[92vw] max-w-[1350px] h-[95%] opacity-[0.15] xl:opacity-[0.20]">
               <Image
                 src="/products/graphic-design-building-architecture-creative-city-building-vector.png"
@@ -522,10 +522,10 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         )}
 
         {/* 8. ARCHITECTURE & SECURITY PILLARS (Heading + 3 Arrow Cards) */}
-        <section className="relative z-10 border-t border-line pt-[70px] xl:pt-[90px] px-[20px] md:px-[28px] xl:px-[40px]">
-          <div className="max-w-7xl mx-auto space-y-10">
+        <section className="relative z-10 border-t border-line pt-10 sm:pt-14 xl:pt-[90px] px-[20px] md:px-[28px] xl:px-[40px]">
+          <div className="max-w-7xl mx-auto space-y-8 sm:space-y-10">
             <div className="text-center max-w-2xl mx-auto space-y-3">
-              <h2 className="t-heading text-fg font-normal pt-4">
+              <h2 className="t-heading text-fg font-normal pt-2 sm:pt-4">
                 {isHms ? 'Multi-Tenant Safety. Zero Collisions.' : 'Bank-Grade Security. Zero Leaks.'}
               </h2>
               <p className="t-body-sm text-fg-muted">
@@ -535,14 +535,14 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 items-stretch">
               {product.securityPillars.map((pillar, idx) => {
                 const PillarIcon = getPillarIcon(pillar.iconType, idx);
 
                 return (
                   <div
                     key={pillar.title}
-                    className="bg-surface/90 backdrop-blur-sm border border-line-solid rounded-[14px] p-6 relative group transition-all duration-300 hover:bg-surface-2"
+                    className="bg-surface/90 backdrop-blur-sm border border-line-solid rounded-[14px] p-5 sm:p-6 relative group transition-all duration-300 hover:bg-surface-2"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="w-10 h-10 rounded-[10px] bg-bg border border-line flex items-center justify-center text-accent">
@@ -566,13 +566,13 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         </section>
 
         {/* 9. OPERATIONAL FLOW (4 Numbered Phases) */}
-        <section className="relative z-10 mt-[90px] xl:mt-[130px] px-[20px] md:px-[28px] xl:px-[40px]">
-          <div className="max-w-7xl mx-auto space-y-10">
+        <section className="relative z-10 mt-12 sm:mt-16 xl:mt-[130px] px-[20px] md:px-[28px] xl:px-[40px]">
+          <div className="max-w-7xl mx-auto space-y-8 sm:space-y-10">
             <div className="border-t border-line divide-y divide-line">
               {product.operationalPhases.map((phase) => (
                 <div
                   key={phase.phase}
-                  className="py-8 xl:py-10 grid grid-cols-1 lg:grid-cols-[160px_240px_1fr_300px] gap-6 items-start"
+                  className="py-6 sm:py-8 xl:py-10 grid grid-cols-1 lg:grid-cols-[160px_240px_1fr_300px] gap-4 sm:gap-6 items-start"
                 >
                   {/* Phase Number & Timing Chip */}
                   <div className="flex lg:flex-col items-center lg:items-start gap-2">
@@ -595,7 +595,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                   </p>
 
                   {/* Checklist Bullets */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 pt-1 lg:pt-0">
                     {phase.bullets.map((b) => (
                       <div key={b} className="flex items-start gap-2 text-[12px] text-fg">
                         <Check className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
@@ -610,11 +610,11 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         </section>
 
         {/* 10. OUR STORY & BELIEFS (2 Prose Paragraphs + 4 Arrow Cards) */}
-        <section className="relative z-10 mt-[90px] xl:mt-[130px] border-t border-line pt-[70px] xl:pt-[90px] px-[20px] md:px-[28px] xl:px-[40px]">
-          <div className="max-w-7xl mx-auto space-y-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <section className="relative z-10 mt-12 sm:mt-16 xl:mt-[130px] border-t border-line pt-10 sm:pt-14 xl:pt-[90px] pb-10 sm:pb-14 xl:pb-0 px-[20px] md:px-[28px] xl:px-[40px]">
+          <div className="max-w-7xl mx-auto space-y-8 sm:space-y-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start">
               {/* Left Column: Story Prose */}
-              <div className="lg:col-span-5 space-y-5">
+              <div className="lg:col-span-5 space-y-4 sm:space-y-5">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-accent">
                   {product.aboutStory.eyebrow}
                 </span>
@@ -630,7 +630,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               </div>
 
               {/* Right Column: 4 Belief Cards */}
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                 {product.aboutStory.beliefs.map((belief) => (
                   <div
                     key={belief.title}
@@ -656,7 +656,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
       </div>
 
       {/* 11. PRICING MATRIX (3 Tiers with Opacity Ladder) */}
-      <section className="mt-[90px] xl:mt-[130px] px-[20px] md:px-[28px] xl:px-[40px]">
+      <section className="mt-12 sm:mt-16 xl:mt-[130px] px-[20px] md:px-[28px] xl:px-[40px]">
         <div className="max-w-7xl mx-auto space-y-10">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="t-heading text-fg font-normal">
@@ -728,8 +728,8 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
 
       {/* 12. CROSS-SELL CARD (Pointing to Sister Product, if configured) */}
       {product.crossSell && (
-        <section className="mt-[90px] xl:mt-[130px] px-[20px] md:px-[28px] xl:px-[40px]">
-          <div className="cross-sell-card-container max-w-7xl mx-auto bg-surface border border-line-solid rounded-[18px] p-8 xl:p-12 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 items-center shadow-[0_20px_50px_-24px_rgba(10,10,11,0.15)]">
+        <section className="mt-12 sm:mt-16 xl:mt-[130px] px-[20px] md:px-[28px] xl:px-[40px]">
+          <div className="cross-sell-card-container max-w-7xl mx-auto bg-surface border border-line-solid rounded-[18px] p-6 sm:p-8 xl:p-12 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 sm:gap-8 items-center shadow-[0_20px_50px_-24px_rgba(10,10,11,0.15)]">
             <div className="space-y-4">
               <span className="inline-block px-2.5 py-1 rounded-full text-[11px] font-medium uppercase tracking-wider bg-accent/10 text-accent font-mono">
                 {product.crossSell.badge}
@@ -763,7 +763,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
       )}
 
       {/* 13. CLOSING CTA (WITH FULL-BLEED BACKGROUND VIDEO & EDGE FADES) */}
-      <section className="relative overflow-hidden mt-[90px] xl:mt-[130px] border-y border-line py-[100px] xl:py-[140px] px-[20px] md:px-[28px] xl:px-[40px] text-center bg-surface/30">
+      <section className="relative overflow-hidden mt-12 sm:mt-16 xl:mt-[130px] border-y border-line py-14 sm:py-20 xl:py-[140px] px-[20px] md:px-[28px] xl:px-[40px] text-center bg-surface/30">
         {/* Full-Cover Background Video with Radial Edge Mask */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none [mask-image:radial-gradient(ellipse_64%_86%_at_50%_50%,black_24%,transparent_92%)] [-webkit-mask-image:radial-gradient(ellipse_64%_86%_at_50%_50%,black_24%,transparent_92%)]">
           <video
@@ -773,7 +773,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             muted
             playsInline
             preload="none"
-            className="w-full h-full object-cover opacity-75 xl:opacity-85 brightness-105"
+            className="w-full h-full object-cover opacity-25 sm:opacity-45 xl:opacity-85 brightness-105"
           >
             <source
               src={
@@ -784,8 +784,8 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               type="video/mp4"
             />
           </video>
-          {/* Soft tint overlay to unify with editorial background */}
-          <div className="absolute inset-0 bg-bg/15" />
+          {/* Soft tint overlay to unify with editorial background and guarantee mobile text readability */}
+          <div className="absolute inset-0 bg-bg/85 sm:bg-bg/60 xl:bg-bg/15" />
         </div>
 
         {/* 4-Sided Perimeter Edge Feathering Gradients (Wide Lateral Fades) */}
@@ -817,7 +817,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               <span>{product.closingCta.secondaryButtonText}</span>
             </button>
           </div>
-          <div className="pt-4 flex items-center justify-center gap-2 text-[13px] text-fg-muted">
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 text-[12.5px] sm:text-[13px] text-fg-muted text-center">
             <span>Engineered by GLAD Studio.</span>
             <Link
               href={isHms ? '/services/web-application-development' : '/services/business-automation'}
@@ -829,8 +829,8 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
         </div>
       </section>
 
-      {/* 14. FREQUENTLY ASKED (GLD® — 11 & GLD® — 12 inside Faq) */}
-      <div className="mt-[100px] xl:mt-[140px]">
+      {/* 14. FREQUENTLY ASKED (GLD® — 11) */}
+      <div className="mt-12 sm:mt-16 xl:mt-[140px]">
         <SectionEyebrow
           left={<>FREQUENTLY ASKED <span lang="hi">प्रश्नावली</span></>}
           index="(GLD® — 11)"
@@ -840,7 +840,16 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
 
       <ProductFaq faqs={product.faqs} isHms={isHms} />
 
-      {/* 15. FOOTER */}
+      {/* 15. CONCLUDING SECTION EYEBROW */}
+      <div className="mt-[64px] md:mt-[80px] xl:mt-[100px]">
+        <SectionEyebrow
+          left={<>GET IN TOUCH <span lang="hi">समापन</span></>}
+          index="(GLD® — 12)"
+          right="STUDIO WRAP"
+        />
+      </div>
+
+      {/* 16. FOOTER */}
       <Footer />
     </div>
   );

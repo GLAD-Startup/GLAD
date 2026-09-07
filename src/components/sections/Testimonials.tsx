@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PillButton from '@/components/ui/PillButton';
 import SectionEyebrow from '@/components/ui/SectionEyebrow';
+import Marquee from '@/components/ui/Marquee';
 import { testimonialsData, TestimonialItem } from '@/data/testimonials';
 
 // Named constant for easy tuning of total pin scroll distance
@@ -366,15 +367,13 @@ export default function Testimonials() {
         <div className="min-[1024px]:hidden w-full relative py-12 px-[20px] md:px-[28px] flex flex-col gap-10 md:gap-14">
           {/* Background Marquee */}
           <div className="w-full overflow-hidden opacity-20 select-none pointer-events-none py-3 -my-3">
-            <div className="flex flex-row w-max animate-marquee">
-              {[0, 1, 2, 3].map((i) => (
-                <div key={i} className="flex items-center shrink-0 pr-[40px] md:pr-[60px] py-1.5">
-                  <span className="text-[54px] sm:text-[72px] md:text-[100px] font-normal leading-[1.08] tracking-tight text-fg inline-block pt-1 pb-0.5">
-                    Client Work© - Reviews
-                  </span>
-                </div>
-              ))}
-            </div>
+            <Marquee speed={22} fadeEdges={false}>
+              <div className="flex items-center shrink-0 pr-[40px] md:pr-[60px] py-1.5">
+                <span className="text-[54px] sm:text-[72px] md:text-[100px] font-normal leading-[1.08] tracking-tight text-fg inline-block pt-1 pb-0.5">
+                  Client Work© - Reviews
+                </span>
+              </div>
+            </Marquee>
           </div>
 
           {/* Stacked Cards with responsive gap */}

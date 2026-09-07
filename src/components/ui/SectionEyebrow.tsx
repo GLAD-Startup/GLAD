@@ -25,18 +25,19 @@ export default function SectionEyebrow({
       )}
     >
       {/* Left Item */}
-      <span className="t-eyebrow eyebrow-shimmer-white truncate max-w-[45%] min-[810px]:max-w-none inline-block py-0.5">
+      <span className="t-eyebrow eyebrow-shimmer-white truncate flex-1 min-w-0 min-[810px]:flex-initial min-[810px]:max-w-none inline-block py-0.5 pr-2">
         © {left}
       </span>
 
-      {/* Center Index — dropped on mobile below 810px */}
-      <span className="t-eyebrow eyebrow-shimmer-accent hidden min-[810px]:inline-block absolute left-1/2 -translate-x-1/2 whitespace-nowrap py-0.5">
+      {/* Center Index — strictly desktop (>=810px) */}
+      <span className="t-eyebrow eyebrow-shimmer-accent !hidden min-[810px]:!inline-block absolute left-1/2 -translate-x-1/2 whitespace-nowrap py-0.5">
         {index}
       </span>
 
-      {/* Right Item */}
-      <span className="t-eyebrow eyebrow-shimmer-accent ml-auto truncate max-w-[45%] min-[810px]:max-w-none text-right inline-block py-0.5">
-        {right}
+      {/* Right Item — shows concise index on mobile (<810px) and full descriptor on desktop (>=810px) */}
+      <span className="t-eyebrow eyebrow-shimmer-accent shrink-0 ml-auto text-right inline-block py-0.5 whitespace-nowrap">
+        <span className="inline-block min-[810px]:hidden">{index}</span>
+        <span className="hidden min-[810px]:inline-block">{right}</span>
       </span>
     </div>
   );

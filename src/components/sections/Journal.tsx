@@ -164,63 +164,76 @@ export default function Journal({ isListingPage = false }: JournalProps) {
         className="relative w-full bg-bg select-none"
       >
         {isListingPage ? (
-          <h1 className="sr-only">Engineering Insights</h1>
-        ) : (
-          <h2 className="sr-only">Engineering Insights</h2>
-        )}
-
-        {/* 1. Top Section Marquee Carousel Header */}
-        <div className="relative w-full overflow-hidden py-5 xl:py-7 bg-surface/30 border-b border-line">
-          <div ref={marqueeContentRef} className="will-change-transform">
-            <Marquee speed={24}>
-              <div className="flex items-center gap-6 md:gap-10 pr-[60px] md:pr-[90px] whitespace-nowrap py-3">
-                <span
-                  className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
-                  style={{
-                    fontSize: 'clamp(44px, 6.5vw, 96px)',
-                    lineHeight: 1.18,
-                    letterSpacing: '-0.035em',
-                  }}
-                >
-                  Engineering Insights
-                </span>
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-accent text-white shadow-sm">
-                  Technical Notes
-                </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
-              <span
-                className="text-fg-muted font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
-                style={{
-                  fontSize: 'clamp(44px, 6.5vw, 96px)',
-                  lineHeight: 1.18,
-                  letterSpacing: '-0.035em',
-                }}
-              >
-                Article Features
+          <div className="px-[20px] md:px-[28px] xl:px-[40px] pt-8 sm:pt-10 md:pt-14 pb-8 sm:pb-10 border-b border-line">
+            <div className="flex flex-wrap items-center gap-2.5 mb-3 sm:mb-4">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-accent text-white shadow-2xs">
+                Technical Notes
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
-              <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
-                GLAD STUDIO®
+              <span className="text-[12px] font-mono text-fg-muted">
+                ({displayedArticles.length} Essays & Systems)
               </span>
-              <span className="text-fg-dim font-light text-[28px] select-none">/</span>
             </div>
-          </Marquee>
+            <h1 className="text-[34px] sm:text-[46px] md:text-[60px] xl:text-[72px] font-normal text-fg leading-[1.02] tracking-[-0.035em]">
+              Engineering Insights
+            </h1>
+            <p className="t-body text-fg-muted max-w-[560px] mt-3 sm:mt-4 leading-relaxed">
+              Our complete library of engineering essays, system design teardowns, and autonomous AI architectures.
+            </p>
           </div>
-        </div>
+        ) : (
+          <>
+            <h2 className="sr-only">Engineering Insights</h2>
 
-        {/* 2. Top Copy Block */}
-        <div className="px-[20px] md:px-[28px] xl:px-0 ml-auto mr-[20px] md:mr-[28px] xl:mr-[40px] mt-[48px] max-w-[520px] space-y-[24px]">
-          <p className="t-body text-fg-muted">
-            {isListingPage
-              ? 'Our complete library of engineering essays, system design teardowns, and autonomous AI architectures.'
-              : 'Practitioner guides on autonomous agent loops, production RAG pipelines, fine-tuning tradeoffs, and scalable product engineering.'}
-          </p>
-          {!isListingPage && (
-            <div>
-              <PillButton href="/insights">See All Insights</PillButton>
+            {/* 1. Top Section Marquee Carousel Header */}
+            <div className="relative w-full overflow-hidden py-5 xl:py-7 bg-surface/30 border-b border-line">
+              <div ref={marqueeContentRef} className="will-change-transform">
+                <Marquee speed={24}>
+                  <div className="flex items-center gap-6 md:gap-10 pr-[60px] md:pr-[90px] whitespace-nowrap py-3">
+                    <span
+                      className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                      style={{
+                        fontSize: 'clamp(44px, 6.5vw, 96px)',
+                        lineHeight: 1.18,
+                        letterSpacing: '-0.035em',
+                      }}
+                    >
+                      Engineering Insights
+                    </span>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-accent text-white shadow-sm">
+                      Technical Notes
+                    </span>
+                    <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+                    <span
+                      className="text-fg-muted font-normal tracking-tight inline-flex items-center pb-[0.24em] pt-[0.10em]"
+                      style={{
+                        fontSize: 'clamp(44px, 6.5vw, 96px)',
+                        lineHeight: 1.18,
+                        letterSpacing: '-0.035em',
+                      }}
+                    >
+                      Article Features
+                    </span>
+                    <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+                    <span className="text-fg-muted font-medium text-[13.5px] uppercase tracking-widest">
+                      GLAD STUDIO®
+                    </span>
+                    <span className="text-fg-dim font-light text-[28px] select-none">/</span>
+                  </div>
+                </Marquee>
+              </div>
             </div>
-          )}
-        </div>
+
+            {/* 2. Top Copy Block */}
+            <div className="px-[20px] md:px-[28px] xl:px-0 ml-auto mr-[20px] md:mr-[28px] xl:mr-[40px] mt-[48px] max-w-[520px] space-y-[24px]">
+              <p className="t-body text-fg-muted">
+                Practitioner guides on autonomous agent loops, production RAG pipelines, fine-tuning tradeoffs, and scalable product engineering.
+              </p>
+              <div>
+                <PillButton href="/insights">See All Insights</PillButton>
+              </div>
+            </div>
+          </>
+        )}
 
         {/* 3. Scattered Overlapping Article Cards */}
         <div
@@ -253,9 +266,9 @@ export default function Journal({ isListingPage = false }: JournalProps) {
 
       {/* Section Eyebrow */}
       <SectionEyebrow
-        left={<>FREQUENTLY ASKED <span lang="hi">प्रश्नावली</span></>}
+        left={<><span className="hidden sm:inline">FREQUENTLY ASKED <span lang="hi">प्रश्नावली</span></span><span className="sm:hidden">FREQUENTLY ASKED</span></>}
         index="(GLD® — 11)"
-        right="QUESTIONS & ANSWERS"
+        right={<span className="hidden sm:inline">QUESTIONS & ANSWERS</span>}
       />
     </>
   );

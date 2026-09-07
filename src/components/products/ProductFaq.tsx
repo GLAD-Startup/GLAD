@@ -18,7 +18,7 @@ export default function ProductFaq({ faqs, isHms = false }: ProductFaqProps) {
   return (
     <section
       id="faq"
-      className="relative w-full bg-bg select-none pt-[70px] xl:pt-[90px]"
+      className="relative w-full bg-bg select-none pt-[70px] xl:pt-[90px] pb-12 xl:pb-16"
     >
       <div className="px-[20px] md:px-[28px] xl:px-[40px] grid grid-cols-1 xl:grid-cols-[500px_1fr] gap-[48px] xl:gap-[72px] items-start">
         {/* Left Column: FAQ Headline & Dedicated Subheading */}

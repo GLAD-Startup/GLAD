@@ -196,7 +196,7 @@ export default function AboutPageClient() {
           ref={headlineRef}
           className="text-fg font-normal leading-[1.02] tracking-[-0.04em] select-none max-w-[1300px]"
           style={{
-            fontSize: 'clamp(48px, 8.2vw, 130px)',
+            fontSize: 'clamp(40px, 8.2vw, 130px)',
           }}
         >
           <span className="block overflow-hidden pb-[0.14em] -mb-[0.14em]">
@@ -212,12 +212,12 @@ export default function AboutPageClient() {
         </h1>
 
         {/* Hero Narrative Paragraph */}
-        <div className="mt-8 md:mt-10 xl:mt-12 flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-10 border-b border-line">
+        <div className="mt-6 sm:mt-8 md:mt-10 xl:mt-12 flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8 pb-8 sm:pb-10 border-b border-line">
           <p
             ref={subheadRef}
             className="t-statement text-fg-muted max-w-[820px] font-normal leading-[1.25]"
             style={{
-              fontSize: 'clamp(20px, 2.6vw, 38px)',
+              fontSize: 'clamp(18px, 2.6vw, 38px)',
             }}
           >
             A senior team of four turning ambitious ideas into shipped web, mobile, and AI products —{' '}
@@ -244,7 +244,7 @@ export default function AboutPageClient() {
       </section>
 
       {/* Word Rail Beneath Hero */}
-      <div className="mt-4">
+      <div className="mt-4 sm:mt-6">
         <WordRail
           items={[
             'Independent Studio',
@@ -259,20 +259,20 @@ export default function AboutPageClient() {
           2. STUDIO THESIS & THE "DUAL-ENGINE" MODEL
          ───────────────────────────────────────────────────────────── */}
       <SectionEyebrow
-        left={<>STUDIO THESIS <span lang="hi">दृष्टिकोण</span></>}
+        left={<><span className="hidden sm:inline">STUDIO THESIS <span lang="hi">दृष्टिकोण</span></span><span className="sm:hidden">STUDIO THESIS</span></>}
         index="(GLD® — 01)"
-        right="WHY WE STARTED"
+        right={<span className="hidden sm:inline">WHY WE STARTED</span>}
       />
 
-      <section ref={thesisRef} className="px-[20px] md:px-[28px] xl:px-[40px] mt-10 md:mt-14 xl:mt-18">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-start">
+      <section ref={thesisRef} className="px-[20px] md:px-[28px] xl:px-[40px] mt-8 sm:mt-10 md:mt-14 xl:mt-18">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 xl:gap-14 items-start">
           
           {/* Left Column (5 cols): The Founding Story */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="lg:col-span-5 flex flex-col gap-5 sm:gap-6">
             <span className="t-eyebrow eyebrow-shimmer-accent block">
               OUR ORIGIN STORY
             </span>
-            <h2 className="text-[28px] sm:text-[34px] xl:text-[42px] font-normal text-fg leading-[1.08] tracking-[-0.025em]">
+            <h2 className="text-[26px] sm:text-[34px] xl:text-[42px] font-normal text-fg leading-[1.08] tracking-[-0.025em]">
               Traditional agencies are broken for founders.
             </h2>
             <div className="flex flex-col gap-4 t-body text-fg-muted leading-relaxed">
@@ -285,45 +285,45 @@ export default function AboutPageClient() {
             </div>
 
             {/* Pull Quote Box */}
-            <div className="mt-2 p-6 rounded-[14px] bg-surface border-l-4 border-accent border-t border-r border-b border-line-solid">
-              <p className="text-[16px] xl:text-[18px] font-normal text-fg leading-snug">
+            <div className="mt-1 sm:mt-2 p-5 sm:p-6 rounded-[14px] bg-surface border-l-4 border-accent border-t border-r border-b border-line-solid">
+              <p className="text-[15px] sm:text-[16px] xl:text-[18px] font-normal text-fg leading-snug">
                 &ldquo;When you partner with GLAD Studio, you talk directly with the senior engineers designing your database schemas, writing your types, and training your models.&rdquo;
               </p>
             </div>
           </div>
 
           {/* Right Column (7 cols): The Dual-Engine Model Cards */}
-          <div className="lg:col-span-7 flex flex-col gap-6">
+          <div className="lg:col-span-7 flex flex-col gap-5 sm:gap-6">
             {dualEngines.map((engine) => (
               <div
                 key={engine.number}
                 data-cursor="pointer"
-                className="engine-card bg-surface hover:bg-surface-2 border border-line-solid rounded-[16px] p-7 md:p-9 transition-all duration-300 will-change-transform group"
+                className="engine-card bg-surface hover:bg-surface-2 border border-line-solid rounded-[14px] sm:rounded-[16px] p-5 sm:p-7 md:p-9 transition-all duration-300 will-change-transform group"
               >
-                <div className="flex items-center justify-between gap-4 mb-4">
-                  <span className="text-[13px] font-mono font-semibold text-accent tracking-wider">
+                <div className="flex items-center justify-between gap-4 mb-3 sm:mb-4">
+                  <span className="text-[12.5px] sm:text-[13px] font-mono font-semibold text-accent tracking-wider">
                     ENGINE {engine.number}
                   </span>
-                  <span className="px-3 py-0.5 rounded-full text-[11.5px] font-medium bg-bg text-fg border border-line-solid uppercase tracking-wider">
+                  <span className="px-2.5 sm:px-3 py-0.5 rounded-full text-[11px] sm:text-[11.5px] font-medium bg-bg text-fg border border-line-solid uppercase tracking-wider">
                     {engine.badge}
                   </span>
                 </div>
-                <h3 className="text-[22px] md:text-[26px] font-semibold text-fg tracking-[-0.015em]">
+                <h3 className="text-[20px] sm:text-[22px] md:text-[26px] font-semibold text-fg tracking-[-0.015em]">
                   {engine.title}
                 </h3>
-                <span className="text-[13.5px] font-medium text-accent block mt-1">
+                <span className="text-[13px] sm:text-[13.5px] font-medium text-accent block mt-1">
                   {engine.subtitle}
                 </span>
-                <p className="t-body text-fg-muted mt-4 leading-relaxed">
+                <p className="t-body text-fg-muted mt-3 sm:mt-4 leading-relaxed">
                   {engine.description}
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mt-6 pt-5 border-t border-line">
+                <div className="flex flex-wrap gap-2 mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-line">
                   {engine.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[12px] font-mono px-2.5 py-1 rounded-[6px] bg-bg/70 text-fg-muted border border-line"
+                      className="text-[11.5px] sm:text-[12px] font-mono px-2.5 py-1 rounded-[6px] bg-bg/70 text-fg-muted border border-line"
                     >
                       {tag}
                     </span>
@@ -338,22 +338,22 @@ export default function AboutPageClient() {
         {/* 3 Stat Metrics Grid */}
         <div
           ref={statsRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12 md:mt-16 pt-10 border-t border-line"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mt-8 sm:mt-12 md:mt-16 pt-8 sm:pt-10 border-t border-line"
         >
           {studioMetrics.map((stat, idx) => (
             <div
               key={idx}
-              className="stat-card p-6 rounded-[14px] bg-surface border border-line-solid flex flex-col justify-between"
+              className="stat-card p-5 sm:p-6 rounded-[14px] bg-surface border border-line-solid flex flex-col justify-between"
             >
               <div>
-                <span className="t-price text-fg font-medium tracking-tight block">
+                <span className="text-[48px] sm:text-[56px] xl:text-[68px] font-medium text-fg tracking-tight block leading-[1.00]">
                   {stat.value}
                 </span>
-                <span className="text-[15px] font-semibold text-fg block mt-2">
+                <span className="text-[14.5px] sm:text-[15px] font-semibold text-fg block mt-2">
                   {stat.label}
                 </span>
               </div>
-              <p className="text-[13px] text-fg-muted mt-3 leading-normal">
+              <p className="text-[12.5px] sm:text-[13px] text-fg-muted mt-2.5 sm:mt-3 leading-normal">
                 {stat.sublabel}
               </p>
             </div>
@@ -365,39 +365,39 @@ export default function AboutPageClient() {
           3. CORE STUDIO PRINCIPLES (01 — 04)
          ───────────────────────────────────────────────────────────── */}
       <SectionEyebrow
-        left={<>OPERATING DOCTRINE <span lang="hi">सिद्धांत</span></>}
+        left={<><span className="hidden sm:inline">OPERATING DOCTRINE <span lang="hi">सिद्धांत</span></span><span className="sm:hidden">OPERATING DOCTRINE</span></>}
         index="(GLD® — 02)"
-        right="FOUR CORE PRINCIPLES"
+        right={<span className="hidden sm:inline">FOUR CORE PRINCIPLES</span>}
       />
 
-      <section ref={principlesRef} className="px-[20px] md:px-[28px] xl:px-[40px] mt-10 md:mt-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <section ref={principlesRef} className="px-[20px] md:px-[28px] xl:px-[40px] mt-8 sm:mt-10 md:mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
           {studioValues.map((val) => (
             <div
               key={val.number}
               data-cursor="pointer"
-              className="principle-card bg-surface hover:bg-surface-2 border border-line-solid hover:border-fg-dim rounded-[16px] p-7 md:p-8 flex flex-col justify-between transition-all duration-300 group will-change-transform shadow-sm hover:shadow-md"
+              className="principle-card bg-surface hover:bg-surface-2 border border-line-solid hover:border-fg-dim rounded-[14px] sm:rounded-[16px] p-5 sm:p-7 md:p-8 flex flex-col justify-between transition-all duration-300 group will-change-transform shadow-sm hover:shadow-md"
             >
               <div>
                 {/* Number with accent styling */}
-                <div className="mb-4">
-                  <span className="text-[28px] font-normal font-mono text-accent leading-none">
+                <div className="mb-3 sm:mb-4">
+                  <span className="text-[26px] sm:text-[28px] font-normal font-mono text-accent leading-none">
                     {val.number}
                   </span>
                 </div>
 
-                <h3 className="text-[20px] font-semibold text-fg tracking-[-0.01em]">
+                <h3 className="text-[18px] sm:text-[20px] font-semibold text-fg tracking-[-0.01em]">
                   {val.title}
                 </h3>
-                <span className="text-[12.5px] font-medium text-accent block mt-1 uppercase tracking-wider">
+                <span className="text-[12px] sm:text-[12.5px] font-medium text-accent block mt-1 uppercase tracking-wider">
                   {val.subtitle}
                 </span>
-                <p className="t-body-sm text-fg-muted mt-4 leading-relaxed">
+                <p className="t-body-sm text-fg-muted mt-3 sm:mt-4 leading-relaxed">
                   {val.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-line/60 flex items-center justify-between text-[12px] text-fg-dim font-mono">
+              <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-line/60 flex items-center justify-between text-[11.5px] sm:text-[12px] text-fg-dim font-mono">
                 <span>[GLD-PRIN-{val.number}]</span>
                 <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-fg">
                   Active
@@ -412,20 +412,20 @@ export default function AboutPageClient() {
           4. THE LEADERSHIP & ENGINEERING TEAM
          ───────────────────────────────────────────────────────────── */}
       <SectionEyebrow
-        left={<>LEADERSHIP & ENGINEERING CORE <span lang="hi">नेतृत्व</span></>}
+        left={<><span className="hidden sm:inline">LEADERSHIP & ENGINEERING CORE <span lang="hi">नेतृत्व</span></span><span className="sm:hidden">LEADERSHIP CORE</span></>}
         index="(GLD® — 03)"
-        right="FOUR SENIOR FOUNDERS"
+        right={<span className="hidden sm:inline">FOUR SENIOR FOUNDERS</span>}
       />
 
-      <section ref={teamRef} className="px-[20px] md:px-[28px] xl:px-[40px] mt-10 md:mt-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+      <section ref={teamRef} className="px-[20px] md:px-[28px] xl:px-[40px] mt-8 sm:mt-10 md:mt-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
           {leadershipTeam.map((member, idx) => (
             <div
               key={idx}
               data-cursor="view"
               data-cursor-text={member.name}
               data-cursor-subtext={member.role}
-              className="team-card bg-surface border border-line-solid rounded-[16px] overflow-hidden flex flex-col will-change-transform group transition-all duration-300 hover:shadow-xl"
+              className="team-card bg-surface border border-line-solid rounded-[14px] sm:rounded-[16px] overflow-hidden flex flex-col will-change-transform group transition-all duration-300 hover:shadow-xl"
             >
               {/* Photo Frame with Hover Zoom */}
               <div className="w-full aspect-[4/4.8] relative bg-surface-2 border-b border-line-solid overflow-hidden">
@@ -433,7 +433,7 @@ export default function AboutPageClient() {
                   src={member.photoSrc}
                   alt={`${member.name} — ${member.role}`}
                   fill
-                  unoptimized
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw"
                   className="object-cover block scale-100 group-hover:scale-105 transition-transform duration-600 ease-out"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -444,20 +444,20 @@ export default function AboutPageClient() {
               </div>
 
               {/* Info Container */}
-              <div className="p-6 flex flex-col justify-between flex-1 bg-surface group-hover:bg-surface-2 transition-colors duration-300">
+              <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 bg-surface group-hover:bg-surface-2 transition-colors duration-300">
                 <div>
-                  <h3 className="text-[19px] font-semibold text-fg tracking-[-0.01em]">
+                  <h3 className="text-[18px] sm:text-[19px] font-semibold text-fg tracking-[-0.01em]">
                     {member.name}
                   </h3>
-                  <span className="text-[13px] font-medium text-accent block mt-1">
+                  <span className="text-[12.5px] sm:text-[13px] font-medium text-accent block mt-1">
                     {member.role}
                   </span>
-                  <p className="text-[13.5px] text-fg-muted mt-3.5 leading-relaxed">
+                  <p className="text-[13px] sm:text-[13.5px] text-fg-muted mt-3 leading-relaxed">
                     {member.bio}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3.5 border-t border-line flex items-center justify-between text-[11.5px] text-fg-dim font-mono">
+                <div className="mt-4 sm:mt-5 pt-3 sm:pt-3.5 border-t border-line flex items-center justify-between text-[11.5px] text-fg-dim font-mono">
                   <span>Direct Access</span>
                   <span className="text-accent font-semibold">Available</span>
                 </div>
@@ -470,9 +470,9 @@ export default function AboutPageClient() {
       {/* ─────────────────────────────────────────────────────────────
           5. CONTINUOUS SEAMLESS MARQUEE
          ───────────────────────────────────────────────────────────── */}
-      <div className="mt-16 md:mt-24 py-5 border-y border-line bg-surface/50">
+      <div className="mt-12 sm:mt-16 md:mt-24 py-4 sm:py-5 border-y border-line bg-surface/50">
         <Marquee speed={24}>
-          <div className="flex items-center gap-8 text-[15px] font-medium uppercase tracking-widest text-fg-muted px-4">
+          <div className="flex items-center gap-6 sm:gap-8 text-[14px] sm:text-[15px] font-medium uppercase tracking-widest text-fg-muted px-4">
             <span className="text-fg font-semibold">INDEPENDENT PRODUCT STUDIO</span>
             <span className="text-accent">•</span>
             <span>SENIOR TEAM OF FOUR</span>
@@ -495,9 +495,9 @@ export default function AboutPageClient() {
           6. FAQ SECTION
          ───────────────────────────────────────────────────────────── */}
       <SectionEyebrow
-        left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
+        left={<><span className="hidden sm:inline">COMMON QUESTIONS <span lang="hi">सहायता</span></span><span className="sm:hidden">COMMON QUESTIONS</span></>}
         index="(GLD® — 11)"
-        right="CLARIFICATIONS"
+        right={<span className="hidden sm:inline">CLARIFICATIONS</span>}
       />
 
       <Faq />
@@ -505,32 +505,32 @@ export default function AboutPageClient() {
       {/* ─────────────────────────────────────────────────────────────
           7. CALL TO ACTION SECTION
          ───────────────────────────────────────────────────────────── */}
-      <section className="px-[20px] md:px-[28px] xl:px-[40px] mt-16 md:mt-24 mb-16 md:mb-24">
-        <div className="bg-[#0A0A0B] text-[#FBFBF9] border border-[#222225] rounded-[20px] p-8 md:p-14 xl:p-18 text-center max-w-[1100px] mx-auto relative overflow-hidden shadow-2xl">
-          <span className="text-[11px] font-semibold tracking-[0.045em] text-[#C6F000] uppercase mb-4 inline-block">
+      <section className="px-[20px] md:px-[28px] xl:px-[40px] mt-12 sm:mt-16 md:mt-24 mb-12 sm:mb-16 md:mb-24">
+        <div className="bg-[#0A0A0B] text-[#FBFBF9] border border-[#222225] rounded-[16px] sm:rounded-[20px] p-6 sm:p-10 md:p-14 xl:p-18 text-center max-w-[1100px] mx-auto relative overflow-hidden shadow-2xl">
+          <span className="text-[11px] font-semibold tracking-[0.045em] text-[#C6F000] uppercase mb-3 sm:mb-4 inline-block">
             DIRECT FOUNDER ENGAGEMENT
           </span>
-          <h2 className="text-[32px] sm:text-[44px] xl:text-[56px] font-normal text-[#FBFBF9] leading-[1.05] tracking-[-0.03em] max-w-[800px] mx-auto">
+          <h2 className="text-[26px] sm:text-[38px] xl:text-[56px] font-normal text-[#FBFBF9] leading-[1.08] sm:leading-[1.05] tracking-[-0.03em] max-w-[800px] mx-auto">
             Ready to ship your product with a senior team?
           </h2>
-          <p className="text-[15px] md:text-[16px] text-[#A8A8AD] max-w-[620px] mx-auto mt-4 leading-relaxed">
+          <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#A8A8AD] max-w-[620px] mx-auto mt-3 sm:mt-4 leading-relaxed">
             Tell us about your product roadmap. We will review your requirements and respond within 24 hours with architectural feedback and availability.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <PillButton calLink="arjun-rajput-2mdsis" variant="inverted">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <PillButton calLink="arjun-rajput-2mdsis" variant="inverted" className="w-full sm:w-auto text-center justify-center">
               Book a Discovery Call
             </PillButton>
             <Link
               href="/services"
               data-cursor="pointer"
-              className="text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-4"
+              className="text-[13.5px] sm:text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-3 sm:px-4"
             >
               Explore Engineering Services →
             </Link>
             <Link
               href="/work"
               data-cursor="pointer"
-              className="text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-4"
+              className="text-[13.5px] sm:text-[14.5px] font-medium text-[#FBFBF9] hover:text-[#C6F000] transition-colors py-2 px-3 sm:px-4"
             >
               View Client Work →
             </Link>

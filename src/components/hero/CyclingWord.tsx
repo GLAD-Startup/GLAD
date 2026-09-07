@@ -282,7 +282,7 @@ export default function CyclingWord() {
           {cyclingWords[0]}
         </span>
         <span
-          className="absolute left-0 bottom-[-12px] w-full h-[3px] bg-fg rounded-[1px] pointer-events-none"
+          className="absolute left-0 bottom-[-3px] md:bottom-[-4px] w-full h-[1.5px] sm:h-[2px] md:h-[2.5px] lg:h-[3px] bg-fg rounded-[1px] pointer-events-none"
           aria-hidden="true"
         />
       </span>
@@ -334,12 +334,12 @@ export default function CyclingWord() {
           </span>
         </span>
 
-        {/* Drawn Underline Rule: height 3px, bg var(--fg), border-radius 1px, sitting snugly under characters */}
+        {/* Drawn Underline Rule: responsive height and breathable spacing under Hindi matras */}
         <span
           ref={underlineRef}
           data-intro="cycling-underline"
           aria-hidden="true"
-          className="absolute left-0 bottom-[-2px] h-[3px] bg-fg rounded-[1px] pointer-events-none will-change-[width]"
+          className="absolute left-0 bottom-[-3px] md:bottom-[-4px] h-[1.5px] sm:h-[2px] md:h-[2.5px] lg:h-[3px] bg-fg rounded-[1px] pointer-events-none will-change-[width]"
         />
       </span>
 

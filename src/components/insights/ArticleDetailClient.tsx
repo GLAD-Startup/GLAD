@@ -34,60 +34,10 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
 
   return (
     <main className="min-h-screen bg-bg select-none pt-[84px]">
-      {/* 1. Sleek Editorial Title & Meta Ticker */}
-      <Divider />
-      <div className="py-4 md:py-5.5 overflow-hidden bg-surface/40">
-        <Marquee speed={28} itemClassName="py-2 flex items-center">
-          <div className="flex items-center gap-8 md:gap-12 pr-[60px] md:pr-[80px] whitespace-nowrap py-1">
-            {/* Article Title */}
-            <h1
-              className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.2em] pt-[0.08em]"
-              style={{
-                fontSize: 'clamp(26px, 3.6vw, 52px)',
-                lineHeight: 1.3,
-                letterSpacing: '-0.025em',
-              }}
-            >
-              {article.title}
-            </h1>
-
-            {/* Category Pill */}
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-accent text-white shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-bright animate-pulse" />
-              {article.category}
-            </span>
-
-            <span className="text-fg-dim font-light text-[22px]">/</span>
-
-            {/* Studio Identifier */}
-            <span className="text-fg-muted font-mono text-[12px] md:text-[13px] tracking-widest uppercase font-medium">
-              GLAD STUDIO® INSIGHTS
-            </span>
-
-            <span className="text-fg-dim font-light text-[22px]">/</span>
-
-            {/* Author Credit */}
-            <span className="text-fg text-[14px] md:text-[15px] font-medium tracking-tight">
-              By {article.author}
-            </span>
-
-            <span className="text-fg-dim font-light text-[22px]">/</span>
-
-            {/* Publication Date */}
-            <span className="text-fg-muted font-mono text-[12px] md:text-[13px] tracking-wider uppercase">
-              {article.date.replace(/^[A-Za-z]+,\s*/, '')}
-            </span>
-
-            <span className="text-fg-dim font-light text-[22px]">/</span>
-          </div>
-        </Marquee>
-      </div>
-      <Divider />
-
-      {/* 2. Breadcrumb & Meta Bar */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] xl:mt-[48px] max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      {/* 1. Article Editorial Header */}
+      <header className="px-[20px] md:px-[28px] xl:px-[40px] pt-6 sm:pt-8 md:pt-12 max-w-4xl mx-auto">
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[12.5px] font-mono text-fg-muted">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[12px] sm:text-[12.5px] font-mono text-fg-muted mb-4 sm:mb-6 flex-wrap">
           <Link href="/" className="hover:text-fg transition-colors">
             Home
           </Link>
@@ -96,60 +46,71 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
             Insights
           </Link>
           <span>/</span>
-          <span className="text-fg truncate max-w-[240px] sm:max-w-md font-medium">
+          <span className="text-fg truncate max-w-[200px] sm:max-w-md font-medium">
             {article.title}
           </span>
         </nav>
 
-        {/* Category & Read Time */}
-        <div className="flex items-center gap-3">
-          <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-accent/10 text-accent font-mono">
+        {/* Category & Read Time Pill Row */}
+        <div className="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-accent/10 text-accent font-mono border border-accent/20">
             {article.category}
           </span>
-          <span className="text-[13px] text-fg-muted font-mono">
+          <span className="text-[12.5px] text-fg-muted font-mono">
             {article.readTime}
           </span>
         </div>
-      </div>
 
-      {/* 3. Hero Cover Image */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[24px] xl:mt-[36px] max-w-7xl mx-auto">
+        {/* Real Static Editorial H1 */}
+        <h1 className="text-[26px] sm:text-[36px] md:text-[44px] xl:text-[50px] font-normal text-fg leading-[1.14] sm:leading-[1.15] tracking-[-0.025em]">
+          {article.title}
+        </h1>
+
+        {/* Subtitle / Excerpt */}
+        <p className="t-body text-fg-muted mt-3 sm:mt-4 leading-relaxed max-w-2xl font-normal">
+          {article.excerpt}
+        </p>
+
+        {/* Author Byline Row */}
+        <div className="flex items-center gap-3.5 mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-line">
+          <div className="w-[42px] h-[42px] sm:w-[48px] sm:h-[48px] rounded-full overflow-hidden relative bg-surface border border-line shrink-0">
+            <Image
+              src={article.portraitSrc}
+              alt={article.author}
+              fill
+              sizes="48px"
+              className="object-cover block"
+            />
+          </div>
+          <div>
+            <div className="text-[14px] sm:text-[15px] font-medium text-fg">
+              {article.author}
+            </div>
+            <div className="text-[12px] text-fg-muted font-mono">
+              {article.authorRole} · Published {article.date}
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* 2. Hero Cover Image */}
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-6 sm:mt-8 max-w-4xl mx-auto">
         <div
           data-cursor="view"
-          className="w-full aspect-[16/10] xl:aspect-[21/9] rounded-[14px] overflow-hidden relative bg-surface border border-line-solid shadow-2xl"
+          className="w-full aspect-[16/10] sm:aspect-[16/9] rounded-[12px] sm:rounded-[14px] overflow-hidden relative bg-surface border border-line-solid shadow-xl"
         >
           <Image
             src={article.coverSrc}
             alt={`${article.title} cover composition`}
             fill
-            unoptimized
+            sizes="(max-width: 1024px) 100vw, 896px"
             className="object-cover block"
           />
         </div>
       </div>
 
-      {/* 4. Editorial Body Content */}
-      <article className="mt-[48px] xl:mt-[70px] max-w-4xl mx-auto px-[20px] md:px-[28px] flex flex-col gap-8 text-left">
-        {/* Author Byline Box */}
-        <div className="flex items-center gap-4 py-4 border-b border-line">
-          <div className="w-[48px] h-[48px] rounded-full overflow-hidden relative bg-surface border border-line shrink-0">
-            <Image
-              src={article.portraitSrc}
-              alt={article.author}
-              fill
-              unoptimized
-              className="object-cover block"
-            />
-          </div>
-          <div>
-            <div className="text-[15px] font-medium text-fg">
-              {article.author}
-            </div>
-            <div className="text-[12.5px] text-fg-muted font-mono">
-              {article.authorRole} · Published {article.date}
-            </div>
-          </div>
-        </div>
+      {/* 3. Editorial Body Content */}
+      <article className="mt-[36px] sm:mt-[48px] xl:mt-[60px] max-w-4xl mx-auto px-[20px] md:px-[28px] flex flex-col gap-6 sm:gap-8 text-left">
 
         {/* Structured Sections Loop */}
         {article.sections && article.sections.length > 0 ? (
@@ -210,27 +171,31 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
               return (
                 <div
                   key={sIdx}
-                  className="my-4 overflow-x-auto rounded-[12px] border border-line-solid bg-surface"
+                  className="my-4 sm:my-6 overflow-x-auto rounded-[12px] border border-line-solid bg-surface shadow-2xs -mx-1 sm:mx-0"
                 >
-                  <table className="w-full text-left text-[13.5px] divide-y divide-line">
-                    <thead className="bg-surface-2/70 text-fg font-medium font-mono text-[12px] uppercase tracking-wider">
+                  <table className="w-full min-w-[540px] text-left text-[13px] sm:text-[13.5px] divide-y divide-line">
+                    <thead className="bg-surface-2/70 text-fg font-medium font-mono text-[11.5px] sm:text-[12px] uppercase tracking-wider">
                       <tr>
-                        <th className="p-4">{sec.tableData.col1Header}</th>
-                        <th className="p-4">{sec.tableData.col2Header}</th>
+                        <th className="py-3 px-3.5 sm:p-4">{sec.tableData.col1Header}</th>
+                        <th className="py-3 px-3.5 sm:p-4">{sec.tableData.col2Header}</th>
                         {sec.tableData.col3Header && (
-                          <th className="p-4">{sec.tableData.col3Header}</th>
+                          <th className="py-3 px-3.5 sm:p-4">{sec.tableData.col3Header}</th>
                         )}
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-line">
                       {sec.tableData.rows.map((row, rIdx) => (
                         <tr key={rIdx} className="hover:bg-surface-2/40 transition-colors">
-                          <td className="p-4 font-medium text-fg">
+                          <td className="py-3.5 px-3.5 sm:p-4 font-medium text-fg whitespace-nowrap">
                             {row.col1}
                           </td>
-                          <td className="p-4 text-fg-muted">{row.col2}</td>
+                          <td className="py-3.5 px-3.5 sm:p-4 text-fg-muted whitespace-nowrap">
+                            {row.col2}
+                          </td>
                           {row.col3 && (
-                            <td className="p-4 text-fg-muted">{row.col3}</td>
+                            <td className="py-3.5 px-3.5 sm:p-4 text-fg-muted leading-relaxed">
+                              {row.col3}
+                            </td>
                           )}
                         </tr>
                       ))}
@@ -297,7 +262,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
 
         {/* 5. Article-Specific FAQs */}
         {article.faqs && article.faqs.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-line space-y-6">
+          <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-line space-y-5 sm:space-y-6">
             <h3 className="t-heading-sm text-fg font-normal">
               Technical Q&A
             </h3>
@@ -305,7 +270,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
               {article.faqs.map((faq, fIdx) => {
                 const isOpen = openFaqIdx === fIdx;
                 return (
-                  <div key={fIdx} className="py-4">
+                  <div key={fIdx} className="py-3.5 sm:py-4">
                     <button
                       type="button"
                       onClick={() => toggleFaq(fIdx)}
@@ -315,7 +280,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
                       <span className="font-mono text-[12px] text-fg-muted">
                         0{fIdx + 1}
                       </span>
-                      <span className="flex-1 text-[15.5px] font-medium text-fg group-hover:text-accent transition-colors">
+                      <span className="flex-1 text-[15px] sm:text-[15.5px] font-medium text-fg group-hover:text-accent transition-colors">
                         {faq.question}
                       </span>
                       <span className="font-mono text-fg-muted text-[16px]">
@@ -325,7 +290,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
                     <div
                       className={clsx(
                         'overflow-hidden transition-all duration-300',
-                        isOpen ? 'max-h-[300px] opacity-100 pt-3 pl-8' : 'max-h-0 opacity-0'
+                        isOpen ? 'max-h-[300px] opacity-100 pt-3 pl-6 sm:pl-8' : 'max-h-0 opacity-0'
                       )}
                     >
                       <p className="t-body-sm text-fg-muted leading-relaxed">
@@ -342,21 +307,21 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
         {/* Applied Engineering Practice & Production Proof (Data-Driven) */}
         {((article.relatedServiceSlugs && article.relatedServiceSlugs.length > 0) ||
           (article.relatedWorkSlugs && article.relatedWorkSlugs.length > 0)) && (
-          <div className="mt-12 p-7 md:p-9 rounded-[16px] bg-surface border border-line-solid">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="mt-8 sm:mt-12 p-5 sm:p-7 md:p-9 rounded-[14px] sm:rounded-[16px] bg-surface border border-line-solid">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
               <div className="max-w-xl">
-                <span className="text-[11.5px] font-mono font-semibold uppercase tracking-wider text-accent block mb-2">
+                <span className="text-[11px] sm:text-[11.5px] font-mono font-semibold uppercase tracking-wider text-accent block mb-2">
                   Applied Engineering Practice
                 </span>
-                <h3 className="text-[20px] font-semibold text-fg leading-snug">
+                <h3 className="text-[18px] sm:text-[20px] font-semibold text-fg leading-snug">
                   Building production systems with this architecture?
                 </h3>
-                <p className="text-[14px] text-fg-muted mt-2 leading-relaxed">
+                <p className="text-[13.5px] sm:text-[14px] text-fg-muted mt-2 leading-relaxed">
                   GLAD Studio builds and ships custom AI solutions and automated workflows with senior engineers, deterministic guardrails, and fixed delivery cadences.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
+              <div className="flex flex-col sm:flex-row md:flex-col gap-2.5 sm:gap-3 shrink-0">
                 {article.relatedServiceSlugs?.map((slug) => {
                   const s = servicesData.find((svc) => svc.slug === slug);
                   if (!s) return null;
@@ -364,7 +329,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
                     <Link
                       key={s.slug}
                       href={`/services/${s.slug}`}
-                      className="inline-flex items-center justify-between gap-3 px-4 py-2.5 rounded-[10px] bg-bg border border-line-solid text-[13px] font-medium text-fg hover:border-fg/40 hover:text-accent transition-all"
+                      className="inline-flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-[10px] bg-bg border border-line-solid text-[12.5px] sm:text-[13px] font-medium text-fg hover:border-fg/40 hover:text-accent transition-all"
                     >
                       <span>Explore {s.title}</span>
                       <span>→</span>
@@ -379,7 +344,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
                     <Link
                       key={w.slug}
                       href={`/work/${w.slug}`}
-                      className="inline-flex items-center justify-between gap-3 px-4 py-2.5 rounded-[10px] bg-surface-2 border border-line text-[13px] font-medium text-fg hover:border-fg/40 transition-all"
+                      className="inline-flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-[10px] bg-surface-2 border border-line text-[12.5px] sm:text-[13px] font-medium text-fg hover:border-fg/40 transition-all"
                     >
                       <span>Case Study: {w.title}</span>
                       <span>→</span>
@@ -393,25 +358,25 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
       </article>
 
       {/* 6. Related Reading Cards */}
-      <section className="mt-[80px] xl:mt-[120px] px-[20px] md:px-[28px] xl:px-[40px] max-w-7xl mx-auto">
+      <section className="mt-[60px] sm:mt-[80px] xl:mt-[120px] px-[20px] md:px-[28px] xl:px-[40px] max-w-7xl mx-auto">
         <SectionEyebrow
-          left={<>CONTINUE READING <span lang="hi">अध्ययन</span></>}
+          left={<><span className="hidden sm:inline">CONTINUE READING <span lang="hi">अध्ययन</span></span><span className="sm:hidden">CONTINUE READING</span></>}
           index="(GLD® — 10)"
-          right="RELATED INSIGHTS"
+          right={<span className="hidden sm:inline">RELATED INSIGHTS</span>}
         />
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mt-6 sm:mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {otherArticles.map((rel) => (
             <Link
               key={rel.slug}
               href={`/insights/${rel.slug}`}
-              className="bg-surface border border-line-solid rounded-[14px] p-6 group hover:bg-surface-2 transition-all flex flex-col justify-between"
+              className="bg-surface border border-line-solid rounded-[14px] p-5 sm:p-6 group hover:bg-surface-2 transition-all flex flex-col justify-between"
             >
               <div>
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-accent font-mono">
                   {rel.category}
                 </span>
-                <h4 className="text-[18px] font-medium text-fg group-hover:text-accent transition-colors mt-2">
+                <h4 className="text-[17px] sm:text-[18px] font-medium text-fg group-hover:text-accent transition-colors mt-2">
                   {rel.title}
                 </h4>
                 <p className="mt-2 text-[13px] text-fg-muted line-clamp-2 leading-relaxed">
@@ -419,7 +384,7 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-line flex items-center justify-between text-[12px] font-mono text-fg-muted">
+              <div className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-line flex items-center justify-between text-[11.5px] sm:text-[12px] font-mono text-fg-muted">
                 <span>{rel.readTime}</span>
                 <span className="group-hover:translate-x-1 transition-transform">
                   Read Article →
@@ -431,11 +396,11 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
       </section>
 
       {/* 7. Section Eyebrow preceding FAQ */}
-      <div className="mt-[70px] xl:mt-[110px]">
+      <div className="mt-[50px] sm:mt-[70px] xl:mt-[110px]">
         <SectionEyebrow
-          left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
+          left={<><span className="hidden sm:inline">COMMON QUESTIONS <span lang="hi">सहायता</span></span><span className="sm:hidden">COMMON QUESTIONS</span></>}
           index="(GLD® — 11)"
-          right="CLARIFICATIONS"
+          right={<span className="hidden sm:inline">CLARIFICATIONS</span>}
         />
       </div>
 

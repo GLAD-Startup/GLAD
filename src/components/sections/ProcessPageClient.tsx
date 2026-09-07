@@ -161,19 +161,19 @@ export default function ProcessPageClient() {
       {/* 1. Scroll-Pinned Rotary Process Section */}
       <div
         ref={sectionRef}
-        className="w-full h-screen border-b border-line overflow-hidden relative flex flex-col justify-center pt-[82px]"
+        className="w-full h-auto lg:h-screen border-b border-line overflow-visible lg:overflow-hidden relative flex flex-col justify-start lg:justify-center pt-[84px] lg:pt-[82px]"
       >
         <div className="px-[20px] md:px-[28px] xl:px-[40px] w-full">
           <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] xl:grid-cols-[38%_62%] items-center h-full">
             
             {/* Left Column: Stationary Header */}
-            <div className="py-[36px] md:py-[48px] xl:py-[60px] lg:pr-[36px] xl:pr-[48px] flex flex-col justify-center self-center">
-              <div className="space-y-6">
+            <div className="py-8 sm:py-[48px] xl:py-[60px] lg:pr-[36px] xl:pr-[48px] flex flex-col justify-center self-center">
+              <div className="space-y-4 sm:space-y-6">
                 <h1
                   ref={headlineRef}
                   className="text-fg font-normal leading-[0.96] tracking-[-0.04em] select-none"
                   style={{
-                    fontSize: 'clamp(50px, 8.2vw, 128px)',
+                    fontSize: 'clamp(44px, 8.2vw, 128px)',
                   }}
                 >
                   <span className="block overflow-hidden pt-3 pb-1 -mt-3">
@@ -209,7 +209,7 @@ export default function ProcessPageClient() {
             </div>
 
             {/* Right Column: Arc Stage (Desktop >= 1024px) & Vertical Fallback (<1024px) */}
-            <div className="relative w-full lg:border-l lg:border-line flex items-center justify-center min-h-[460px] lg:min-h-[700px] xl:min-h-[760px] overflow-visible">
+            <div className="relative w-full lg:border-l lg:border-line flex items-center justify-center min-h-0 lg:min-h-[700px] xl:min-h-[760px] overflow-visible">
               
               {/* Desktop Orbital Stage (>=1024px) */}
               <div
@@ -257,7 +257,7 @@ export default function ProcessPageClient() {
               </div>
 
               {/* Mobile Vertical Stack (<1024px) */}
-              <div className="flex lg:hidden flex-col gap-8 sm:gap-10 w-full py-8">
+              <div className="flex lg:hidden flex-col gap-5 sm:gap-8 w-full py-4 sm:py-8">
                 {processRows.map((step, idx) => (
                   <ProcessCard key={step.step} step={step} index={idx} />
                 ))}
@@ -270,35 +270,37 @@ export default function ProcessPageClient() {
       </div>
 
       {/* Lightweight Process-to-Commercial Transition Bar */}
-      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[48px] md:mt-[72px]">
-        <div className="py-6 px-6 md:px-8 rounded-[14px] bg-surface border border-line-solid flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <span className="text-[11.5px] font-semibold text-accent uppercase tracking-wider block">
+      <div className="px-[20px] md:px-[28px] xl:px-[40px] mt-[36px] sm:mt-[48px] md:mt-[72px]">
+        <div className="py-5 px-5 sm:py-6 sm:px-6 md:px-8 rounded-[14px] bg-surface border border-line-solid flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6">
+          <div className="space-y-1">
+            <span className="text-[11px] sm:text-[11.5px] font-semibold text-accent uppercase tracking-wider block">
               Applied Execution
             </span>
-            <p className="text-[14.5px] text-fg font-normal mt-0.5">
+            <p className="text-[14px] sm:text-[14.5px] text-fg font-normal leading-snug">
               Ready to apply our structured sprint model to your product roadmap?
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3 shrink-0 w-full sm:w-auto">
             <Link
               href="/services"
               data-cursor="pointer"
-              className="text-[13.5px] font-medium text-fg hover:text-accent transition-colors py-2 px-3"
+              className="text-[13px] sm:text-[13.5px] font-medium text-fg hover:text-accent transition-colors py-1.5 sm:py-2 text-left sm:text-center"
             >
               Explore Engineering Services →
             </Link>
-            <PillButton calLink="arjun-rajput-2mdsis">Start Discovery</PillButton>
+            <PillButton calLink="arjun-rajput-2mdsis" className="w-full sm:w-auto text-center justify-center">
+              Start Discovery
+            </PillButton>
           </div>
         </div>
       </div>
 
       {/* 2. Section Eyebrow preceding FAQ */}
-      <div className="mt-[70px] md:mt-[100px] xl:mt-[140px]">
+      <div className="mt-[44px] sm:mt-[70px] md:mt-[100px] xl:mt-[140px]">
         <SectionEyebrow
-          left={<>COMMON QUESTIONS <span lang="hi">सहायता</span></>}
+          left={<><span className="hidden sm:inline">COMMON QUESTIONS <span lang="hi">सहायता</span></span><span className="sm:hidden">COMMON QUESTIONS</span></>}
           index="(GLD® — 11)"
-          right="CLARIFICATIONS"
+          right={<span className="hidden sm:inline">CLARIFICATIONS</span>}
         />
       </div>
 

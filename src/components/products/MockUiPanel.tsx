@@ -62,31 +62,31 @@ export default function MockUiPanel({ variant, className }: MockUiPanelProps) {
             </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2.5 [font-variant-numeric:tabular-nums]">
-            <div className="p-3 rounded-[8px] border border-line bg-bg/70 space-y-1">
-              <div className="text-[13px] font-medium text-fg">Suite #301</div>
-              <div className="text-[11.5px] text-fg-muted">Deluxe King</div>
-              <span className="inline-block text-[9.5px] font-medium px-1.5 py-0.5 rounded bg-[rgba(10,10,11,0.06)] text-fg-muted uppercase">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5 [font-variant-numeric:tabular-nums]">
+            <div className="p-2 sm:p-3 rounded-[8px] border border-line bg-bg/70 space-y-0.5 sm:space-y-1">
+              <div className="text-[12px] sm:text-[13px] font-medium text-fg">Suite #301</div>
+              <div className="text-[10.5px] sm:text-[11.5px] text-fg-muted">Deluxe King</div>
+              <span className="inline-block text-[9px] sm:text-[9.5px] font-medium px-1.5 py-0.5 rounded bg-[rgba(10,10,11,0.06)] text-fg-muted uppercase">
                 OCCUPIED
               </span>
             </div>
-            <div className="p-3 rounded-[8px] border border-accent/40 bg-accent/[0.06] space-y-1">
-              <div className="text-[13px] font-medium text-fg">Room #302</div>
-              <div className="text-[11.5px] text-fg-muted">Exec Double</div>
-              <span className="inline-block text-[9.5px] font-medium px-1.5 py-0.5 rounded bg-accent/15 text-accent uppercase">
+            <div className="p-2 sm:p-3 rounded-[8px] border border-accent/40 bg-accent/[0.06] space-y-0.5 sm:space-y-1">
+              <div className="text-[12px] sm:text-[13px] font-medium text-fg">Room #302</div>
+              <div className="text-[10.5px] sm:text-[11.5px] text-fg-muted">Exec Double</div>
+              <span className="inline-block text-[9px] sm:text-[9.5px] font-medium px-1.5 py-0.5 rounded bg-accent/15 text-accent uppercase">
                 ROW LOCKED
               </span>
             </div>
-            <div className="p-3 rounded-[8px] border border-line bg-bg/70 space-y-1">
-              <div className="text-[13px] font-medium text-fg">Room #303</div>
-              <div className="text-[11.5px] text-fg-muted">Standard Twin</div>
-              <span className="inline-block text-[9.5px] font-medium px-1.5 py-0.5 rounded bg-[rgba(10,10,11,0.06)] text-fg uppercase">
+            <div className="p-2 sm:p-3 rounded-[8px] border border-line bg-bg/70 space-y-0.5 sm:space-y-1">
+              <div className="text-[12px] sm:text-[13px] font-medium text-fg">Room #303</div>
+              <div className="text-[10.5px] sm:text-[11.5px] text-fg-muted">Standard Twin</div>
+              <span className="inline-block text-[9px] sm:text-[9.5px] font-medium px-1.5 py-0.5 rounded bg-[rgba(10,10,11,0.06)] text-fg uppercase">
                 AVAILABLE
               </span>
             </div>
           </div>
 
-          <div className="pt-2 border-t border-line flex items-center justify-between text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums]">
+          <div className="pt-2 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] sm:text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums]">
             <span>Isolation: SELECT ... FOR UPDATE</span>
             <span className="text-accent font-medium">100% Double-Booking Proof</span>
           </div>
@@ -120,7 +120,7 @@ export default function MockUiPanel({ variant, className }: MockUiPanelProps) {
             </div>
           </div>
 
-          <div className="pt-2 border-t border-line flex items-center justify-between text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums]">
+          <div className="pt-2 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] sm:text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums]">
             <span>Billing: Corporate Account</span>
             <span className="text-fg font-medium">₹0.00 Balance Pending</span>
           </div>
@@ -162,7 +162,7 @@ export default function MockUiPanel({ variant, className }: MockUiPanelProps) {
             </div>
           </div>
 
-          <div className="pt-2 border-t border-line flex items-center justify-between text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums]">
+          <div className="pt-2 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] sm:text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums]">
             <span>Front desk state synced</span>
             <span className="text-accent font-medium">0s Latency</span>
           </div>
@@ -198,7 +198,7 @@ export default function MockUiPanel({ variant, className }: MockUiPanelProps) {
             </div>
           </div>
 
-          <div className="pt-2 border-t border-line flex items-center justify-between text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums]">
+          <div className="pt-2 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] sm:text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums]">
             <span>GSTIN: 07AABCU9603R1ZX</span>
             <span className="text-accent font-medium">Indian Tax Compliant</span>
           </div>

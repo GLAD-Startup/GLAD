@@ -58,7 +58,7 @@ export const projectsData: ProjectItem[] = [
     duration: '12 – 14 Weeks',
     location: 'Vrindavan & Delhi NCR, India',
     summary: 'Modular Enterprise Hospitality Operating System & Multi-Property Platform',
-    subtitle: 'Modular Enterprise Hospitality Operating System & Multi-Property Platform',
+    subtitle: 'Engineered with tenant-scoped isolation, real-time room availability matrix, and automated folio billing.',
     challenge:
       'Hotels and multi-property chains face severe revenue leakage and administrative bottlenecks caused by siloed legacy PMS tools, slow room turnover dispatch, and error-prone folio reconciliation.',
     solution:
@@ -116,7 +116,7 @@ export const projectsData: ProjectItem[] = [
     duration: '10 – 12 Weeks',
     location: 'Delhi NCR & Mumbai, India',
     summary: 'Unified Real Estate Brokerage Operating System & Commission Settlement Engine',
-    subtitle: 'Unified Real Estate Brokerage Operating System & Commission Settlement Engine',
+    subtitle: 'High-velocity transaction management, automated tiered split ledgers, and escrow tracking for modern brokerage networks.',
     challenge:
       'Commercial real estate brokerages struggle with high deal closing friction, untracked escrow pipelines, and tedious manual calculations for complex tiered agent commission splits.',
     solution:
@@ -289,7 +289,7 @@ export const projectsData: ProjectItem[] = [
     duration: '6 – 7 Weeks',
     location: 'Bangalore, India',
     summary: 'Low-Latency Conversational AI Technical Assessment Engine',
-    subtitle: 'Low-Latency Conversational AI Technical Assessment Engine',
+    subtitle: 'Real-time semantic evaluation, adaptive question generation, and comprehensive rubric scoring for technical hiring.',
     challenge:
       'Job seekers lacked access to realistic, on-demand interview practice with meaningful feedback beyond generic question banks.',
     solution:
@@ -344,7 +344,7 @@ export const projectsData: ProjectItem[] = [
     duration: '4 – 5 Weeks',
     location: 'Delhi NCR, India',
     summary: 'High-Throughput Lead Sourcing & Automated Data Cleansing Pipeline',
-    subtitle: 'High-Throughput Lead Sourcing & Automated Data Cleansing Pipeline',
+    subtitle: 'Asynchronous multi-source web enrichment, decision-maker discovery, and automated personalized outreach orchestration.',
     challenge:
       'Sales teams were manually researching leads, validating websites, and crafting outreach emails — a process that could not scale beyond a handful of prospects per day.',
     solution:

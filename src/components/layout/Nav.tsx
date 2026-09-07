@@ -4,7 +4,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { Phone, ArrowUpRight } from 'lucide-react';
 import { siteConfig } from '@/data/site';
+import { openCalModal } from '@/components/providers/CalProvider';
 
 interface RollingNavLinkProps {
   href: string;
@@ -181,15 +183,22 @@ export default function Nav() {
     };
   }, []);
 
-  // Prevent background scroll when mobile menu is open
+  // Prevent background scroll and signal mobile menu open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+    if (typeof document !== 'undefined') {
+      if (mobileMenuOpen) {
+        document.body.style.overflow = 'hidden';
+        document.documentElement.classList.add('mobile-menu-open');
+      } else {
+        document.body.style.overflow = '';
+        document.documentElement.classList.remove('mobile-menu-open');
+      }
     }
     return () => {
-      document.body.style.overflow = '';
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = '';
+        document.documentElement.classList.remove('mobile-menu-open');
+      }
     };
   }, [mobileMenuOpen]);
 
@@ -499,109 +508,171 @@ export default function Nav() {
         </nav>
       </div>
 
-      {/* Full-Screen Mobile Overlay (<1024px) */}
+      {/* Full-Screen Mobile Editorial Overlay (<1024px) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 bg-bg z-[9998] flex flex-col justify-between p-[20px] pt-[100px] pb-[36px] animate-fadeIn overflow-y-auto">
-          {/* Navigation Links */}
-          <div className="flex flex-col gap-5 group/moblinks">
-            {/* Home */}
-            <RollingNavLink
-              href="/"
-              label="Home"
-              isMobile
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
-            />
+        <div className="lg:hidden fixed inset-0 bg-bg z-[9998] flex flex-col justify-between px-[20px] sm:px-[28px] pt-[86px] pb-[80px] sm:pb-[96px] animate-fadeIn overflow-y-auto overscroll-contain">
+          {/* Top Editorial Index Header */}
+          <div className="flex flex-col">
+            <div className="border-b border-line pb-2.5 mb-4 flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.05em] text-fg-muted select-none">
+              <span>INDEX / अनुक्रमणिका</span>
+              <span>(GLD® — 00)</span>
+            </div>
 
-            {/* Products (Non-collapsing heading with indented links) */}
-            <div className="flex flex-col gap-2 transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100">
-              <span className="text-[32px] md:text-[34px] font-normal text-fg leading-tight">
-                Products
-              </span>
-              <div className="flex flex-col gap-2 pl-4 border-l border-line ml-1 mt-1">
-                {productDropdownItems.map((prod) => (
-                  <Link
-                    key={prod.href}
-                    href={prod.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    data-cursor="link"
-                    className="text-[18px] md:text-[20px] text-fg-muted hover:text-fg transition-colors duration-200 py-1 flex flex-col"
-                  >
-                    <span className="font-medium text-fg">{prod.label}</span>
-                    <span className="text-[12.5px] text-fg-muted font-normal">
-                      {prod.subline}
-                    </span>
-                  </Link>
-                ))}
+            {/* Navigation Links with Editorial Numbers */}
+            <nav aria-label="Mobile Navigation" className="flex flex-col divide-y divide-line/40">
+              {[
+                { index: '01', label: 'Home', href: '/' },
+                { index: '02', label: 'Products', href: '/products', isGroup: true },
+                { index: '03', label: 'Work', href: '/work' },
+                { index: '04', label: 'Services', href: '/services' },
+                { index: '05', label: 'Process', href: '/process' },
+                { index: '06', label: 'About', href: '/about' },
+                { index: '07', label: 'Insights', href: '/insights' },
+                { index: '08', label: 'Contact', href: '/contact' },
+              ].map((item) => {
+                const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
+
+                if (item.isGroup) {
+                  return (
+                    <div key={item.label} className="py-2 flex flex-col">
+                      <div className="flex items-center justify-between">
+                        <Link
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-3 py-1 group/item"
+                        >
+                          <span className="text-[11px] font-mono text-fg-dim group-hover/item:text-accent transition-colors">
+                            {item.index}
+                          </span>
+                          <span
+                            className={clsx(
+                              'text-[22px] sm:text-[26px] font-normal tracking-[-0.03em] leading-tight transition-colors',
+                              isActive ? 'text-accent font-medium' : 'text-fg group-hover/item:text-accent'
+                            )}
+                          >
+                            {item.label}
+                          </span>
+                        </Link>
+                        {isActive && (
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded-full">
+                            Active
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Products Nested Card */}
+                      <div className="mt-1.5 ml-6 bg-surface border border-line-solid rounded-[12px] p-2 sm:p-2.5 divide-y divide-line/50 shadow-sm">
+                        {productDropdownItems.map((prod) => {
+                          const isProdActive = pathname === prod.href;
+                          return (
+                            <Link
+                              key={prod.href}
+                              href={prod.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="flex items-center justify-between py-1.5 px-2 rounded-[8px] hover:bg-surface-2/60 transition-colors group/sub"
+                            >
+                              <div className="flex flex-col">
+                                <span
+                                  className={clsx(
+                                    'text-[13.5px] font-medium leading-snug',
+                                    isProdActive ? 'text-accent' : 'text-fg group-hover/sub:text-accent'
+                                  )}
+                                >
+                                  {prod.label}
+                                </span>
+                                <span className="text-[11.5px] text-fg-muted leading-tight">
+                                  {prod.subline}
+                                </span>
+                              </div>
+                              <ArrowUpRight className="w-3.5 h-3.5 text-fg-dim group-hover/sub:text-accent shrink-0 transition-colors" />
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={item.label} className="py-2 flex items-center justify-between group/row">
+                    <Link
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 py-1 flex-1"
+                    >
+                      <span className="text-[11px] font-mono text-fg-dim group-hover/row:text-accent transition-colors">
+                        {item.index}
+                      </span>
+                      <span
+                        className={clsx(
+                          'text-[22px] sm:text-[26px] font-normal tracking-[-0.03em] leading-tight transition-colors',
+                          isActive ? 'text-accent font-medium' : 'text-fg group-hover/row:text-accent'
+                        )}
+                      >
+                        {item.label}
+                      </span>
+                    </Link>
+                    {isActive ? (
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded-full">
+                        Active
+                      </span>
+                    ) : (
+                      <ArrowUpRight className="w-4 h-4 text-fg-dim/50 group-hover/row:text-accent transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    )}
+                  </div>
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* Bottom Studio Meta & Quick Action Block */}
+          <div className="border-t border-line pt-4 mt-6 flex flex-col gap-3 select-none">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="text-[13px] font-semibold text-fg block leading-tight">
+                  Based in {siteConfig.location.city} <span lang="hi">{siteConfig.location.countryHi}</span>
+                </span>
+                <span className="text-[12px] text-fg-muted block mt-0.5">
+                  Software & AI Product Studio
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-[10.5px] font-mono text-accent">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                <span>Q2/Q3 Available</span>
               </div>
             </div>
 
-            {/* Work */}
-            <RollingNavLink
-              href="/work"
-              label="Work"
-              isMobile
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
-            />
-
-            {/* Services */}
-            <RollingNavLink
-              href="/services"
-              label="Services"
-              isMobile
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
-            />
-
-            {/* Process */}
-            <RollingNavLink
-              href="/process"
-              label="Process"
-              isMobile
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
-            />
-
-            {/* About */}
-            <RollingNavLink
-              href="/about"
-              label="About"
-              isMobile
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
-            />
-
-            {/* Insights */}
-            <RollingNavLink
-              href="/insights"
-              label="Insights"
-              isMobile
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
-            />
-
-            {/* Contact */}
-            <RollingNavLink
-              href="/contact"
-              label="Contact"
-              isMobile
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[32px] md:text-[34px] font-normal text-fg transition-opacity duration-300 group-hover/moblinks:opacity-35 hover:!opacity-100"
-            />
-          </div>
-
-          {/* Vrindavan Meta Block at Bottom */}
-          <div className="border-t border-line pt-6 flex flex-col gap-2">
-            <span className="text-[15px] font-semibold text-fg">
-              Based in {siteConfig.location.city} <span lang="hi">{siteConfig.location.countryHi}</span>
-            </span>
-            <span className="text-[13.5px] text-fg-muted">
-              Software & AI Product Studio
-            </span>
-            <span className="text-[13px] text-fg-dim">
-              Available for Selected Q2/Q3 Projects
-            </span>
+            {/* Quick Action Button & Contact Links */}
+            <div className="flex flex-col gap-2 pt-1">
+              <button
+                type="button"
+                data-cal-link="arjun-rajput-2mdsis"
+                data-cal-config='{"layout":"month_view"}'
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openCalModal('arjun-rajput-2mdsis');
+                }}
+                className="w-full py-2.5 rounded-full border border-line-solid bg-surface text-fg font-medium text-[13px] flex items-center justify-center gap-2 hover:bg-surface-2 transition-colors cursor-pointer shadow-sm"
+              >
+                <Phone className="w-3.5 h-3.5 text-accent" />
+                <span>Book a Discovery Call</span>
+              </button>
+              <div className="flex items-center justify-between text-[12px] text-fg-muted px-1 pt-0.5">
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="text-accent hover:underline font-medium"
+                >
+                  {siteConfig.contact.email}
+                </a>
+                <div className="flex items-center gap-2.5 font-mono text-fg-dim">
+                  <a href={siteConfig.socials.x} target="_blank" rel="noopener noreferrer" className="hover:text-fg">X</a>
+                  <span>·</span>
+                  <a href={siteConfig.socials.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-fg">IN</a>
+                  <span>·</span>
+                  <a href={siteConfig.socials.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-fg">IG</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

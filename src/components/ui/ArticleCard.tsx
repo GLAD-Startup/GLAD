@@ -283,13 +283,13 @@ export default function ArticleCard({
               src={article.coverSrc}
               alt={`${article.title} cover`}
               fill
-              unoptimized
+              sizes="(max-width: 640px) 100vw, 640px"
               className="object-cover block"
             />
           </div>
 
           <div className="mt-4">
-            <span className="text-[11px] font-semibold uppercase text-accent tracking-wider block">
+            <span className="text-[11px] font-semibold uppercase text-accent tracking-wider block font-mono">
               {formattedCategoryRead}
             </span>
             <h3 className="text-[20px] sm:text-[24px] font-normal text-fg leading-[1.25] tracking-tight mt-2">
@@ -306,7 +306,7 @@ export default function ArticleCard({
                 src={article.portraitSrc}
                 alt={article.author}
                 fill
-                unoptimized
+                sizes="40px"
                 className="object-cover block"
               />
             </div>
@@ -314,7 +314,7 @@ export default function ArticleCard({
               <span className="text-[13.5px] font-medium text-fg">
                 {article.author}
               </span>
-              <span className="text-[12px] text-fg-muted">
+              <span className="text-[12px] text-fg-muted font-mono">
                 {formattedDate}
               </span>
             </div>
