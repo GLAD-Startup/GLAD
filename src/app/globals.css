@@ -273,6 +273,54 @@ select:-webkit-autofill:focus {
   scrollbar-width: none;  /* Firefox */
 }
 
+/* ── Sibling Link Focus-Blur on Hover (Only triggers when an option is actively hovered) ── */
+.link-column-group [data-rolling-link] {
+  transition: opacity 280ms ease-out, filter 280ms ease-out;
+}
+
+.link-column-group:has([data-rolling-link]:hover) [data-rolling-link] {
+  opacity: 0.35;
+  filter: blur(1px);
+}
+
+.link-column-group:has([data-rolling-link]:hover) [data-rolling-link]:hover {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.quick-links-group [data-nav-item] {
+  transition: opacity 280ms ease-out, filter 280ms ease-out;
+}
+
+.quick-links-group:has([data-nav-item]:hover) [data-nav-item] {
+  opacity: 0.35;
+  filter: blur(1px);
+}
+
+.quick-links-group:has([data-nav-item]:hover) [data-nav-item]:hover {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.quick-links-group [data-nav-item][data-nav-open="true"] {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.products-panel-group [data-panel-item] {
+  transition: opacity 200ms ease-out, filter 200ms ease-out;
+}
+
+.products-panel-group:has([data-panel-item]:hover) [data-panel-item] {
+  opacity: 0.40;
+  filter: blur(0.5px);
+}
+
+.products-panel-group:has([data-panel-item]:hover) [data-panel-item]:hover {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,

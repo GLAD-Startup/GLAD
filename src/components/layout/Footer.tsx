@@ -3,6 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import WordRail from '@/components/ui/WordRail';
@@ -12,6 +13,91 @@ import { siteConfig } from '@/data/site';
 export interface FooterProps {
   variant?: 'default' | 'work-detail';
   isWorkDetail?: boolean;
+}
+
+interface RollingFooterLinkProps {
+  href: string;
+  label: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  target?: string;
+  rel?: string;
+  className?: string;
+  isAccentHover?: boolean;
+  isMedium?: boolean;
+}
+
+function RollingFooterLink({
+  href,
+  label,
+  onClick,
+  target,
+  rel,
+  className = '',
+  isAccentHover = false,
+  isMedium = false,
+}: RollingFooterLinkProps) {
+  const isExternal =
+    target === '_blank' ||
+    href.startsWith('mailto:') ||
+    href.startsWith('http');
+  const Component = isExternal ? 'a' : Link;
+
+  return (
+    <Component
+      href={href}
+      onClick={onClick}
+      target={target}
+      rel={rel}
+      data-cursor="link"
+      data-rolling-link="true"
+      className={clsx(
+        'group/flink relative inline-flex items-center select-none py-[1.5px] overflow-hidden w-fit',
+        className
+      )}
+    >
+      <span className="relative inline-flex overflow-hidden py-[1px]">
+        {label.split('').map((char, index) => (
+          <span
+            key={index}
+            className="relative inline-block overflow-hidden pb-[3px] -mb-[3px]"
+          >
+            {/* Primary letter: translates from 0% to -100% on hover */}
+            <span
+              className={clsx(
+                'block pb-[3px] transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover/flink:-translate-y-full group-focus-visible/flink:-translate-y-full will-change-transform leading-normal',
+                isMedium ? 'font-medium text-[14px]' : 'font-normal text-[13px]',
+                isAccentHover
+                  ? 'text-fg group-hover/flink:text-accent'
+                  : 'text-fg-muted group-hover/flink:text-fg'
+              )}
+              style={{
+                transitionDelay: `${index * 14}ms`,
+              }}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+
+            {/* Duplicate letter: translates from +100% to 0% on hover */}
+            <span
+              aria-hidden="true"
+              className={clsx(
+                'absolute inset-0 block pb-[3px] translate-y-full transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover/flink:translate-y-0 group-focus-visible/flink:translate-y-0 will-change-transform leading-normal',
+                isMedium ? 'font-medium text-[14px]' : 'font-normal text-[13px]',
+                isAccentHover
+                  ? 'text-fg group-hover/flink:text-accent'
+                  : 'text-fg-muted group-hover/flink:text-fg'
+              )}
+              style={{
+                transitionDelay: `${index * 14}ms`,
+              }}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+          </span>
+        ))}
+      </span>
+    </Component>
+  );
 }
 
 const filmstripImages = [
@@ -190,24 +276,22 @@ export default function Footer({
           <span className="font-semibold text-fg uppercase tracking-wider">
             Navigation
           </span>
-          <div className="mt-2.5">
+          <div className="mt-2.5 flex flex-col gap-1 link-column-group">
             {isDetail ? (
-              <a
+              <RollingFooterLink
                 href={`mailto:${siteConfig.contact.email}`}
-                data-cursor="link"
-                className="text-[14px] font-medium text-fg hover:text-accent transition-colors duration-200"
-              >
-                Email Us
-              </a>
+                label="Email Us"
+                isAccentHover
+                isMedium
+              />
             ) : (
-              <a
+              <RollingFooterLink
                 href="#top"
+                label="Back To Top ↑"
                 onClick={handleBackToTop}
-                data-cursor="link"
-                className="text-[14px] font-medium text-fg hover:text-accent transition-colors duration-200"
-              >
-                Back To Top ↑
-              </a>
+                isAccentHover
+                isMedium
+              />
             )}
           </div>
         </div>
@@ -217,16 +301,13 @@ export default function Footer({
           <span className="font-semibold text-fg uppercase tracking-wider">
             Services
           </span>
-          <div className="mt-2.5 flex flex-col gap-1 text-fg-muted">
+          <div className="mt-2.5 flex flex-col gap-1 text-fg-muted link-column-group">
             {serviceLinks.map((link) => (
-              <Link
+              <RollingFooterLink
                 key={link.label}
                 href={link.href}
-                data-cursor="link"
-                className="hover:text-fg transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
+                label={link.label}
+              />
             ))}
           </div>
         </div>
@@ -236,16 +317,13 @@ export default function Footer({
           <span className="font-semibold text-fg uppercase tracking-wider">
             Studio
           </span>
-          <div className="mt-2.5 flex flex-col gap-1 text-fg-muted">
+          <div className="mt-2.5 flex flex-col gap-1 text-fg-muted link-column-group">
             {studioLinks.map((link) => (
-              <Link
+              <RollingFooterLink
                 key={link.label}
                 href={link.href}
-                data-cursor="link"
-                className="hover:text-fg transition-colors duration-200"
-              >
-                {link.label}
-              </Link>
+                label={link.label}
+              />
             ))}
           </div>
         </div>
@@ -255,18 +333,15 @@ export default function Footer({
           <span className="font-semibold text-fg uppercase tracking-wider">
             Connect
           </span>
-          <div className="mt-2.5 flex flex-col gap-1 text-fg-muted">
+          <div className="mt-2.5 flex flex-col gap-1 text-fg-muted link-column-group">
             {connectLinks.map((link) => (
-              <a
+              <RollingFooterLink
                 key={link.label}
                 href={link.href}
+                label={link.label}
                 target={link.href.startsWith('mailto:') ? undefined : '_blank'}
                 rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                data-cursor="link"
-                className="hover:text-fg transition-colors duration-200"
-              >
-                {link.label}
-              </a>
+              />
             ))}
           </div>
         </div>
@@ -276,21 +351,15 @@ export default function Footer({
           <span className="font-semibold text-fg uppercase tracking-wider">
             {siteConfig.footer.copyright}
           </span>
-          <div className="mt-2.5 flex flex-col gap-1 text-fg-muted">
-            <Link
+          <div className="mt-2.5 flex flex-col gap-1 text-fg-muted link-column-group">
+            <RollingFooterLink
               href="/privacy"
-              data-cursor="link"
-              className="hover:text-fg transition-colors duration-200"
-            >
-              Privacy Policy
-            </Link>
-            <Link
+              label="Privacy Policy"
+            />
+            <RollingFooterLink
               href="/terms"
-              data-cursor="link"
-              className="hover:text-fg transition-colors duration-200"
-            >
-              Terms of Service
-            </Link>
+              label="Terms of Service"
+            />
           </div>
         </div>
       </div>

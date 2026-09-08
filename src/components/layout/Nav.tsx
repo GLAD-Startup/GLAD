@@ -334,9 +334,9 @@ export default function Nav() {
               <span className="text-[13px] font-semibold text-fg leading-tight">
                 Quick Links
               </span>
-              <div className="group/links text-[13.5px] font-medium text-fg leading-normal flex items-center justify-center flex-wrap">
+              <div className="quick-links-group text-[13.5px] font-medium text-fg leading-normal flex items-center justify-center flex-wrap">
                 {/* 1. Home */}
-                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                <span data-nav-item="true" className="inline-flex items-center">
                   <RollingNavLink href="/" label="Home" />
                   <span className="text-fg-dim select-none mr-1.5">,</span>
                 </span>
@@ -344,9 +344,11 @@ export default function Nav() {
                 {/* 2. Products (Dropdown Trigger & Panel) */}
                 <div
                   ref={dropdownContainerRef}
+                  data-nav-item="true"
+                  data-nav-open={isProductsOpen ? 'true' : 'false'}
                   className={clsx(
-                    'relative inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100',
-                    isProductsOpen && '!opacity-100'
+                    'relative inline-flex items-center',
+                    isProductsOpen && '!opacity-100 !blur-none'
                   )}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
@@ -387,7 +389,7 @@ export default function Nav() {
                     aria-label="Products"
                     aria-orientation="vertical"
                     className={clsx(
-                      "absolute left-0 top-[calc(100%+22px)] w-[340px] bg-bg border border-line-solid rounded-[12px] shadow-[0_20px_50px_-30px_rgba(10,10,11,0.3)] p-[8px] z-[200] origin-top-left before:absolute before:-top-[24px] before:left-0 before:right-0 before:h-[24px] before:content-['']",
+                      "products-panel-group absolute left-0 top-[calc(100%+22px)] w-[340px] bg-bg border border-line-solid rounded-[12px] shadow-[0_20px_50px_-30px_rgba(10,10,11,0.3)] p-[8px] z-[200] origin-top-left before:absolute before:-top-[24px] before:left-0 before:right-0 before:h-[24px] before:content-['']",
                       'transition-all will-change-[opacity,transform]',
                       isProductsOpen
                         ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto duration-[220ms] ease-[cubic-bezier(0.25,1,0.5,1)]'
@@ -401,12 +403,13 @@ export default function Nav() {
                             itemRefs.current[idx] = el;
                           }}
                           href={item.href}
+                          data-panel-item="true"
                           role="menuitem"
                           tabIndex={isProductsOpen ? 0 : -1}
                           onClick={() => setIsProductsOpen(false)}
                           onKeyDown={(e) => handleItemKeyDown(e, idx)}
                           data-cursor="link"
-                          className="group flex flex-col justify-center rounded-[8px] p-[14px] transition-colors duration-200 outline-none hover:bg-[rgba(10,10,11,0.035)] focus:bg-[rgba(10,10,11,0.035)] focus-visible:bg-[rgba(10,10,11,0.035)] text-left cursor-pointer"
+                          className="group flex flex-col justify-center rounded-[8px] p-[14px] transition-all duration-200 outline-none hover:bg-[rgba(10,10,11,0.035)] focus:bg-[rgba(10,10,11,0.035)] focus-visible:bg-[rgba(10,10,11,0.035)] text-left cursor-pointer"
                         >
                           <span className="text-[15px] font-medium text-fg leading-tight transition-transform duration-[250ms] ease-out group-hover:translate-x-1 group-focus:translate-x-1 will-change-transform">
                             {item.label}
@@ -430,37 +433,37 @@ export default function Nav() {
                 </div>
 
                 {/* 3. Work */}
-                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                <span data-nav-item="true" className="inline-flex items-center">
                   <RollingNavLink href="/work" label="Work" />
                   <span className="text-fg-dim select-none mr-1.5">,</span>
                 </span>
 
                 {/* 4. Services */}
-                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                <span data-nav-item="true" className="inline-flex items-center">
                   <RollingNavLink href="/services" label="Services" />
                   <span className="text-fg-dim select-none mr-1.5">,</span>
                 </span>
 
                 {/* 6. Process */}
-                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                <span data-nav-item="true" className="inline-flex items-center">
                   <RollingNavLink href="/process" label="Process" />
                   <span className="text-fg-dim select-none mr-1.5">,</span>
                 </span>
 
                 {/* 7. About */}
-                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                <span data-nav-item="true" className="inline-flex items-center">
                   <RollingNavLink href="/about" label="About" />
                   <span className="text-fg-dim select-none mr-1.5">,</span>
                 </span>
 
                 {/* 8. Insights */}
-                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                <span data-nav-item="true" className="inline-flex items-center">
                   <RollingNavLink href="/insights" label="Insights" />
                   <span className="text-fg-dim select-none mr-1.5">,</span>
                 </span>
 
                 {/* 9. Contact */}
-                <span className="inline-flex items-center transition-opacity duration-300 group-hover/links:opacity-35 hover:!opacity-100">
+                <span data-nav-item="true" className="inline-flex items-center">
                   <RollingNavLink href="/contact" label="Contact" />
                 </span>
               </div>
