@@ -21,6 +21,11 @@ const contactChannels = [
     external: false,
   },
   {
+    label: 'Hire us on Upwork',
+    href: siteConfig.socials.upwork,
+    external: true,
+  },
+  {
     label: 'Office: Vrindavan, India',
     href: 'https://maps.google.com/?q=Vrindavan,Uttar+Pradesh,India',
     external: true,
@@ -229,6 +234,8 @@ export default function ContactPageClient() {
         <Marquee speed={32}>
           <div className="flex items-center gap-10 sm:gap-14 pr-10 sm:pr-14 text-[12px] sm:text-[13px] md:text-[14px] font-medium text-fg uppercase tracking-wider whitespace-nowrap">
             <span>Email Us</span>
+            <span className="text-line">•</span>
+            <span>Upwork Agency</span>
             <span className="text-line">•</span>
             <span>24/7 Support</span>
             <span className="text-line">•</span>

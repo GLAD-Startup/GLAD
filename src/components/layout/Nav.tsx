@@ -665,11 +665,13 @@ export default function Nav() {
                   {siteConfig.contact.email}
                 </a>
                 <div className="flex items-center gap-2.5 font-mono text-fg-dim">
-                  <a href={siteConfig.socials.x} target="_blank" rel="noopener noreferrer" className="hover:text-fg">X</a>
+                  <a href={siteConfig.socials.upwork} target="_blank" rel="noopener noreferrer" className="hover:text-fg">UP</a>
                   <span>·</span>
                   <a href={siteConfig.socials.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-fg">IN</a>
                   <span>·</span>
                   <a href={siteConfig.socials.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-fg">IG</a>
+                  <span>·</span>
+                  <a href={siteConfig.socials.x} target="_blank" rel="noopener noreferrer" className="hover:text-fg">X</a>
                 </div>
               </div>
             </div>

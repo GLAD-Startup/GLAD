@@ -74,6 +74,7 @@ const organizationJsonLd = {
   description:
     'We help startups and growing businesses ship web apps, mobile apps and AI-powered products that scale.',
   sameAs: [
+    'https://www.upwork.com/agencies/2070043441987395021/',
     'https://x.com/_GLAD_Studio',
     'https://www.linkedin.com/company/glad-studio-2k26',
     'https://www.instagram.com/__gladstudio/',

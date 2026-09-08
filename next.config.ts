@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
+  allowedDevOrigins: ['192.168.29.138', '192.168.*.*'],
   images: {
     formats: ['image/avif', 'image/webp'],
   },

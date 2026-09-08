@@ -45,6 +45,7 @@ export const siteConfig = {
     calUrl: 'https://cal.com/arjun-rajput-2mdsis',
   },
   socials: {
+    upwork: 'https://www.upwork.com/agencies/2070043441987395021/',
     x: 'https://x.com/_GLAD_Studio',
     linkedin: 'https://www.linkedin.com/company/glad-studio-2k26',
     instagram: 'https://www.instagram.com/__gladstudio/',
@@ -58,6 +59,11 @@ export const siteConfig = {
     { label: 'Contact', href: '/contact' },
   ] as NavLink[],
   contactLinks: [
+    {
+      label: 'Hire us on Upwork',
+      href: 'https://www.upwork.com/agencies/2070043441987395021/',
+      external: true,
+    },
     {
       label: 'Office: Vrindavan, Uttar Pradesh, India.',
       href: 'https://maps.google.com/?q=Vrindavan,Uttar+Pradesh,India',

@@ -125,9 +125,10 @@ export default function Footer({
 
   const connectLinks = [
     { label: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
-    { label: 'X', href: siteConfig.socials.x },
+    { label: 'Upwork', href: siteConfig.socials.upwork },
     { label: 'LinkedIn', href: siteConfig.socials.linkedin },
     { label: 'Instagram', href: siteConfig.socials.instagram },
+    { label: 'X', href: siteConfig.socials.x },
     { label: 'Reddit', href: siteConfig.socials.reddit },
   ];
 

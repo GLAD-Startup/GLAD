@@ -33,8 +33,58 @@ export default function ArticleDetailClient({ article }: ArticleDetailClientProp
     .slice(0, 2);
 
   return (
-    <main className="min-h-screen bg-bg select-none pt-[84px]">
-      {/* 1. Article Editorial Header */}
+    <main className="min-h-screen bg-bg select-none pt-[81px]">
+      {/* 1. Sleek Editorial Title & Meta Ticker */}
+      <Divider />
+      <div className="py-4 md:py-5.5 overflow-hidden bg-surface/40">
+        <Marquee speed={28} itemClassName="py-2 flex items-center">
+          <div className="flex items-center gap-8 md:gap-12 pr-[60px] md:pr-[80px] whitespace-nowrap py-1">
+            {/* Article Title */}
+            <span
+              className="text-fg font-normal tracking-tight inline-flex items-center pb-[0.2em] pt-[0.08em]"
+              style={{
+                fontSize: 'clamp(26px, 3.6vw, 52px)',
+                lineHeight: 1.3,
+                letterSpacing: '-0.025em',
+              }}
+            >
+              {article.title}
+            </span>
+
+            {/* Category Pill */}
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-semibold uppercase tracking-wider bg-accent text-white shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-bright animate-pulse" />
+              {article.category}
+            </span>
+
+            <span className="text-fg-dim font-light text-[22px]">/</span>
+
+            {/* Studio Identifier */}
+            <span className="text-fg-muted font-mono text-[12px] md:text-[13px] tracking-widest uppercase font-medium">
+              GLAD STUDIO® INSIGHTS
+            </span>
+
+            <span className="text-fg-dim font-light text-[22px]">/</span>
+
+            {/* Author Credit */}
+            <span className="text-fg text-[14px] md:text-[15px] font-medium tracking-tight">
+              By {article.author}
+            </span>
+
+            <span className="text-fg-dim font-light text-[22px]">/</span>
+
+            {/* Publication Date */}
+            <span className="text-fg-muted font-mono text-[12px] md:text-[13px] tracking-wider uppercase">
+              {article.date.replace(/^[A-Za-z]+,\s*/, '')}
+            </span>
+
+            <span className="text-fg-dim font-light text-[22px]">/</span>
+          </div>
+        </Marquee>
+      </div>
+      <Divider />
+
+      {/* 2. Article Editorial Header */}
       <header className="px-[20px] md:px-[28px] xl:px-[40px] pt-6 sm:pt-8 md:pt-12 max-w-4xl mx-auto">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[12px] sm:text-[12.5px] font-mono text-fg-muted mb-4 sm:mb-6 flex-wrap">
